@@ -1,0 +1,45 @@
+trigger:
+- master
+
+variables:
+- group: Microsoft.Graph.Version
+- name: PackageVersion
+  value: $[format('{0}.{1}.{2}', variables['Major'], variables['Minor'], variables['Patch'])]
+
+pool:
+  vmImage: windows-2019
+
+steps:
+- task: knom.vsts-debughelper-tasks.print-env-task.print-env-task@1
+  displayName: 'Inspect Environment Variables'
+
+- template: dotnetPack.yaml
+  parameters:
+    branchName: $(Build.SourceBranchName)
+    major: $(Major)
+    minor: $(Minor)
+    patch: $(Patch)
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet test'
+  inputs:
+    command: test
+    projects: '*.sln'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish artifacts'
+  condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'dev'))
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'package'
+    publishLocation: 'Container'
+
+- task: NuGetCommand@2
+  condition: and(succeeded(), ne(variables['Build.SourceBranchName'], 'dev'))
+  displayName: 'NuGet push'
+  inputs:
+    command: push
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    nuGetFeedType: external
+    publishFeedCredentials: NuGet
+
