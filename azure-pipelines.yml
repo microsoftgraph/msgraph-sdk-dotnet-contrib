@@ -25,7 +25,7 @@ steps:
   condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'dev'))
 
 - powershell: |
-    Write-Host "##vso[task.setvariable variable=nugetVersion]$($Env:version_core)
+    Write-Host "##vso[task.setvariable variable=nugetVersion]$($Env:version_core)"
   displayName: 'Set release version' 
   condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'master'))
 
