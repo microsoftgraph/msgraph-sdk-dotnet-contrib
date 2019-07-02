@@ -1,28 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/graspex/graspex</PackageProjectUrl>
-    <PackageIconUrl>https://github.com/graspex/graspex/raw/master/docs/graspex-nuget.png</PackageIconUrl>
-    <RepositoryUrl>https://github.com/graspex/graspex</RepositoryUrl>
-    <PackageTags>graph sharepoint dotnetcore</PackageTags>
-    <Description>Extensions to Graph SDK for SharePoint REST API</Description>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="Requests\Site\IChangeLogCollectionPage.cs" />
-  </ItemGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/microsoftgraph/msgraph-sdk-dotnet-contrib</PackageProjectUrl>
+		<PackageIconUrl>https://github.com/microsoftgraph/msgraph-sdk-dotnet-contrib/raw/master/docs/Graph-Community-NuGet.png</PackageIconUrl>
+		<RepositoryUrl>https://github.com/microsoftgraph/msgraph-sdk-dotnet-contrib</RepositoryUrl>
+		<PackageTags>graph community extensions dotnetcore</PackageTags>
+		<Description>Community Extensions to Graph SDK</Description>
+	</PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Graph" Version="1.15.*" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Microsoft.Graph">
-      <HintPath>..\..\..\MicrosoftGraph\msgraph-sdk-dotnet\src\Microsoft.Graph\bin\Debug\net45\Microsoft.Graph.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
 </Project>

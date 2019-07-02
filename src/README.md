@@ -1,8 +1,7 @@
 ﻿# Graph SDK Community Extensions (Graph.Community)
 
-The Graph extension library is a community effort to unblock developers building on .Net Standard who need to call SharePoint as part of their Microsoft 365 tenant.
+The Graph extension library is a community effort to unblock developers building on .Net Standard who need to call endpoints that are not part of the Microsoft Graph.
 
-The request builders in this library will target the `_api` endpoint of the specified SharePoint site, using an Azure AD Application registration.
 
 ## Getting Started
 
@@ -31,14 +30,12 @@ Statements:
 
 ```csharp
 var query = new {
-  query = new {
-    Add = true,
-    DeleteObject = true,
-    SystemUpdate = false,
-    Update = true,
-    ChangeTokenStart = null,
-    ChangeTokenEnd = null
-  }
+  Add = true,
+  DeleteObject = true,
+  SystemUpdate = false,
+  Update = true,
+  ChangeTokenStart = null,
+  ChangeTokenEnd = null
 };
 gsc.SharePointAPI('https://mock.sharepoint.com/sites/mockSite')
      .Site
