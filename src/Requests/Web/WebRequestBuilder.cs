@@ -9,6 +9,7 @@ namespace Graph.Community
 	{
 		private IEnumerable<Option> options;
 
+#pragma warning disable CA1054 // URI parameters should not be strings
 		public WebRequestBuilder(
 			string requestUrl,
 			IBaseClient client,
@@ -17,6 +18,7 @@ namespace Graph.Community
 		{
 			this.options = options;
 		}
+#pragma warning restore CA1054 // URI parameters should not be strings
 
 		public IListRequestBuilder Lists
 		{

@@ -11,7 +11,7 @@ namespace Graph.Community
 		public SharePointAPIRequestBuilder(
 			Uri siteUrl,
 			IBaseClient client)
-			: base(siteUrl.ToString(), client)
+			: base(siteUrl?.ToString(), client)
 		{
 		}
 

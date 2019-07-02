@@ -8,21 +8,33 @@ using Xunit;
 
 namespace Graph.Community.Test
 {
-	public class GraphServiceFixture
+	public class GraphServiceFixture : IDisposable
 	{
+		private readonly HttpResponseMessage httpResponseMessage;
 
 		public GraphServiceFixture()
 		{
 			// run once, used by all tests attributed with the Collection
-
+			httpResponseMessage = new HttpResponseMessage();
 			var mockAuthProvider = new MockAuthenticationProvider();
-			this.MockHttpProvider = new MockHttpProvider(new HttpResponseMessage(), new Serializer());
+			this.MockHttpProvider = new MockHttpProvider(httpResponseMessage, new Serializer());
 			this.GraphServiceClient = new GraphServiceClient(mockAuthProvider.Object, this.MockHttpProvider.Object);
 		}
 
 		public void Dispose()
 		{
 			// run once after all attributed tests complete
+
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+
+		protected virtual void Dispose(bool disposing)
+		{
+			if (httpResponseMessage != null)
+			{
+				httpResponseMessage.Dispose();
+			}
 		}
 
 		public GraphServiceClient GraphServiceClient { get; private set; }

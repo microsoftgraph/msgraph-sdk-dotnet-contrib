@@ -13,6 +13,9 @@ using Xunit.Abstractions;
 
 namespace Graph.Community.Test
 {
+#pragma warning disable CA1707 // Identifiers should not contain underscores
+#pragma warning disable CA2007 // Consider calling ConfigureAwait on the awaited task
+
 	[Collection("GraphService collection")]
 	public class SiteRequestTests
 	{
@@ -111,4 +114,7 @@ namespace Graph.Community.Test
 			Assert.Equal(expectedContent, actualContent);
 		}
 	}
+
+#pragma warning restore CA2007 // Consider calling ConfigureAwait on the awaited task
+#pragma warning restore CA1707
 }

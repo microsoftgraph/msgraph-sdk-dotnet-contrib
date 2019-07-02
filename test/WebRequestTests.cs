@@ -1,8 +1,6 @@
 ﻿using Moq;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -10,6 +8,9 @@ using Xunit.Abstractions;
 
 namespace Graph.Community.Test
 {
+#pragma warning disable CA1707 // Identifiers should not contain underscores
+#pragma warning disable CA2007 // Consider calling ConfigureAwait on the awaited task
+
 	[Collection("GraphService collection")]
 	public class WebRequestTests
 	{
@@ -109,4 +110,7 @@ namespace Graph.Community.Test
 
 
 	}
+
+#pragma warning restore CA2007 // Consider calling ConfigureAwait on the awaited task
+#pragma warning restore CA1707
 }

@@ -14,6 +14,9 @@ using Xunit.Abstractions;
 
 namespace Graph.Community.Test
 {
+#pragma warning disable CA1707 //Identifiers should not contain underscores
+#pragma warning disable CA2007 // Consider calling ConfigureAwait on the awaited task
+
 	[Collection("GraphService collection")]
 
 	public class SiteDesignRequestTests
@@ -85,11 +88,11 @@ namespace Graph.Community.Test
 			var expectedContent = $"{{\"id\":\"{mockSiteDesignId.ToString()}\"}}";
 
 			// ACT
-			await fixture.GraphServiceClient
+			_ = await fixture.GraphServiceClient
 							.SharePointAPI(mockWebUrl)
-							.SiteDesigns[mockSiteDesignId]
+							.SiteDesigns[mockSiteDesignId.ToString()]
 							.Request()
-							.GetAsync();
+							.GetAsync().ConfigureAwait(false);
 			var actualContent = fixture.MockHttpProvider.ContentAsString;
 
 			// ASSERT
@@ -117,13 +120,13 @@ namespace Graph.Community.Test
 			var mockRequestData = new ApplySiteDesignRequest
 			{
 				SiteDesignId = "mockSiteDesignId",
-				WebUrl = mockWebUrl.ToString()
+				WebUrl = mockWebUrl
 			};
 			var expectedUri = new Uri($"{mockWebUrl}/_api/Microsoft.Sharepoint.Utilities.WebTemplateExtensions.SiteScriptUtility.ApplySiteDesign");
 			var expectedContent = $"{{\"siteDesignId\":\"mockSiteDesignId\",\"webUrl\":\"{mockWebUrl.ToString()}\"}}";
 
 			// ACT
-			await fixture.GraphServiceClient
+			_ = await fixture.GraphServiceClient
 							.SharePointAPI(mockWebUrl)
 							.SiteDesigns
 							.Request()
@@ -171,4 +174,7 @@ namespace Graph.Community.Test
 		//	Assert.Equal(expectedContent, actualContent);
 		//}
 	}
+
+#pragma warning restore CA2007 // Consider calling ConfigureAwait on the awaited task
+#pragma warning restore CA1707
 }

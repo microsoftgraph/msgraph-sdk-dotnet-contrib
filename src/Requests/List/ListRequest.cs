@@ -9,6 +9,7 @@ namespace Graph.Community
 {
 	public class ListRequest:BaseRequest, IListRequest
 	{
+#pragma warning disable CA1054 // URI parameters should not be strings
 		public ListRequest(
 				string requestUrl,
 				IBaseClient client,
@@ -18,6 +19,7 @@ namespace Graph.Community
 			this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.AcceptHeaderName, SharePointAPIRequestConstants.Headers.AcceptHeaderValue));
 			this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName, SharePointAPIRequestConstants.Headers.ODataVersionHeaderValue));
 		}
+#pragma warning restore CA1054 // URI parameters should not be strings
 
 		public Task<ICollectionPage<Change>> GetChangesAsync(ChangeQuery query)
 		{
@@ -25,7 +27,7 @@ namespace Graph.Community
 		}
 		public async Task<ICollectionPage<Change>> GetChangesAsync(ChangeQuery query, CancellationToken cancellationToken)
 		{
-			return await ChangeLogRequest.GetChangesAsync(this, query, cancellationToken);
+			return await ChangeLogRequest.GetChangesAsync(this, query, cancellationToken).ConfigureAwait(false);
 		}
 	}
 }

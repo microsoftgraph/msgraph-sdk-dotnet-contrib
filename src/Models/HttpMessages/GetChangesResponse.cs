@@ -10,6 +10,11 @@ namespace Graph.Community
 	public class GetChangesResponse
 	{
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "value", Required = Newtonsoft.Json.Required.Default)]
-		public CollectionPage<Change> Value { get; set; }
+		public CollectionPage<Change> Value { get; }
+
+		public GetChangesResponse()
+		{
+			this.Value = new CollectionPage<Change>();
+		}
 	}
 }

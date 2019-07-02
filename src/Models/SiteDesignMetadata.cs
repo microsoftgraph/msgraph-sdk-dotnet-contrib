@@ -6,6 +6,9 @@ using System.Text;
 
 namespace Graph.Community
 {
+#pragma warning disable CA1056 // Uri properties should not be strings
+#pragma warning disable CA2227 // Collection properties should be read only
+
 	[JsonObject(MemberSerialization = MemberSerialization.OptIn)]
 	public class SiteDesignMetadata : BaseItem
 	{
@@ -39,4 +42,7 @@ namespace Graph.Community
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "Version", Required = Newtonsoft.Json.Required.Default)]
 		public int Version { get; set; }
 	}
+
+#pragma warning restore CA1056 // Uri properties should not be strings
+#pragma warning restore CA2227 // Collection properties should be read only
 }

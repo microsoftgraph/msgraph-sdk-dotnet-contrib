@@ -13,17 +13,18 @@ namespace Graph.Community
 		//_api/Microsoft.Sharepoint.Utilities.WebTemplateExtensions.SiteScriptUtility.CreateSiteDesign
 		//_api/Microsoft.Sharepoint.Utilities.WebTemplateExtensions.SiteScriptUtility.UpdateSiteDesign
 
+#pragma warning disable CA1054 // URI parameters should not be strings
 		public SiteDesignRequest(
-						string requestUrl,
-						IBaseClient client,
-						IEnumerable<Option> options)
-						: base(requestUrl, client, options)
+			string requestUrl,
+			IBaseClient client,
+			IEnumerable<Option> options)
+			: base(requestUrl, client, options)
 		{
-			
 			this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.AcceptHeaderName, SharePointAPIRequestConstants.Headers.AcceptHeaderValue));
 			this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName, SharePointAPIRequestConstants.Headers.ODataVersionHeaderValue));
 			this.Method = System.Net.Http.HttpMethod.Post.Method;
 		}
+#pragma warning restore CA1054 // URI parameters should not be strings
 
 		#region Get
 
@@ -36,9 +37,9 @@ namespace Graph.Community
 		{
 			GetSiteDesignCollectionResponse response = new GetSiteDesignCollectionResponse();
 
-			if (this.QueryOptions.Any(o => o.Name.Equals("id")))
+			if (this.QueryOptions.Any(o => o.Name.Equals("id", StringComparison.InvariantCultureIgnoreCase)))
 			{
-				var idOption = this.QueryOptions.First(o => o.Name.Equals("id"));
+				var idOption = this.QueryOptions.First(o => o.Name.Equals("id", StringComparison.InvariantCultureIgnoreCase));
 				var request = new { id = idOption.Value };
 				this.QueryOptions.Remove(idOption);
 
@@ -46,10 +47,7 @@ namespace Graph.Community
 				this.ContentType = "application/json";
 				var entity = await this.SendAsync<SiteDesignMetadata>(request, cancellationToken).ConfigureAwait(false);
 
-				response.Value = new CollectionPage<SiteDesignMetadata>
-				{
-					entity
-				};
+				response.Value.Add(entity);
 			}
 			else
 			{

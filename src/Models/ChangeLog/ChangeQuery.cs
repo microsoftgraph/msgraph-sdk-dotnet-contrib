@@ -113,7 +113,11 @@ namespace Graph.Community
 		[JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore, PropertyName = "Web", Required = Newtonsoft.Json.Required.Default)]
 		public bool Web { get; set; }
 
-		public ChangeQuery() { }
+		public ChangeQuery()
+			: this (false, false)
+		{
+		}
+
 		public ChangeQuery(bool allObjectTypes, bool allChangeTypes)
 		{
 			if (allObjectTypes)
