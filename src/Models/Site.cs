@@ -1,8 +1,5 @@
 ﻿using Microsoft.Graph;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Graph.Community
 {
@@ -11,13 +8,6 @@ namespace Graph.Community
 	{
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "Classification", Required = Newtonsoft.Json.Required.Default)]
 		public string Classification { get; set; }
-
-		// "CurrentChangeToken": {
-		//"__metadata": {
-		//	"type": "SP.ChangeToken"
-		//   },
-		//   "StringValue": "1;1;a0ea50ed-6c77-4d79-9f03-8c6acfbf18b6;636970246501570000;229976113"
-		// },
 
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "CurrentChangeToken", Required = Newtonsoft.Json.Required.Default)]
 		public ChangeToken CurrentChangeToken { get; set; }

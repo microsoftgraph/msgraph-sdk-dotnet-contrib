@@ -15,14 +15,12 @@ namespace Graph.Community.Test
 	[Collection("GraphService collection")]
 	public class ChangeLogRequestTests
 	{
-		private readonly GraphServiceFixture fixture;
 		private readonly ITestOutputHelper output;
 
 		private readonly Uri mockWebUrl = new Uri("https://mock.sharepoint.com/sites/mockSite");
 
-		public ChangeLogRequestTests(GraphServiceFixture fixture, ITestOutputHelper output)
+		public ChangeLogRequestTests(ITestOutputHelper output)
 		{
-			this.fixture = fixture;
 			this.output = output;
 		}
 

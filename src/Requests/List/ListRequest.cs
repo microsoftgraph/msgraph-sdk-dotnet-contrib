@@ -1,13 +1,11 @@
 ﻿using Microsoft.Graph;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Graph.Community
 {
-	public class ListRequest:BaseRequest, IListRequest
+	public class ListRequest : BaseRequest, IListRequest
 	{
 #pragma warning disable CA1054 // URI parameters should not be strings
 		public ListRequest(
@@ -20,6 +18,18 @@ namespace Graph.Community
 			this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName, SharePointAPIRequestConstants.Headers.ODataVersionHeaderValue));
 		}
 #pragma warning restore CA1054 // URI parameters should not be strings
+
+		public Task<List> GetAsync()
+		{
+			return this.GetAsync(CancellationToken.None);
+		}
+
+		public async Task<List> GetAsync(CancellationToken cancellationToken)
+		{
+			this.ContentType = "application/json";
+			var entity = await this.SendAsync<Graph.Community.List>(null, cancellationToken).ConfigureAwait(false);
+			return entity;
+		}
 
 		public Task<ICollectionPage<Change>> GetChangesAsync(ChangeQuery query)
 		{

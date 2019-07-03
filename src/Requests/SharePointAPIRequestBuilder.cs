@@ -23,6 +23,13 @@ namespace Graph.Community
 			}
 		}
 
+		public ISiteScriptRequestBuilder SiteScripts
+		{
+			get
+			{
+				return new SiteScriptRequestBuilder(this.AppendSegmentToRequestUrl("_api"), this.Client);
+			}
+		}
 		public Graph.Community.ISiteRequestBuilder Site
 		{
 			get

@@ -1,13 +1,12 @@
 ﻿using Microsoft.Graph;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Graph.Community
 {
 	public interface ISharePointAPIRequestBuilder : IBaseRequestBuilder
 	{
 		ISiteDesignRequestBuilder SiteDesigns { get; }
+
+		ISiteScriptRequestBuilder SiteScripts { get; }
 
 		ISiteRequestBuilder Site { get; }
 
