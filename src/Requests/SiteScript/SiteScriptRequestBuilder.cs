@@ -5,12 +5,12 @@ using System.Text;
 
 namespace Graph.Community
 {
-	public class SiteDesignRequestBuilder : BaseRequestBuilder, ISiteDesignRequestBuilder
+	public class SiteScriptRequestBuilder : BaseRequestBuilder, ISiteScriptRequestBuilder
 	{
 		private IEnumerable<Option> options;
 
 #pragma warning disable CA1054 // URI parameters should not be strings
-		public SiteDesignRequestBuilder(
+		public SiteScriptRequestBuilder(
 				string requestUrl,
 				IBaseClient client,
 				IEnumerable<Option> options = null)
@@ -24,7 +24,7 @@ namespace Graph.Community
 		/// Builds the request.
 		/// </summary>
 		/// <returns>The built request.</returns>
-		public ISiteDesignRequest Request()
+		public ISiteScriptRequest Request()
 		{
 			return this.Request(this.options);
 		}
@@ -34,9 +34,9 @@ namespace Graph.Community
 		/// </summary>
 		/// <param name="options">The query and header options for the request.</param>
 		/// <returns>The built request.</returns>
-		public ISiteDesignRequest Request(IEnumerable<Option> options)
+		public ISiteScriptRequest Request(IEnumerable<Option> options)
 		{
-			return new SiteDesignRequest(this.RequestUrl, this.Client, options);
+			return new SiteScriptRequest(this.RequestUrl, this.Client, options);
 		}
 
 		/// <summary>
@@ -44,7 +44,7 @@ namespace Graph.Community
 		/// </summary>
 		/// <param name="id">The ID for the SiteDesign.</param>
 		/// <returns>The <see cref="ISiteDesignRequestBuilder"/>.</returns>
-		public ISiteDesignRequestBuilder this[string id]
+		public ISiteScriptRequestBuilder this[string id]
 		{
 			get
 			{
@@ -53,13 +53,12 @@ namespace Graph.Community
 					throw new ArgumentNullException(nameof(id));
 				}
 
-#pragma warning disable CA1305
+#pragma warning disable CA1305 //Specify IFormatProvider
 				List<QueryOption> options = new List<QueryOption>() { new QueryOption("id", id.ToString()) };
-#pragma warning restore CA1305
+#pragma warning restore CA1305 //Specify IFormatProvider
 
-				return new SiteDesignRequestBuilder(this.RequestUrl, this.Client, options);
+				return new SiteScriptRequestBuilder(this.RequestUrl, this.Client, options);
 			}
 		}
-
 	}
 }

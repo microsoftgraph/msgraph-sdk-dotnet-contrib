@@ -14,6 +14,6 @@ namespace Graph.Community
 		/// </summary>
 		/// <param name="id">The ID for the Site Design.</param>
 		/// <returns>The <see cref="ISiteDesignRequestBuilder"/>.</returns>
-		ISiteDesignRequestBuilder this[Guid id] { get; }
+		ISiteDesignRequestBuilder this[string id] { get; }
 	}
 }

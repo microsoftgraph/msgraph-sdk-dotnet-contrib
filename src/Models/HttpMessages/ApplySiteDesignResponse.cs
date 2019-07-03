@@ -10,7 +10,12 @@ namespace Graph.Community
 	public class ApplySiteDesignResponse
 	{
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "value", Required = Newtonsoft.Json.Required.Default)]
-		public List<SiteScriptActionResult> ActionOutcomes { get; set; }
+		public List<SiteScriptActionResult> ActionOutcomes { get; }
+
+		public ApplySiteDesignResponse()
+		{
+			this.ActionOutcomes = new List<SiteScriptActionResult>();
+		}
 	}
 
 	[DebuggerDisplay("{Title, nq}")]

@@ -16,17 +16,17 @@ steps:
 
 - powershell: |
     Write-Host "##vso[task.setvariable variable=nugetVersion]$($Env:version_core)-preview$($Env:ReleaseCounter)"
-  displayName: 'Pre-release version' 
+  displayName: 'Set pre-release version' 
   condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'prerelease'))
 
 - powershell: |
     Write-Host "##vso[task.setvariable variable=nugetVersion]$($Env:version_core)-CI-$($Env:ReleaseCounter)"
-  displayName: 'CI version' 
+  displayName: 'Set CI version' 
   condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'dev'))
 
 - powershell: |
     Write-Host "##vso[task.setvariable variable=nugetVersion]$($Env:version_core)"
-  displayName: 'Release version' 
+  displayName: 'Set release version' 
   condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'master'))
 
 - task: knom.vsts-debughelper-tasks.print-env-task.print-env-task@1

@@ -8,9 +8,11 @@ namespace Graph.Community
 	using System.Collections.Concurrent;
 	using System.Linq;
 	using System.Reflection;
-    using Microsoft.Graph;
-    using Newtonsoft.Json;
+	using Microsoft.Graph;
+	using Newtonsoft.Json;
 	using Newtonsoft.Json.Linq;
+
+#pragma warning disable CA1307 // Specify StringComparison
 
 	/// <summary>
 	/// Handles resolving interfaces to the correct derived class during serialization/deserialization.
@@ -58,16 +60,28 @@ namespace Graph.Community
 		/// <returns></returns>
 		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
 		{
+			if (reader == null)
+			{
+				throw new ArgumentNullException(nameof(reader));
+			}
+			if (objectType == null)
+			{
+				throw new ArgumentNullException(nameof(objectType));
+			}
+			if (serializer == null)
+			{
+				throw new ArgumentNullException(nameof(serializer));
+			}
+
 			var jObject = JObject.Load(reader);
 
 			var type = jObject.GetValue(CoreConstants.Serialization.ODataType);
 
-			object instance = null;
-
+			object instance;
 			if (type != null)
 			{
 				var typeString = type.ToString();
-				typeString = typeString.Replace("#SP","Graph.Community");
+				typeString = typeString.Replace("#SP", "Graph.Community");
 				typeString = StringHelper.ConvertTypeToTitleCase(typeString);
 
 				Type instanceType = null;
@@ -106,9 +120,7 @@ namespace Graph.Community
 						new Error
 						{
 							Code = "generalException",
-							Message = string.Format(
-										"Unable to create an instance of type {0}.",
-										objectType.AssemblyQualifiedName),
+							Message = $"Unable to create an instance of type {objectType.AssemblyQualifiedName}.",
 						});
 			}
 
@@ -146,6 +158,7 @@ namespace Graph.Community
 			return this.Create(type);
 		}
 
+#pragma warning disable CA1822
 		private object Create(Type type)
 		{
 			if (type == null)
@@ -164,7 +177,7 @@ namespace Graph.Community
 					return null;
 				}
 
-				return constructorInfo.Invoke(new object[] { });
+				return constructorInfo.Invoke(Array.Empty<object>());
 			}
 			catch (Exception exception)
 			{
@@ -172,13 +185,12 @@ namespace Graph.Community
 						new Error
 						{
 							Code = "generalException",
-							Message = string.Format(
-										"Unable to create an instance of type {0}.",
-										type.FullName)
+							Message = $"Unable to create an instance of type {type.FullName}."
 						},
 						exception);
 			}
 		}
+#pragma warning restore CA1822
 
 		private JsonReader GetObjectReader(JsonReader originalReader, JObject jObject)
 		{
@@ -195,4 +207,5 @@ namespace Graph.Community
 			return objectReader;
 		}
 	}
+#pragma warning restore CA1307 // Specify StringComparison
 }
