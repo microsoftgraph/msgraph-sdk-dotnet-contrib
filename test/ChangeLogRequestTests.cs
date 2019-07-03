@@ -1,27 +1,26 @@
 ﻿using Microsoft.Graph;
 using Microsoft.Graph.Core.Test.Mocks;
 using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace Graph.Community.Test
 {
+#pragma warning disable CA1707 // Identifiers should not contain underscores
+#pragma warning disable CA2007 // Consider calling ConfigureAwait on the awaited task
+
 	[Collection("GraphService collection")]
 	public class ChangeLogRequestTests
 	{
-		private readonly GraphServiceFixture fixture;
 		private readonly ITestOutputHelper output;
 
 		private readonly Uri mockWebUrl = new Uri("https://mock.sharepoint.com/sites/mockSite");
 
-		public ChangeLogRequestTests(GraphServiceFixture fixture, ITestOutputHelper output)
+		public ChangeLogRequestTests(ITestOutputHelper output)
 		{
-			this.fixture = fixture;
 			this.output = output;
 		}
 
@@ -44,6 +43,7 @@ namespace Graph.Community.Test
 			var mockHttpProvider = new MockHttpProvider(responseMessage, new Serializer());
 			var graphServiceClient = new GraphServiceClient(mockAuthProvider.Object, mockHttpProvider.Object);
 
+			// ACT
 			var response = await graphServiceClient
 										.SharePointAPI(mockWebUrl)
 										.Site
@@ -51,7 +51,7 @@ namespace Graph.Community.Test
 										.GetChangesAsync(query);
 			var actual = response.CurrentPage;
 
-			var actualSite = actual[0] as ChangeSite;
+			responseMessage.Dispose();
 
 			// ASSERT
 			Assert.Equal(4, actual.Count);
@@ -61,4 +61,7 @@ namespace Graph.Community.Test
 			Assert.IsType<ChangeWeb>(actual[3]);
 		}
 	}
+
+#pragma warning restore CA2007 // Consider calling ConfigureAwait on the awaited task
+#pragma warning restore CA1707
 }

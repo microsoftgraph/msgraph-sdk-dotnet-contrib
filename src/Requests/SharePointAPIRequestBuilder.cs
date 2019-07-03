@@ -11,7 +11,7 @@ namespace Graph.Community
 		public SharePointAPIRequestBuilder(
 			Uri siteUrl,
 			IBaseClient client)
-			: base(siteUrl.ToString(), client)
+			: base(siteUrl?.ToString(), client)
 		{
 		}
 
@@ -23,6 +23,13 @@ namespace Graph.Community
 			}
 		}
 
+		public ISiteScriptRequestBuilder SiteScripts
+		{
+			get
+			{
+				return new SiteScriptRequestBuilder(this.AppendSegmentToRequestUrl("_api"), this.Client);
+			}
+		}
 		public Graph.Community.ISiteRequestBuilder Site
 		{
 			get

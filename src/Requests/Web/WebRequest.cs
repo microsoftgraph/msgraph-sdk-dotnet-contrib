@@ -9,15 +9,17 @@ namespace Graph.Community
 {
 	public class WebRequest : BaseRequest, IWebRequest
 	{
+#pragma warning disable CA1054 // URI parameters should not be strings
 		public WebRequest(
-				string requestUrl,
-				IBaseClient client,
-				IEnumerable<Option> options)
-				: base(requestUrl, client, options)
+			string requestUrl,
+			IBaseClient client,
+			IEnumerable<Option> options)
+			: base(requestUrl, client, options)
 		{
 			this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.AcceptHeaderName, SharePointAPIRequestConstants.Headers.AcceptHeaderValue));
 			this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName, SharePointAPIRequestConstants.Headers.ODataVersionHeaderValue));
 		}
+#pragma warning restore CA1054 // URI parameters should not be strings
 
 		public Task<Web> GetAsync()
 		{
@@ -37,7 +39,7 @@ namespace Graph.Community
 		}
 		public async Task<ICollectionPage<Change>> GetChangesAsync(ChangeQuery query, CancellationToken cancellationToken)
 		{
-			return await ChangeLogRequest.GetChangesAsync(this, query, cancellationToken);
+			return await ChangeLogRequest.GetChangesAsync(this, query, cancellationToken).ConfigureAwait(false);
 		}
 	}
 }
