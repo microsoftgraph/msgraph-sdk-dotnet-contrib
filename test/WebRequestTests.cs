@@ -11,36 +11,35 @@ namespace Graph.Community.Test
 #pragma warning disable CA1707 // Identifiers should not contain underscores
 #pragma warning disable CA2007 // Consider calling ConfigureAwait on the awaited task
 
-	[Collection("GraphService collection")]
 	public class WebRequestTests
 	{
-		private readonly GraphServiceFixture fixture;
 		private readonly ITestOutputHelper output;
 
 		private readonly Uri mockWebUrl = new Uri("https://mock.sharepoint.com/sites/mockSite");
 
-		public WebRequestTests(GraphServiceFixture fixture, ITestOutputHelper output)
+		public WebRequestTests(ITestOutputHelper output)
 		{
-			this.fixture = fixture;
 			this.output = output;
 		}
 
 		[Fact]
 		public void WebRequest_GeneratesCorrectRequestHeaders()
 		{
-			// ARRANGE
+			using (var response = new HttpResponseMessage())
+			using (var gsc = GraphServiceTestClient.Create(response))
+			{
+				// ACT
+				var request = gsc.GraphServiceClient
+														.SharePointAPI(mockWebUrl)
+														.Web
+														.Request()
+														.GetHttpRequestMessage();
 
-			// ACT
-			var request = fixture.GraphServiceClient
-											.SharePointAPI(mockWebUrl)
-											.Web
-											.Request()
-											.GetHttpRequestMessage();
-
-			// ASSERT
-			Assert.Equal(SharePointAPIRequestConstants.Headers.AcceptHeaderValue, request.Headers.Accept.ToString());
-			Assert.True(request.Headers.Contains(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName), $"Header does not contain {SharePointAPIRequestConstants.Headers.ODataVersionHeaderName} header");
-			Assert.Equal(SharePointAPIRequestConstants.Headers.ODataVersionHeaderValue, string.Join(',', request.Headers.GetValues(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName)));
+				// ASSERT
+				Assert.Equal(SharePointAPIRequestConstants.Headers.AcceptHeaderValue, request.Headers.Accept.ToString());
+				Assert.True(request.Headers.Contains(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName), $"Header does not contain {SharePointAPIRequestConstants.Headers.ODataVersionHeaderName} header");
+				Assert.Equal(SharePointAPIRequestConstants.Headers.ODataVersionHeaderValue, string.Join(',', request.Headers.GetValues(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName)));
+			}
 		}
 
 		[Fact]
@@ -49,26 +48,30 @@ namespace Graph.Community.Test
 			// ARRANGE
 			var expectedUri = new Uri($"{mockWebUrl}/_api/web");
 
-			// ACT
-			await fixture.GraphServiceClient
-							.SharePointAPI(mockWebUrl)
-							.Web
-							.Request()
-							.GetAsync();
+			using (var response = new HttpResponseMessage())
+			using (var gsc = GraphServiceTestClient.Create(response))
+			{
+				// ACT
+				await gsc.GraphServiceClient
+										.SharePointAPI(mockWebUrl)
+										.Web
+										.Request()
+										.GetAsync();
 
-			// ASSERT
-			fixture.MockHttpProvider.Verify(
-				provider => provider.SendAsync(
-					It.Is<HttpRequestMessage>(req =>
-						req.Method == HttpMethod.Get &&
-						req.RequestUri == expectedUri &&
-						req.Headers.Authorization != null
-					),
-					It.IsAny<HttpCompletionOption>(),
-					It.IsAny<CancellationToken>()
-					),
-				Times.Exactly(1)
-			);
+				// ASSERT
+				gsc.HttpProvider.Verify(
+					provider => provider.SendAsync(
+						It.Is<HttpRequestMessage>(req =>
+							req.Method == HttpMethod.Get &&
+							req.RequestUri == expectedUri &&
+							req.Headers.Authorization != null
+						),
+						It.IsAny<HttpCompletionOption>(),
+						It.IsAny<CancellationToken>()
+						),
+					Times.Exactly(1)
+				);
+			}
 		}
 
 		[Fact]
@@ -82,33 +85,35 @@ namespace Graph.Community.Test
 			var expectedUri = new Uri($"{mockWebUrl}/_api/web/GetChanges");
 			var expectedContent = "{\"query\":{\"Add\":true}}";
 
-			// ACT
-			await fixture.GraphServiceClient
-							.SharePointAPI(mockWebUrl)
-							.Web
-							.Request()
-							.GetChangesAsync(query);
-			var actualContent = fixture.MockHttpProvider.ContentAsString;
+			using (var response = new HttpResponseMessage())
+			using (var gsc = GraphServiceTestClient.Create(response))
+			{
+				// ACT
+				await gsc.GraphServiceClient
+										.SharePointAPI(mockWebUrl)
+										.Web
+										.Request()
+										.GetChangesAsync(query);
+				var actualContent = gsc.HttpProvider.ContentAsString;
 
-			// ASSERT
-			fixture.MockHttpProvider.Verify(
-				provider => provider.SendAsync(
-					It.Is<HttpRequestMessage>(req =>
-						req.Method == HttpMethod.Post &&
-						req.RequestUri == expectedUri &&
-						req.Headers.Authorization != null
+				// ASSERT
+				gsc.HttpProvider.Verify(
+					provider => provider.SendAsync(
+						It.Is<HttpRequestMessage>(req =>
+							req.Method == HttpMethod.Post &&
+							req.RequestUri == expectedUri &&
+							req.Headers.Authorization != null
+						),
+						It.IsAny<HttpCompletionOption>(),
+						It.IsAny<CancellationToken>()
 					),
-					It.IsAny<HttpCompletionOption>(),
-					It.IsAny<CancellationToken>()
-				),
-				Times.Exactly(1)
-			);
+					Times.Exactly(1)
+				);
 
-			Assert.Equal(Microsoft.Graph.CoreConstants.MimeTypeNames.Application.Json, fixture.MockHttpProvider.ContentHeaders.ContentType.MediaType);
-			Assert.Equal(expectedContent, actualContent);
+				Assert.Equal(Microsoft.Graph.CoreConstants.MimeTypeNames.Application.Json, gsc.HttpProvider.ContentHeaders.ContentType.MediaType);
+				Assert.Equal(expectedContent, actualContent);
+			}
 		}
-
-
 	}
 
 #pragma warning restore CA2007 // Consider calling ConfigureAwait on the awaited task

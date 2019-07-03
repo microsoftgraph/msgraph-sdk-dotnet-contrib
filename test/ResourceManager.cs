@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Graph.Community.Test
+﻿namespace Graph.Community.Test
 {
 	internal class ResourceManager
 	{

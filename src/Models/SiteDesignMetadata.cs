@@ -12,12 +12,6 @@ namespace Graph.Community
 	[JsonObject(MemberSerialization = MemberSerialization.OptIn)]
 	public class SiteDesignMetadata : BaseItem
 	{
-		//[JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "Id", Required = Newtonsoft.Json.Required.Default)]
-		//public Guid Id { get; set; }
-
-		//[JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "Description", Required = Newtonsoft.Json.Required.Default)]
-		//public string Description { get; set; }
-
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "DesignPackageId", Required = Newtonsoft.Json.Required.Default)]
 		public Guid DesignPackageId { get; set; }
 
