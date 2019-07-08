@@ -16,7 +16,7 @@ namespace Graph.Community.Test
 	{
 		private readonly ITestOutputHelper output;
 
-		private readonly Uri mockWebUrl = new Uri("https://mock.sharepoint.com/sites/mockSite");
+		private readonly string mockWebUrl = "https://mock.sharepoint.com/sites/mockSite";
 
 		public SiteDesignRequestTests(ITestOutputHelper output)
 		{

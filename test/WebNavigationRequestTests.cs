@@ -13,7 +13,7 @@ namespace Graph.Community.Test
 
 	public class WebNavigationRequestTests
 	{
-		private readonly Uri mockWebUrl = new Uri("https://mock.sharepoint.com/sites/mockSite");
+		private readonly string mockWebUrl = "https://mock.sharepoint.com/sites/mockSite";
 
 		[Fact]
 		public void GeneratesCorrectRequestHeaders()

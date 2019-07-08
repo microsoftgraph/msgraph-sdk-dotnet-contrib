@@ -16,7 +16,7 @@ namespace Graph.Community.Test
 	{
 		private readonly ITestOutputHelper output;
 
-		private readonly Uri mockWebUrl = new Uri("https://mock.sharepoint.com/sites/mockSite");
+		private readonly string mockWebUrl = "https://mock.sharepoint.com/sites/mockSite";
 
 		public ChangeLogRequestTests(ITestOutputHelper output)
 		{
@@ -45,7 +45,7 @@ namespace Graph.Community.Test
 			// ACT
 			var response = await graphServiceClient
 										.SharePointAPI(mockWebUrl)
-										.Site
+										.Web
 										.Request()
 										.GetChangesAsync(query);
 			var actual = response.CurrentPage;

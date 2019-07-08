@@ -17,6 +17,6 @@ namespace Graph.Community
 		/// Absolute URL of site (site collection root) to which design is applied
 		/// </summary>
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "webUrl", Required = Newtonsoft.Json.Required.Always)]
-		public Uri WebUrl { get; set; }
+		public string WebUrl { get; set; }
 	}
 }
