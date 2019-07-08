@@ -8,8 +8,5 @@ namespace Graph.Community
 	{
 		Task<Site> GetAsync();
 		Task<Site> GetAsync(CancellationToken cancellationToken);
-
-		Task<ICollectionPage<Change>> GetChangesAsync(ChangeQuery query);
-		Task<ICollectionPage<Change>> GetChangesAsync(ChangeQuery query, CancellationToken cancellationToken);
 	}
 }

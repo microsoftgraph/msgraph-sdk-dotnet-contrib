@@ -9,9 +9,6 @@ namespace Graph.Community
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "Classification", Required = Newtonsoft.Json.Required.Default)]
 		public string Classification { get; set; }
 
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "CurrentChangeToken", Required = Newtonsoft.Json.Required.Default)]
-		public ChangeToken CurrentChangeToken { get; set; }
-
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "GroupId", Required = Newtonsoft.Json.Required.Default)]
 		public string  GroupId { get; set; }
 
