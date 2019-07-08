@@ -24,7 +24,7 @@ namespace Graph.Community.Test
 		}
 
 		[Fact]
-		public void SiteDesignRequest_GeneratesCorrectRequestHeaders()
+		public void GeneratesCorrectRequestHeaders()
 		{
 			using (var response = new HttpResponseMessage())
 			using (var gsc = GraphServiceTestClient.Create(response))
@@ -44,7 +44,7 @@ namespace Graph.Community.Test
 		}
 
 		[Fact]
-		public async Task SiteDesignRequest_GetAll_GeneratesCorrectRequest()
+		public async Task GetAll_GeneratesCorrectRequest()
 		{
 			// ARRANGE
 			var expectedUri = new Uri($"{mockWebUrl}/_api/Microsoft.Sharepoint.Utilities.WebTemplateExtensions.SiteScriptUtility.GetSiteDesigns");
@@ -76,7 +76,7 @@ namespace Graph.Community.Test
 		}
 
 		[Fact]
-		public async Task SiteDesignRequest_GetWithId_GeneratesCorrectRequest()
+		public async Task GetWithId_GeneratesCorrectRequest()
 		{
 			// ARRANGE
 			var mockSiteDesignId = Guid.NewGuid();
@@ -114,7 +114,7 @@ namespace Graph.Community.Test
 		}
 
 		[Fact]
-		public async Task SiteDesignRequest_ApplySiteDesign_GeneratesCorrectRequest()
+		public async Task ApplySiteDesign_GeneratesCorrectRequest()
 		{
 			// ARRANGE
 			var mockRequestData = new ApplySiteDesignRequest
@@ -155,7 +155,7 @@ namespace Graph.Community.Test
 		}
 
 		[Fact]
-		public async Task SiteDesignRequest_GetAll_ReturnsCorrectResponse()
+		public async Task GetAll_ReturnsCorrectResponse()
 		{
 			// ARRANGE
 			var responseContent = ResourceManager.GetHttpResponseContent("GetSiteDesignsResponse.json");
@@ -193,7 +193,7 @@ namespace Graph.Community.Test
 		}
 
 		[Fact]
-		public async Task SiteDesignRequest_GetWithId_ReturnsCorrectResponse()
+		public async Task GetWithId_ReturnsCorrectResponse()
 		{
 			// ARRANGE
 			var responseContent = ResourceManager.GetHttpResponseContent("GetSiteDesignMetadataResponse.json");

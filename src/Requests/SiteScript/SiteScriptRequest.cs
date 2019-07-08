@@ -36,6 +36,9 @@ namespace Graph.Community
 
 			if (this.QueryOptions.Any(o => o.Name.Equals("id", StringComparison.InvariantCultureIgnoreCase)))
 			{
+
+				// TODO: Create separate requests for Metadata and Collection of metadata
+
 				var idOption = this.QueryOptions.First(o => o.Name.Equals("id", StringComparison.InvariantCultureIgnoreCase));
 				var request = new { id = idOption.Value };
 				this.QueryOptions.Remove(idOption);
@@ -49,6 +52,8 @@ namespace Graph.Community
 			else
 			{
 				this.AppendSegmentToRequestUrl("Microsoft.Sharepoint.Utilities.WebTemplateExtensions.SiteScriptUtility.GetSiteScripts");
+
+				// TODO: use GetCollectionResponse<SiteDesignMetadata>>
 				response = await this.SendAsync<GetSiteScriptCollectionResponse>(null, cancellationToken).ConfigureAwait(false);
 			}
 

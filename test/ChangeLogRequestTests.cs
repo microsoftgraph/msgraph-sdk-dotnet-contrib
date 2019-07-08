@@ -12,7 +12,6 @@ namespace Graph.Community.Test
 #pragma warning disable CA1707 // Identifiers should not contain underscores
 #pragma warning disable CA2007 // Consider calling ConfigureAwait on the awaited task
 
-	[Collection("GraphService collection")]
 	public class ChangeLogRequestTests
 	{
 		private readonly ITestOutputHelper output;

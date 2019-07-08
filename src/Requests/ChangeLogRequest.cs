@@ -20,7 +20,7 @@ namespace Graph.Community
 			request.ContentType = "application/json";
 
 			var req = new GetChangesRequest() { Query = query };
-			var response = await request.SendAsync<GetChangesResponse>(req, cancellationToken).ConfigureAwait(false);
+			var response = await request.SendAsync<GetCollectionResponse<Change>>(req, cancellationToken).ConfigureAwait(false);
 
 			if (response != null && response.Value != null && response.Value.CurrentPage != null)
 			{

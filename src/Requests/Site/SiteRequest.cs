@@ -14,6 +14,9 @@ namespace Graph.Community
 			IEnumerable<Option> options)
 			: base(requestUrl, client, options)
 		{
+
+			// TODO:  Consider moving this to a Community base request object...
+
 			this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.AcceptHeaderName, SharePointAPIRequestConstants.Headers.AcceptHeaderValue));
 			this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName, SharePointAPIRequestConstants.Headers.ODataVersionHeaderValue));
 		}
