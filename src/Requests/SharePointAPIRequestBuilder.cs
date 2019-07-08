@@ -9,9 +9,9 @@ namespace Graph.Community
 	{
 
 		public SharePointAPIRequestBuilder(
-			Uri siteUrl,
+			string siteUrl,
 			IBaseClient client)
-			: base(siteUrl?.ToString(), client)
+			: base(siteUrl, client)
 		{
 		}
 

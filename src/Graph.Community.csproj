@@ -11,9 +11,8 @@
 		<Description>Community Extensions to Graph SDK</Description>
 	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.3" />
-    <PackageReference Include="Microsoft.Graph" Version="1.*" />
-  </ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.Graph" Version="1.*" />
+	</ItemGroup>
 
 </Project>
