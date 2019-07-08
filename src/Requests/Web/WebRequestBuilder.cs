@@ -28,6 +28,14 @@ namespace Graph.Community
 			}
 		}
 
+		public INavigationRequestBuilder Navigation
+		{
+			get
+			{
+				return new NavigationRequestBuilder(this.AppendSegmentToRequestUrl("navigation"), this.Client, this.options);
+			}
+		}
+
 		public IWebRequest Request()
 		{
 			return this.Request(options);
