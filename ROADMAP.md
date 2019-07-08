@@ -13,18 +13,18 @@ The following operations use the `_api/Microsoft.Sharepoint.Utilities.WebTemplat
 |--------------------------------|--------------------|-------------|------------------|
 | CreateSiteScript               | `.SiteScripts`     | CreateAsync | 1.16             |
 | GetSiteScripts                 | `.SiteScripts`     | GetAsync    | 1.16             |
-| GetSiteScriptFromList          | `.SiteScripts`     |             |                  |
+| GetSiteScriptFromList          |                    |             |                  |
 | GetSiteScriptMetadata          | `.SiteScripts[id]` |GetAsync     | 1.16             |
-| UpdateSiteScripts              | `.SiteScripts`     |             |                  |
-| DeleteSiteScripts              | `.SiteScripts`     |             |                  |
+| UpdateSiteScripts              |                    |             |                  |
+| DeleteSiteScripts              |                    |             |                  |
 |                                |                    |             |                  |
 | CreateSiteDesign               | `.SiteDesigns`     |CreateAsync  | 1.16             |
 | ApplySiteDesign                | `.SiteDesigns`     |ApplyAsync   | 1.16             |
-| AddSiteDesignTaskToCurrentWeb  | `.SiteDesigns`     |             |                  |
+| AddSiteDesignTaskToCurrentWeb  |                    |             |                  |
 | GetSiteDesigns                 | `.SiteDesigns`     |GetAsync     | 1.16             |
 | GetSiteDesignMetadata          | `.SiteDesigns[id]` |GetAsync     | 1.16             |
-| UpdateSiteDesign               | `.SiteDesigns`     |             |                  |
-| DeleteSiteDesign               | `.SiteDesigns`     |             |                  |
+| UpdateSiteDesign               |                    |             |                  |
+| DeleteSiteDesign               |                    |             |                  |
 |                                |                    |             |                  |
 | GetSiteDesignRights            |                    |             |                  |
 | GrantSiteDesignRights          |                    |             |                  |
@@ -35,8 +35,6 @@ The following operations allow for reading the SharePoint change log. The inform
 
 | Operation                              | Request Builder                                       | Method          | Released version|
 |----------------------------------------|-------------------------------------------------------|-----------------|-----------------|
-| [Site Information](src/Models/Site.cs) | `.Site`                                               | GetAsync        |1.16             |
-| Site Changes                           | `.Site`                                               | GetChangesAsync |1.16             |
 | [Web Information](src/Models/Web.cs)   | `.Web`                                                | GetAsync        |1.16             |
 | Web Changes                            | `.Web`                                                | GetChangesAsync |1.16             |
 | [List Information](src/Models/List.cs) | `.Web.Lists[Guid id]` <br/>`.Web.Lists[string title]` | GetAsync        |1.16             |
@@ -54,16 +52,13 @@ The following operations allow for reading the Web [navigation properties](https
 
 ### SharePoint Search
 
-[SharePoint Search REST API](https://docs.microsoft.com/en-us/sharepoint/dev/general-development/sharepoint-search-rest-api-overview)
+Interested in [SharePoint Search REST API](https://docs.microsoft.com/en-us/sharepoint/dev/general-development/sharepoint-search-rest-api-overview)? [Open an issue](https://github.com/microsoftgraph/msgraph-sdk-dotnet-contrib/issues/new)
 
 ### SharePoint User Profile
 
-[SharePoint User Profile REST reference](https://docs.microsoft.com/en-us/previous-versions/office/developer/sharepoint-rest-reference/dn790354(v=office.15))
+Interested in [SharePoint User Profile REST reference](https://docs.microsoft.com/en-us/previous-versions/office/developer/sharepoint-rest-reference/dn790354(v=office.15))? [Open an issue](https://github.com/microsoftgraph/msgraph-sdk-dotnet-contrib/issues/new)
 
 ### Hub Sites
 
-[Hub Sites REST API](https://docs.microsoft.com/en-us/sharepoint/dev/features/hub-site/hub-site-rest-api)
+Interested in [Hub Sites REST API](https://docs.microsoft.com/en-us/sharepoint/dev/features/hub-site/hub-site-rest-api)? [Open an issue](https://github.com/microsoftgraph/msgraph-sdk-dotnet-contrib/issues/new)
 
-### SPFx ALM
-
-[ALM API for SPFx Add-Ins](https://docs.microsoft.com/en-us/sharepoint/dev/apis/alm-api-for-spfx-add-ins)
