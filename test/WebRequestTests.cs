@@ -23,8 +23,10 @@ namespace Graph.Community.Test
 		}
 
 		[Fact]
-		public void WebRequest_GeneratesCorrectRequestHeaders()
+		public void GeneratesCorrectRequestHeaders()
 		{
+			// TODO: move this to a base test class...
+
 			using (var response = new HttpResponseMessage())
 			using (var gsc = GraphServiceTestClient.Create(response))
 			{
@@ -43,7 +45,7 @@ namespace Graph.Community.Test
 		}
 
 		[Fact]
-		public async Task WebRequest_Get_GeneratesCorrectRequest()
+		public async Task Get_GeneratesCorrectRequest()
 		{
 			// ARRANGE
 			var expectedUri = new Uri($"{mockWebUrl}/_api/web");
@@ -75,7 +77,7 @@ namespace Graph.Community.Test
 		}
 
 		[Fact]
-		public async Task WebRequest_GetChanges_GeneratesCorrectRequest()
+		public async Task GetChanges_GeneratesCorrectRequest()
 		{
 			// ARRANGE
 			var query = new ChangeQuery()

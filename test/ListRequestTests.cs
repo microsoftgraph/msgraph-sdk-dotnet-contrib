@@ -23,7 +23,7 @@ namespace Graph.Community.Test
 		}
 
 		[Fact]
-		public void ListRequest_ById_GeneratesCorrectRequestUriAndHeaders()
+		public void GetById_GeneratesCorrectRequestUriAndHeaders()
 		{
 			// ARRANGE
 			var mockListId = Guid.NewGuid();
@@ -49,7 +49,7 @@ namespace Graph.Community.Test
 		}
 
 		[Fact]
-		public void ListRequest_ByTitle_GeneratesCorrectRequestUriAndHeaders()
+		public void GetByTitle_GeneratesCorrectRequestUriAndHeaders()
 		{
 			// ARRANGE
 			var mockListTitle = "mockListTitle";
@@ -75,7 +75,7 @@ namespace Graph.Community.Test
 		}
 
 		[Fact]
-		public async Task ListRequest_GetChanges_GeneratesCorrectRequest()
+		public async Task GetChanges_GeneratesCorrectRequest()
 		{
 			// ARRANGE
 			var query = new ChangeQuery()

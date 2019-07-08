@@ -16,6 +16,10 @@ namespace Graph.Community
 
 			public const string ODataVersionHeaderName = "ODATA-VERSION";
 			public const string ODataVersionHeaderValue = "4.0";
+
+			public const string XHTTPMethodHeaderName = "X-HTTP-Method";
+			public const string XHTTPMethodHeaderMergeValue = "MERGE";
+			public const string XHTTPMethodHeaderPutValue = "PUT";
 		}
 	}
 #pragma warning restore CA1724 // Type names should not match namespaces

@@ -15,6 +15,7 @@
     <None Remove="Mocks\GetSiteDesignsResponse.json" />
     <None Remove="Mocks\GetSiteScriptMetadataResponse.json" />
     <None Remove="Mocks\GetSiteScriptsResponse.json" />
+    <None Remove="Mocks\NavigationNodeCollectionResponse.json" />
     <None Remove="Mocks\SiteGetChangesResponse.json" />
   </ItemGroup>
 
@@ -22,6 +23,7 @@
     <EmbeddedResource Include="Mocks\GetSiteDesignMetadataResponse.json" />
     <EmbeddedResource Include="Mocks\GetSiteDesignsResponse.json" />
     <EmbeddedResource Include="Mocks\GetSiteScriptMetadataResponse.json" />
+    <EmbeddedResource Include="Mocks\NavigationNodeCollectionResponse.json" />
     <EmbeddedResource Include="Mocks\SiteGetChangesResponse.json" />
   </ItemGroup>
 

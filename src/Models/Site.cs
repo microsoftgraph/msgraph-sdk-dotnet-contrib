@@ -18,9 +18,6 @@ namespace Graph.Community
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "HubSiteId", Required = Newtonsoft.Json.Required.Default)]
 		public string HubSiteId { get; set; }
 
-		//[JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "Id", Required = Newtonsoft.Json.Required.Default)]
-		//public string Id { get; set; }
-
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "IsHubSite", Required = Newtonsoft.Json.Required.Default)]
 		public bool IsHubSite { get; set; }
 

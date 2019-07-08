@@ -1,0 +1,96 @@
+{
+	"odata.metadata": "https://mock.sharepoint.com/_api/$metadata#SP.ApiData.NavigationNodes",
+	"value": [
+		{
+			"odata.type": "SP.NavigationNode",
+			"odata.id": "https://mock.sharepoint.com/_api/Web/Navigation/GetNodeById(1031)",
+			"odata.editLink": "Web/Navigation/GetNodeById(1031)",
+			"AudienceIds": null,
+			"Id": 1031,
+			"IsDocLib": true,
+			"IsExternal": false,
+			"IsVisible": true,
+			"ListTemplateType": 0,
+			"Title": "Home",
+			"Url": "/"
+		},
+		{
+			"odata.type": "SP.NavigationNode",
+			"odata.id": "https://mock.sharepoint.com/_api/Web/Navigation/GetNodeById(2001)",
+			"odata.editLink": "Web/Navigation/GetNodeById(2001)",
+			"AudienceIds": null,
+			"Id": 2001,
+			"IsDocLib": true,
+			"IsExternal": false,
+			"IsVisible": true,
+			"ListTemplateType": 101,
+			"Title": "Documents",
+			"Url": "/Shared Documents/Forms/AllItems.aspx"
+		},
+		{
+			"odata.type": "SP.NavigationNode",
+			"odata.id": "https://mock.sharepoint.com/_api/Web/Navigation/GetNodeById(2002)",
+			"odata.editLink": "Web/Navigation/GetNodeById(2002)",
+			"AudienceIds": null,
+			"Id": 2002,
+			"IsDocLib": true,
+			"IsExternal": false,
+			"IsVisible": true,
+			"ListTemplateType": 119,
+			"Title": "Pages",
+			"Url": "/SitePages/Forms/ByAuthor.aspx"
+		},
+		{
+			"odata.type": "SP.NavigationNode",
+			"odata.id": "https://mock.sharepoint.com/_api/Web/Navigation/GetNodeById(2003)",
+			"odata.editLink": "Web/Navigation/GetNodeById(2003)",
+			"AudienceIds": null,
+			"Id": 2003,
+			"IsDocLib": true,
+			"IsExternal": false,
+			"IsVisible": true,
+			"ListTemplateType": 1230,
+			"Title": "Apps in Testing",
+			"Url": "/Lists/DraftApps/AllItems.aspx"
+		},
+		{
+			"odata.type": "SP.NavigationNode",
+			"odata.id": "https://mock.sharepoint.com/_api/Web/Navigation/GetNodeById(2004)",
+			"odata.editLink": "Web/Navigation/GetNodeById(2004)",
+			"AudienceIds": null,
+			"Id": 2004,
+			"IsDocLib": true,
+			"IsExternal": true,
+			"IsVisible": true,
+			"ListTemplateType": 0,
+			"Title": "Samples",
+			"Url": "http://go.microsoft.com/fwlink/?LinkID=234388"
+		},
+		{
+			"odata.type": "SP.NavigationNode",
+			"odata.id": "https://mock.sharepoint.com/_api/Web/Navigation/GetNodeById(2005)",
+			"odata.editLink": "Web/Navigation/GetNodeById(2005)",
+			"AudienceIds": null,
+			"Id": 2005,
+			"IsDocLib": true,
+			"IsExternal": true,
+			"IsVisible": true,
+			"ListTemplateType": 0,
+			"Title": "Developer Center",
+			"Url": "http://go.microsoft.com/fwlink/?LinkID=228251"
+		},
+		{
+			"odata.type": "SP.NavigationNode",
+			"odata.id": "https://mock.sharepoint.com/_api/Web/Navigation/GetNodeById(1034)",
+			"odata.editLink": "Web/Navigation/GetNodeById(1034)",
+			"AudienceIds": null,
+			"Id": 1034,
+			"IsDocLib": true,
+			"IsExternal": true,
+			"IsVisible": true,
+			"ListTemplateType": 0,
+			"Title": "Site contents",
+			"Url": "/_layouts/15/viewlsts.aspx"
+		}
+	]
+}

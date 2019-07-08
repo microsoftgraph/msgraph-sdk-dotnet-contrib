@@ -7,14 +7,14 @@ using System.Text;
 namespace Graph.Community
 {
 	[JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-	public class GetChangesResponse
+	public class GetCollectionResponse<T> where T: BaseItem
 	{
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "value", Required = Newtonsoft.Json.Required.Default)]
-		public CollectionPage<Change> Value { get; }
+		public CollectionPage<T> Value { get; }
 
-		public GetChangesResponse()
+		public GetCollectionResponse()
 		{
-			this.Value = new CollectionPage<Change>();
+			this.Value = new CollectionPage<T>();
 		}
 	}
 }

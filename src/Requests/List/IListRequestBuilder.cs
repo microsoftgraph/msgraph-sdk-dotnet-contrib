@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Graph.Community
 {
-	public interface IListRequestBuilder:IBaseRequestBuilder
+	public interface IListRequestBuilder : IBaseRequestBuilder
 	{
 		IListRequest Request();
 

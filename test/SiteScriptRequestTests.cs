@@ -25,7 +25,7 @@ namespace Graph.Community.Test
 		}
 
 		[Fact]
-		public void SiteScriptRequest_GeneratesCorrectRequestHeaders()
+		public void GeneratesCorrectRequestHeaders()
 		{
 			// ARRANGE
 
@@ -47,7 +47,7 @@ namespace Graph.Community.Test
 		}
 
 		[Fact]
-		public async Task SiteScriptRequest_GetAll_GeneratesCorrectRequest()
+		public async Task GetAll_GeneratesCorrectRequest()
 		{
 			// ARRANGE
 			var expectedUri = new Uri($"{mockWebUrl}/_api/Microsoft.Sharepoint.Utilities.WebTemplateExtensions.SiteScriptUtility.GetSiteScripts");
@@ -79,7 +79,7 @@ namespace Graph.Community.Test
 		}
 
 		[Fact]
-		public async Task SiteScriptRequest_GetWithId_GeneratesCorrectRequest()
+		public async Task GetWithId_GeneratesCorrectRequest()
 		{
 			// ARRANGE
 			var mockSiteScriptId = Guid.NewGuid();
@@ -117,7 +117,7 @@ namespace Graph.Community.Test
 		}
 
 		[Fact]
-		public async Task SiteScriptRequest_Create_GeneratesCorrectRequest()
+		public async Task Create_GeneratesCorrectRequest()
 		{
 			// ARRANGE
 			var mockSiteScriptRequest = CreateMockSiteScriptMetadata();
@@ -154,7 +154,7 @@ namespace Graph.Community.Test
 		}
 
 		[Fact]
-		public async Task SiteScriptRequest_Create_NullParams_Throws()
+		public async Task Create_NullParams_Throws()
 		{
 			using (var response = new HttpResponseMessage())
 			using (var gsc = GraphServiceTestClient.Create(response))
@@ -171,7 +171,7 @@ namespace Graph.Community.Test
 		}
 
 		[Fact]
-		public async Task SiteScriptRequest_Create_NoTitle_Throws()
+		public async Task Create_NoTitle_Throws()
 		{
 			// ARRANGE
 			var mockSiteScriptRequest = CreateMockSiteScriptMetadata();
@@ -192,7 +192,7 @@ namespace Graph.Community.Test
 		}
 
 		[Fact]
-		public async Task SiteScriptRequest_Create_NoDescription_GeneratesCorrectRequest()
+		public async Task Create_NoDescription_GeneratesCorrectRequest()
 		{
 			// ARRANGE
 			var mockSiteScriptRequest = CreateMockSiteScriptMetadata();
@@ -230,7 +230,7 @@ namespace Graph.Community.Test
 		}
 
 		[Fact]
-		public async Task SiteScriptRequest_GetAll_ReturnsCorrectResponse()
+		public async Task GetAll_ReturnsCorrectResponse()
 		{
 			// ARRANGE
 			var responseContent = ResourceManager.GetHttpResponseContent("GetSiteScriptsResponse.json");
@@ -260,7 +260,7 @@ namespace Graph.Community.Test
 		}
 
 		[Fact]
-		public async Task SiteScriptRequest_GetWithId_ReturnsCorrectResponse()
+		public async Task GetWithId_ReturnsCorrectResponse()
 		{
 			// ARRANGE
 			var mockSiteScriptId = "0d7cf729-42e7-411b-86c6-b0181f912dd4";
