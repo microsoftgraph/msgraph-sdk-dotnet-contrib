@@ -2,6 +2,16 @@
 
 The Graph extension library is a community effort to unblock developers building on .Net Standard who need to call endpoints that are not part of the Microsoft Graph.
 
+## Build Status
+
+|Branch|Status|
+|------|------|
+|master|![Build Status](https://schaeflein.visualstudio.com/Graph.Community/_apis/build/status/microsoftgraph.msgraph-sdk-dotnet-contrib?branchName=master)|
+|prerelease|![Build Status](https://schaeflein.visualstudio.com/Graph.Community/_apis/build/status/microsoftgraph.msgraph-sdk-dotnet-contrib?branchName=prerelease)|
+|dev|![Build Status](https://schaeflein.visualstudio.com/Graph.Community/_apis/build/status/microsoftgraph.msgraph-sdk-dotnet-contrib?branchName=dev)|
+|||
+|NuGet|![NuGet package](https://buildstats.info/nuget/Graph.Community)|
+|NuGet|![NuGet package](https://buildstats.info/nuget/Graph.Community?includePreReleases=true)|
 ## Documentation
 
 This community library contains requests and models that extend the Microsoft Graph SDK. Please review the [Roadmap](./ROADMAP.md) for an index of requests that are included and on the roadmap. 
