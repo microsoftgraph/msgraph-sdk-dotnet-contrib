@@ -37,7 +37,7 @@ steps:
   inputs:
     command: test
     configuration: release
-    projects: '*.sln'
+    projects: 'Graph.Community.sln'
 
 - task: DotNetCoreCLI@2
   displayName: 'dotnet pack'
@@ -46,6 +46,7 @@ steps:
     command: pack
     verbosityPack: 'Normal'
     configuration: release
+    projects: 'Graph.Community.sln'
     versioningScheme: byEnvVar
     versionEnvVar: nugetVersion 
 
