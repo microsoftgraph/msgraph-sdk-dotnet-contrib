@@ -27,7 +27,7 @@ namespace Graph.Community.Test
 		public async Task GetChanges_ReturnsCorrectDerivedClasses()
 		{
 			// ARRANGE
-			var responseContent = ResourceManager.GetHttpResponseContent("SiteGetChangesResponse.json");
+			var responseContent = ResourceManager.GetHttpResponseContent("GetChangesResponse.json");
 			var responseMessage = new HttpResponseMessage()
 			{
 				StatusCode = HttpStatusCode.OK,
@@ -53,11 +53,12 @@ namespace Graph.Community.Test
 			responseMessage.Dispose();
 
 			// ASSERT
-			Assert.Equal(4, actual.Count);
+			Assert.Equal(5, actual.Count);
 			Assert.IsType<ChangeSite>(actual[0]);
 			Assert.IsType<ChangeUser>(actual[1]);
 			Assert.IsType<ChangeItem>(actual[2]);
 			Assert.IsType<ChangeWeb>(actual[3]);
+			Assert.IsType<ChangeList>(actual[4]);
 		}
 	}
 

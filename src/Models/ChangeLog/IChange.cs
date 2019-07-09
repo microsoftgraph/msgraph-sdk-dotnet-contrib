@@ -7,7 +7,7 @@ namespace Graph.Community
 	public interface IChange
 	{
 		ChangeToken ChangeToken { get; set; }
-		int ChangeType { get; set; }
+		ChangeType ChangeType { get; set; }
 		Guid SiteId { get; set; }
 		DateTime Time { get; set; }
 	}
