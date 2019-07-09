@@ -6,13 +6,12 @@ using System.Text;
 namespace Graph.Community
 {
 	[JsonObject(MemberSerialization = MemberSerialization.OptOut)]
-	public class ChangeItem : Change
+	public class ChangeList : Change
 	{
-		public int ItemId { get; set; }
-		public string Editor { get; set; }
-		public string EditorEmailHint { get; set; }
+		public int BaseTemplate { get; set; }
+		public bool Hidden { get; set; }
 		public Guid ListId { get; set; }
-		public Guid UniqueId { get; set; }
+		public string Title { get; set; }
 		public Guid WebId { get; set; }
 	}
 }
