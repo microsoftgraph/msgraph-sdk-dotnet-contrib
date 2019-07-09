@@ -46,7 +46,7 @@ steps:
     command: pack
     verbosityPack: 'Normal'
     configuration: release
-    projects: 'Graph.Community.sln'
+    packagesToPack: '**/Graph.Community.csproj'
     versioningScheme: byEnvVar
     versionEnvVar: nugetVersion 
 
