@@ -25,7 +25,7 @@ steps:
   condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'dev'))
 
 - powershell: |
-    Write-Host "##vso[task.setvariable variable=nugetVersion]$($Env:version_core)
+    Write-Host "##vso[task.setvariable variable=nugetVersion]$($Env:version_core)"
   displayName: 'Set release version' 
   condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'master'))
 
@@ -37,7 +37,7 @@ steps:
   inputs:
     command: test
     configuration: release
-    projects: '*.sln'
+    projects: 'Graph.Community.sln'
 
 - task: DotNetCoreCLI@2
   displayName: 'dotnet pack'
@@ -46,6 +46,7 @@ steps:
     command: pack
     verbosityPack: 'Normal'
     configuration: release
+    packagesToPack: '**/Graph.Community.csproj'
     versioningScheme: byEnvVar
     versionEnvVar: nugetVersion 
 

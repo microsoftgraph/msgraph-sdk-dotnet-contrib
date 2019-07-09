@@ -21,9 +21,6 @@ namespace Microsoft.Graph.Core.Test.Mocks
 		public MockHttpProvider(HttpResponseMessage httpResponseMessage, ISerializer serializer = null)
 				: base(MockBehavior.Loose)
 		{
-			//this.Setup(provider => provider.SendAsync(It.IsAny<HttpRequestMessage>(), It.IsAny<HttpCompletionOption>(), It.IsAny<CancellationToken>()))
-			//		.Returns(Task.FromResult(httpResponseMessage));
-
 			this.Setup(provider => provider.SendAsync(It.IsAny<HttpRequestMessage>(), It.IsAny<HttpCompletionOption>(), It.IsAny<CancellationToken>()))
 				.Callback<HttpRequestMessage, HttpCompletionOption, CancellationToken>((req, opt, tok) => this.ReadRequestContent(req))
 				.ReturnsAsync(httpResponseMessage);

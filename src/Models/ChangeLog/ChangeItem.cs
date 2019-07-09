@@ -5,19 +5,14 @@ using System.Text;
 
 namespace Graph.Community
 {
-	[JsonObject(MemberSerialization = MemberSerialization.OptIn)]
+	[JsonObject(MemberSerialization = MemberSerialization.OptOut)]
 	public class ChangeItem : Change
 	{
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "ItemId", Required = Newtonsoft.Json.Required.Default)]
 		public int ItemId { get; set; }
-
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "ListId", Required = Newtonsoft.Json.Required.Default)]
+		public string Editor { get; set; }
+		public string EditorEmailHint { get; set; }
 		public Guid ListId { get; set; }
-
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "UniqueId", Required = Newtonsoft.Json.Required.Default)]
 		public Guid UniqueId { get; set; }
-
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "WebId", Required = Newtonsoft.Json.Required.Default)]
 		public Guid WebId { get; set; }
 	}
 }

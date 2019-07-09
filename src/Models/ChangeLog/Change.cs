@@ -2,26 +2,19 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace Graph.Community
 {
-	[JsonObject(MemberSerialization = MemberSerialization.OptIn)]
+	[DebuggerDisplay("{ODataType, nq}")]
+	[JsonObject(MemberSerialization = MemberSerialization.OptOut)]
 	[JsonConverter(typeof(SPChangeDerivedTypedConverter))]
 	public class Change : BaseItem, IChange
 	{
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "ChangeToken", Required = Newtonsoft.Json.Required.Default)]
 		public ChangeToken ChangeToken { get; set; }
-
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "ChangeType", Required = Newtonsoft.Json.Required.Default)]
-		public int ChangeType { get; set; }
-
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "SiteId", Required = Newtonsoft.Json.Required.Default)]
+		public ChangeType ChangeType { get; set; }
 		public Guid SiteId { get; set; }
-
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "Time", Required = Newtonsoft.Json.Required.Default)]
 		public DateTime Time { get; set; }
-
-
 	}
 }

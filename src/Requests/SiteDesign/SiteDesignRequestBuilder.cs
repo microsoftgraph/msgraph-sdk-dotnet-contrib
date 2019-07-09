@@ -9,6 +9,7 @@ namespace Graph.Community
 	{
 		private IEnumerable<Option> options;
 
+#pragma warning disable CA1054 // URI parameters should not be strings
 		public SiteDesignRequestBuilder(
 				string requestUrl,
 				IBaseClient client,
@@ -17,6 +18,7 @@ namespace Graph.Community
 		{
 			this.options = options;
 		}
+#pragma warning restore CA1054 // URI parameters should not be strings
 
 		/// <summary>
 		/// Builds the request.
@@ -42,11 +44,19 @@ namespace Graph.Community
 		/// </summary>
 		/// <param name="id">The ID for the SiteDesign.</param>
 		/// <returns>The <see cref="ISiteDesignRequestBuilder"/>.</returns>
-		public ISiteDesignRequestBuilder this[Guid id]
+		public ISiteDesignRequestBuilder this[string id]
 		{
 			get
 			{
+				if (id == null)
+				{
+					throw new ArgumentNullException(nameof(id));
+				}
+
+#pragma warning disable CA1305
 				List<QueryOption> options = new List<QueryOption>() { new QueryOption("id", id.ToString()) };
+#pragma warning restore CA1305
+
 				return new SiteDesignRequestBuilder(this.RequestUrl, this.Client, options);
 			}
 		}

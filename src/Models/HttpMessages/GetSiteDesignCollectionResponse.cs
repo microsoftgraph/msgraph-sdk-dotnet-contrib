@@ -10,6 +10,11 @@ namespace Graph.Community
 	public class GetSiteDesignCollectionResponse
 	{
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "value", Required = Newtonsoft.Json.Required.Default)]
-		public CollectionPage<SiteDesignMetadata> Value { get; set; }
+		public CollectionPage<SiteDesignMetadata> Value { get; }
+
+		public GetSiteDesignCollectionResponse()
+		{
+			this.Value = new CollectionPage<SiteDesignMetadata>();
+		}
 	}
 }

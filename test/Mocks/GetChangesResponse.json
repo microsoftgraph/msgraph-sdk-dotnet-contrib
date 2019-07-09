@@ -56,6 +56,23 @@
 			"SiteId": "a0ea50ed-6c77-4d79-9f03-8c6acfbf18b6",
 			"Time": "2019-06-17T19:48:51.3Z",
 			"WebId": "bd088215-8ad9-4442-ac7a-3614820478af"
+		},
+		{
+			"@odata.type": "#SP.ChangeList",
+			"@odata.id": "https://scdev.sharepoint.com/sites/NavigationCommTest/_api/SP.ChangeList7afa71ff-7e0f-4444-afe4-886091e10572",
+			"@odata.editLink": "SP.ChangeList7afa71ff-7e0f-4444-afe4-886091e10572",
+			"ChangeToken": {
+				"StringValue": "1;2;a3103d73-dbc6-48af-bc30-3634893b7152;636982282990900000;236733744"
+			},
+			"ChangeType": 2,
+			"SiteId": "a0ea50ed-6c77-4d79-9f03-8c6acfbf18b6",
+			"Time": "2019-07-09T00:18:19Z",
+			"BaseTemplate": 100,
+			"Editor": null,
+			"Hidden": false,
+			"ListId": "9c3bed30-79c8-4559-94e0-5dcd83297890",
+			"Title": "ChangeLogTesting",
+			"WebId": "bd088215-8ad9-4442-ac7a-3614820478af"
 		}
 	]
 }
