@@ -4,7 +4,8 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.2</TargetFramework>
 		<UserSecretsId>68071ad2-6ee0-41d1-ad86-2635c69bfadf</UserSecretsId>
-		<Configurations>Debug;Release;Prerelease;LocalDev</Configurations>
+		<Configurations>Debug;Prerelease;LocalDev</Configurations>
+		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
 
   <ItemGroup>
