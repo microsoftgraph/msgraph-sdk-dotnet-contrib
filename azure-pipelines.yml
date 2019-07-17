@@ -1,6 +1,7 @@
 variables:
+- group: Microsoft.Graph.Version
 - name: counterKey
-  value: $[format('{0}.{1}', variables['VERSION_CORE'], variables['Build.SourceBranchName'])]
+  value: $[format('{0}.{1}', variables['version_core'], variables['Build.SourceBranchName'])]
 - name: ReleaseCounter
   value: $[counter(variables['counterKey'], 1)]
 
@@ -8,12 +9,6 @@ pool:
   vmImage: windows-2019
 
 steps:
-- task: FileContenttoVariable@2
-  inputs:
-    FilePath: 'version.core'
-    VariableName: 'version_core'
-    AddNewlines: false
-
 - powershell: |
     Write-Host "##vso[task.setvariable variable=nugetVersion]$($Env:version_core)-preview$($Env:ReleaseCounter)"
   displayName: 'Set pre-release version' 
