@@ -78,9 +78,36 @@ namespace Graph.Community
 
 		public async Task<SiteDesignMetadata> CreateAsync(SiteDesignMetadata siteDesignMetadata, CancellationToken cancellationToken)
 		{
+			if (siteDesignMetadata == null)
+			{
+				throw new ArgumentNullException(nameof(siteDesignMetadata));
+			}
+
+#pragma warning disable CA1303 // Do not pass literals as localized parameters
+#pragma warning disable CA2208 // Instantiate argument exceptions correctly
+
+			if (string.IsNullOrEmpty(siteDesignMetadata.Title))
+			{
+				throw new ArgumentException(paramName: nameof(siteDesignMetadata.Title), message: "Title must be provided");
+			}
+			if (siteDesignMetadata.SiteScriptIds == null ||
+				  siteDesignMetadata.SiteScriptIds.Count == 0)
+			{
+				throw new ArgumentException(paramName: nameof(siteDesignMetadata.SiteScriptIds), message: "Site Script Id(s) must be provided");
+			}
+			if (string.IsNullOrEmpty(siteDesignMetadata.WebTemplate))
+			{
+				throw new ArgumentException(paramName: nameof(siteDesignMetadata.WebTemplate), message: "Web Template must be provided");
+			}
+
+#pragma warning restore CA2208 // Instantiate argument exceptions correctly
+#pragma warning restore CA1303 // Do not pass literals as localized parameters
+
+
 			this.AppendSegmentToRequestUrl("Microsoft.Sharepoint.Utilities.WebTemplateExtensions.SiteScriptUtility.CreateSiteDesign");
 			this.ContentType = "application/json";
-			var newEntity = await this.SendAsync<SiteDesignMetadata>(siteDesignMetadata, cancellationToken).ConfigureAwait(false);
+			var requestData = new CreateSiteDesignRequest(siteDesignMetadata);
+			var newEntity = await this.SendAsync<SiteDesignMetadata>(requestData, cancellationToken).ConfigureAwait(false);
 			return newEntity;
 		}
 
