@@ -33,14 +33,5 @@ namespace Graph.Community
 			var entity = await this.SendAsync<Graph.Community.Site>(null, cancellationToken).ConfigureAwait(false);
 			return entity;
 		}
-
-		public Task<ICollectionPage<Change>> GetChangesAsync(ChangeQuery query)
-		{
-			return this.GetChangesAsync(query, CancellationToken.None);
-		}
-		public async Task<ICollectionPage<Change>> GetChangesAsync(ChangeQuery query, CancellationToken cancellationToken)
-		{
-			return await ChangeLogRequest.GetChangesAsync(this, query, cancellationToken).ConfigureAwait(false);
-		}
 	}
 }

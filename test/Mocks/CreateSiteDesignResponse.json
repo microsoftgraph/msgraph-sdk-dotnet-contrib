@@ -1,16 +1,15 @@
 {
 	"odata.metadata": "https://mock.sharepoint.com/_api/$metadata#Microsoft.SharePoint.Utilities.WebTemplateExtensions.SiteDesignMetadata",
 	"Description": "mockSiteDesignDescription",
-	"DesignPackageId": "00000000-0000-0000-0000-000000000000",
+	"DesignPackageId": null,
 	"IsDefault": false,
 	"PreviewImageAltText": "mockPreviewImageAltText",
-	"PreviewImageUrl": "mockPreviewImageUrl",
+	"PreviewImageUrl": "https://mock.sharepoint.com",
 	"SiteScriptIds": [
-		"515473d3-f08f-4e35-b9c3-285e1bcf7cd0",
-		"ebb4bcd6-1c19-47fc-9910-fb618d2d3c13"
+		"a0da01a9-8b93-496e-9bbd-1b53009e543e"
 	],
-	"Title": "mockSiteDesignTitle",
+	"Title": "mockSiteDesign",
 	"WebTemplate": "64",
-	"Id": "52693c3f-4f86-49e1-8d93-bb18ad8d22f8",
+	"Id": "d3e90db2-9a67-4d24-b59f-7c54388a9cfa",
 	"Version": 1
 }
