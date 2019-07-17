@@ -202,8 +202,52 @@ namespace Graph.Community.Test
 		}
 
 		[Fact]
-		public async Task AddNode_GeneratesCorrectRequest()
+		public async Task AddNode_NullCreationInfo_Throws()
 		{
+			using (var response = new HttpResponseMessage())
+			using (var gsc = GraphServiceTestClient.Create(response))
+			{
+				await Assert.ThrowsAsync<ArgumentNullException>(
+					async () => await gsc.GraphServiceClient
+																	.SharePointAPI(mockWebUrl)
+																	.Web
+																	.Navigation
+																	.QuickLaunch
+																	.Request()
+																	.AddAsync(null)
+				);
+			}
+		}
+
+		[Theory]
+		[InlineData("mockTitle","")]
+		[InlineData("", "https://mocksite.com")]
+		public async Task AddNode_MissingProperties_Throws(string title, string url)
+		{
+			var mockNewNodeRequest = new NavigationNodeCreationInformation()
+			{
+				Title = title,
+				Url = string.IsNullOrEmpty(url) ? null : new Uri(url)
+			};
+
+			using (var response = new HttpResponseMessage())
+			using (var gsc = GraphServiceTestClient.Create(response))
+			{
+				await Assert.ThrowsAsync<ArgumentException>(
+					async () => await gsc.GraphServiceClient
+																	.SharePointAPI(mockWebUrl)
+																	.Web
+																	.Navigation
+																	.QuickLaunch
+																	.Request()
+																	.AddAsync(mockNewNodeRequest)
+				);
+			}
+		}
+
+		[Fact]
+		public async Task AddNode_GeneratesCorrectRequest()
+		{			
 			// ARRANGE
 			var mockNewNodeRequest = new NavigationNodeCreationInformation()
 			{
@@ -321,8 +365,52 @@ namespace Graph.Community.Test
 				Assert.Equal(Microsoft.Graph.CoreConstants.MimeTypeNames.Application.Json, gsc.HttpProvider.ContentHeaders.ContentType.MediaType);
 				Assert.Equal(expectedContent, actualContent);
 			}
-
 		}
+
+		[Fact]
+		public async Task UpdateNode_NullCreationInfo_Throws()
+		{
+			var mockNodeId = 2003;
+			using (var response = new HttpResponseMessage())
+			using (var gsc = GraphServiceTestClient.Create(response))
+			{
+				await Assert.ThrowsAsync<ArgumentNullException>(
+					async () => await gsc.GraphServiceClient
+																	.SharePointAPI(mockWebUrl)
+																	.Web
+																	.Navigation[mockNodeId]
+																	.Request()
+																	.UpdateAsync(null)
+				);
+			}
+		}
+
+		[Theory]
+		[InlineData("mockTitle", "")]
+		[InlineData("", "https://mocksite.com")]
+		public async Task UpdateNode_MissingProperties_Throws(string title, string url)
+		{
+			var mockNodeId = 2003;
+			var mockUpdateNodeRequest = new NavigationNode()
+			{
+				Title = title,
+				Url = string.IsNullOrEmpty(url) ? null : new Uri(url)
+			};
+
+			using (var response = new HttpResponseMessage())
+			using (var gsc = GraphServiceTestClient.Create(response))
+			{
+				await Assert.ThrowsAsync<ArgumentException>(
+					async () => await gsc.GraphServiceClient
+																	.SharePointAPI(mockWebUrl)
+																	.Web
+																	.Navigation[mockNodeId]
+																	.Request()
+																	.UpdateAsync(mockUpdateNodeRequest)
+				);
+			}
+		}
+
 
 		[Fact]
 		public void NavigationNode_Serialization_IgnoresDefaultValues()
