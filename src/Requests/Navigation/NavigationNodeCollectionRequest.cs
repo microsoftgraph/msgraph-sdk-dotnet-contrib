@@ -58,11 +58,11 @@ namespace Graph.Community
 
 			if (string.IsNullOrEmpty(creationInformation.Title))
 			{
-				throw new ArgumentOutOfRangeException(paramName: nameof(creationInformation.Title), message: "Title must be provided");
+				throw new ArgumentException(paramName: nameof(creationInformation.Title), message: "Title must be provided");
 			}
 			if(creationInformation.Url == null)
 			{
-				throw new ArgumentNullException(nameof(creationInformation.Url), message: "URL must be provided");
+				throw new ArgumentException(paramName: nameof(creationInformation.Url), message: "URL must be provided");
 			}
 
 #pragma warning restore CA2208 // Instantiate argument exceptions correctly

@@ -258,13 +258,30 @@ namespace Graph.Community.Test
 			}
 		}
 
+		[Theory]
+		[InlineData("")]
+		[InlineData(null)]
+		public async Task GetWithId_MissingId_Throws(string siteDesignId)
+		{
+			using (var response = new HttpResponseMessage())
+			using (var gsc = GraphServiceTestClient.Create(response))
+			{
+				// ACT & ASSERT
+				await Assert.ThrowsAsync<ArgumentNullException>(
+				async () => await gsc.GraphServiceClient
+																.SharePointAPI(mockWebUrl)
+																.SiteScripts[siteDesignId]
+																.Request()
+																.CreateAsync(null)
+				);
+			}
+		}
+
 		[Fact]
 		public async Task GetWithId_ReturnsCorrectResponse()
 		{
 			// ARRANGE
 			var mockSiteScriptId = "0d7cf729-42e7-411b-86c6-b0181f912dd4";
-			var expectedUri = new Uri($"{mockWebUrl}/_api/Microsoft.Sharepoint.Utilities.WebTemplateExtensions.SiteScriptUtility.GetSiteScriptMetadata");
-			var expectedContent = $"{{\"id\":\"{mockSiteScriptId}\"}}";
 
 			var responseContent = ResourceManager.GetHttpResponseContent("GetSiteScriptMetadataResponse.json");
 			var responseMessage = new HttpResponseMessage()
