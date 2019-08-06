@@ -2,6 +2,19 @@
 
 This document lists the request builders that are included in the library
 
+## Endpoint: Microsoft Graph
+
+The extension library contains extensions to the builders shipped in the SDK. These extensions are likely temporary, as they will be removed as the functionality is added to the SDK. 
+
+### Immutable IDs for Outlook
+
+Outlook items (messages, events, contacts, tasks) have an interesting behavior that you've probably either never noticed or has caused you significant frustration: their IDs change. It doesn't happen often, only if the item is moved, but it can cause real problems for apps that store IDs offline for later use. Immutable identifiers enables your application to obtain an ID that does not change for the lifetime of the item.
+https://docs.microsoft.com/en-us/graph/outlook-immutable-id
+
+| Operation                      | Request Builder    | Meth    od      | Released version |
+|--------------------------------|--------------------|-----------------|------------------|
+| All Get operations for Outlook | `IBaseRequest`     | WithImmutableId | 1.16.1           |
+
 ## Endpoint: Office 365 SharePoint
 
 The Office 365 SharePoint endpoint has request builders accessible using the `SharePointAPI` method. The reference page for the SharePoint  extensions is https://docs.microsoft.com/en-us/sharepoint/dev/sp-add-ins/sharepoint-net-server-csom-jsom-and-rest-api-index and https://docs.microsoft.com/en-us/previous-versions/office/developer/sharepoint-2010/ee536622(v=office.14)
