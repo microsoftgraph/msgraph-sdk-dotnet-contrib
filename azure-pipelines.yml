@@ -6,8 +6,9 @@ trigger:
     include:
     - src/*
     - test/*
-      
-    
+    exclude:
+    - *
+
 variables:
 - group: Microsoft.Graph.Version
 - name: counterKey
