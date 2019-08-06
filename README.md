@@ -14,7 +14,7 @@ The Graph extension library is a community effort to unblock developers building
 |NuGet|![NuGet package](https://buildstats.info/nuget/Graph.Community?includePreReleases=true)|
 ## Documentation
 
-This community library contains requests and models that extend the Microsoft Graph SDK. Please review the [Roadmap](./ROADMAP.md) for an index of requests that are included and on the roadmap. 
+This community library contains requests and models that extend the Microsoft Graph SDK. Please review the [Roadmap](./docs/ROADMAP.md) for an index of requests that are included and on the roadmap. 
 
 If there is an endpoint node for which you would like a request, please submit an issue to initiate a conversation. This will help reduce wasted effort.
 
