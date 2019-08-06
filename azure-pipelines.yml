@@ -1,3 +1,13 @@
+trigger:
+  branches:
+    include:
+    - '*'
+  paths:
+    include:
+    - src/*
+    - test/*
+      
+    
 variables:
 - group: Microsoft.Graph.Version
 - name: counterKey
