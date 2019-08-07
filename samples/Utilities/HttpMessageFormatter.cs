@@ -11,7 +11,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Graph.Community.Samples.CommandLine.Utilities
+namespace Graph.Community.Samples
 {
 	/// <summary>
 	/// Derived <see cref="HttpContent"/> class which can encapsulate an <see cref="HttpResponseMessage"/>

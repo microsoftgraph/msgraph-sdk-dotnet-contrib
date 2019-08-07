@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Graph.Community.Samples.CommandLine.Utilities
+namespace Graph.Community.Samples
 {
 	class LoggingMessageHandler : DelegatingHandler
 	{
@@ -20,7 +20,9 @@ namespace Graph.Community.Samples.CommandLine.Utilities
 		{
 			get
 			{
-				return output.ToString();
+				var log = output.ToString();
+				output.Clear();
+				return log;
 			}
 		}
 
