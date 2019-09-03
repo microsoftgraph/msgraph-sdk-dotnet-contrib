@@ -12,5 +12,7 @@ namespace Graph.Community
 		IListRequestBuilder Lists { get; }
 
 		INavigationRequestBuilder Navigation { get; }
+
+		ISiteUserCollectionRequestBuilder SiteUsers { get; }
 	}
 }

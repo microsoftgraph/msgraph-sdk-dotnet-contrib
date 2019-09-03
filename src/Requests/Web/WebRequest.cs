@@ -1,6 +1,7 @@
 ﻿using Microsoft.Graph;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -40,6 +41,27 @@ namespace Graph.Community
 		public async Task<ICollectionPage<Change>> GetChangesAsync(ChangeQuery query, CancellationToken cancellationToken)
 		{
 			return await ChangeLogRequest.GetChangesAsync(this, query, cancellationToken).ConfigureAwait(false);
+		}
+
+		public async Task<SPUser> EnsureUserAsync(string logonName)
+		{
+			return await this.EnsureUserAsync(logonName, CancellationToken.None);
+		}
+
+		public async Task<SPUser> EnsureUserAsync(string logonName, CancellationToken cancellationToken)
+		{
+			if (string.IsNullOrEmpty(logonName))
+			{
+				throw new ArgumentNullException(nameof(logonName));
+			}
+
+			this.AppendSegmentToRequestUrl("ensureuser");
+			this.Method = HttpMethod.Post.Method;
+			this.ContentType = "application/json";
+
+			var payload = new { logonName = logonName };
+			var userEntity = await this.SendAsync<SPUser>(payload, cancellationToken);
+			return userEntity;
 		}
 	}
 }

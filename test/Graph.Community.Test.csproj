@@ -11,9 +11,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Mocks\EnsureUserResponse.json" />
+    <None Remove="Mocks\GetSiteUsersResponse.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Include="Mocks\ApplySiteDesignResponse.json" />
     <EmbeddedResource Include="Mocks\CreateSiteDesignResponse.json" />
     <EmbeddedResource Include="Mocks\CreateSiteScriptResponse.json" />
+    <EmbeddedResource Include="Mocks\EnsureUserResponse.json" />
     <EmbeddedResource Include="Mocks\GetSiteDesignMetadataResponse.json" />
     <EmbeddedResource Include="Mocks\GetSiteDesignsResponse.json" />
     <EmbeddedResource Include="Mocks\GetSiteScriptMetadataResponse.json" />
@@ -31,6 +37,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\src\Graph.Community.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Mocks\GetSiteUsersResponse.json" />
   </ItemGroup>
 
 </Project>
