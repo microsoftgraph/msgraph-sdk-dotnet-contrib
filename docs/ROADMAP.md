@@ -63,6 +63,15 @@ The following operations allow for reading the Web [navigation properties](https
 | GetNavigationNode           | `.Web.Navigation[int id]`                                            | GetAsync    | 1.16             |
 | UpdateNavigationNode        | `.Web.Navigation[int id]`                                            | UpdateAsync | 1.16             |
 
+### SharePoint SiteUsers
+The following operations enable the use of Person fields in SharePoint Lists using Microsoft Graph. Calling EnsureUser() will return the LookupId needed to set a Person field in a SharePoint list item.
+
+| Operation    | Request Builder   | Method          | Released version |
+|--------------|-------------------|-----------------|------------------|
+| EnsureUser   | `.Web`            | EnsureUserAsync | 1.17.1           |
+| GetSiteUsers | `.Web.SiteUsers` | GetAsync        | 1.17.1           |
+
+
 ### SharePoint Search
 
 Interested in [SharePoint Search REST API](https://docs.microsoft.com/en-us/sharepoint/dev/general-development/sharepoint-search-rest-api-overview)? [Open an issue](https://github.com/microsoftgraph/msgraph-sdk-dotnet-contrib/issues/new)

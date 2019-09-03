@@ -36,6 +36,14 @@ namespace Graph.Community
 			}
 		}
 
+		public ISiteUserCollectionRequestBuilder SiteUsers
+		{
+			get
+			{
+				return new SiteUserCollectionRequestBuilder(this.AppendSegmentToRequestUrl("siteusers"), this.Client, this.options);
+			}
+		}
+
 		public IWebRequest Request()
 		{
 			return this.Request(options);
