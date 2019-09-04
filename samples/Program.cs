@@ -5,6 +5,7 @@ using System;
 using Graph.Community;
 using System.Threading.Tasks;
 using Microsoft.Identity.Client;
+using System.Net.Http;
 
 namespace Graph.Community.Samples.CommandLine
 {
@@ -16,7 +17,7 @@ namespace Graph.Community.Samples.CommandLine
 		{
 			GetConfiguration();
 
-			using (LoggingMessageHandler logger = new LoggingMessageHandler())
+			using (LoggingMessageHandler logger = new LoggingMessageHandler(new HttpClientHandler()))
 			using (HttpProvider hp = new HttpProvider(logger, false, new Serializer()))
 			{
 				GraphServiceClient graphServiceClient = GetGraphServiceClient(hp, new string[] { "https://[SharePointDomain].sharepoint.com/AllSites.FullControl" });  
@@ -29,7 +30,7 @@ namespace Graph.Community.Samples.CommandLine
 
 			}
 
-			using (LoggingMessageHandler logger = new LoggingMessageHandler())
+			using (LoggingMessageHandler logger = new LoggingMessageHandler(new HttpClientHandler()))
 			using (HttpProvider hp = new HttpProvider(logger, false, new Serializer()))
 			{
 				GraphServiceClient graphServiceClient = GetGraphServiceClient(hp, new string[] { "https://graph.microsoft.com/Mail.Read" });
