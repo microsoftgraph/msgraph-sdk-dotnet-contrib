@@ -27,17 +27,8 @@
     <PackageReference Include="Microsoft.Graph.Auth" Version="1.0.0-preview.0" />
   </ItemGroup>
 
-	<ItemGroup Condition="'$(Configuration)' == 'Prerelease'">
-		<PackageReference Include="Graph.Community" Version="1.16.0-preview*" />
-	</ItemGroup>
-	<ItemGroup Condition="'$(Configuration)' == 'Debug'">
-		<PackageReference Include="Graph.Community" Version="1.17.1-preview2" />
-	</ItemGroup>
-	<ItemGroup Condition="'$(Configuration)' == 'LocalDev'">
-    <Reference Include="Graph.Community">
-      <HintPath>..\..\src\bin\Debug\netstandard2.0\Graph.Community.dll</HintPath>
-    </Reference>
-		<PackageReference Include="Microsoft.Graph" Version="1.16.*" />
+	<ItemGroup>
+		<PackageReference Include="Graph.Community" Version="1.17.*" />
 	</ItemGroup>
 
 	<ItemGroup>
