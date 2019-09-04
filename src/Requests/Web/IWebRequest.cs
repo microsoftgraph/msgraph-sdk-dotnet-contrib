@@ -11,5 +11,8 @@ namespace Graph.Community
 
 		Task<ICollectionPage<Change>> GetChangesAsync(ChangeQuery query);
 		Task<ICollectionPage<Change>> GetChangesAsync(ChangeQuery query, CancellationToken cancellationToken);
+
+		Task<SPUser> EnsureUserAsync(string logonName);
+		Task<SPUser> EnsureUserAsync(string logonName, CancellationToken cancellationToken);
 	}
 }

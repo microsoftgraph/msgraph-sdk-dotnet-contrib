@@ -11,9 +11,9 @@ The extension library contains extensions to the builders shipped in the SDK. Th
 Outlook items (messages, events, contacts, tasks) have an interesting behavior that you've probably either never noticed or has caused you significant frustration: their IDs change. It doesn't happen often, only if the item is moved, but it can cause real problems for apps that store IDs offline for later use. Immutable identifiers enables your application to obtain an ID that does not change for the lifetime of the item.
 https://docs.microsoft.com/en-us/graph/outlook-immutable-id
 
-| Operation                      | Request Builder    | Meth    od      | Released version |
+| Operation                      | Request Builder    | Method          | Released version |
 |--------------------------------|--------------------|-----------------|------------------|
-| All Get operations for Outlook | `IBaseRequest`     | WithImmutableId | 1.16.1           |
+| All Get operations for Outlook | `IBaseRequest`    | WithImmutableId | 1.16.1           |
 
 ## Endpoint: Office 365 SharePoint
 
@@ -62,6 +62,15 @@ The following operations allow for reading the Web [navigation properties](https
 | AddNavigationNode           | `.Web.Navigation.QuickLaunch`<br/>`.Web.Navigation.TopNavigationBar` | AddAsync    | 1.16             |
 | GetNavigationNode           | `.Web.Navigation[int id]`                                            | GetAsync    | 1.16             |
 | UpdateNavigationNode        | `.Web.Navigation[int id]`                                            | UpdateAsync | 1.16             |
+
+### SharePoint SiteUsers
+The following operations enable the use of Person fields in SharePoint Lists using Microsoft Graph. Calling EnsureUser() will return the LookupId needed to set a Person field in a SharePoint list item.
+
+| Operation    | Request Builder   | Method          | Released version |
+|--------------|-------------------|-----------------|------------------|
+| EnsureUser   | `.Web`            | EnsureUserAsync | 1.17.1           |
+| GetSiteUsers | `.Web.SiteUsers` | GetAsync        | 1.17.1           |
+
 
 ### SharePoint Search
 
