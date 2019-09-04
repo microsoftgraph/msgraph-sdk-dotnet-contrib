@@ -11,9 +11,9 @@ The extension library contains extensions to the builders shipped in the SDK. Th
 Outlook items (messages, events, contacts, tasks) have an interesting behavior that you've probably either never noticed or has caused you significant frustration: their IDs change. It doesn't happen often, only if the item is moved, but it can cause real problems for apps that store IDs offline for later use. Immutable identifiers enables your application to obtain an ID that does not change for the lifetime of the item.
 https://docs.microsoft.com/en-us/graph/outlook-immutable-id
 
-| Operation                      | Request Builder    | Meth    od      | Released version |
+| Operation                      | Request Builder    | Method          | Released version |
 |--------------------------------|--------------------|-----------------|------------------|
-| All Get operations for Outlook | `IBaseRequest`     | WithImmutableId | 1.16.1           |
+| All Get operations for Outlook | `IBaseRequest`    | WithImmutableId | 1.16.1           |
 
 ## Endpoint: Office 365 SharePoint
 
