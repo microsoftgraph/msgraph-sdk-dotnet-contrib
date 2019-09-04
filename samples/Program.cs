@@ -36,6 +36,7 @@ namespace Graph.Community.Samples.CommandLine
 				GraphServiceClient graphServiceClient = GetGraphServiceClient(hp, new string[] { "https://graph.microsoft.com/Mail.Read" });
 
 				ImmutableIds.Run(graphServiceClient);
+				Console.WriteLine(logger.Log);
 			}
 		}
 
