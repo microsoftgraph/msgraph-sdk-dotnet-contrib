@@ -1,22 +1,71 @@
-﻿using Microsoft.Graph;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Graph;
+using Microsoft.Graph.Auth;
+using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Graph.Community.Samples
 {
 	public static class ChangeLog
 	{
-		public static void Run(GraphServiceClient graphServiceClient)
+		public static async Task Run()
 		{
-			var WebUrl = $"https://[SharePointDomain].sharepoint.com/sites/ChangeLogTest";
+			/////////////////////////////
+			//
+			// Programmer configuration
+			//
+			/////////////////////////////
 
-			var web = graphServiceClient
-									.SharePointAPI(WebUrl)
-									.Web
-									.Request()
-									.GetAsync()
-									.GetAwaiter().GetResult();
+			var sharepointDomain = "demo.sharepoint.com";
+			var siteCollectionPath = "/sites/GraphCommunityDemo";
+
+			/////////////////
+			//
+			// Configuration
+			//
+			/////////////////
+
+			AzureAdOptions azureAdOptions = new AzureAdOptions();
+
+			var settingsFilename = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "appsettings.json");
+			var builder = new ConfigurationBuilder()
+													.AddJsonFile(settingsFilename, optional: false)
+													.AddUserSecrets<Program>();
+			var config = builder.Build();
+			config.Bind("AzureAd", azureAdOptions);
+
+			////////////////
+			//
+			// Graph Client 
+			//
+			////////////////
+
+			var pca = PublicClientApplicationBuilder
+									.Create(azureAdOptions.ClientId)
+									.WithTenantId(azureAdOptions.TenantId)
+									.Build();
+
+			var scopes = new string[] { $"https://{sharepointDomain}/AllSites.FullControl" };
+			IAuthenticationProvider ap = new DeviceCodeProvider(pca, scopes);
+
+			GraphServiceClient graphServiceClient = new GraphServiceClient(ap);
+
+			////////////////////////////
+			//
+			// Setup is complete, run the sample
+			//
+			////////////////////////////
+
+			var WebUrl = sharepointDomain + siteCollectionPath;
+
+			var web = await graphServiceClient
+												.SharePointAPI(WebUrl)
+												.Web
+												.Request()
+												.GetAsync();
 
 			var changeToken = web.CurrentChangeToken;
 			Console.WriteLine($"current change token: {changeToken.StringValue}");
@@ -28,12 +77,11 @@ namespace Graph.Community.Samples
 			var qry = new ChangeQuery(true, true);
 			qry.ChangeTokenStart = changeToken;
 
-			var changes = graphServiceClient
-											.SharePointAPI(WebUrl)
-											.Web
-											.Request()
-											.GetChangesAsync(qry)
-											.GetAwaiter().GetResult();
+			var changes = await graphServiceClient
+														.SharePointAPI(WebUrl)
+														.Web
+														.Request()
+														.GetChangesAsync(qry);
 
 			Console.WriteLine(changes.Count);
 
