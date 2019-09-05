@@ -13,7 +13,7 @@ namespace Graph.Community
 		/// Gets a value that specifies the member identifier for the user or group.
 		/// </summary>
 		[JsonProperty(PropertyName = "Id")]
-		public int Id { get; set; }
+		public new int Id { get; set; }
 
 		/// <summary>
 		/// Gets or sets the email address of the user.

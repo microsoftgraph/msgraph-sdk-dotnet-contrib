@@ -7,7 +7,7 @@ namespace Graph.Community
 {
 	public class SiteUserRequestBuilder : BaseRequestBuilder, ISiteUserRequestBuilder
 	{
-		private IEnumerable<Option> options;
+		private readonly IEnumerable<Option> options;
 
 		public SiteUserRequestBuilder(
 			string requestUrl,
@@ -15,6 +15,7 @@ namespace Graph.Community
 			IEnumerable<Option> options = null)
 			: base(requestUrl, client)
 		{
+			this.options = options;
 		}
 
 
