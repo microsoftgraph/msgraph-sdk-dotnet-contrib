@@ -22,19 +22,19 @@ namespace Microsoft.Graph.Core.Test.Mocks
 				: base(MockBehavior.Loose)
 		{
 			this.Setup(provider => provider.SendAsync(It.IsAny<HttpRequestMessage>(), It.IsAny<HttpCompletionOption>(), It.IsAny<CancellationToken>()))
-				.Callback<HttpRequestMessage, HttpCompletionOption, CancellationToken>((req, opt, tok) => this.ReadRequestContent(req))
+				.Callback<HttpRequestMessage, HttpCompletionOption, CancellationToken>(async (req, opt, tok) => await this.ReadRequestContent(req))
 				.ReturnsAsync(httpResponseMessage);
 
 
 			this.SetupGet(provider => provider.Serializer).Returns(serializer);
 		}
 
-		private void ReadRequestContent(HttpRequestMessage req)
+		private async Task ReadRequestContent(HttpRequestMessage req)
 		{
 			if (req.Content != null)
 			{
 				this.ContentHeaders = req.Content.Headers;
-				this.ContentAsString = req.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+				this.ContentAsString = await req.Content.ReadAsStringAsync();
 			}
 		}
 	}
