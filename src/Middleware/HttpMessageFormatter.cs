@@ -17,7 +17,7 @@ namespace Graph.Community
 	/// Derived <see cref="HttpContent"/> class which can encapsulate an <see cref="HttpResponseMessage"/>
 	/// or an <see cref="HttpRequestMessage"/> as an entity with media type "application/http".
 	/// </summary>
-	public class HttpMessageFormatter : HttpContent
+	internal class HttpMessageFormatter : HttpContent
 	{
 		private const string SP = " ";
 		private const string ColonSP = ": ";
@@ -31,9 +31,6 @@ namespace Graph.Community
 		private const string MsgTypeParameter = "msgtype";
 		private const string DefaultRequestMsgType = "request";
 		private const string DefaultResponseMsgType = "response";
-
-		private const string DefaultRequestMediaType = DefaultMediaType + "; " + MsgTypeParameter + "=" + DefaultRequestMsgType;
-		private const string DefaultResponseMediaType = DefaultMediaType + "; " + MsgTypeParameter + "=" + DefaultResponseMsgType;
 
 		// Set of header fields that only support single values such as Set-Cookie.
 		private static readonly HashSet<string> _singleValueHeaderFields = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
@@ -72,12 +69,7 @@ namespace Graph.Community
 		/// <param name="httpRequest">The <see cref="HttpResponseMessage"/> instance to encapsulate.</param>
 		public HttpMessageFormatter(HttpRequestMessage httpRequest)
 		{
-			if (httpRequest == null)
-			{
-				throw new ArgumentNullException("httpRequest");
-			}
-
-			HttpRequestMessage = httpRequest;
+			HttpRequestMessage = httpRequest ?? throw new ArgumentNullException("httpRequest");
 			Headers.ContentType = new MediaTypeHeaderValue(DefaultMediaType);
 			Headers.ContentType.Parameters.Add(new NameValueHeaderValue(MsgTypeParameter, DefaultRequestMsgType));
 
@@ -91,12 +83,7 @@ namespace Graph.Community
 		/// <param name="httpResponse">The <see cref="HttpResponseMessage"/> instance to encapsulate.</param>
 		public HttpMessageFormatter(HttpResponseMessage httpResponse)
 		{
-			if (httpResponse == null)
-			{
-				throw new ArgumentNullException("httpResponse");
-			}
-
-			HttpResponseMessage = httpResponse;
+			HttpResponseMessage = httpResponse ?? throw new ArgumentNullException("httpResponse");
 			Headers.ContentType = new MediaTypeHeaderValue(DefaultMediaType);
 			Headers.ContentType.Parameters.Add(new NameValueHeaderValue(MsgTypeParameter, DefaultResponseMsgType));
 
@@ -120,7 +107,7 @@ namespace Graph.Community
 
 		private void InitializeStreamTask()
 		{
-			_streamTask = new Lazy<Task<Stream>>(() => Content == null ? null : Content.ReadAsStreamAsync());
+			_streamTask = new Lazy<Task<Stream>>(() => Content?.ReadAsStreamAsync());
 		}
 
 		/// <summary>
@@ -275,25 +262,25 @@ namespace Graph.Community
 		/// Releases unmanaged and - optionally - managed resources
 		/// </summary>
 		/// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing)
-			{
-				if (HttpRequestMessage != null)
-				{
-					HttpRequestMessage.Dispose();
-					HttpRequestMessage = null;
-				}
+		//protected override void Dispose(bool disposing)
+		//{
+		//	if (disposing)
+		//	{
+		//		if (HttpRequestMessage != null)
+		//		{
+		//			HttpRequestMessage.Dispose();
+		//			HttpRequestMessage = null;
+		//		}
 
-				if (HttpResponseMessage != null)
-				{
-					HttpResponseMessage.Dispose();
-					HttpResponseMessage = null;
-				}
-			}
+		//		if (HttpResponseMessage != null)
+		//		{
+		//			HttpResponseMessage.Dispose();
+		//			HttpResponseMessage = null;
+		//		}
+		//	}
 
-			base.Dispose(disposing);
-		}
+		//	base.Dispose(disposing);
+		//}
 
 		/// <summary>
 		/// Serializes the HTTP request line.
@@ -365,8 +352,8 @@ namespace Graph.Community
 		private byte[] SerializeHeader()
 		{
 			StringBuilder message = new StringBuilder(DefaultHeaderAllocation);
-			HttpHeaders headers = null;
-			HttpContent content = null;
+			HttpHeaders headers;
+			HttpContent content;
 			if (HttpRequestMessage != null)
 			{
 				SerializeRequestLine(message, HttpRequestMessage);

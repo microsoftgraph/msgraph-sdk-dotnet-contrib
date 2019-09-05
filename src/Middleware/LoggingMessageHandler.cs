@@ -10,25 +10,18 @@ namespace Graph.Community
 {
 	public class LoggingMessageHandler : DelegatingHandler
 	{
-		internal StringBuilder output = new StringBuilder();
+		//internal StringBuilder output = new StringBuilder();
+		private readonly IHttpMessageLogger logger;
 
 		public LoggingMessageHandler()
+			: this(null)
 		{
 		}
 
-		public LoggingMessageHandler(HttpMessageHandler innerHandler)
+		public LoggingMessageHandler(IHttpMessageLogger logger, HttpMessageHandler innerHandler = null)
 		{
-			InnerHandler = innerHandler;
-		}
-
-		public string Log
-		{
-			get
-			{
-				var log = output.ToString();
-				output.Clear();
-				return log;
-			}
+			InnerHandler = innerHandler ?? new HttpClientHandler();
+			this.logger = logger ?? new NullHttpMessageLogger();
 		}
 
 		protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
@@ -38,11 +31,10 @@ namespace Graph.Community
 				await request.Content.LoadIntoBufferAsync();
 			}
 
-			var messageFormatter = new HttpMessageFormatter(request);
-			if (output != null)
+			using (var messageFormatter = new HttpMessageFormatter(request))
 			{
-				output.AppendLine(await messageFormatter.ReadAsStringAsync());
-				output.AppendLine("");
+				await logger.WriteLine(await messageFormatter.ReadAsStringAsync());
+				await logger.WriteLine("");
 			}
 
 			var stopWatch = new Stopwatch();
@@ -52,18 +44,17 @@ namespace Graph.Community
 
 			stopWatch.Stop();
 
+
 			if (response.Content != null)
 			{
 				await response.Content.LoadIntoBufferAsync();
 			}
-			messageFormatter = new HttpMessageFormatter(response);
-
-			if (output != null)
+			using (var messageFormatter = new HttpMessageFormatter(response))
 			{
-				output.AppendLine(await messageFormatter.ReadAsStringAsync());
-				output.AppendLine("");
-				output.AppendLine("Roundtrip (ms): " + stopWatch.ElapsedMilliseconds);
-				output.AppendLine("================================================");
+				await logger.WriteLine(await messageFormatter.ReadAsStringAsync());
+				await logger.WriteLine("");
+				await logger.WriteLine("Roundtrip (ms): " + stopWatch.ElapsedMilliseconds);
+				await logger.WriteLine("================================================");
 			}
 
 			return response;
