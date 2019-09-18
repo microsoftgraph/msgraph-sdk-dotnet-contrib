@@ -15,9 +15,9 @@ namespace Graph.Community.Samples
 
 		static async Task Main(string[] args)
 		{
-			//await ChangeLog.Run();
+			await ChangeLog.Run();
 
-			//await SiteDesign.Run();
+			await SiteDesign.Run();
 
 			await ImmutableIds.Run();
 

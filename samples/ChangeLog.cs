@@ -19,8 +19,8 @@ namespace Graph.Community.Samples
 			//
 			/////////////////////////////
 
-			var sharepointDomain = "scdev.sharepoint.com";
-			var siteCollectionPath = "/sites/GraphCallLiveDemo";
+			var sharepointDomain = "demo.sharepoint.com";
+			var siteCollectionPath = "/sites/GraphCommunityDemo";
 
 			/////////////////
 			//
@@ -61,7 +61,7 @@ namespace Graph.Community.Samples
 			using (LoggingMessageHandler loggingHandler = new LoggingMessageHandler(logger))
 			using (HttpProvider hp = new HttpProvider(loggingHandler, false, new Serializer()))
 			{
-				GraphServiceClient graphServiceClient = new GraphServiceClient(ap);
+				GraphServiceClient graphServiceClient = new GraphServiceClient(ap, hp);
 
 
 				////////////////////////////

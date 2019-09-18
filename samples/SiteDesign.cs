@@ -19,7 +19,7 @@ namespace Graph.Community.Samples
 			//
 			/////////////////////////////
 
-			var sharepointDomain = "demo.sharepoint.com";
+			var sharepointDomain = "scdev.sharepoint.com";
 			var siteCollectionPath = "/sites/SiteDesignTest";
 
 			/////////////////
@@ -37,11 +37,18 @@ namespace Graph.Community.Samples
 			var config = builder.Build();
 			config.Bind("AzureAd", azureAdOptions);
 
-			////////////////
+			////////////////////////////
 			//
-			// Graph Client 
+			// Graph Client with Logger
 			//
-			////////////////
+			////////////////////////////
+
+			var logger = new StringBuilderHttpMessageLogger();
+			/*
+			 *  Could also use the Console if preferred...
+			 *  
+			 *  var logger = new ConsoleHttpMessageLogger();
+			 */
 
 			var pca = PublicClientApplicationBuilder
 									.Create(azureAdOptions.ClientId)
@@ -51,62 +58,69 @@ namespace Graph.Community.Samples
 			var scopes = new string[] { $"https://{sharepointDomain}/AllSites.FullControl" };
 			IAuthenticationProvider ap = new DeviceCodeProvider(pca, scopes);
 
-			GraphServiceClient graphServiceClient = new GraphServiceClient(ap);
-
-			////////////////////////////
-			//
-			// Setup is complete, run the sample
-			//
-			////////////////////////////
-
-			var WebUrl = sharepointDomain + siteCollectionPath;
-
-			var siteScript = new SiteScriptMetadata()
+			using (LoggingMessageHandler loggingHandler = new LoggingMessageHandler(logger))
+			using (HttpProvider hp = new HttpProvider(loggingHandler, false, new Serializer()))
 			{
-				Title = "Green Theme",
-				Description = "Apply the Green Theme",
-				Content = "{\"$schema\": \"schema.json\",\"actions\": [{\"verb\": \"applyTheme\",\"themeName\": \"Green\"}],\"bindata\": { },\"version\": 1}",
-			};
+				GraphServiceClient graphServiceClient = new GraphServiceClient(ap, hp);
 
-			var createdScript = await graphServiceClient
-																	.SharePointAPI(WebUrl)
-																	.SiteScripts
-																	.Request()
-																	.CreateAsync(siteScript);
+				////////////////////////////
+				//
+				// Setup is complete, run the sample
+				//
+				////////////////////////////
 
-			var siteDesign = new SiteDesignMetadata()
-			{
-				Title = "Green Theme",
-				Description = "Apply the Green theme",
-				SiteScriptIds = new System.Collections.Generic.List<Guid>() { new Guid(createdScript.Id) },
-				WebTemplate = "64" // 64 = Team Site, 68 = Communication Site, 1 = Groupless Team Site
-			};
+				var WebUrl = $"https://{sharepointDomain}{siteCollectionPath}";
 
-			var createdDesign = await graphServiceClient
-																	.SharePointAPI(WebUrl)
-																	.SiteDesigns
-																	.Request()
-																	.CreateAsync(siteDesign);
+				var siteScript = new SiteScriptMetadata()
+				{
+					Title = "Green Theme",
+					Description = "Apply the Green Theme",
+					Content = "{\"$schema\": \"schema.json\",\"actions\": [{\"verb\": \"applyTheme\",\"themeName\": \"Green\"}],\"bindata\": { },\"version\": 1}",
+				};
 
-			var applySiteDesignRequest = new ApplySiteDesignRequest
-			{
-				SiteDesignId = createdDesign.Id,
-				WebUrl = WebUrl
-			};
+				var createdScript = await graphServiceClient
+																		.SharePointAPI(WebUrl)
+																		.SiteScripts
+																		.Request()
+																		.CreateAsync(siteScript);
 
-			var applySiteDesignResponse = await graphServiceClient
-																						.SharePointAPI(WebUrl)
-																						.SiteDesigns.Request()
-																						.ApplyAsync(applySiteDesignRequest);
+				var siteDesign = new SiteDesignMetadata()
+				{
+					Title = "Green Theme",
+					Description = "Apply the Green theme",
+					SiteScriptIds = new System.Collections.Generic.List<Guid>() { new Guid(createdScript.Id) },
+					WebTemplate = "64" // 64 = Team Site, 68 = Communication Site, 1 = Groupless Team Site
+				};
 
-			foreach (var outcome in applySiteDesignResponse.ActionOutcomes)
-			{
-				Console.WriteLine(outcome.OutcomeText);
+				var createdDesign = await graphServiceClient
+																		.SharePointAPI(WebUrl)
+																		.SiteDesigns
+																		.Request()
+																		.CreateAsync(siteDesign);
+
+				var applySiteDesignRequest = new ApplySiteDesignRequest
+				{
+					SiteDesignId = createdDesign.Id,
+					WebUrl = WebUrl
+				};
+
+				var applySiteDesignResponse = await graphServiceClient
+																							.SharePointAPI(WebUrl)
+																							.SiteDesigns.Request()
+																							.ApplyAsync(applySiteDesignRequest);
+
+				foreach (var outcome in applySiteDesignResponse.ActionOutcomes)
+				{
+					Console.WriteLine(outcome.OutcomeText);
+				}
+
+
+				Console.WriteLine("Press enter to show log");
+				Console.ReadLine();
+				Console.WriteLine();
+				var log = logger.GetLog();
+				Console.WriteLine(log);
 			}
-			Console.WriteLine();
-			Console.WriteLine("Press enter to continue");
-			Console.ReadLine();
-
 		}
 	}
 }
