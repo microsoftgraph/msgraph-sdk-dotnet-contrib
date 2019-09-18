@@ -19,7 +19,7 @@ namespace Graph.Community.Samples
 			//
 			/////////////////////////////
 
-			var sharepointDomain = "scdev.sharepoint.com";
+			var sharepointDomain = "demo.sharepoint.com";
 			var siteCollectionPath = "/sites/SiteDesignTest";
 
 			/////////////////
