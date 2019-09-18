@@ -1,50 +1,112 @@
-﻿using Microsoft.Graph;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Graph;
+using Microsoft.Graph.Auth;
+using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Graph.Community.Samples
 {
 	public static class ChangeLog
 	{
-		public static void Run(GraphServiceClient graphServiceClient)
+		public static async Task Run()
 		{
-			var WebUrl = $"https://[SharePointDomain].sharepoint.com/sites/ChangeLogTest";
+			/////////////////////////////
+			//
+			// Programmer configuration
+			//
+			/////////////////////////////
 
-			var web = graphServiceClient
-									.SharePointAPI(WebUrl)
-									.Web
-									.Request()
-									.GetAsync()
-									.GetAwaiter().GetResult();
+			var sharepointDomain = "demo.sharepoint.com";
+			var siteCollectionPath = "/sites/GraphCommunityDemo";
 
-			var changeToken = web.CurrentChangeToken;
-			Console.WriteLine($"current change token: {changeToken.StringValue}");
+			/////////////////
+			//
+			// Configuration
+			//
+			/////////////////
 
-			Console.WriteLine($"Make an update to the site {WebUrl}");
-			Console.WriteLine("Press enter to continue");
-			Console.ReadLine();
+			AzureAdOptions azureAdOptions = new AzureAdOptions();
 
-			var qry = new ChangeQuery(true, true);
-			qry.ChangeTokenStart = changeToken;
+			var settingsFilename = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "appsettings.json");
+			var builder = new ConfigurationBuilder()
+													.AddJsonFile(settingsFilename, optional: false)
+													.AddUserSecrets<Program>();
+			var config = builder.Build();
+			config.Bind("AzureAd", azureAdOptions);
 
-			var changes = graphServiceClient
-											.SharePointAPI(WebUrl)
-											.Web
-											.Request()
-											.GetChangesAsync(qry)
-											.GetAwaiter().GetResult();
+			////////////////////////////
+			//
+			// Graph Client with Logger
+			//
+			////////////////////////////
 
-			Console.WriteLine(changes.Count);
+			var logger = new StringBuilderHttpMessageLogger();
+			/*
+			 *  Could also use the Console if preferred...
+			 *  
+			 *  var logger = new ConsoleHttpMessageLogger();
+			 */
 
-			foreach (var item in changes)
+			var pca = PublicClientApplicationBuilder
+									.Create(azureAdOptions.ClientId)
+									.WithTenantId(azureAdOptions.TenantId)
+									.Build();
+
+			var scopes = new string[] { $"https://{sharepointDomain}/AllSites.FullControl" };
+			IAuthenticationProvider ap = new DeviceCodeProvider(pca, scopes);
+
+			using (LoggingMessageHandler loggingHandler = new LoggingMessageHandler(logger))
+			using (HttpProvider hp = new HttpProvider(loggingHandler, false, new Serializer()))
 			{
-				Console.WriteLine($"{item.ChangeType}");
-			}
+				GraphServiceClient graphServiceClient = new GraphServiceClient(ap, hp);
 
-			Console.WriteLine();
-			Console.WriteLine("Press enter to continue");
-			Console.ReadLine();
+
+				////////////////////////////
+				//
+				// Setup is complete, run the sample
+				//
+				////////////////////////////
+
+				var WebUrl = $"https://{sharepointDomain}{siteCollectionPath}";
+
+				var web = await graphServiceClient
+													.SharePointAPI(WebUrl)
+													.Web
+													.Request()
+													.GetAsync();
+
+				var changeToken = web.CurrentChangeToken;
+				Console.WriteLine($"current change token: {changeToken.StringValue}");
+
+				Console.WriteLine($"Make an update to the site {WebUrl}");
+				Console.WriteLine("Press enter to continue");
+				Console.ReadLine();
+
+				var qry = new ChangeQuery(true, true);
+				qry.ChangeTokenStart = changeToken;
+
+				var changes = await graphServiceClient
+															.SharePointAPI(WebUrl)
+															.Web
+															.Request()
+															.GetChangesAsync(qry);
+
+				Console.WriteLine(changes.Count);
+
+				foreach (var item in changes)
+				{
+					Console.WriteLine($"{item.ChangeType}");
+				}
+
+				Console.WriteLine("Press enter to show log");
+				Console.ReadLine();
+				Console.WriteLine();
+				var log = logger.GetLog();
+				Console.WriteLine(log);
+			}
 		}
 	}
 }
