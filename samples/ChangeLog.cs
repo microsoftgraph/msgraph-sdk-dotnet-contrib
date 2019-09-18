@@ -19,8 +19,8 @@ namespace Graph.Community.Samples
 			//
 			/////////////////////////////
 
-			var sharepointDomain = "demo.sharepoint.com";
-			var siteCollectionPath = "/sites/GraphCommunityDemo";
+			var sharepointDomain = "scdev.sharepoint.com";
+			var siteCollectionPath = "/sites/GraphCallLiveDemo";
 
 			/////////////////
 			//
@@ -37,11 +37,18 @@ namespace Graph.Community.Samples
 			var config = builder.Build();
 			config.Bind("AzureAd", azureAdOptions);
 
-			////////////////
+			////////////////////////////
 			//
-			// Graph Client 
+			// Graph Client with Logger
 			//
-			////////////////
+			////////////////////////////
+
+			var logger = new StringBuilderHttpMessageLogger();
+			/*
+			 *  Could also use the Console if preferred...
+			 *  
+			 *  var logger = new ConsoleHttpMessageLogger();
+			 */
 
 			var pca = PublicClientApplicationBuilder
 									.Create(azureAdOptions.ClientId)
@@ -51,48 +58,55 @@ namespace Graph.Community.Samples
 			var scopes = new string[] { $"https://{sharepointDomain}/AllSites.FullControl" };
 			IAuthenticationProvider ap = new DeviceCodeProvider(pca, scopes);
 
-			GraphServiceClient graphServiceClient = new GraphServiceClient(ap);
-
-			////////////////////////////
-			//
-			// Setup is complete, run the sample
-			//
-			////////////////////////////
-
-			var WebUrl = sharepointDomain + siteCollectionPath;
-
-			var web = await graphServiceClient
-												.SharePointAPI(WebUrl)
-												.Web
-												.Request()
-												.GetAsync();
-
-			var changeToken = web.CurrentChangeToken;
-			Console.WriteLine($"current change token: {changeToken.StringValue}");
-
-			Console.WriteLine($"Make an update to the site {WebUrl}");
-			Console.WriteLine("Press enter to continue");
-			Console.ReadLine();
-
-			var qry = new ChangeQuery(true, true);
-			qry.ChangeTokenStart = changeToken;
-
-			var changes = await graphServiceClient
-														.SharePointAPI(WebUrl)
-														.Web
-														.Request()
-														.GetChangesAsync(qry);
-
-			Console.WriteLine(changes.Count);
-
-			foreach (var item in changes)
+			using (LoggingMessageHandler loggingHandler = new LoggingMessageHandler(logger))
+			using (HttpProvider hp = new HttpProvider(loggingHandler, false, new Serializer()))
 			{
-				Console.WriteLine($"{item.ChangeType}");
-			}
+				GraphServiceClient graphServiceClient = new GraphServiceClient(ap);
 
-			Console.WriteLine();
-			Console.WriteLine("Press enter to continue");
-			Console.ReadLine();
+
+				////////////////////////////
+				//
+				// Setup is complete, run the sample
+				//
+				////////////////////////////
+
+				var WebUrl = $"https://{sharepointDomain}{siteCollectionPath}";
+
+				var web = await graphServiceClient
+													.SharePointAPI(WebUrl)
+													.Web
+													.Request()
+													.GetAsync();
+
+				var changeToken = web.CurrentChangeToken;
+				Console.WriteLine($"current change token: {changeToken.StringValue}");
+
+				Console.WriteLine($"Make an update to the site {WebUrl}");
+				Console.WriteLine("Press enter to continue");
+				Console.ReadLine();
+
+				var qry = new ChangeQuery(true, true);
+				qry.ChangeTokenStart = changeToken;
+
+				var changes = await graphServiceClient
+															.SharePointAPI(WebUrl)
+															.Web
+															.Request()
+															.GetChangesAsync(qry);
+
+				Console.WriteLine(changes.Count);
+
+				foreach (var item in changes)
+				{
+					Console.WriteLine($"{item.ChangeType}");
+				}
+
+				Console.WriteLine("Press enter to show log");
+				Console.ReadLine();
+				Console.WriteLine();
+				var log = logger.GetLog();
+				Console.WriteLine(log);
+			}
 		}
 	}
 }
