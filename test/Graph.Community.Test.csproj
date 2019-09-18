@@ -13,6 +13,7 @@
   <ItemGroup>
     <None Remove="Mocks\EnsureUserResponse.json" />
     <None Remove="Mocks\GetSiteUsersResponse.json" />
+    <None Remove="Mocks\GetUserMailboxSettingsResponse.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,6 +42,10 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Mocks\GetSiteUsersResponse.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Mocks\GetUserMailboxSettingsResponse.json" />
   </ItemGroup>
 
 </Project>

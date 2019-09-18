@@ -7,7 +7,7 @@ namespace Graph.Community
 {
 	public class ListRequestBuilder : BaseRequestBuilder, IListRequestBuilder
 	{
-		private IEnumerable<Option> options;
+		private readonly IEnumerable<Option> options;
 
 #pragma warning disable CA1054 // URI parameters should not be strings
 		public ListRequestBuilder(

@@ -17,7 +17,7 @@ namespace Graph.Community
 	/// Derived <see cref="HttpContent"/> class which can encapsulate an <see cref="HttpResponseMessage"/>
 	/// or an <see cref="HttpRequestMessage"/> as an entity with media type "application/http".
 	/// </summary>
-	public class HttpMessageFormatter : HttpContent
+	internal class HttpMessageFormatter : HttpContent
 	{
 		private const string SP = " ";
 		private const string ColonSP = ": ";
@@ -32,22 +32,19 @@ namespace Graph.Community
 		private const string DefaultRequestMsgType = "request";
 		private const string DefaultResponseMsgType = "response";
 
-		private const string DefaultRequestMediaType = DefaultMediaType + "; " + MsgTypeParameter + "=" + DefaultRequestMsgType;
-		private const string DefaultResponseMediaType = DefaultMediaType + "; " + MsgTypeParameter + "=" + DefaultResponseMsgType;
-
 		// Set of header fields that only support single values such as Set-Cookie.
 		private static readonly HashSet<string> _singleValueHeaderFields = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
-				{
-						"Cookie",
-						"Set-Cookie",
-						"X-Powered-By",
-				};
+		{
+			"Cookie",
+			"Set-Cookie",
+			"X-Powered-By",
+		};
 
 		// Set of header fields that should get serialized as space-separated values such as User-Agent.
 		private static readonly HashSet<string> _spaceSeparatedValueHeaderFields = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
-				{
-						"User-Agent",
-				};
+		{
+			"User-Agent",
+		};
 
 		// Set of header fields that should not get serialized
 		private static readonly HashSet<string> _neverSerializedHeaderFields = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
@@ -72,12 +69,7 @@ namespace Graph.Community
 		/// <param name="httpRequest">The <see cref="HttpResponseMessage"/> instance to encapsulate.</param>
 		public HttpMessageFormatter(HttpRequestMessage httpRequest)
 		{
-			if (httpRequest == null)
-			{
-				throw new ArgumentNullException("httpRequest");
-			}
-
-			HttpRequestMessage = httpRequest;
+			HttpRequestMessage = httpRequest ?? throw new ArgumentNullException("httpRequest");
 			Headers.ContentType = new MediaTypeHeaderValue(DefaultMediaType);
 			Headers.ContentType.Parameters.Add(new NameValueHeaderValue(MsgTypeParameter, DefaultRequestMsgType));
 
@@ -91,12 +83,7 @@ namespace Graph.Community
 		/// <param name="httpResponse">The <see cref="HttpResponseMessage"/> instance to encapsulate.</param>
 		public HttpMessageFormatter(HttpResponseMessage httpResponse)
 		{
-			if (httpResponse == null)
-			{
-				throw new ArgumentNullException("httpResponse");
-			}
-
-			HttpResponseMessage = httpResponse;
+			HttpResponseMessage = httpResponse ?? throw new ArgumentNullException("httpResponse");
 			Headers.ContentType = new MediaTypeHeaderValue(DefaultMediaType);
 			Headers.ContentType.Parameters.Add(new NameValueHeaderValue(MsgTypeParameter, DefaultResponseMsgType));
 
@@ -120,7 +107,7 @@ namespace Graph.Community
 
 		private void InitializeStreamTask()
 		{
-			_streamTask = new Lazy<Task<Stream>>(() => Content == null ? null : Content.ReadAsStreamAsync());
+			_streamTask = new Lazy<Task<Stream>>(() => Content?.ReadAsStreamAsync());
 		}
 
 		/// <summary>
@@ -144,8 +131,6 @@ namespace Graph.Community
 				{
 					if (throwOnError)
 					{
-						//throw Error.Argument("content", Properties.Resources.HttpMessageInvalidMediaType, FormattingUtilities.HttpContentType.Name,
-						//							isRequest ? DefaultRequestMediaType : DefaultResponseMediaType);
 						throw new ArgumentException("HttpMessageInvalidMediaType", "content");
 					}
 					else
@@ -163,7 +148,6 @@ namespace Graph.Community
 						{
 							if (throwOnError)
 							{
-								//throw Error.Argument("content", Properties.Resources.HttpMessageInvalidMediaType, FormattingUtilities.HttpContentType.Name, isRequest ? DefaultRequestMediaType : DefaultResponseMediaType);
 								throw new ArgumentException("HttpMessageInvalidMediaType", "content");
 							}
 							else
@@ -179,7 +163,6 @@ namespace Graph.Community
 
 			if (throwOnError)
 			{
-				//throw Error.Argument("content", Properties.Resources.HttpMessageInvalidMediaType, FormattingUtilities.HttpContentType.Name, isRequest ? DefaultRequestMediaType : DefaultResponseMediaType);
 				throw new ArgumentException("HttpMessageInvalidMediaType", "content");
 			}
 			else
@@ -250,49 +233,12 @@ namespace Graph.Community
 			length = 0;
 
 			// Cases #1, #2, #3
-			if (hasContent)
-			{
-				//Stream readStream;
-				//if (!_streamTask.Value.TryGetResult(out readStream) // Case #1
-				//		|| readStream == null || !readStream.CanSeek) // Case #2
-				//{
-				//	length = -1;
-				//	return false;
-				//}
-
-				//length = readStream.Length; // Case #3
-			}
-
 			// We serialize header to a StringBuilder so that we can determine the length
 			// following the pattern for HttpContent to try and determine the message length.
 			// The perf overhead is no larger than for the other HttpContent implementations.
 			byte[] header = SerializeHeader();
 			length += header.Length;
 			return true;
-		}
-
-		/// <summary>
-		/// Releases unmanaged and - optionally - managed resources
-		/// </summary>
-		/// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
-		protected override void Dispose(bool disposing)
-		{
-			if (disposing)
-			{
-				if (HttpRequestMessage != null)
-				{
-					HttpRequestMessage.Dispose();
-					HttpRequestMessage = null;
-				}
-
-				if (HttpResponseMessage != null)
-				{
-					HttpResponseMessage.Dispose();
-					HttpResponseMessage = null;
-				}
-			}
-
-			base.Dispose(disposing);
 		}
 
 		/// <summary>
@@ -365,8 +311,8 @@ namespace Graph.Community
 		private byte[] SerializeHeader()
 		{
 			StringBuilder message = new StringBuilder(DefaultHeaderAllocation);
-			HttpHeaders headers = null;
-			HttpContent content = null;
+			HttpHeaders headers;
+			HttpContent content;
 			if (HttpRequestMessage != null)
 			{
 				SerializeRequestLine(message, HttpRequestMessage);
@@ -403,11 +349,6 @@ namespace Graph.Community
 				}
 				else
 				{
-					//throw Error.InvalidOperation(Properties.Resources.HttpMessageContentAlreadyRead,
-					//							FormattingUtilities.HttpContentType.Name,
-					//							HttpRequestMessage != null
-					//									? FormattingUtilities.HttpRequestMessageType.Name
-					//									: FormattingUtilities.HttpResponseMessageType.Name);
 					throw new InvalidOperationException("HttpMessageContentAlreadyRead");
 				}
 			}
