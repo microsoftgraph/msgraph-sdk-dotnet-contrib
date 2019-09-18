@@ -10,7 +10,6 @@ namespace Graph.Community
 {
 	public class LoggingMessageHandler : DelegatingHandler
 	{
-		//internal StringBuilder output = new StringBuilder();
 		private readonly IHttpMessageLogger logger;
 
 		public LoggingMessageHandler()
