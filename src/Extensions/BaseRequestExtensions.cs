@@ -16,5 +16,19 @@ namespace Graph.Community
 			);
 			return baseRequest;
 		}
+
+		public static T WithTestingHandler<T>(this T baseRequest, TestingHandlerOption option) where T : IBaseRequest
+		{
+			string testingOptionKey = typeof(TestingHandlerOption).ToString();
+			if (baseRequest.MiddlewareOptions.ContainsKey(testingOptionKey))
+			{
+				baseRequest.MiddlewareOptions[testingOptionKey]  = option;
+			}
+			else
+			{
+				baseRequest.MiddlewareOptions.Add(testingOptionKey, option);
+			}
+			return baseRequest;
+		}
 	}
 }
