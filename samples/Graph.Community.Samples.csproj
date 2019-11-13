@@ -9,26 +9,16 @@
 	</PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Graph.SharePoint.Extensions\**" />
-    <EmbeddedResource Remove="Graph.SharePoint.Extensions\**" />
-    <None Remove="Graph.SharePoint.Extensions\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="appSettings.json" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="microsoft.extensions.caching.memory" Version="2.2.0" />
     <PackageReference Include="microsoft.extensions.configuration" Version="2.2.0" />
     <PackageReference Include="microsoft.extensions.configuration.binder" Version="2.2.4" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Graph.Auth" Version="1.0.0-preview.0" />
+    <PackageReference Include="Microsoft.Graph.Auth" Version="1.0.0-preview.2" />
   </ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Graph.Community" Version="1.17.2-preview2" />
+		<PackageReference Include="Graph.Community" Version="1.20.0" />
 	</ItemGroup>
 
 	<ItemGroup>
