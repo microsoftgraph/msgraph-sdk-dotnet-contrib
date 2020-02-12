@@ -1,8 +1,8 @@
 {
-	"odata.metadata": "https://mock.sharepoint.com/_api/$metadata#Microsoft.SharePoint.Utilities.WebTemplateExtensions.SiteScriptMetadata",
-	"Content": null,
-	"Description": null,
-	"Id": "a0da01a9-8b93-496e-9bbd-1b53009e543e",
-	"Title": "OfficeDev theme script",
-	"Version": 0
+  "odata.metadata": "https://mock.sharepoint.com/_api/$metadata#Microsoft.SharePoint.Utilities.WebTemplateExtensions.SiteScriptMetadata",
+  "Content": null,
+  "Description": null,
+  "Id": "a0da01a9-8b93-496e-9bbd-1b53009e543e",
+  "Title": "OfficeDev theme script",
+  "Version": 0
 }
