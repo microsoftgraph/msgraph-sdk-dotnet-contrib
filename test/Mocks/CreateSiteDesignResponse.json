@@ -1,15 +1,15 @@
 {
-	"odata.metadata": "https://mock.sharepoint.com/_api/$metadata#Microsoft.SharePoint.Utilities.WebTemplateExtensions.SiteDesignMetadata",
-	"Description": "mockSiteDesignDescription",
-	"DesignPackageId": null,
-	"IsDefault": false,
-	"PreviewImageAltText": "mockPreviewImageAltText",
-	"PreviewImageUrl": "https://mock.sharepoint.com",
-	"SiteScriptIds": [
-		"a0da01a9-8b93-496e-9bbd-1b53009e543e"
-	],
-	"Title": "mockSiteDesign",
-	"WebTemplate": "64",
-	"Id": "d3e90db2-9a67-4d24-b59f-7c54388a9cfa",
-	"Version": 1
+  "odata.metadata": "https://mock.sharepoint.com/_api/$metadata#Microsoft.SharePoint.Utilities.WebTemplateExtensions.SiteDesignMetadata",
+  "Description": "mockSiteDesignDescription",
+  "DesignPackageId": null,
+  "IsDefault": false,
+  "PreviewImageAltText": "mockPreviewImageAltText",
+  "PreviewImageUrl": "https://mock.sharepoint.com",
+  "SiteScriptIds": [
+    "a0da01a9-8b93-496e-9bbd-1b53009e543e"
+  ],
+  "Title": "mockSiteDesign",
+  "WebTemplate": "64",
+  "Id": "d3e90db2-9a67-4d24-b59f-7c54388a9cfa",
+  "Version": 1
 }

@@ -1,19 +1,19 @@
 {
-	"odata.metadata": "https://mock.sharepoint.com/_api/$metadata#Collection(Microsoft.SharePoint.Utilities.WebTemplateExtensions.SiteScriptMetadata)",
-	"value": [
-		{
-			"Content": null,
-			"Description": "mockSiteScriptDescription",
-			"Id": "0d7cf729-42e7-411b-86c6-b0181f912dd4",
-			"Title": "mockSiteScriptTitle",
-			"Version": 1
-		},
-		{
-			"Content": null,
-			"Description": "Customer site script",
-			"Id": "ebb4bcd6-1c19-47fc-9910-fb618d2d3c13",
-			"Title": "Customer",
-			"Version": 1
-		}
-	]
+  "odata.metadata": "https://mock.sharepoint.com/_api/$metadata#Collection(Microsoft.SharePoint.Utilities.WebTemplateExtensions.SiteScriptMetadata)",
+  "value": [
+    {
+      "Content": null,
+      "Description": "mockSiteScriptDescription",
+      "Id": "0d7cf729-42e7-411b-86c6-b0181f912dd4",
+      "Title": "mockSiteScriptTitle",
+      "Version": 1
+    },
+    {
+      "Content": null,
+      "Description": "Customer site script",
+      "Id": "ebb4bcd6-1c19-47fc-9910-fb618d2d3c13",
+      "Title": "Customer",
+      "Version": 1
+    }
+  ]
 }

@@ -1,15 +1,15 @@
-﻿using Microsoft.Graph;
+using Microsoft.Graph;
 
 namespace Graph.Community
 {
-	public interface ISharePointAPIRequestBuilder : IBaseRequestBuilder
-	{
-		ISiteDesignRequestBuilder SiteDesigns { get; }
+  public interface ISharePointAPIRequestBuilder : IBaseRequestBuilder
+  {
+    ISiteDesignRequestBuilder SiteDesigns { get; }
 
-		ISiteScriptRequestBuilder SiteScripts { get; }
+    ISiteScriptRequestBuilder SiteScripts { get; }
 
-		ISiteRequestBuilder Site { get; }
+    ISiteRequestBuilder Site { get; }
 
-		IWebRequestBuilder Web { get; }
-	}
+    IWebRequestBuilder Web { get; }
+  }
 }

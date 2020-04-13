@@ -1,21 +1,21 @@
 {
-	"odata.metadata": "https://mock.sharepoint.com/sites/mockSite/_api/$metadata#SP.ApiData.Users1/@Element",
-	"odata.type": "SP.User",
-	"odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/Web/GetUserById(14)",
-	"odata.editLink": "Web/GetUserById(14)",
-	"Id": 14,
-	"IsHiddenInUI": false,
-	"LoginName": "i:0#.f|membership|alexw@mock.onmicrosoft.com",
-	"Title": "Alex Wilber",
-	"PrincipalType": 1,
-	"Email": "AlexW@mock.onmicrosoft.com",
-	"Expiration": "",
-	"IsEmailAuthenticationGuestUser": false,
-	"IsShareByEmailGuestUser": false,
-	"IsSiteAdmin": false,
-	"UserId": {
-		"NameId": "100320005d1f546a",
-		"NameIdIssuer": "urn:federation:microsoftonline"
-	},
-	"UserPrincipalName": "alexw@mock.onmicrosoft.com"
+  "odata.metadata": "https://mock.sharepoint.com/sites/mockSite/_api/$metadata#SP.ApiData.Users1/@Element",
+  "odata.type": "SP.User",
+  "odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/Web/GetUserById(14)",
+  "odata.editLink": "Web/GetUserById(14)",
+  "Id": 14,
+  "IsHiddenInUI": false,
+  "LoginName": "i:0#.f|membership|alexw@mock.onmicrosoft.com",
+  "Title": "Alex Wilber",
+  "PrincipalType": 1,
+  "Email": "AlexW@mock.onmicrosoft.com",
+  "Expiration": "",
+  "IsEmailAuthenticationGuestUser": false,
+  "IsShareByEmailGuestUser": false,
+  "IsSiteAdmin": false,
+  "UserId": {
+    "NameId": "100320005d1f546a",
+    "NameIdIssuer": "urn:federation:microsoftonline"
+  },
+  "UserPrincipalName": "alexw@mock.onmicrosoft.com"
 }

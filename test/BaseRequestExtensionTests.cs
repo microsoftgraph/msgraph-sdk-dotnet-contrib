@@ -9,7 +9,7 @@ namespace Graph.Community.Test
 	public class BaseRequestExtensionTests
 	{
 		[Fact]
-		public void GraphRequestGeneratesCorrectRequestHeaders()
+		public void GraphRequestWithImmutableIdGeneratesCorrectRequestHeaders()
 		{
 			// ARRANGE
 
