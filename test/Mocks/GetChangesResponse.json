@@ -1,78 +1,78 @@
 {
-	"@odata.context": "https://mock.sharepoint.com/sites/mockTest/_api/$metadata#Changes",
-	"value": [
-		{
-			"@odata.type": "#SP.ChangeSite",
-			"@odata.id": "https://mock.sharepoint.com/sites/mockTest/_api/SP.ChangeSitedabf1233-b74a-419f-968b-a97fe25b2dfc",
-			"@odata.editLink": "SP.ChangeSitedabf1233-b74a-419f-968b-a97fe25b2dfc",
-			"ChangeToken": {
-				"StringValue": "1;1;a0ea50ed-6c77-4d79-9f03-8c6acfbf18b6;636963977307100000;225301711"
-			},
-			"ChangeType": 2,
-			"SiteId": "a0ea50ed-6c77-4d79-9f03-8c6acfbf18b6",
-			"Time": "2019-06-17T19:48:50.71Z"
-		},
-		{
-			"@odata.type": "#SP.ChangeUser",
-			"@odata.id": "https://mock.sharepoint.com/sites/mockTest/_api/SP.ChangeUserf4a741b7-c26d-4fa9-bcb2-8a1b30051c66",
-			"@odata.editLink": "SP.ChangeUserf4a741b7-c26d-4fa9-bcb2-8a1b30051c66",
-			"ChangeToken": {
-				"StringValue": "1;1;a0ea50ed-6c77-4d79-9f03-8c6acfbf18b6;636963977311530000;225301716"
-			},
-			"ChangeType": 2,
-			"SiteId": "a0ea50ed-6c77-4d79-9f03-8c6acfbf18b6",
-			"Time": "2019-06-17T19:48:51.153Z",
-			"Activate": false,
-			"UserId": 6
-		},
-		{
-			"@odata.type": "#SP.ChangeItem",
-			"@odata.id": "https://mock.sharepoint.com/sites/mockTest/_api/SP.ChangeItem71986d3e-af7d-4778-aa79-18ecf6b2eaa0",
-			"@odata.editLink": "SP.ChangeItem71986d3e-af7d-4778-aa79-18ecf6b2eaa0",
-			"ChangeToken": {
-				"StringValue": "1;1;a0ea50ed-6c77-4d79-9f03-8c6acfbf18b6;636963977311600000;225301717"
-			},
-			"ChangeType": 15,
-			"SiteId": "a0ea50ed-6c77-4d79-9f03-8c6acfbf18b6",
-			"Time": "2019-06-17T19:48:51Z",
-			"Editor": "",
-			"EditorEmailHint": null,
-			"ItemId": 6,
-			"ListId": "d4559927-e411-4cd6-b2d5-1c93064c4045",
-			"ServerRelativeUrl": "",
-			"SharedByUser": null,
-			"SharedWithUsers": null,
-			"UniqueId": "c5dea067-509c-41a8-96d8-d51210de8cf9",
-			"WebId": "bd088215-8ad9-4442-ac7a-3614820478af"
-		},
-		{
-			"@odata.type": "#SP.ChangeWeb",
-			"@odata.id": "https://mock.sharepoint.com/sites/mockTest/_api/SP.ChangeWeb095eaac2-2a58-4940-9915-5a15af62c810",
-			"@odata.editLink": "SP.ChangeWeb095eaac2-2a58-4940-9915-5a15af62c810",
-			"ChangeToken": {
-				"StringValue": "1;1;a0ea50ed-6c77-4d79-9f03-8c6acfbf18b6;636963977313100000;225301723"
-			},
-			"ChangeType": 2,
-			"SiteId": "a0ea50ed-6c77-4d79-9f03-8c6acfbf18b6",
-			"Time": "2019-06-17T19:48:51.3Z",
-			"WebId": "bd088215-8ad9-4442-ac7a-3614820478af"
-		},
-		{
-			"@odata.type": "#SP.ChangeList",
-			"@odata.id": "https://scdev.sharepoint.com/sites/NavigationCommTest/_api/SP.ChangeList7afa71ff-7e0f-4444-afe4-886091e10572",
-			"@odata.editLink": "SP.ChangeList7afa71ff-7e0f-4444-afe4-886091e10572",
-			"ChangeToken": {
-				"StringValue": "1;2;a3103d73-dbc6-48af-bc30-3634893b7152;636982282990900000;236733744"
-			},
-			"ChangeType": 2,
-			"SiteId": "a0ea50ed-6c77-4d79-9f03-8c6acfbf18b6",
-			"Time": "2019-07-09T00:18:19Z",
-			"BaseTemplate": 100,
-			"Editor": null,
-			"Hidden": false,
-			"ListId": "9c3bed30-79c8-4559-94e0-5dcd83297890",
-			"Title": "ChangeLogTesting",
-			"WebId": "bd088215-8ad9-4442-ac7a-3614820478af"
-		}
-	]
+  "@odata.context": "https://mock.sharepoint.com/sites/mockTest/_api/$metadata#Changes",
+  "value": [
+    {
+      "@odata.type": "#SP.ChangeSite",
+      "@odata.id": "https://mock.sharepoint.com/sites/mockTest/_api/SP.ChangeSitedabf1233-b74a-419f-968b-a97fe25b2dfc",
+      "@odata.editLink": "SP.ChangeSitedabf1233-b74a-419f-968b-a97fe25b2dfc",
+      "ChangeToken": {
+        "StringValue": "1;1;a0ea50ed-6c77-4d79-9f03-8c6acfbf18b6;636963977307100000;225301711"
+      },
+      "ChangeType": 2,
+      "SiteId": "a0ea50ed-6c77-4d79-9f03-8c6acfbf18b6",
+      "Time": "2019-06-17T19:48:50.71Z"
+    },
+    {
+      "@odata.type": "#SP.ChangeUser",
+      "@odata.id": "https://mock.sharepoint.com/sites/mockTest/_api/SP.ChangeUserf4a741b7-c26d-4fa9-bcb2-8a1b30051c66",
+      "@odata.editLink": "SP.ChangeUserf4a741b7-c26d-4fa9-bcb2-8a1b30051c66",
+      "ChangeToken": {
+        "StringValue": "1;1;a0ea50ed-6c77-4d79-9f03-8c6acfbf18b6;636963977311530000;225301716"
+      },
+      "ChangeType": 2,
+      "SiteId": "a0ea50ed-6c77-4d79-9f03-8c6acfbf18b6",
+      "Time": "2019-06-17T19:48:51.153Z",
+      "Activate": false,
+      "UserId": 6
+    },
+    {
+      "@odata.type": "#SP.ChangeItem",
+      "@odata.id": "https://mock.sharepoint.com/sites/mockTest/_api/SP.ChangeItem71986d3e-af7d-4778-aa79-18ecf6b2eaa0",
+      "@odata.editLink": "SP.ChangeItem71986d3e-af7d-4778-aa79-18ecf6b2eaa0",
+      "ChangeToken": {
+        "StringValue": "1;1;a0ea50ed-6c77-4d79-9f03-8c6acfbf18b6;636963977311600000;225301717"
+      },
+      "ChangeType": 15,
+      "SiteId": "a0ea50ed-6c77-4d79-9f03-8c6acfbf18b6",
+      "Time": "2019-06-17T19:48:51Z",
+      "Editor": "",
+      "EditorEmailHint": null,
+      "ItemId": 6,
+      "ListId": "d4559927-e411-4cd6-b2d5-1c93064c4045",
+      "ServerRelativeUrl": "",
+      "SharedByUser": null,
+      "SharedWithUsers": null,
+      "UniqueId": "c5dea067-509c-41a8-96d8-d51210de8cf9",
+      "WebId": "bd088215-8ad9-4442-ac7a-3614820478af"
+    },
+    {
+      "@odata.type": "#SP.ChangeWeb",
+      "@odata.id": "https://mock.sharepoint.com/sites/mockTest/_api/SP.ChangeWeb095eaac2-2a58-4940-9915-5a15af62c810",
+      "@odata.editLink": "SP.ChangeWeb095eaac2-2a58-4940-9915-5a15af62c810",
+      "ChangeToken": {
+        "StringValue": "1;1;a0ea50ed-6c77-4d79-9f03-8c6acfbf18b6;636963977313100000;225301723"
+      },
+      "ChangeType": 2,
+      "SiteId": "a0ea50ed-6c77-4d79-9f03-8c6acfbf18b6",
+      "Time": "2019-06-17T19:48:51.3Z",
+      "WebId": "bd088215-8ad9-4442-ac7a-3614820478af"
+    },
+    {
+      "@odata.type": "#SP.ChangeList",
+      "@odata.id": "https://scdev.sharepoint.com/sites/NavigationCommTest/_api/SP.ChangeList7afa71ff-7e0f-4444-afe4-886091e10572",
+      "@odata.editLink": "SP.ChangeList7afa71ff-7e0f-4444-afe4-886091e10572",
+      "ChangeToken": {
+        "StringValue": "1;2;a3103d73-dbc6-48af-bc30-3634893b7152;636982282990900000;236733744"
+      },
+      "ChangeType": 2,
+      "SiteId": "a0ea50ed-6c77-4d79-9f03-8c6acfbf18b6",
+      "Time": "2019-07-09T00:18:19Z",
+      "BaseTemplate": 100,
+      "Editor": null,
+      "Hidden": false,
+      "ListId": "9c3bed30-79c8-4559-94e0-5dcd83297890",
+      "Title": "ChangeLogTesting",
+      "WebId": "bd088215-8ad9-4442-ac7a-3614820478af"
+    }
+  ]
 }

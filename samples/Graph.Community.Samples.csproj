@@ -2,21 +2,11 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
 		<UserSecretsId>68071ad2-6ee0-41d1-ad86-2635c69bfadf</UserSecretsId>
 		<Configurations>Debug;Prerelease;LocalDev</Configurations>
 		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="Graph.SharePoint.Extensions\**" />
-    <EmbeddedResource Remove="Graph.SharePoint.Extensions\**" />
-    <None Remove="Graph.SharePoint.Extensions\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="appSettings.json" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="microsoft.extensions.caching.memory" Version="2.2.0" />
@@ -24,11 +14,11 @@
     <PackageReference Include="microsoft.extensions.configuration.binder" Version="2.2.4" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Graph.Auth" Version="1.0.0-preview.0" />
+    <PackageReference Include="Microsoft.Graph.Auth" Version="1.0.0-preview.3" />
   </ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Graph.Community" Version="1.17.2-preview2" />
+		<PackageReference Include="Graph.Community" Version="1.21.0" />
 	</ItemGroup>
 
 	<ItemGroup>

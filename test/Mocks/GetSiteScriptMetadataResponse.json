@@ -1,8 +1,8 @@
 {
-	"odata.metadata": "https://mock.sharepoint.com/_api/$metadata#Microsoft.SharePoint.Utilities.WebTemplateExtensions.SiteScriptMetadata",
-	"Content": "{\"$schema\": \"schema.json\",\"actions\": [{\"verb\": \"applyTheme\",\"themeName\": \"Red\"}],\"bindata\": { },\"version\": 1}",
-	"Description": "mockSiteScriptDescription",
-	"Id": "0d7cf729-42e7-411b-86c6-b0181f912dd4",
-	"Title": "mockSiteScriptTitle",
-	"Version": 1
+  "odata.metadata": "https://mock.sharepoint.com/_api/$metadata#Microsoft.SharePoint.Utilities.WebTemplateExtensions.SiteScriptMetadata",
+  "Content": "{\"$schema\": \"schema.json\",\"actions\": [{\"verb\": \"applyTheme\",\"themeName\": \"Red\"}],\"bindata\": { },\"version\": 1}",
+  "Description": "mockSiteScriptDescription",
+  "Id": "0d7cf729-42e7-411b-86c6-b0181f912dd4",
+  "Title": "mockSiteScriptTitle",
+  "Version": 1
 }

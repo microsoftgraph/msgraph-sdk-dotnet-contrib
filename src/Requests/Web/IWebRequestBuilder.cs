@@ -1,18 +1,18 @@
-﻿using Microsoft.Graph;
+using Microsoft.Graph;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Graph.Community
 {
-	public interface IWebRequestBuilder : IBaseRequestBuilder
-	{
-		IWebRequest Request();
+  public interface IWebRequestBuilder : IBaseRequestBuilder
+  {
+    IWebRequest Request();
 
-		IListRequestBuilder Lists { get; }
+    IListRequestBuilder Lists { get; }
 
-		INavigationRequestBuilder Navigation { get; }
+    INavigationRequestBuilder Navigation { get; }
 
-		ISiteUserCollectionRequestBuilder SiteUsers { get; }
-	}
+    ISiteUserCollectionRequestBuilder SiteUsers { get; }
+  }
 }

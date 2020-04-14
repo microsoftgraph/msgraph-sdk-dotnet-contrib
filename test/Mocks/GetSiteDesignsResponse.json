@@ -1,33 +1,33 @@
 {
-	"odata.metadata": "https://mock.sharepoint.com/sites/_api/$metadata#Collection(Microsoft.SharePoint.Utilities.WebTemplateExtensions.SiteDesignMetadata)",
-	"value": [
-		{
-			"Description": "mockSiteDesignDescription",
-			"DesignPackageId": "00000000-0000-0000-0000-000000000000",
-			"IsDefault": false,
-			"PreviewImageAltText": "mockPreviewImageAltText",
-			"PreviewImageUrl": "mockPreviewImageUrl",
-			"SiteScriptIds": [
-				"515473d3-f08f-4e35-b9c3-285e1bcf7cd0"
-			],
-			"Title": "mockSiteDesignTitle",
-			"WebTemplate": "64",
-			"Id": "a9ead935-38a6-45dd-a217-4c6d79c64187",
-			"Version": 1
-		},
-		{
-			"Description": null,
-			"DesignPackageId": "00000000-0000-0000-0000-000000000000",
-			"IsDefault": false,
-			"PreviewImageAltText": null,
-			"PreviewImageUrl": null,
-			"SiteScriptIds": [
-				"ebb4bcd6-1c19-47fc-9910-fb618d2d3c13"
-			],
-			"Title": "Customer",
-			"WebTemplate": "64",
-			"Id": "52693c3f-4f86-49e1-8d93-bb18ad8d22f8",
-			"Version": 1
-		}
-	]
+  "odata.metadata": "https://mock.sharepoint.com/sites/_api/$metadata#Collection(Microsoft.SharePoint.Utilities.WebTemplateExtensions.SiteDesignMetadata)",
+  "value": [
+    {
+      "Description": "mockSiteDesignDescription",
+      "DesignPackageId": "00000000-0000-0000-0000-000000000000",
+      "IsDefault": false,
+      "PreviewImageAltText": "mockPreviewImageAltText",
+      "PreviewImageUrl": "mockPreviewImageUrl",
+      "SiteScriptIds": [
+        "515473d3-f08f-4e35-b9c3-285e1bcf7cd0"
+      ],
+      "Title": "mockSiteDesignTitle",
+      "WebTemplate": "64",
+      "Id": "a9ead935-38a6-45dd-a217-4c6d79c64187",
+      "Version": 1
+    },
+    {
+      "Description": null,
+      "DesignPackageId": "00000000-0000-0000-0000-000000000000",
+      "IsDefault": false,
+      "PreviewImageAltText": null,
+      "PreviewImageUrl": null,
+      "SiteScriptIds": [
+        "ebb4bcd6-1c19-47fc-9910-fb618d2d3c13"
+      ],
+      "Title": "Customer",
+      "WebTemplate": "64",
+      "Id": "52693c3f-4f86-49e1-8d93-bb18ad8d22f8",
+      "Version": 1
+    }
+  ]
 }

@@ -1,35 +1,35 @@
 {
-	"odata.metadata": "https://mock.sharepoint.com/sites/mockTest/_api/$metadata#Collection(Microsoft.SharePoint.Utilities.WebTemplateExtensions.SiteScriptActionResult)",
-	"value": [
-		{
-			"Outcome": "0",
-			"OutcomeText": null,
-			"Title": "Create site column Customer name"
-		},
-		{
-			"Outcome": "0",
-			"OutcomeText": null,
-			"Title": "Create site column Project name"
-		},
-		{
-			"Outcome": "2",
-			"OutcomeText": null,
-			"Title": "Create content type Customer"
-		},
-		{
-			"Outcome": "2",
-			"OutcomeText": null,
-			"Title": "Add site column CustomerName to content type"
-		},
-		{
-			"Outcome": "2",
-			"OutcomeText": null,
-			"Title": "Create content type Project"
-		},
-		{
-			"Outcome": "2",
-			"OutcomeText": null,
-			"Title": "Add site column ProjectName to content type"
-		}
-	]
+  "odata.metadata": "https://mock.sharepoint.com/sites/mockTest/_api/$metadata#Collection(Microsoft.SharePoint.Utilities.WebTemplateExtensions.SiteScriptActionResult)",
+  "value": [
+    {
+      "Outcome": "0",
+      "OutcomeText": null,
+      "Title": "Create site column Customer name"
+    },
+    {
+      "Outcome": "0",
+      "OutcomeText": null,
+      "Title": "Create site column Project name"
+    },
+    {
+      "Outcome": "2",
+      "OutcomeText": null,
+      "Title": "Create content type Customer"
+    },
+    {
+      "Outcome": "2",
+      "OutcomeText": null,
+      "Title": "Add site column CustomerName to content type"
+    },
+    {
+      "Outcome": "2",
+      "OutcomeText": null,
+      "Title": "Create content type Project"
+    },
+    {
+      "Outcome": "2",
+      "OutcomeText": null,
+      "Title": "Add site column ProjectName to content type"
+    }
+  ]
 }
