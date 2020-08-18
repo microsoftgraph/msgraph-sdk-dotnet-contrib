@@ -1,0 +1,29 @@
+{
+	"@odata.context": "https://mock.sharepoint.com/sites/mockSite_api/$metadata#SiteDesignRuns",
+	"value": [
+		{
+			"@odata.type": "#Microsoft.SharePoint.Utilities.WebTemplateExtensions.SiteDesignRun",
+			"@odata.id": "https://mock.sharepoint.com/sites/mockSite_api/Microsoft.SharePoint.Utilities.WebTemplateExtensions.SiteDesignRun0bcc056d-4e1e-474a-b4c2-b4c3abc9303e",
+			"@odata.editLink": "Microsoft.SharePoint.Utilities.WebTemplateExtensions.SiteDesignRun0bcc056d-4e1e-474a-b4c2-b4c3abc9303e",
+			"ID": "8fa899bb-aebb-4579-9cbd-ac73b4e8fc72",
+			"SiteDesignID": "18afc7e7-4ee6-4af0-8061-262dfc3cf174",
+			"SiteDesignTitle": "Graph.Community Development",
+			"SiteDesignVersion": 1,
+			"SiteID": "45a83b5d-8ed1-4233-bf1e-960bbe2efd27",
+			"StartTime": 1597721362000,
+			"WebID": "cd5f4ac4-40cc-4a4c-8640-7acf7ec579c4"
+		},
+		{
+			"@odata.type": "#Microsoft.SharePoint.Utilities.WebTemplateExtensions.SiteDesignRun",
+			"@odata.id": "https://mock.sharepoint.com/sites/mockSite_api/Microsoft.SharePoint.Utilities.WebTemplateExtensions.SiteDesignRun9fad3e00-06bf-4065-8c3f-67a8862de3d5",
+			"@odata.editLink": "Microsoft.SharePoint.Utilities.WebTemplateExtensions.SiteDesignRun9fad3e00-06bf-4065-8c3f-67a8862de3d5",
+			"ID": "00000000-0000-0000-0000-000000000000",
+			"SiteDesignID": "18afc7e7-4ee6-4af0-8061-262dfc3cf174",
+			"SiteDesignTitle": "Graph.Community Development",
+			"SiteDesignVersion": 1,
+			"SiteID": "45a83b5d-8ed1-4233-bf1e-960bbe2efd27",
+			"StartTime": 1597718462000,
+			"WebID": "cd5f4ac4-40cc-4a4c-8640-7acf7ec579c4"
+		}
+	]
+}
