@@ -39,9 +39,12 @@ The following operations use the `_api/Microsoft.Sharepoint.Utilities.WebTemplat
 | UpdateSiteDesign               |                    |             |                  |
 | DeleteSiteDesign               |                    |             |                  |
 |                                |                    |             |                  |
+| GetSiteDesignRuns              | `.SiteDesignRuns`|GetAsync     | 3.9              |
+|                                |                    |             |                  |
 | GetSiteDesignRights            |                    |             |                  |
 | GrantSiteDesignRights          |                    |             |                  |
 | RevokeSiteDesignRights         |                    |             |                  |
+
 
 ### Change log
 The following operations allow for reading the SharePoint change log. The information operations will return the [current ChangeToken](src/Models/ChangeLog/ChangeToken.cs) for the object.
