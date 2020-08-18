@@ -22,11 +22,11 @@ The Office 365 SharePoint endpoint has request builders accessible using the `Sh
 ### Site Scripts and Site Designs
 The following operations use the `_api/Microsoft.Sharepoint.Utilities.WebTemplateExtensions.SiteScriptUtility.GetSiteScripts` url.
 
-| Operation                      | Request Builder    | Method      | Released version |
-|--------------------------------|--------------------|-------------|------------------|
+| Operation                      | Request Builder      | Method      | Released version |
+|--------------------------------|----------------------|-------------|------------------|
 | CreateSiteScript               | `.SiteScripts`     | CreateAsync | 1.16             |
 | GetSiteScripts                 | `.SiteScripts`     | GetAsync    | 1.16             |
-| GetSiteScriptFromList          |                    |             |                  |
+| GetSiteScriptFromList          |                      |             |                  |
 | GetSiteScriptMetadata          | `.SiteScripts[id]` |GetAsync     | 1.16             |
 | UpdateSiteScripts              |                    |             |                  |
 | DeleteSiteScripts              |                    |             |                  |
@@ -39,7 +39,7 @@ The following operations use the `_api/Microsoft.Sharepoint.Utilities.WebTemplat
 | UpdateSiteDesign               |                    |             |                  |
 | DeleteSiteDesign               |                    |             |                  |
 |                                |                    |             |                  |
-| GetSiteDesignRuns              | `.SiteDesignRuns`|GetAsync     | 3.9              |
+| GetSiteDesignRuns              | `.SiteDesignRuns`|GetAsync     | 3.9.1            |
 |                                |                    |             |                  |
 | GetSiteDesignRights            |                    |             |                  |
 | GrantSiteDesignRights          |                    |             |                  |
