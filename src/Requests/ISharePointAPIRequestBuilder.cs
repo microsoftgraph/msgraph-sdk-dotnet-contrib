@@ -6,6 +6,8 @@ namespace Graph.Community
   {
     ISiteDesignRequestBuilder SiteDesigns { get; }
 
+    ISiteDesignRunRequestBuilder SiteDesignRuns { get; }
+
     ISiteScriptRequestBuilder SiteScripts { get; }
 
     ISiteRequestBuilder Site { get; }
