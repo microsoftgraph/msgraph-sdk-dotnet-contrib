@@ -271,6 +271,7 @@ namespace Graph.Community.Test
       }
     }
 
+
 #pragma warning restore CA2007 // Consider calling ConfigureAwait on the awaited task
 #pragma warning restore CA1707
   }

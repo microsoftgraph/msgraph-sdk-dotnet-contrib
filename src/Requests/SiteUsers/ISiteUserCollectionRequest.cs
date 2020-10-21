@@ -9,9 +9,9 @@ namespace Graph.Community
 {
   public interface ISiteUserCollectionRequest : IBaseRequest
   {
-    Task<ICollectionPage<SPUser>> GetAsync();
+    Task<ICollectionPage<User>> GetAsync();
 
-    Task<ICollectionPage<SPUser>> GetAsync(CancellationToken cancellationToken);
+    Task<ICollectionPage<User>> GetAsync(CancellationToken cancellationToken);
 
 
     /// <summary>

@@ -43,12 +43,12 @@ namespace Graph.Community
       return await ChangeLogRequest.GetChangesAsync(this, query, cancellationToken).ConfigureAwait(false);
     }
 
-    public async Task<SPUser> EnsureUserAsync(string logonName)
+    public async Task<User> EnsureUserAsync(string logonName)
     {
       return await this.EnsureUserAsync(logonName, CancellationToken.None);
     }
 
-    public async Task<SPUser> EnsureUserAsync(string logonName, CancellationToken cancellationToken)
+    public async Task<User> EnsureUserAsync(string logonName, CancellationToken cancellationToken)
     {
       if (string.IsNullOrEmpty(logonName))
       {
@@ -60,7 +60,7 @@ namespace Graph.Community
       this.ContentType = "application/json";
 
       var payload = new { logonName = logonName };
-      var userEntity = await this.SendAsync<SPUser>(payload, cancellationToken);
+      var userEntity = await this.SendAsync<User>(payload, cancellationToken);
       return userEntity;
     }
   }

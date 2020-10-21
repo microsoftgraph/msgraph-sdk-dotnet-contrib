@@ -10,25 +10,23 @@
     <Compile Remove="GraphServiceFixture.cs" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Remove="Mocks\EnsureUserResponse.json" />
-    <None Remove="Mocks\GetSiteDesignRunsResponse.json" />
-    <None Remove="Mocks\GetSiteUsersResponse.json" />
-    <None Remove="Mocks\GetUserMailboxSettingsResponse.json" />
-  </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Mocks\ApplySiteDesignResponse.json" />
     <EmbeddedResource Include="Mocks\CreateSiteDesignResponse.json" />
     <EmbeddedResource Include="Mocks\CreateSiteScriptResponse.json" />
     <EmbeddedResource Include="Mocks\EnsureUserResponse.json" />
+    <EmbeddedResource Include="Mocks\GetChangesResponse.json" />
     <EmbeddedResource Include="Mocks\GetSiteDesignMetadataResponse.json" />
     <EmbeddedResource Include="Mocks\GetSiteDesignRunsResponse.json" />
     <EmbeddedResource Include="Mocks\GetSiteDesignsResponse.json" />
-    <EmbeddedResource Include="Mocks\GetSiteScriptMetadataResponse.json" />
+		<EmbeddedResource Include="Mocks\GetSiteGroupsExpandUsersResponse.json" />
+    <EmbeddedResource Include="Mocks\GetSiteGroupsResponse.json" />
+		<EmbeddedResource Include="Mocks\GetSiteScriptMetadataResponse.json" />
     <EmbeddedResource Include="Mocks\GetSiteScriptsResponse.json" />
+		<EmbeddedResource Include="Mocks\GetSiteUsersResponse.json" />
+		<EmbeddedResource Include="Mocks\GetUserMailboxSettingsResponse.json" />
     <EmbeddedResource Include="Mocks\NavigationNodeCollectionResponse.json" />
-    <EmbeddedResource Include="Mocks\GetChangesResponse.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -43,14 +41,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\src\Graph.Community.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Mocks\GetSiteUsersResponse.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Mocks\GetUserMailboxSettingsResponse.json" />
   </ItemGroup>
 
 </Project>

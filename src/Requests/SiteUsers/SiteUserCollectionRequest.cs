@@ -19,15 +19,15 @@ namespace Graph.Community
       this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName, SharePointAPIRequestConstants.Headers.ODataVersionHeaderValue));
     }
 
-    public async Task<ICollectionPage<SPUser>> GetAsync()
+    public async Task<ICollectionPage<User>> GetAsync()
     {
       return await this.GetAsync(CancellationToken.None);
     }
 
-    public async Task<ICollectionPage<SPUser>> GetAsync(CancellationToken cancellationToken)
+    public async Task<ICollectionPage<User>> GetAsync(CancellationToken cancellationToken)
     {
       this.ContentType = "application/json";
-      var response = await this.SendAsync<GetCollectionResponse<SPUser>>(null, cancellationToken).ConfigureAwait(false);
+      var response = await this.SendAsync<GetCollectionResponse<User>>(null, cancellationToken).ConfigureAwait(false);
 
       if (response != null && response.Value != null && response.Value.CurrentPage != null)
       {

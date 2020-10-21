@@ -36,11 +36,24 @@ namespace Graph.Community
       }
     }
 
+    /*
+     * 
+     * http://<site url>/_api/web/siteusers
+     * http://<site url>/_api/web/sitegroups(<group id>)/users
+     */
     public ISiteUserCollectionRequestBuilder SiteUsers
     {
       get
       {
         return new SiteUserCollectionRequestBuilder(this.AppendSegmentToRequestUrl("siteusers"), this.Client, this.options);
+      }
+    }
+
+    public ISiteGroupCollectionRequestBuilder SiteGroups
+    {
+      get
+      {
+        return new SiteGroupCollectionRequestBuilder(this.AppendSegmentToRequestUrl("sitegroups"), this.Client, this.options);
       }
     }
 

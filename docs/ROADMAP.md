@@ -74,6 +74,14 @@ The following operations enable the use of Person fields in SharePoint Lists usi
 | EnsureUser   | `.Web`            | EnsureUserAsync | 1.17.1           |
 | GetSiteUsers | `.Web.SiteUsers` | GetAsync        | 1.17.1           |
 
+### SharePoint SiteGroups
+The following operations allow for reading SharePoint Groups from a Site.
+
+| Operation       | Request Builder    | Method          | Released version |
+|-----------------|---------------------|-----------------|------------------|
+| GetSiteGroups   | `.Web.SiteGroups` | GetAsync        | 3.18.0           |
+|  (GroupMembers) |                     | Expand('Users') | 3.18.0           |
+
 
 ### SharePoint Search
 
