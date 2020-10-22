@@ -15,6 +15,10 @@ namespace Graph.Community.Samples
 
 		static async Task Main(string[] args)
 		{
+			await SiteGroups.Run();
+
+			await NotFoundNullMiddleware.Run();
+
 			await ChangeLog.Run();
 
 			await SiteDesign.Run();
