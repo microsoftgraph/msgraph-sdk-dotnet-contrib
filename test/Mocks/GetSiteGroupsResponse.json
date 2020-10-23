@@ -1,5 +1,5 @@
 {
-	"@odata.context": "https://mock.sharepoint.com/sites/mockSite/_api/$metadata#Groups",
+	"@odata.context": "https://mock.sharepoint.com/sites/mockSite/_api/$metadata#Groups1",
 	"value": [
 		{
 			"@odata.type": "#SP.Group",

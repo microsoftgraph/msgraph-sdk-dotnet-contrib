@@ -1,0 +1,18 @@
+{
+	"@odata.context": "https://mock.sharepoint.com/sites/mockSite/_api/$metadata#Groups/$entity",
+	"@odata.type": "#SP.Group",
+	"@odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/Web/SiteGroups/GetById(3)",
+	"@odata.editLink": "Web/SiteGroups/GetById(3)",
+	"Id": 3,
+	"IsHiddenInUI": false,
+	"LoginName": "Mock Site Owners",
+	"Title": "Mock Site Owners",
+	"PrincipalType": 8,
+	"AllowMembersEditMembership": false,
+	"AllowRequestToJoinLeave": false,
+	"AutoAcceptRequestToJoinLeave": false,
+	"Description": null,
+	"OnlyAllowMembersViewMembership": false,
+	"OwnerTitle": "Mock Site Owners",
+	"RequestToJoinLeaveEmailSetting": ""
+}

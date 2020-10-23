@@ -63,5 +63,19 @@ namespace Graph.Community
       var userEntity = await this.SendAsync<User>(payload, cancellationToken);
       return userEntity;
     }
+
+    public async Task<Web> GetAssociatedGroupsAsync()
+    {
+      return await GetAssociatedGroupsAsync(CancellationToken.None);
+    }
+
+    public async Task<Web> GetAssociatedGroupsAsync(CancellationToken cancellationToken)
+    {
+      this.QueryOptions.Add(new QueryOption("$expand", "associatedownergroup,associatedmembergroup,associatedvisitorgroup"));
+      this.QueryOptions.Add(new Microsoft.Graph.QueryOption("$select", "associatedownergroup,associatedmembergroup,associatedvisitorgroup"));
+
+      var web = await this.SendAsync<Web>(null, cancellationToken);
+      return web;
+    }
   }
 }

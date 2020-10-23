@@ -14,5 +14,8 @@ namespace Graph.Community
 
     Task<User> EnsureUserAsync(string logonName);
     Task<User> EnsureUserAsync(string logonName, CancellationToken cancellationToken);
+
+    Task<Web> GetAssociatedGroupsAsync();
+    Task<Web> GetAssociatedGroupsAsync(CancellationToken cancellationToken);
   }
 }

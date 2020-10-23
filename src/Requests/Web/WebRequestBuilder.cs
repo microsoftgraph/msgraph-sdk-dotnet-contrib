@@ -36,11 +36,6 @@ namespace Graph.Community
       }
     }
 
-    /*
-     * 
-     * http://<site url>/_api/web/siteusers
-     * http://<site url>/_api/web/sitegroups(<group id>)/users
-     */
     public ISiteUserCollectionRequestBuilder SiteUsers
     {
       get
