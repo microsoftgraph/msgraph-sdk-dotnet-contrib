@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -9,7 +9,6 @@
   <ItemGroup>
     <Compile Remove="GraphServiceFixture.cs" />
   </ItemGroup>
-
 
   <ItemGroup>
     <EmbeddedResource Include="Mocks\ApplySiteDesignResponse.json" />
@@ -24,9 +23,12 @@
     <EmbeddedResource Include="Mocks\GetSiteGroupsResponse.json" />
 		<EmbeddedResource Include="Mocks\GetSiteScriptMetadataResponse.json" />
     <EmbeddedResource Include="Mocks\GetSiteScriptsResponse.json" />
+    <EmbeddedResource Include="Mocks\GetSiteUserResponse.json" />
 		<EmbeddedResource Include="Mocks\GetSiteUsersResponse.json" />
 		<EmbeddedResource Include="Mocks\GetUserMailboxSettingsResponse.json" />
+		<EmbeddedResource Include="Mocks\GetWebAssociatedGroupsResponse.json" />
     <EmbeddedResource Include="Mocks\NavigationNodeCollectionResponse.json" />
+    <EmbeddedResource Include="Mocks\SearchQueryResponse.json" />
   </ItemGroup>
 
   <ItemGroup>

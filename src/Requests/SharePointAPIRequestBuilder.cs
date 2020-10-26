@@ -53,5 +53,13 @@ namespace Graph.Community
         return new Graph.Community.WebRequestBuilder(this.AppendSegmentToRequestUrl("_api/web"), this.Client);
       }
     }
+
+    public Graph.Community.ISearchRequestBuilder Search
+    {
+      get
+      {
+        return new Graph.Community.SearchRequestBuilder(this.AppendSegmentToRequestUrl("_api/search"), this.Client);
+      }
+    }
   }
 }

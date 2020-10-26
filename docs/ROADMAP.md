@@ -85,7 +85,12 @@ The following operations allow for reading SharePoint Groups from a Site.
 
 ### SharePoint Search
 
-Interested in [SharePoint Search REST API](https://docs.microsoft.com/en-us/sharepoint/dev/general-development/sharepoint-search-rest-api-overview)? [Open an issue](https://github.com/microsoftgraph/msgraph-sdk-dotnet-contrib/issues/new)
+The following operations allow for searching SharePoint.
+
+| Operation  | Request Builder  | Method         | Released version |
+|------------|------------------|----------------|------------------|
+| Search     | `.Search`       | QueryAsync     | 3.18.1           |
+|            |                  | PostQueryAsync | 3.18.1           |
 
 ### SharePoint User Profile
 

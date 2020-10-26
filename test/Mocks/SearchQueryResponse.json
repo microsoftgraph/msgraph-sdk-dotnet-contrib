@@ -1,0 +1,1465 @@
+{
+	"ElapsedTime": 81,
+	"PrimaryQueryResult": {
+		"CustomResults": [],
+		"QueryId": "ba3c0872-fc67-406b-8f19-ab960184106e",
+		"QueryRuleId": "00000000-0000-0000-0000-000000000000",
+		"RefinementResults": null,
+		"RelevantResults": {
+			"GroupTemplateId": null,
+			"ItemTemplateId": null,
+			"Properties": [
+				{
+					"Key": "GenerationId",
+					"Value": "9223372036854775806",
+					"ValueType": "Edm.Int64"
+				},
+				{
+					"Key": "indexSystem",
+					"Value": "",
+					"ValueType": "Edm.String"
+				},
+				{
+					"Key": "ExecutionTimeMs",
+					"Value": "62",
+					"ValueType": "Edm.Int32"
+				},
+				{
+					"Key": "QueryModification",
+					"Value": "sharepoint -ContentClass=urn:content-class:SPSPeople",
+					"ValueType": "Edm.String"
+				},
+				{
+					"Key": "RenderTemplateId",
+					"Value": "~sitecollection/_catalogs/masterpage/Display Templates/Search/Group_Default.js",
+					"ValueType": "Edm.String"
+				},
+				{
+					"Key": "StartRecord",
+					"Value": "0",
+					"ValueType": "Edm.Int32"
+				},
+				{
+					"Key": "IsLastBlockInSubstrate",
+					"Value": "true",
+					"ValueType": "Edm.Boolean"
+				},
+				{
+					"Key": "IsFirstBlockInSubstrate",
+					"Value": "false",
+					"ValueType": "Edm.Boolean"
+				},
+				{
+					"Key": "IsFirstPinnedResultBlock",
+					"Value": "false",
+					"ValueType": "Edm.Boolean"
+				},
+				{
+					"Key": "IsLastPinnedResultBlock",
+					"Value": "false",
+					"ValueType": "Edm.Boolean"
+				},
+				{
+					"Key": "IsFirstRankedResultBlock",
+					"Value": "true",
+					"ValueType": "Edm.Boolean"
+				},
+				{
+					"Key": "IsLastRankedResultBlock",
+					"Value": "true",
+					"ValueType": "Edm.Boolean"
+				},
+				{
+					"Key": "MixedTableOrder",
+					"Value": "0",
+					"ValueType": "Edm.Int32"
+				},
+				{
+					"Key": "GeoLocationSource",
+					"Value": "EUR",
+					"ValueType": "Edm.String"
+				}
+			],
+			"ResultTitle": null,
+			"ResultTitleUrl": null,
+			"RowCount": 5,
+			"Table": {
+				"Rows": [
+					{
+						"Cells": [
+							{
+								"Key": "Rank",
+								"Value": "26.9365081",
+								"ValueType": "Edm.Double"
+							},
+							{
+								"Key": "DocId",
+								"Value": "17653786603600",
+								"ValueType": "Edm.Int64"
+							},
+							{
+								"Key": "WorkId",
+								"Value": "17653786603600",
+								"ValueType": "Edm.Int64"
+							},
+							{
+								"Key": "Title",
+								"Value": "AddIn Products Test",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "Author",
+								"Value": "Megan Bowen",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "Size",
+								"Value": "13",
+								"ValueType": "Edm.Int64"
+							},
+							{
+								"Key": "Path",
+								"Value": "https://mock.sharepoint.com/SitePages/Intranet.aspx",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "Description",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "Write",
+								"Value": "2020-02-26T20:41:39.0000000Z",
+								"ValueType": "Edm.DateTime"
+							},
+							{
+								"Key": "LastModifiedTime",
+								"Value": "2020-02-26T20:41:39.0000000Z",
+								"ValueType": "Edm.DateTime"
+							},
+							{
+								"Key": "CollapsingStatus",
+								"Value": "0",
+								"ValueType": "Edm.Int64"
+							},
+							{
+								"Key": "HitHighlightedSummary",
+								"Value": "",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "HitHighlightedProperties",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "contentclass",
+								"Value": "STS_ListItem_WebPageLibrary",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "PictureThumbnailURL",
+								"Value": "https://mock.sharepoint.com/_layouts/15/images/sitepagethumbnail.png",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "ServerRedirectedURL",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "ServerRedirectedEmbedURL",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "ServerRedirectedPreviewURL",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "FileExtension",
+								"Value": "aspx",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "ContentTypeId",
+								"Value": "0x0101009D1CB255DA76424F860D91F20E6C411800FE6581A8AF60DE48AFA2885A12722FA5",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "ParentLink",
+								"Value": "https://mock.sharepoint.com/SitePages/Forms/ByAuthor.aspx",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "ViewsLifeTime",
+								"Value": "16",
+								"ValueType": "Edm.Int64"
+							},
+							{
+								"Key": "ViewsRecent",
+								"Value": "1",
+								"ValueType": "Edm.Int64"
+							},
+							{
+								"Key": "SectionNames",
+								"Value": "",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "SectionIndexes",
+								"Value": "",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "SiteLogo",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "SiteDescription",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "deeplinks",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "importance",
+								"Value": "0",
+								"ValueType": "Edm.Int64"
+							},
+							{
+								"Key": "SiteName",
+								"Value": "https://mock.sharepoint.com",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "IsDocument",
+								"Value": "true",
+								"ValueType": "Edm.Boolean"
+							},
+							{
+								"Key": "FileType",
+								"Value": "aspx",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "IsContainer",
+								"Value": "false",
+								"ValueType": "Edm.Boolean"
+							},
+							{
+								"Key": "WebTemplate",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "SecondaryFileExtension",
+								"Value": "aspx",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "docaclmeta",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "SPWebUrl",
+								"Value": "https://mock.sharepoint.com",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "UniqueId",
+								"Value": "{3A1E177C-A604-4FE6-A3E7-3B8BA7BCD27A}",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "ProgId",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "LinkingUrl",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "SiteId",
+								"Value": "6bea2dfb-f813-49a8-9646-74a84c34d15c",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "WebId",
+								"Value": "d5265950-973d-4441-80db-e0c93a4a4438",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "IsExternalContent",
+								"Value": "false",
+								"ValueType": "Edm.Boolean"
+							},
+							{
+								"Key": "ListId",
+								"Value": "45c5907f-3309-42c8-ac3b-b10edf86fa74",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "OriginalPath",
+								"Value": "https://mock.sharepoint.com/SitePages/Intranet.aspx",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "DocumentSignature",
+								"Value": "587368020932309044;-8618384529877592153;-1745408493294980736;-8650149970147563420;-5174130160653590903;6476865570080825507",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "ResultTypeIdList",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "ResultTypeId",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "RenderTemplateId",
+								"Value": "~sitecollection/_catalogs/masterpage/Display Templates/Search/Item_Default.js",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "piSearchResultId",
+								"Value": "ARIA\u01c25b02249e-a560-437b-9fae-08f9c04d6045\u01c2cea864a0-da23-4f6a-a88c-2dc6482c753f\u01c25b02249e-a560-437b-9fae-08f9c04d6045.1000.1\u01c2",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "GeoLocationSource",
+								"Value": "EUR",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "PartitionId",
+								"Value": "b47a6b24-0272-47c0-908e-8705a84c21bb",
+								"ValueType": "Edm.Guid"
+							},
+							{
+								"Key": "UrlZone",
+								"Value": "0",
+								"ValueType": "Edm.Int32"
+							},
+							{
+								"Key": "Culture",
+								"Value": "en-US",
+								"ValueType": "Edm.String"
+							}
+						]
+					},
+					{
+						"Cells": [
+							{
+								"Key": "Rank",
+								"Value": "26.9141883",
+								"ValueType": "Edm.Double"
+							},
+							{
+								"Key": "DocId",
+								"Value": "17653516936831",
+								"ValueType": "Edm.Int64"
+							},
+							{
+								"Key": "WorkId",
+								"Value": "17653516936831",
+								"ValueType": "Edm.Int64"
+							},
+							{
+								"Key": "Title",
+								"Value": "Communication site",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "Author",
+								"Value": "Company Administrator;System Account",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "Size",
+								"Value": "13",
+								"ValueType": "Edm.Int64"
+							},
+							{
+								"Key": "Path",
+								"Value": "https://mock.sharepoint.com/",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "Description",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "Write",
+								"Value": "2019-08-24T08:55:40.0000000Z",
+								"ValueType": "Edm.DateTime"
+							},
+							{
+								"Key": "LastModifiedTime",
+								"Value": "2019-08-24T08:55:40.0000000Z",
+								"ValueType": "Edm.DateTime"
+							},
+							{
+								"Key": "CollapsingStatus",
+								"Value": "0",
+								"ValueType": "Edm.Int64"
+							},
+							{
+								"Key": "HitHighlightedSummary",
+								"Value": "",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "HitHighlightedProperties",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "contentclass",
+								"Value": "STS_Site",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "PictureThumbnailURL",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "ServerRedirectedURL",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "ServerRedirectedEmbedURL",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "ServerRedirectedPreviewURL",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "FileExtension",
+								"Value": "aspx",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "ContentTypeId",
+								"Value": "0x0101009D1CB255DA76424F860D91F20E6C411800FE6581A8AF60DE48AFA2885A12722FA5",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "ParentLink",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "ViewsLifeTime",
+								"Value": "71",
+								"ValueType": "Edm.Int64"
+							},
+							{
+								"Key": "ViewsRecent",
+								"Value": "2",
+								"ValueType": "Edm.Int64"
+							},
+							{
+								"Key": "SectionNames",
+								"Value": "",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "SectionIndexes",
+								"Value": "",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "SiteLogo",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "SiteDescription",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "deeplinks",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "importance",
+								"Value": "0",
+								"ValueType": "Edm.Int64"
+							},
+							{
+								"Key": "SiteName",
+								"Value": "https://mock.sharepoint.com",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "IsDocument",
+								"Value": "false",
+								"ValueType": "Edm.Boolean"
+							},
+							{
+								"Key": "FileType",
+								"Value": "aspx",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "IsContainer",
+								"Value": "true",
+								"ValueType": "Edm.Boolean"
+							},
+							{
+								"Key": "WebTemplate",
+								"Value": "SITEPAGEPUBLISHING",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "SecondaryFileExtension",
+								"Value": "aspx",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "docaclmeta",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "SPWebUrl",
+								"Value": "https://mock.sharepoint.com",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "UniqueId",
+								"Value": "00000000-0000-0000-0000-000000000000",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "ProgId",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "LinkingUrl",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "SiteId",
+								"Value": "6bea2dfb-f813-49a8-9646-74a84c34d15c",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "WebId",
+								"Value": "d5265950-973d-4441-80db-e0c93a4a4438",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "IsExternalContent",
+								"Value": "false",
+								"ValueType": "Edm.Boolean"
+							},
+							{
+								"Key": "ListId",
+								"Value": "45c5907f-3309-42c8-ac3b-b10edf86fa74",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "OriginalPath",
+								"Value": "https://mock.sharepoint.com",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "DocumentSignature",
+								"Value": "-163452335517129226;7081216589965523969;3373169128887786399;5533322644201880292;-170557560711518136;-411410934445218732",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "ResultTypeIdList",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "ResultTypeId",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "RenderTemplateId",
+								"Value": "~sitecollection/_catalogs/masterpage/Display Templates/Search/Item_Default.js",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "piSearchResultId",
+								"Value": "ARIA\u01c25b02249e-a560-437b-9fae-08f9c04d6045\u01c2cea864a0-da23-4f6a-a88c-2dc6482c753f\u01c25b02249e-a560-437b-9fae-08f9c04d6045.1000.2\u01c2",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "GeoLocationSource",
+								"Value": "EUR",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "PartitionId",
+								"Value": "b47a6b24-0272-47c0-908e-8705a84c21bb",
+								"ValueType": "Edm.Guid"
+							},
+							{
+								"Key": "UrlZone",
+								"Value": "0",
+								"ValueType": "Edm.Int32"
+							},
+							{
+								"Key": "Culture",
+								"Value": "en-US",
+								"ValueType": "Edm.String"
+							}
+						]
+					},
+					{
+						"Cells": [
+							{
+								"Key": "Rank",
+								"Value": "26.7776451",
+								"ValueType": "Edm.Double"
+							},
+							{
+								"Key": "DocId",
+								"Value": "17653519883223",
+								"ValueType": "Edm.Int64"
+							},
+							{
+								"Key": "WorkId",
+								"Value": "17653519883223",
+								"ValueType": "Edm.Int64"
+							},
+							{
+								"Key": "Title",
+								"Value": "Moving into the purchase journey",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "Author",
+								"Value": "Megan Bowen",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "Size",
+								"Value": "13",
+								"ValueType": "Edm.Int64"
+							},
+							{
+								"Key": "Path",
+								"Value": "https://mock.sharepoint.com/sites/CaseStudies/SitePages/Hit-the-pavement.aspx",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "Write",
+								"Value": "2020-10-15T18:01:24.0000000Z",
+								"ValueType": "Edm.DateTime"
+							},
+							{
+								"Key": "LastModifiedTime",
+								"Value": "2020-10-15T18:01:24.0000000Z",
+								"ValueType": "Edm.DateTime"
+							},
+							{
+								"Key": "CollapsingStatus",
+								"Value": "0",
+								"ValueType": "Edm.Int64"
+							},
+							{
+								"Key": "HitHighlightedSummary",
+								"Value": "",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "HitHighlightedProperties",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "contentclass",
+								"Value": "STS_ListItem_WebPageLibrary",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "PictureThumbnailURL",
+								"Value": "https://mock.sharepoint.com/_api/v2.1/sites/mock.sharepoint.com,065cb9d6-7788-4e66-9359-547401bc4ec0,c04f29b2-94ae-4078-ab8a-ff22e7cf74e3/items/26c98b83-13f6-47ba-8372-78e593afb9cf/driveItem/thumbnails/0/c400x99999/content?preferNoRedirect=true",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "ServerRedirectedURL",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "ServerRedirectedEmbedURL",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "ServerRedirectedPreviewURL",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "FileExtension",
+								"Value": "aspx",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "ContentTypeId",
+								"Value": "0x0101009D1CB255DA76424F860D91F20E6C41180083D3B3475F6F3341A3415CA4D0066122",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "ParentLink",
+								"Value": "https://mock.sharepoint.com/sites/CaseStudies/SitePages/Forms/ByAuthor.aspx",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "ViewsLifeTime",
+								"Value": "21",
+								"ValueType": "Edm.Int64"
+							},
+							{
+								"Key": "ViewsRecent",
+								"Value": "9",
+								"ValueType": "Edm.Int64"
+							},
+							{
+								"Key": "SectionNames",
+								"Value": "",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "SectionIndexes",
+								"Value": "",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "SiteLogo",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "SiteDescription",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "deeplinks",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "importance",
+								"Value": "0",
+								"ValueType": "Edm.Int64"
+							},
+							{
+								"Key": "SiteName",
+								"Value": "https://mock.sharepoint.com/sites/casestudies",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "IsDocument",
+								"Value": "true",
+								"ValueType": "Edm.Boolean"
+							},
+							{
+								"Key": "FileType",
+								"Value": "aspx",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "IsContainer",
+								"Value": "false",
+								"ValueType": "Edm.Boolean"
+							},
+							{
+								"Key": "WebTemplate",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "SecondaryFileExtension",
+								"Value": "aspx",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "docaclmeta",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "SPWebUrl",
+								"Value": "https://mock.sharepoint.com/sites/CaseStudies",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "UniqueId",
+								"Value": "{1C11FEF0-6AB0-42F6-BDF8-501522C12974}",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "ProgId",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "LinkingUrl",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "SiteId",
+								"Value": "065cb9d6-7788-4e66-9359-547401bc4ec0",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "WebId",
+								"Value": "c04f29b2-94ae-4078-ab8a-ff22e7cf74e3",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "IsExternalContent",
+								"Value": "false",
+								"ValueType": "Edm.Boolean"
+							},
+							{
+								"Key": "ListId",
+								"Value": "474f70c8-4ea4-4687-90bd-76ded4c158aa",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "OriginalPath",
+								"Value": "https://mock.sharepoint.com/sites/CaseStudies/SitePages/Hit-the-pavement.aspx",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "DocumentSignature",
+								"Value": "-6291050556182181926;-7579842161062060771;-3435604621947377599;4484477816856845154;7208193803545673162;-881275168491839311",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "ResultTypeIdList",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "ResultTypeId",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "RenderTemplateId",
+								"Value": "~sitecollection/_catalogs/masterpage/Display Templates/Search/Item_Default.js",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "piSearchResultId",
+								"Value": "ARIA\u01c25b02249e-a560-437b-9fae-08f9c04d6045\u01c2cea864a0-da23-4f6a-a88c-2dc6482c753f\u01c25b02249e-a560-437b-9fae-08f9c04d6045.1000.3\u01c2",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "GeoLocationSource",
+								"Value": "EUR",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "PartitionId",
+								"Value": "b47a6b24-0272-47c0-908e-8705a84c21bb",
+								"ValueType": "Edm.Guid"
+							},
+							{
+								"Key": "UrlZone",
+								"Value": "0",
+								"ValueType": "Edm.Int32"
+							},
+							{
+								"Key": "Culture",
+								"Value": "en-US",
+								"ValueType": "Edm.String"
+							}
+						]
+					},
+					{
+						"Cells": [
+							{
+								"Key": "Rank",
+								"Value": "26.7149467",
+								"ValueType": "Edm.Double"
+							},
+							{
+								"Key": "DocId",
+								"Value": "17653863415416",
+								"ValueType": "Edm.Int64"
+							},
+							{
+								"Key": "WorkId",
+								"Value": "17653863415416",
+								"ValueType": "Edm.Int64"
+							},
+							{
+								"Key": "Title",
+								"Value": "Organisational Assets",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "Author",
+								"Value": "Megan Bowen;System Account;Alex Wilbur",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "Size",
+								"Value": "13",
+								"ValueType": "Edm.Int64"
+							},
+							{
+								"Key": "Path",
+								"Value": "https://mock.sharepoint.com/sites/OrganisationalAssets",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "Description",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "Write",
+								"Value": "2020-05-06T13:20:41.0000000Z",
+								"ValueType": "Edm.DateTime"
+							},
+							{
+								"Key": "LastModifiedTime",
+								"Value": "2020-05-06T13:20:41.0000000Z",
+								"ValueType": "Edm.DateTime"
+							},
+							{
+								"Key": "CollapsingStatus",
+								"Value": "0",
+								"ValueType": "Edm.Int64"
+							},
+							{
+								"Key": "HitHighlightedSummary",
+								"Value": "",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "HitHighlightedProperties",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "contentclass",
+								"Value": "STS_Site",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "PictureThumbnailURL",
+								"Value": "https://mock.sharepoint.com/_layouts/15/images/sitepagethumbnail.png",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "ServerRedirectedURL",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "ServerRedirectedEmbedURL",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "ServerRedirectedPreviewURL",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "FileExtension",
+								"Value": "aspx",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "ContentTypeId",
+								"Value": "0x0101009D1CB255DA76424F860D91F20E6C41180020D955D75ABAAF4994B0F18835AD0AA3",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "ParentLink",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "ViewsLifeTime",
+								"Value": "110",
+								"ValueType": "Edm.Int64"
+							},
+							{
+								"Key": "ViewsRecent",
+								"Value": "102",
+								"ValueType": "Edm.Int64"
+							},
+							{
+								"Key": "SectionNames",
+								"Value": "",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "SectionIndexes",
+								"Value": "",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "SiteLogo",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "SiteDescription",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "deeplinks",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "importance",
+								"Value": "0",
+								"ValueType": "Edm.Int64"
+							},
+							{
+								"Key": "SiteName",
+								"Value": "https://mock.sharepoint.com/sites/organisationalassets",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "IsDocument",
+								"Value": "false",
+								"ValueType": "Edm.Boolean"
+							},
+							{
+								"Key": "FileType",
+								"Value": "aspx",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "IsContainer",
+								"Value": "true",
+								"ValueType": "Edm.Boolean"
+							},
+							{
+								"Key": "WebTemplate",
+								"Value": "SITEPAGEPUBLISHING",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "SecondaryFileExtension",
+								"Value": "aspx",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "docaclmeta",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "SPWebUrl",
+								"Value": "https://mock.sharepoint.com/sites/OrganisationalAssets",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "UniqueId",
+								"Value": "00000000-0000-0000-0000-000000000000",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "ProgId",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "LinkingUrl",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "SiteId",
+								"Value": "d6b755b1-0949-4c2e-8d69-6fabe360fc19",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "WebId",
+								"Value": "33768a2e-ea08-403d-8841-422128221bce",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "IsExternalContent",
+								"Value": "false",
+								"ValueType": "Edm.Boolean"
+							},
+							{
+								"Key": "ListId",
+								"Value": "155fe56d-a40b-43e0-b351-07db538c8080",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "OriginalPath",
+								"Value": "https://mock.sharepoint.com/sites/OrganisationalAssets",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "DocumentSignature",
+								"Value": "4760552004878061750;789598366519826997;5723531270871862902;-7138085210600987639;-9513175420655909;-5253982193817353600",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "ResultTypeIdList",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "ResultTypeId",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "RenderTemplateId",
+								"Value": "~sitecollection/_catalogs/masterpage/Display Templates/Search/Item_Default.js",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "piSearchResultId",
+								"Value": "ARIA\u01c25b02249e-a560-437b-9fae-08f9c04d6045\u01c2cea864a0-da23-4f6a-a88c-2dc6482c753f\u01c25b02249e-a560-437b-9fae-08f9c04d6045.1000.5\u01c2",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "GeoLocationSource",
+								"Value": "EUR",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "PartitionId",
+								"Value": "b47a6b24-0272-47c0-908e-8705a84c21bb",
+								"ValueType": "Edm.Guid"
+							},
+							{
+								"Key": "UrlZone",
+								"Value": "0",
+								"ValueType": "Edm.Int32"
+							},
+							{
+								"Key": "Culture",
+								"Value": "en-US",
+								"ValueType": "Edm.String"
+							}
+						]
+					},
+					{
+						"Cells": [
+							{
+								"Key": "Rank",
+								"Value": "26.7068367",
+								"ValueType": "Edm.Double"
+							},
+							{
+								"Key": "DocId",
+								"Value": "611666478567038836",
+								"ValueType": "Edm.Int64"
+							},
+							{
+								"Key": "WorkId",
+								"Value": "611666478567038836",
+								"ValueType": "Edm.Int64"
+							},
+							{
+								"Key": "Title",
+								"Value": "Test2",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "Author",
+								"Value": "Megan Bowen",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "Size",
+								"Value": "13",
+								"ValueType": "Edm.Int64"
+							},
+							{
+								"Key": "Path",
+								"Value": "https://mock.sharepoint.com/sites/CaseStudies/SitePages/Test2.aspx",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "Description",
+								"Value": null,
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "Write",
+								"Value": "2020-08-18T22:51:35.0000000Z",
+								"ValueType": "Edm.DateTime"
+							},
+							{
+								"Key": "LastModifiedTime",
+								"Value": "2020-08-18T22:51:35.0000000Z",
+								"ValueType": "Edm.DateTime"
+							},
+							{
+								"Key": "CollapsingStatus",
+								"Value": "0",
+								"ValueType": "Edm.Int64"
+							},
+							{
+								"Key": "HitHighlightedSummary",
+								"Value": "",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "HitHighlightedProperties",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "contentclass",
+								"Value": "STS_ListItem_WebPageLibrary",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "PictureThumbnailURL",
+								"Value": "https://mock.sharepoint.com/_api/v2.1/sites/mock.sharepoint.com,065cb9d6-7788-4e66-9359-547401bc4ec0,c04f29b2-94ae-4078-ab8a-ff22e7cf74e3/items/c2e9aadd-d6bd-43df-9a24-63bc19f50c9c/driveItem/thumbnails/0/c400x99999/content?preferNoRedirect=true",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "ServerRedirectedURL",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "ServerRedirectedEmbedURL",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "ServerRedirectedPreviewURL",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "FileExtension",
+								"Value": "aspx",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "ContentTypeId",
+								"Value": "0x0101009D1CB255DA76424F860D91F20E6C41180083D3B3475F6F3341A3415CA4D0066122",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "ParentLink",
+								"Value": "https://mock.sharepoint.com/sites/CaseStudies/SitePages/Forms/ByAuthor.aspx",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "ViewsLifeTime",
+								"Value": "7",
+								"ValueType": "Edm.Int64"
+							},
+							{
+								"Key": "ViewsRecent",
+								"Value": "7",
+								"ValueType": "Edm.Int64"
+							},
+							{
+								"Key": "SectionNames",
+								"Value": "",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "SectionIndexes",
+								"Value": "",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "SiteLogo",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "SiteDescription",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "deeplinks",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "importance",
+								"Value": "0",
+								"ValueType": "Edm.Int64"
+							},
+							{
+								"Key": "SiteName",
+								"Value": "https://mock.sharepoint.com/sites/casestudies",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "IsDocument",
+								"Value": "true",
+								"ValueType": "Edm.Boolean"
+							},
+							{
+								"Key": "FileType",
+								"Value": "aspx",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "IsContainer",
+								"Value": "false",
+								"ValueType": "Edm.Boolean"
+							},
+							{
+								"Key": "WebTemplate",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "SecondaryFileExtension",
+								"Value": "aspx",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "docaclmeta",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "SPWebUrl",
+								"Value": "https://mock.sharepoint.com/sites/CaseStudies",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "UniqueId",
+								"Value": "{2993414F-3449-4960-A3DB-4DA6AF7EA981}",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "ProgId",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "LinkingUrl",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "SiteId",
+								"Value": "065cb9d6-7788-4e66-9359-547401bc4ec0",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "WebId",
+								"Value": "c04f29b2-94ae-4078-ab8a-ff22e7cf74e3",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "IsExternalContent",
+								"Value": "false",
+								"ValueType": "Edm.Boolean"
+							},
+							{
+								"Key": "ListId",
+								"Value": "474f70c8-4ea4-4687-90bd-76ded4c158aa",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "OriginalPath",
+								"Value": "https://mock.sharepoint.com/sites/CaseStudies/SitePages/Test2.aspx",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "DocumentSignature",
+								"Value": "-7291874344684152331;5059841419466637667;2261713540660876109;1207201997068345820;-3714447113316464735;-6223610770780181715",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "ResultTypeIdList",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "ResultTypeId",
+								"Value": null,
+								"ValueType": "Null"
+							},
+							{
+								"Key": "RenderTemplateId",
+								"Value": "~sitecollection/_catalogs/masterpage/Display Templates/Search/Item_Default.js",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "piSearchResultId",
+								"Value": "ARIA\u01c25b02249e-a560-437b-9fae-08f9c04d6045\u01c2cea864a0-da23-4f6a-a88c-2dc6482c753f\u01c25b02249e-a560-437b-9fae-08f9c04d6045.1000.8\u01c2",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "GeoLocationSource",
+								"Value": "EUR",
+								"ValueType": "Edm.String"
+							},
+							{
+								"Key": "PartitionId",
+								"Value": "b47a6b24-0272-47c0-908e-8705a84c21bb",
+								"ValueType": "Edm.Guid"
+							},
+							{
+								"Key": "UrlZone",
+								"Value": "0",
+								"ValueType": "Edm.Int32"
+							},
+							{
+								"Key": "Culture",
+								"Value": "en-US",
+								"ValueType": "Edm.String"
+							}
+						]
+					}
+				]
+			},
+			"TotalRows": 3945,
+			"TotalRowsIncludingDuplicates": 4241
+		},
+		"SpecialTermResults": null
+	},
+	"Properties": [
+	],
+	"SecondaryQueryResults": [],
+	"SpellingSuggestion": "",
+	"TriggeredRules": []
+}
