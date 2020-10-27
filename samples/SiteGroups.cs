@@ -19,8 +19,8 @@ namespace Graph.Community.Samples
 			//
 			/////////////////////////////
 
-			var sharepointDomain = "scdev.sharepoint.com";
-			var siteCollectionPath = "/sites/AdaptiveCard";
+			var sharepointDomain = "demo.sharepoint.com";
+			var siteCollectionPath = "/sites/SiteGroupsTest";
 
 			/////////////////
 			//
@@ -65,8 +65,8 @@ namespace Graph.Community.Samples
 			{
 				AadAuthorityAudience = AadAuthorityAudience.AzureAdMyOrg,
 				AzureCloudInstance = AzureCloudInstance.AzurePublic,
-				ClientId = "8f8c4f79-43d2-46dd-b3e1-c5b8d383beb0", //azureAdOptions.ClientId,
-				TenantId = "6e0195b2-cbbe-4e98-81ec-60492d60db3b",
+				ClientId = azureAdOptions.ClientId,
+				TenantId = azureAdOptions.TenantId,
 				RedirectUri = "http://localhost"
 			};
 

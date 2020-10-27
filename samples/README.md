@@ -25,7 +25,6 @@ Specify the site in the `SiteGroups.cs` file.
 To add a scope for SharePoint, choose **SharePoint** in **API Permissions**
 
 
-
 ## Outlook Immutable IDs sample
 
 This sample will read the messages in the current user's mailbox, once without the `Prefer` header and a second time with the header. The ID of the first message is displayed in both instances.
@@ -33,6 +32,8 @@ This sample will read the messages in the current user's mailbox, once without t
 > **Scopes required**: https://graph.microsoft.com/Mail.Read
  
 ## SharePoint ChangeLog sample
+
+> The functionality provided by the SharePoint ChangeLog is also available using Microsoft Graph + Delta query. More information is provided in this Tech Community Post: [How to retrieve complete set of permission changes while utilizing DeltaLinks (tokens) in SPO?](https://techcommunity.microsoft.com/t5/microsoft-sharepoint-blog/how-to-retrieve-complete-set-of-permission-changes-while/ba-p/1741127)
 
 This sample will query the specified site (SP.Web), retrieving the current change token. The application will then pause, allowing for the user to update something in the site. Upon resuming, the application will retrieve all changes since the initial query.
 
