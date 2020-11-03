@@ -84,6 +84,7 @@ namespace Graph.Community.Test
 
         // ASSERT
         Assert.Equal(8, actual.Count);
+        Assert.Null(actual[1].UserId);
       }
     }
 
@@ -153,6 +154,7 @@ namespace Graph.Community.Test
         Assert.Equal("Megan Bowen", actual.Title);
         Assert.Equal(SPPrincipalType.User, actual.PrincipalType);
         Assert.Equal("meganb@mock.onmicrosoft.com", actual.UserPrincipalName);
+        Assert.Equal("100320007ee3882b", actual.UserId.NameId);
       }
     }
   }

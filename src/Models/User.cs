@@ -25,5 +25,17 @@ namespace Graph.Community
 
     [JsonProperty(PropertyName = "UserPrincipalName")]
     public string UserPrincipalName { get; set; }
+
+    [JsonProperty(PropertyName ="UserId")]
+    public UserId UserId { get; set; }
+  }
+
+  [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
+  public class UserId
+  {
+    [JsonProperty(PropertyName = "NameId")]
+    public string NameId { get; set; }
+    [JsonProperty(PropertyName = "NameIdIssuer")]
+    public string NameIdIssuer { get; set; }
   }
 }
