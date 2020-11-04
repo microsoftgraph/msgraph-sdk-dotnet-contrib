@@ -16,5 +16,7 @@ namespace Graph.Community
     ISiteUserCollectionRequestBuilder SiteUsers { get; }
 
     ISiteGroupCollectionRequestBuilder SiteGroups { get; }
+
+    IAppTileCollectionRequestBuilder AppTiles { get; }
   }
 }

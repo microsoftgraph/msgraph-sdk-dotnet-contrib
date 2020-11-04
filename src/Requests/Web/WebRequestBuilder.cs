@@ -52,6 +52,14 @@ namespace Graph.Community
       }
     }
 
+    public IAppTileCollectionRequestBuilder AppTiles
+    {
+      get
+      {
+        return new AppTileCollectionRequestBuilder(this.AppendSegmentToRequestUrl("apptiles"), this.Client, this.options);
+      }
+    }
+
     public IWebRequest Request()
     {
       return this.Request(options);

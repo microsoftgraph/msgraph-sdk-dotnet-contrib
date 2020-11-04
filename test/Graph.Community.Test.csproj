@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Mocks\GetWebAppTilesResponse.json" />
     <None Remove="Mocks\GetWebAssociatedGroupsWithUsersResponse.json" />
   </ItemGroup>
 
@@ -30,6 +31,7 @@
     <EmbeddedResource Include="Mocks\GetSiteUserResponse.json" />
 		<EmbeddedResource Include="Mocks\GetSiteUsersResponse.json" />
 		<EmbeddedResource Include="Mocks\GetUserMailboxSettingsResponse.json" />
+		<EmbeddedResource Include="Mocks\GetWebAppTilesResponse.json" />
 		<EmbeddedResource Include="Mocks\GetWebAssociatedGroupsResponse.json" />
 		<EmbeddedResource Include="Mocks\GetWebAssociatedGroupsWithUsersResponse.json" />
     <EmbeddedResource Include="Mocks\NavigationNodeCollectionResponse.json" />

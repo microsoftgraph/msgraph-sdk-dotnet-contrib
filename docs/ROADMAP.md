@@ -93,6 +93,13 @@ The following operations allow for searching SharePoint.
 | Search     | `.Search`       | QueryAsync     | 3.18.1           |
 |            |                  | PostQueryAsync | 3.18.1           |
 
+### SharePoint AppTiles
+The following operations allow for reading the AppTiles available in a Site.
+
+| Operation        | Request Builder     | Method                   | Released version |
+|------------------|---------------------|--------------------------|------------------|
+| GetAppTiles      | `.Web.AppTiles`   | GetAsync                 | 3.19.3           |
+
 ### SharePoint User Profile
 
 Interested in [SharePoint User Profile REST reference](https://docs.microsoft.com/en-us/previous-versions/office/developer/sharepoint-rest-reference/dn790354(v=office.15))? [Open an issue](https://github.com/microsoftgraph/msgraph-sdk-dotnet-contrib/issues/new)
