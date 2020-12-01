@@ -52,15 +52,7 @@ namespace Graph.Community.Extensions
 
 		#region Graph.Community extensions
 
-		/// <summary>
-		/// Middleware options for the subsequent requests.
-		/// </summary>
-		public IDictionary<string, IMiddlewareOption> MiddlewareOptions { get; private set; }
-
-		/// <summary>
-		/// Query and Header option name-value pairs for subsequent requests.
-		/// </summary>
-		public IEnumerable<Option> Options { get; private set; }
+		private Func<IBaseRequest, IBaseRequest> requestConfigurator;
 
 		/// <summary>
 		/// Creates the PageIterator with the results of an initial paged request. 
@@ -68,16 +60,12 @@ namespace Graph.Community.Extensions
 		/// <param name="client">The GraphServiceClient object used to create the NextPageRequest for a delta query.</param>
 		/// <param name="page">A generated implementation of ICollectionPage.</param>
 		/// <param name="callback">A Func delegate that processes type TEntity in the result set and should return false if the iterator should cancel processing.</param>
-		/// <param name="options">The query and header options for the NextPageRequest</param>
-		/// <param name="middlewareOptions">The middleware options for the NextPageRequest</param>
+		/// <param name="requestConfigurator">A Func delegate that configures the NextPageRequest</param>
 		/// <returns>A PageIterator&lt;TEntity&gt; that will process additional result pages based on the rules specified in Func&lt;TEntity,bool&gt; processPageItems</returns>
-		public static PageIterator<TEntity> CreatePageIterator(IBaseClient client, ICollectionPage<TEntity> page, Func<TEntity, bool> callback, IEnumerable<Option> options = null, IDictionary<string, IMiddlewareOption> middlewareOptions = null)
-		{
+		public static PageIterator<TEntity> CreatePageIterator(IBaseClient client, ICollectionPage<TEntity> page, Func<TEntity, bool> callback, Func<IBaseRequest, IBaseRequest> requestConfigurator = null)
+    {
 			var iterator = CreatePageIterator(client, page, callback);
-
-			iterator.Options = options ?? new List<Option>();
-			iterator.MiddlewareOptions = middlewareOptions ?? new Dictionary<string, IMiddlewareOption>();
-
+			iterator.requestConfigurator = requestConfigurator;
 			return iterator;
 		}
 
@@ -182,42 +170,7 @@ namespace Graph.Community.Extensions
 				dynamic page = _currentPage;
 
 				// Call the MSGraph API to get the next page of results and set that page as the currentPage.
-				if ((this.MiddlewareOptions != null || this.Options != null) &&
-						page.NextPageRequest is IBaseRequest nextRequest)
-				{
-					foreach (var option in this.Options)
-					{
-						switch (option)
-						{
-							case QueryOption q:
-								if (!nextRequest.QueryOptions.Any(o => o.Name == q.Name))
-								{
-									nextRequest.QueryOptions.Add(q);
-								}
-								break;
-							case HeaderOption h:
-								if (!nextRequest.Headers.Any(o => o.Name == h.Name))
-								{
-									nextRequest.Headers.Add(h);
-								}
-								break;
-							default:
-								break;
-						}
-					}
-
-					foreach (var option in this.MiddlewareOptions)
-					{
-						nextRequest.MiddlewareOptions[option.Key] = option.Value;
-					}
-
-					dynamic r = nextRequest;
-					_currentPage = await r.GetAsync(token).ConfigureAwait(false);
-				}
-				else
-				{
-					_currentPage = await page.NextPageRequest.GetAsync(token).ConfigureAwait(false);
-				}
+				_currentPage = await (requestConfigurator == null ? page.NextPageRequest : requestConfigurator(page.NextPageRequest)).GetAsync(token).ConfigureAwait(false);
 
 				// Add all of the items returned in the response to the queue.
 				if (_currentPage.Count > 0)
