@@ -17,7 +17,24 @@ The `SPUser` class returned from the `Web.SiteUsers` request has been renamed to
 
 ## Getting Started
 
-Follow the steps as outlined in the Microsoft.Graph SDK repo: https://github.com/microsoftgraph/msgraph-sdk-dotnet-core.
+Starting with v3.21, the library contains middleware (a delegating handler) that will transform errors from SharePoint Online into a ServiceException. This allows consuming code to standardize error handling.
+
+Also included in v3.21 is a client factory class (`CommunityGraphClientFactory`) that provides method to setup this SharePoint Service middleware.
+
+```csharp
+IAuthenticationProvider ap = new InteractiveAuthenticationProvider(pca, scopes);
+
+CommunityGraphClientOptions clientOptions = new CommunityGraphClientOptions()
+{
+  UserAgent = "ExtendedCapabilitiesSample"
+};
+
+var graphServiceClient = CommunityGraphClientFactory.Create(clientOptions, ap);
+```
+
+A complete implementation is included in the [Diagnostic sample](samples/Diagnostics.cs).
+
+The `CommunityGraphClientOptions` provides for specifing information to [decorate SharePoint REST traffic to help mitigate throttling](https://docs.microsoft.com/en-us/sharepoint/dev/general-development/how-to-avoid-getting-throttled-or-blocked-in-sharepoint-online#how-to-decorate-your-http-traffic-to-avoid-throttling).
 
 Once a GraphServiceClient is instantiated, an extension method provides access to the SharePoint REST endpoint. This `SharePointAPI` extension method requires an absolute URL to the SharePoint site collection that is the target of the call. Subsequent methods of the fluent API are used to address the [feature area of the REST API](https://docs.microsoft.com/en-us/sharepoint/dev/sp-add-ins/determine-sharepoint-rest-service-endpoint-uris).
 
