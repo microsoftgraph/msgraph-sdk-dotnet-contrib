@@ -76,37 +76,24 @@ namespace Graph.Community.Samples
 
 				var WebUrl = $"https://{sharepointDomain}{siteCollectionPath}";
 
-				var web = await graphServiceClient
+				var groups = await graphServiceClient
 												.SharePointAPI(WebUrl)
 												.Web
 												.SiteGroups
 												.Request()
 												.Expand(g => g.Users)
 												.Expand("Owner")
-												.GetAssociatedGroupsAsync();
+												.GetAsync();
 
 
-				var group = web.AssociatedOwnerGroup;
-				Console.WriteLine(group.Title);
-				foreach (var user in group.Users)
+				foreach (var group in groups)
 				{
-					Console.WriteLine($"  {user.LoginName}");
+					Console.WriteLine(group.Title);
+					foreach (var user in group.Users)
+					{
+						Console.WriteLine($"  {user.LoginName}");
+					}
 				}
-
-				group = web.AssociatedMemberGroup;
-				Console.WriteLine(group.Title);
-				foreach (var user in group.Users)
-				{
-					Console.WriteLine($"  {user.LoginName}");
-				}
-
-				group = web.AssociatedVisitorGroup;
-				Console.WriteLine(group.Title);
-				foreach (var user in group.Users)
-				{
-					Console.WriteLine($"  {user.LoginName}");
-				}
-
 
 				Console.WriteLine("Press enter to show log");
 				Console.ReadLine();
