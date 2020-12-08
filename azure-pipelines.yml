@@ -53,7 +53,7 @@ steps:
     packagesToPack: '**/Graph.Community.csproj'
     versioningScheme: byEnvVar
     versionEnvVar: nugetVersion 
-    buildProperties: /p:Version=$(nugetVersion)
+    buildProperties: Version=$(nugetVersion)
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish artifacts'
