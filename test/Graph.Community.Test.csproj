@@ -11,6 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Mocks\EnsureUserResponse.json" />
+    <None Remove="Mocks\GetSiteDesignRunsResponse.json" />
+    <None Remove="Mocks\GetSiteUsersResponse.json" />
+    <None Remove="Mocks\GetUserMailboxSettingsResponse.json" />
     <None Remove="Mocks\GetWebAppTilesResponse.json" />
     <None Remove="Mocks\GetWebAssociatedGroupsWithUsersResponse.json" />
   </ItemGroup>

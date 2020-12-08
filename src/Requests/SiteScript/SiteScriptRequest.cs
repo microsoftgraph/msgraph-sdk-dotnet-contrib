@@ -8,14 +8,14 @@ using System.Web;
 
 namespace Graph.Community
 {
-  public class SiteScriptRequest : BaseRequest, ISiteScriptRequest
+  public class SiteScriptRequest : BaseSharePointAPIRequest, ISiteScriptRequest
   {
 #pragma warning disable CA1054 // URI parameters should not be strings
     public SiteScriptRequest(
       string requestUrl,
       IBaseClient client,
       IEnumerable<Option> options)
-      : base(requestUrl, client, options)
+      : base("SiteScript", requestUrl, client, options)
     {
       this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.AcceptHeaderName, SharePointAPIRequestConstants.Headers.AcceptHeaderValue));
       this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName, SharePointAPIRequestConstants.Headers.ODataVersionHeaderValue));

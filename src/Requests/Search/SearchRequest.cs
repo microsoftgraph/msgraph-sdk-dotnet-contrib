@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace Graph.Community
 {
-	public class SearchRequest : BaseRequest, ISearchRequest
+	public class SearchRequest : BaseSharePointAPIRequest, ISearchRequest
 	{
 #pragma warning disable CA1054 // URI parameters should not be strings
 		public SearchRequest(
 			string requestUrl,
 			IBaseClient client,
 			IEnumerable<Option> options)
-			: base(requestUrl, client, options)
+			: base("Search", requestUrl, client, options)
 		{
 			this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.AcceptHeaderName, SharePointAPIRequestConstants.Headers.SearchAcceptHeaderValue));
 		}

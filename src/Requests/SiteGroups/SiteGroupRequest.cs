@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Graph.Community
 {
-  public class SiteGroupRequest: BaseRequest, ISiteGroupRequest
+  public class SiteGroupRequest: BaseSharePointAPIRequest, ISiteGroupRequest
   {
     public SiteGroupRequest(
       string requestUrl,
       IBaseClient client,
       IEnumerable<Option> options)
-      : base(requestUrl, client, options)
+      : base("SiteGroup", requestUrl, client, options)
     {
       this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.AcceptHeaderName, SharePointAPIRequestConstants.Headers.AcceptHeaderValue));
       this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName, SharePointAPIRequestConstants.Headers.ODataVersionHeaderValue));

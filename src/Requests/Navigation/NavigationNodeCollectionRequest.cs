@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace Graph.Community
 {
-  internal class NavigationNodeCollectionRequest : BaseRequest, INavigationNodeCollectionRequest
+  internal class NavigationNodeCollectionRequest : BaseSharePointAPIRequest, INavigationNodeCollectionRequest
   {
     internal NavigationNodeCollectionRequest(
       string requestUrl,
       IBaseClient client,
       IEnumerable<Option> options)
-      : base(requestUrl, client, options)
+      : base("NavigationNodeCollection", requestUrl, client, options)
     {
       this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.AcceptHeaderName, SharePointAPIRequestConstants.Headers.AcceptHeaderValue));
       this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName, SharePointAPIRequestConstants.Headers.ODataVersionHeaderValue));

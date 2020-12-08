@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -9,7 +9,6 @@
 	</PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Graph.Community" Version="3.18.0" />
     <PackageReference Include="microsoft.extensions.caching.memory" Version="3.1.9" />
     <PackageReference Include="microsoft.extensions.configuration" Version="3.1.9" />
     <PackageReference Include="microsoft.extensions.configuration.binder" Version="3.1.9" />
@@ -23,6 +22,10 @@
 		<Content Include="appSettings.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\src\Graph.Community.csproj" />
 	</ItemGroup>
 
 </Project>

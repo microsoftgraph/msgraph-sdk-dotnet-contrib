@@ -5,27 +5,23 @@ using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Graph.Community.Samples
 {
-	public static class SiteGroups
+	public static class RootSite
 	{
 		public static async Task Run()
 		{
-			/////////////////////////////
-			//
-			// Programmer configuration
-			//
-			/////////////////////////////
+      /////////////////////////////
+      //
+      // Programmer configuration
+      //
+      /////////////////////////////
 
-			var sharepointDomain = "demo.sharepoint.com";
-			var siteCollectionPath = "/sites/SiteGroupsTest";
+      var sharepointDomain = "demo.sharepoint.com";
+      var siteCollectionPath = "/sites/GraphCommunityDemo";
 
 			/////////////////
 			//
@@ -55,13 +51,30 @@ namespace Graph.Community.Samples
 			 *  var logger = new ConsoleHttpMessageLogger();
 			 */
 
+
+			// Use the system browser to login
+			//  https://github.com/AzureAD/microsoft-authentication-library-for-dotnet/wiki/System-Browser-on-.Net-Core#how-to-use-the-system-browser-ie-the-default-browser-of-the-os
+
+			var options = new PublicClientApplicationOptions()
+			{
+				AadAuthorityAudience = AadAuthorityAudience.AzureAdMyOrg,
+				AzureCloudInstance = AzureCloudInstance.AzurePublic,
+				ClientId = azureAdOptions.ClientId,
+				TenantId = azureAdOptions.TenantId,
+				RedirectUri = "http://localhost"
+			};
+
+			// Create the public client application (desktop app), with a default redirect URI
 			var pca = PublicClientApplicationBuilder
-									.Create(azureAdOptions.ClientId)
-									.WithTenantId(azureAdOptions.TenantId)
+									.CreateWithApplicationOptions(options)
 									.Build();
 
-			var scopes = new string[] { $"https://{sharepointDomain}/AllSites.FullControl" };
-			IAuthenticationProvider ap = new DeviceCodeProvider(pca, scopes);
+			// Enable a simple token cache serialiation so that the user does not need to
+			// re-sign-in each time the application is run
+			TokenCacheHelper.EnableSerialization(pca.UserTokenCache);
+
+			var scopes = new string[] { $"https://graph.microsoft.com/Sites.Read.All" };
+			IAuthenticationProvider ap = new InteractiveAuthenticationProvider(pca, scopes);
 
 			using (LoggingMessageHandler loggingHandler = new LoggingMessageHandler(logger))
 			using (HttpProvider hp = new HttpProvider(loggingHandler, false, new Serializer()))
@@ -76,24 +89,22 @@ namespace Graph.Community.Samples
 
 				var WebUrl = $"https://{sharepointDomain}{siteCollectionPath}";
 
-				var groups = await graphServiceClient
-												.SharePointAPI(WebUrl)
-												.Web
-												.SiteGroups
-												.Request()
-												.Expand(g => g.Users)
-												.Expand("Owner")
-												.GetAsync();
-
-
-				foreach (var group in groups)
+				try
 				{
-					Console.WriteLine(group.Title);
-					foreach (var user in group.Users)
-					{
-						Console.WriteLine($"  {user.LoginName}");
-					}
+					var results = await graphServiceClient
+													.Sites["root"]
+													.Request()
+													.Select(s => s.DisplayName)
+													.GetAsync();
+
+					Console.WriteLine($"title: {results.DisplayName}");
 				}
+				catch (Exception ex)
+				{
+					Console.WriteLine(ex.Message);
+				}
+
+
 
 				Console.WriteLine("Press enter to show log");
 				Console.ReadLine();
@@ -101,7 +112,7 @@ namespace Graph.Community.Samples
 				var log = logger.GetLog();
 				Console.WriteLine(log);
 			}
-		}
 
+		}
 	}
 }

@@ -4,7 +4,7 @@ This document lists the request builders that are included in the library
 
 ## Endpoint: Microsoft Graph
 
-The extension library contains extensions to the builders shipped in the SDK. These extensions are likely temporary, as they will be removed as the functionality is added to the SDK. 
+The extension library contains extensions to the builders shipped in the SDK. These extensions are likely temporary, as they will be removed as the functionality is added to the SDK.
 
 ### Immutable IDs for Outlook
 
@@ -22,11 +22,11 @@ The Office 365 SharePoint endpoint has request builders accessible using the `Sh
 ### Site Scripts and Site Designs
 The following operations use the `_api/Microsoft.Sharepoint.Utilities.WebTemplateExtensions.SiteScriptUtility.GetSiteScripts` url.
 
-| Operation                      | Request Builder      | Method      | Released version |
-|--------------------------------|----------------------|-------------|------------------|
+| Operation                      | Request Builder    | Method      | Released version |
+|--------------------------------|--------------------|-------------|------------------|
 | CreateSiteScript               | `.SiteScripts`     | CreateAsync | 1.16             |
 | GetSiteScripts                 | `.SiteScripts`     | GetAsync    | 1.16             |
-| GetSiteScriptFromList          |                      |             |                  |
+| GetSiteScriptFromList          |                    |             |                  |
 | GetSiteScriptMetadata          | `.SiteScripts[id]` |GetAsync     | 1.16             |
 | UpdateSiteScripts              |                    |             |                  |
 | DeleteSiteScripts              |                    |             |                  |
@@ -39,7 +39,7 @@ The following operations use the `_api/Microsoft.Sharepoint.Utilities.WebTemplat
 | UpdateSiteDesign               |                    |             |                  |
 | DeleteSiteDesign               |                    |             |                  |
 |                                |                    |             |                  |
-| GetSiteDesignRuns              | `.SiteDesignRuns`|GetAsync     | 3.9.1            |
+| GetSiteDesignRuns              | `.SiteDesignRuns`  |GetAsync     | 3.9.1            |
 |                                |                    |             |                  |
 | GetSiteDesignRights            |                    |             |                  |
 | GrantSiteDesignRights          |                    |             |                  |
@@ -72,33 +72,33 @@ The following operations enable the use of Person fields in SharePoint Lists usi
 | Operation    | Request Builder   | Method          | Released version |
 |--------------|-------------------|-----------------|------------------|
 | EnsureUser   | `.Web`            | EnsureUserAsync | 1.17.1           |
-| GetSiteUsers | `.Web.SiteUsers` | GetAsync        | 1.17.1           |
+| GetSiteUsers | `.Web.SiteUsers`  | GetAsync        | 1.17.1           |
 
 ### SharePoint SiteGroups
 The following operations allow for reading SharePoint Groups from a Site.
 
-| Operation        | Request Builder     | Method                   | Released version |
-|------------------|---------------------|--------------------------|------------------|
+| Operation        | Request Builder   | Method                   | Released version |
+|------------------|-------------------|--------------------------|------------------|
 | GetSiteGroups    | `.Web.SiteGroups` | GetAsync                 | 3.18.0           |
-|  (GroupMembers)  |                     | Expand('Users')          | 3.18.0           |
-| AssociatedGroups | `.Web`             | GetAssociatedGroupsAsync | 3.18.1
+|  (GroupMembers)  |                   | Expand('Users')          | 3.18.0           |
+| AssociatedGroups | `.Web`            | GetAssociatedGroupsAsync | 3.18.1
 
 
 ### SharePoint Search
 
 The following operations allow for searching SharePoint.
 
-| Operation  | Request Builder  | Method         | Released version |
-|------------|------------------|----------------|------------------|
+| Operation  | Request Builder | Method         | Released version |
+|------------|-----------------|----------------|------------------|
 | Search     | `.Search`       | QueryAsync     | 3.18.1           |
-|            |                  | PostQueryAsync | 3.18.1           |
+|            |                 | PostQueryAsync | 3.18.1           |
 
 ### SharePoint AppTiles
 The following operations allow for reading the AppTiles available in a Site.
 
-| Operation        | Request Builder     | Method                   | Released version |
-|------------------|---------------------|--------------------------|------------------|
-| GetAppTiles      | `.Web.AppTiles`   | GetAsync                 | 3.19.3           |
+| Operation        | Request Builder | Method                   | Released version |
+|------------------|-----------------|--------------------------|------------------|
+| GetAppTiles      | `.Web.AppTiles` | GetAsync                 | 3.19.3           |
 
 ### SharePoint User Profile
 

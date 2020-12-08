@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace Graph.Community
 {
-  public class NavigationNodeRequest : BaseRequest, INavigationNodeRequest
+  public class NavigationNodeRequest : BaseSharePointAPIRequest, INavigationNodeRequest
   {
 #pragma warning disable CA1054 // URI parameters should not be strings
     public NavigationNodeRequest(
       string requestUrl,
       IBaseClient client,
       IEnumerable<Option> options)
-      : base(requestUrl, client, options)
+      : base("NavigationNode", requestUrl, client, options)
     {
       this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.AcceptHeaderName, SharePointAPIRequestConstants.Headers.AcceptHeaderValue));
       this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName, SharePointAPIRequestConstants.Headers.ODataVersionHeaderValue));

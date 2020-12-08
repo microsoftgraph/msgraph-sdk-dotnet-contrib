@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace Graph.Community
 {
-	public class SiteGroupCollectionRequest : BaseRequest, ISiteGroupCollectionRequest
+	public class SiteGroupCollectionRequest : BaseSharePointAPIRequest, ISiteGroupCollectionRequest
 	{
 		public SiteGroupCollectionRequest(
 			string requestUrl,
 			IBaseClient client,
 			IEnumerable<Option> options)
-			: base(requestUrl, client, options)
+			: base("SiteGroupCollection", requestUrl, client, options)
 		{
 			this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.AcceptHeaderName, SharePointAPIRequestConstants.Headers.AcceptHeaderValue));
 			this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName, SharePointAPIRequestConstants.Headers.ODataVersionHeaderValue));

@@ -12,6 +12,9 @@ Older samples use the [Device Code flow](https://aka.ms/msal-net-device-code-flo
 
 Refer to the notes below for the scopes required for each sample.
 
+## Diagnostics sample
+
+The diagnostics sample demonstrates how to capture diagnostic information from MSAL, diagnostics from the Graph.Community libary and use the LoggingMiddleware handler. The diagnostic sample also leverages the CommunityGraphClientFactory to properly setup the middleware handlers.
 
 ## SiteGroups sample and Interactive Login with token cache
 

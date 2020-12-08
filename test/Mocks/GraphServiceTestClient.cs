@@ -1,4 +1,4 @@
-﻿using Microsoft.Graph;
+using Microsoft.Graph;
 using Microsoft.Graph.Core.Test.Mocks;
 using System;
 using System.Collections.Generic;
@@ -33,10 +33,35 @@ namespace Graph.Community.Test
 			this.GraphServiceClient = new GraphServiceClient(ap.Object, this.HttpProvider.Object);
 		}
 
+		public GraphServiceTestClient(HttpMessageHandler handler, HttpResponseMessage httpResponseMessage = null)
+		{
+			if (httpResponseMessage == null)
+			{
+				this.httpResponseMessage = new HttpResponseMessage();
+				disposeHttpResponseMessage = true;
+			}
+			else
+			{
+				this.httpResponseMessage = httpResponseMessage;
+			}
+
+			var ap = new MockAuthenticationProvider();
+			var ser = new Serializer();
+			this.HttpProvider = new MockHttpProvider(handler, this.httpResponseMessage, ser);
+			this.GraphServiceClient = new GraphServiceClient(ap.Object, this.HttpProvider.Object);
+
+		}
+
+
 		public static GraphServiceTestClient Create(HttpResponseMessage httpResponseMessage = null)
 		{
 			return new GraphServiceTestClient(httpResponseMessage);
 		}
+
+		public static GraphServiceTestClient Create(HttpMessageHandler handler, HttpResponseMessage httpResponseMessage = null)
+    {
+			return new GraphServiceTestClient(handler, httpResponseMessage);
+    }
 
 
 		#region IDisposable Support
