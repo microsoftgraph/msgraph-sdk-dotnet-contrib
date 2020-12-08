@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Graph.Community
 {
-  public class SiteDesignRequest : BaseRequest, ISiteDesignRequest
+  public class SiteDesignRequest : BaseSharePointAPIRequest, ISiteDesignRequest
   {
     //_api/Microsoft.Sharepoint.Utilities.WebTemplateExtensions.SiteScriptUtility.CreateSiteDesign
     //_api/Microsoft.Sharepoint.Utilities.WebTemplateExtensions.SiteScriptUtility.UpdateSiteDesign
@@ -17,7 +17,7 @@ namespace Graph.Community
       string requestUrl,
       IBaseClient client,
       IEnumerable<Option> options)
-      : base(requestUrl, client, options)
+      : base("SiteDesign", requestUrl, client, options)
     {
       this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.AcceptHeaderName, SharePointAPIRequestConstants.Headers.AcceptHeaderValue));
       this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName, SharePointAPIRequestConstants.Headers.ODataVersionHeaderValue));

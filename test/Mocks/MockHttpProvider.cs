@@ -37,5 +37,16 @@ namespace Microsoft.Graph.Core.Test.Mocks
 				this.ContentAsString = await req.Content.ReadAsStringAsync();
 			}
 		}
+
+		public MockHttpProvider(HttpMessageHandler handler, HttpResponseMessage httpResponseMessage, ISerializer serializer = null)
+		{
+			var invoker = new HttpMessageInvoker(handler);
+
+
+			this.Setup(provider => provider.SendAsync(It.IsAny<HttpRequestMessage>(), It.IsAny<HttpCompletionOption>(), It.IsAny<CancellationToken>()))
+				.Callback<HttpRequestMessage, HttpCompletionOption, CancellationToken>(async (req, opt, tok) => await invoker.SendAsync(req, CancellationToken.None))
+				.ReturnsAsync(httpResponseMessage);
+
+		}
 	}
 }

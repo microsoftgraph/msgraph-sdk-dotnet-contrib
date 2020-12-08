@@ -43,7 +43,6 @@ namespace Graph.Community
 
       stopWatch.Stop();
 
-
       if (response.Content != null)
       {
         await response.Content.LoadIntoBufferAsync();

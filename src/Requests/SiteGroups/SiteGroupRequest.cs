@@ -1,36 +1,33 @@
 using Microsoft.Graph;
+using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Graph.Community
 {
-  public class SiteRequest : BaseSharePointAPIRequest, Graph.Community.ISiteRequest
+  public class SiteGroupRequest: BaseSharePointAPIRequest, ISiteGroupRequest
   {
-#pragma warning disable CA1054 // URI parameters should not be strings
-    public SiteRequest(
+    public SiteGroupRequest(
       string requestUrl,
       IBaseClient client,
       IEnumerable<Option> options)
-      : base("Site", requestUrl, client, options)
+      : base("SiteGroup", requestUrl, client, options)
     {
-
-      // TODO:  Consider moving this to a Community base request object...
-
       this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.AcceptHeaderName, SharePointAPIRequestConstants.Headers.AcceptHeaderValue));
       this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName, SharePointAPIRequestConstants.Headers.ODataVersionHeaderValue));
     }
-#pragma warning restore CA1054 // URI parameters should not be strings
 
-    public Task<Site> GetAsync()
+    public async Task<Group> GetAsync()
     {
-      return this.GetAsync(CancellationToken.None);
+      return await this.GetAsync(CancellationToken.None);
     }
 
-    public async Task<Site> GetAsync(CancellationToken cancellationToken)
+    public async Task<Group> GetAsync(CancellationToken cancellationToken)
     {
       this.ContentType = "application/json";
-      var entity = await this.SendAsync<Graph.Community.Site>(null, cancellationToken).ConfigureAwait(false);
+      var entity = await this.SendAsync<Group>(null, cancellationToken).ConfigureAwait(false);
       return entity;
     }
   }

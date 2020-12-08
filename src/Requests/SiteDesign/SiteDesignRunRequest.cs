@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace Graph.Community
 {
-	public class SiteDesignRunRequest : BaseRequest, ISiteDesignRunRequest
+	public class SiteDesignRunRequest : BaseSharePointAPIRequest, ISiteDesignRunRequest
 	{
 
 		public SiteDesignRunRequest(
 			string requestUrl,
 			IBaseClient client,
 			IEnumerable<Option> options)
-			: base(requestUrl, client, options)
+			: base("SiteDesignRun", requestUrl, client, options)
 		{
 			this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.AcceptHeaderName, SharePointAPIRequestConstants.Headers.AcceptHeaderValue));
 			this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName, SharePointAPIRequestConstants.Headers.ODataVersionHeaderValue));

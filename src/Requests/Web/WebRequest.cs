@@ -8,18 +8,18 @@ using System.Threading.Tasks;
 
 namespace Graph.Community
 {
-  public class WebRequest : BaseRequest, IWebRequest
-  {
+	public class WebRequest : BaseSharePointAPIRequest, IWebRequest
+	{
 #pragma warning disable CA1054 // URI parameters should not be strings
-    public WebRequest(
-      string requestUrl,
-      IBaseClient client,
-      IEnumerable<Option> options)
-      : base(requestUrl, client, options)
-    {
-      this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.AcceptHeaderName, SharePointAPIRequestConstants.Headers.AcceptHeaderValue));
-      this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName, SharePointAPIRequestConstants.Headers.ODataVersionHeaderValue));
-    }
+		public WebRequest(
+			string requestUrl,
+			IBaseClient client,
+			IEnumerable<Option> options)
+			: base("Site", requestUrl, client, options)
+		{
+			this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.AcceptHeaderName, SharePointAPIRequestConstants.Headers.AcceptHeaderValue));
+			this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName, SharePointAPIRequestConstants.Headers.ODataVersionHeaderValue));
+		}
 #pragma warning restore CA1054 // URI parameters should not be strings
 
     public Task<Web> GetAsync()
