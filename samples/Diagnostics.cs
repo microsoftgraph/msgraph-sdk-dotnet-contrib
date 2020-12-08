@@ -18,17 +18,14 @@ namespace Graph.Community.Samples
 	{
 		public static async Task Run()
 		{
-			/////////////////////////////
-			//
-			// Programmer configuration
-			//
-			/////////////////////////////
+      /////////////////////////////
+      //
+      // Programmer configuration
+      //
+      /////////////////////////////
 
-			//var sharepointDomain = "demo.sharepoint.com";
-			//var siteCollectionPath = "/sites/SiteGroupsTest";
-
-			var sharepointDomain = "scdev.sharepoint.com";
-			var siteCollectionPath = "/sites/AdaptiveCard";
+      var sharepointDomain = "demo.sharepoint.com";
+      var siteCollectionPath = "/sites/SiteGroupsTest";
 
 			/////////////////
 			//
