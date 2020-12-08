@@ -13,18 +13,22 @@ variables:
   value: $[format('{0}.{1}', variables['version_core'], variables['Build.SourceBranchName'])]
 - name: ReleaseCounter
   value: $[counter(variables['counterKey'], 0)]
+- name: counterKeyPre
+  value: $[format('{0}.{1}', variables['version_pre'], variables['Build.SourceBranchName'])]
+- name: ReleaseCounterPre
+  value: $[counter(variables['counterKeyPre'], 0)]
 
 pool:
   vmImage: windows-2019
 
 steps:
 - powershell: |
-    Write-Host "##vso[task.setvariable variable=nugetVersion]$($Env:version_core)-preview$($Env:ReleaseCounter)"
+    Write-Host "##vso[task.setvariable variable=nugetVersion]$($Env:version_pre)-preview$($Env:ReleaseCounterPre)"
   displayName: 'Set pre-release version' 
   condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'prerelease'))
 
 - powershell: |
-    Write-Host "##vso[task.setvariable variable=nugetVersion]$($Env:version_core)-CI-$($Env:ReleaseCounter)"
+    Write-Host "##vso[task.setvariable variable=nugetVersion]$($Env:version_pre)-CI-$($Env:ReleaseCounterPre)"
   displayName: 'Set CI version' 
   condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'dev'))
 
