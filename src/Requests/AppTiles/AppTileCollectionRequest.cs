@@ -29,7 +29,7 @@ namespace Graph.Community
     {
       var response = await this.SendAsync<GetCollectionResponse<AppTile>>(null, cancellationToken).ConfigureAwait(false);
 
-      if (response != null && response.Value != null && response.Value.CurrentPage != null)
+      if (response?.Value?.CurrentPage != null)
       {
         return response.Value;
       }
