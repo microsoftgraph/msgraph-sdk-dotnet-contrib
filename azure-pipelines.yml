@@ -4,8 +4,8 @@ trigger:
     - '*'
   paths:
     include:
-    - src
-    - test
+    - src/*
+    - test/*
 
 variables:
 - group: Microsoft.Graph.Version
