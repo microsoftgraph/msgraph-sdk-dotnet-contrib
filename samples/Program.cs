@@ -15,11 +15,19 @@ namespace Graph.Community.Samples
 
 		static async Task Main(string[] args)
 		{
-			await ChangeLog.Run();
+			await Diagnostics.Run();
 
-			await SiteDesign.Run();
+			//await RootSite.Run();
 
-			await ImmutableIds.Run();
+			//await Search.Run();
+
+			//await SiteGroups.Run();
+
+			//await ChangeLog.Run();
+
+			//await SiteDesign.Run();
+
+			//await ImmutableIds.Run();
 
 			Console.WriteLine("Press enter to end");
 			Console.ReadLine();
