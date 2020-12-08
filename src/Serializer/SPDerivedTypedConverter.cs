@@ -17,14 +17,14 @@ namespace Graph.Community
   /// <summary>
   /// Handles resolving interfaces to the correct derived class during serialization/deserialization.
   /// </summary>
-  public class SPChangeDerivedTypedConverter : JsonConverter
+  public class SPDerivedTypedConverter : JsonConverter
   {
     internal static readonly ConcurrentDictionary<string, Type> TypeMappingCache = new ConcurrentDictionary<string, Type>(StringComparer.OrdinalIgnoreCase);
 
     /// <summary>
     /// Constructs a new DerivedTypeConverter.
     /// </summary>
-    public SPChangeDerivedTypedConverter()
+    public SPDerivedTypedConverter()
         : base()
     {
     }

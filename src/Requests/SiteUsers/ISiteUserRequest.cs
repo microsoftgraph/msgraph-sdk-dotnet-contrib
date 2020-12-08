@@ -9,7 +9,7 @@ namespace Graph.Community
 {
   public interface ISiteUserRequest : IBaseRequest
   {
-    Task<SPUser> GetAsync();
-    Task<SPUser> GetAsync(CancellationToken cancellationToken);
+    Task<User> GetAsync();
+    Task<User> GetAsync(CancellationToken cancellationToken);
   }
 }

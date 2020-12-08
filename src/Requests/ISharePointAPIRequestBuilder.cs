@@ -13,5 +13,7 @@ namespace Graph.Community
     ISiteRequestBuilder Site { get; }
 
     IWebRequestBuilder Web { get; }
+
+    ISearchRequestBuilder Search { get; }
   }
 }

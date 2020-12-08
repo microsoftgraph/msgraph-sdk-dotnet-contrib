@@ -14,5 +14,9 @@ namespace Graph.Community
     INavigationRequestBuilder Navigation { get; }
 
     ISiteUserCollectionRequestBuilder SiteUsers { get; }
+
+    ISiteGroupCollectionRequestBuilder SiteGroups { get; }
+
+    IAppTileCollectionRequestBuilder AppTiles { get; }
   }
 }

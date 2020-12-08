@@ -12,7 +12,7 @@ variables:
 - name: counterKey
   value: $[format('{0}.{1}', variables['version_core'], variables['Build.SourceBranchName'])]
 - name: ReleaseCounter
-  value: $[counter(variables['counterKey'], 1)]
+  value: $[counter(variables['counterKey'], 0)]
 
 pool:
   vmImage: windows-2019
@@ -29,7 +29,7 @@ steps:
   condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'dev'))
 
 - powershell: |
-    Write-Host "##vso[task.setvariable variable=nugetVersion]$($Env:version_core)"
+    Write-Host "##vso[task.setvariable variable=nugetVersion]$($Env:version_core).$($Env:ReleaseCounter)"
   displayName: 'Set release version' 
   condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'master'))
 

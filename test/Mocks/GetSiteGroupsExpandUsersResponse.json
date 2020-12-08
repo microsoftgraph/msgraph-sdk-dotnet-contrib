@@ -1,0 +1,322 @@
+{
+	"@odata.context": "https://mock.sharepoint.com/sites/mockSite/_api/$metadata#Groups",
+	"value": [
+		{
+			"@odata.type": "#SP.Group",
+			"@odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/Web/SiteGroups/GetById(5)",
+			"@odata.editLink": "Web/SiteGroups/GetById(5)",
+			"Id": 5,
+			"IsHiddenInUI": false,
+			"LoginName": "Mock Site Members",
+			"Title": "Mock Site Members",
+			"PrincipalType": 8,
+			"AllowMembersEditMembership": true,
+			"AllowRequestToJoinLeave": false,
+			"AutoAcceptRequestToJoinLeave": false,
+			"Description": null,
+			"OnlyAllowMembersViewMembership": false,
+			"OwnerTitle": "Mock Site Owners",
+			"RequestToJoinLeaveEmailSetting": "",
+			"Users@odata.navigationLink": "Web/SiteGroups/GetById(5)/Users",
+			"Users": [
+				{
+					"@odata.type": "#SP.User",
+					"@odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/Web/GetUserById(12)",
+					"@odata.editLink": "Web/GetUserById(12)",
+					"Id": 12,
+					"IsHiddenInUI": false,
+					"LoginName": "i:0#.f|membership|meganb@mock.onmicrosoft.com",
+					"Title": "Megan Bowen",
+					"PrincipalType": 1,
+					"Email": "MeganB@mock.onmicrosoft.com",
+					"Expiration": "",
+					"IsEmailAuthenticationGuestUser": false,
+					"IsShareByEmailGuestUser": false,
+					"IsSiteAdmin": false,
+					"UserId": {
+						"NameId": "100320005d1f547f",
+						"NameIdIssuer": "urn:federation:microsoftonline"
+					},
+					"UserPrincipalName": "meganb@mock.onmicrosoft.com"
+				}
+			]
+		},
+		{
+			"@odata.type": "#SP.Group",
+			"@odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/Web/SiteGroups/GetById(3)",
+			"@odata.editLink": "Web/SiteGroups/GetById(3)",
+			"Id": 3,
+			"IsHiddenInUI": false,
+			"LoginName": "Mock Site Owners",
+			"Title": "Mock Site Owners",
+			"PrincipalType": 8,
+			"AllowMembersEditMembership": false,
+			"AllowRequestToJoinLeave": false,
+			"AutoAcceptRequestToJoinLeave": false,
+			"Description": null,
+			"OnlyAllowMembersViewMembership": false,
+			"OwnerTitle": "Mock Site Owners",
+			"RequestToJoinLeaveEmailSetting": "",
+			"Users@odata.navigationLink": "Web/SiteGroups/GetById(3)/Users",
+			"Users": [
+				{
+					"@odata.type": "#SP.User",
+					"@odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/Web/GetUserById(12)",
+					"@odata.editLink": "Web/GetUserById(12)",
+					"Id": 12,
+					"IsHiddenInUI": false,
+					"LoginName": "i:0#.f|membership|meganb@mock.onmicrosoft.com",
+					"Title": "Megan Bowen",
+					"PrincipalType": 1,
+					"Email": "MeganB@mock.onmicrosoft.com",
+					"Expiration": "",
+					"IsEmailAuthenticationGuestUser": false,
+					"IsShareByEmailGuestUser": false,
+					"IsSiteAdmin": false,
+					"UserId": {
+						"NameId": "100320005d1f547f",
+						"NameIdIssuer": "urn:federation:microsoftonline"
+					},
+					"UserPrincipalName": "meganb@mock.onmicrosoft.com"
+				},
+				{
+					"@odata.type": "#SP.User",
+					"@odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/Web/GetUserById(11)",
+					"@odata.editLink": "Web/GetUserById(11)",
+					"Id": 11,
+					"IsHiddenInUI": false,
+					"LoginName": "i:0#.f|membership|adelev@mock.onmicrosoft.com",
+					"Title": "Adele Vance",
+					"PrincipalType": 1,
+					"Email": "adelev@mock.onmicrosoft.com",
+					"Expiration": "",
+					"IsEmailAuthenticationGuestUser": false,
+					"IsShareByEmailGuestUser": false,
+					"IsSiteAdmin": false,
+					"UserId": {
+						"NameId": "1003200090df8ca4",
+						"NameIdIssuer": "urn:federation:microsoftonline"
+					},
+					"UserPrincipalName": "adelev@mock.onmicrosoft.com"
+				},
+				{
+					"@odata.type": "#SP.User",
+					"@odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/Web/GetUserById(10)",
+					"@odata.editLink": "Web/GetUserById(10)",
+					"Id": 10,
+					"IsHiddenInUI": false,
+					"LoginName": "i:0#.f|membership|alexw@mock.onmicrosoft.com",
+					"Title": "Alex Wilbur",
+					"PrincipalType": 1,
+					"Email": "alexw@mock.onmicrosoft.com",
+					"Expiration": "",
+					"IsEmailAuthenticationGuestUser": false,
+					"IsShareByEmailGuestUser": false,
+					"IsSiteAdmin": false,
+					"UserId": {
+						"NameId": "1003200067662ad3",
+						"NameIdIssuer": "urn:federation:microsoftonline"
+					},
+					"UserPrincipalName": "alexw@mock.onmicrosoft.com"
+				}
+			]
+		},
+		{
+			"@odata.type": "#SP.Group",
+			"@odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/Web/SiteGroups/GetById(4)",
+			"@odata.editLink": "Web/SiteGroups/GetById(4)",
+			"Id": 4,
+			"IsHiddenInUI": false,
+			"LoginName": "Mock Site Visitors",
+			"Title": "Mock Site Visitors",
+			"PrincipalType": 8,
+			"AllowMembersEditMembership": false,
+			"AllowRequestToJoinLeave": false,
+			"AutoAcceptRequestToJoinLeave": false,
+			"Description": null,
+			"OnlyAllowMembersViewMembership": false,
+			"OwnerTitle": "Mock Site Owners",
+			"RequestToJoinLeaveEmailSetting": "",
+			"Users@odata.navigationLink": "Web/SiteGroups/GetById(4)/Users",
+			"Users": [
+				{
+					"@odata.type": "#SP.User",
+					"@odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/Web/GetUserById(16)",
+					"@odata.editLink": "Web/GetUserById(16)",
+					"Id": 16,
+					"IsHiddenInUI": false,
+					"LoginName": "c:0o.c|federateddirectoryclaimprovider|bbeb6cce-8b16-47ad-8ff3-f6e267a72c08",
+					"Title": "demo1 Members",
+					"PrincipalType": 4,
+					"Email": "demo1@mock.onmicrosoft.com",
+					"Expiration": "",
+					"IsEmailAuthenticationGuestUser": false,
+					"IsShareByEmailGuestUser": false,
+					"IsSiteAdmin": false,
+					"UserId": null,
+					"UserPrincipalName": null
+				}
+			]
+		},
+		{
+			"@odata.type": "#SP.Group",
+			"@odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/Web/SiteGroups/GetById(15)",
+			"@odata.editLink": "Web/SiteGroups/GetById(15)",
+			"Id": 15,
+			"IsHiddenInUI": false,
+			"LoginName": "Limited Access System Group",
+			"Title": "Limited Access System Group",
+			"PrincipalType": 8,
+			"AllowMembersEditMembership": false,
+			"AllowRequestToJoinLeave": false,
+			"AutoAcceptRequestToJoinLeave": false,
+			"Description": "Limited Access System Group",
+			"OnlyAllowMembersViewMembership": true,
+			"OwnerTitle": "System Account",
+			"RequestToJoinLeaveEmailSetting": null,
+			"Users@odata.navigationLink": "Web/SiteGroups/GetById(15)/Users",
+			"Users": [
+				{
+					"@odata.type": "#SP.User",
+					"@odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/Web/GetUserById(13)",
+					"@odata.editLink": "Web/GetUserById(13)",
+					"Id": 13,
+					"IsHiddenInUI": false,
+					"LoginName": "i:0#.f|membership|gradya@mock.onmicrosoft.com",
+					"Title": "Grady Archie",
+					"PrincipalType": 1,
+					"Email": "gradya@mock.onmicrosoft.com",
+					"Expiration": "",
+					"IsEmailAuthenticationGuestUser": false,
+					"IsShareByEmailGuestUser": false,
+					"IsSiteAdmin": false,
+					"UserId": {
+						"NameId": "100320009eca239d",
+						"NameIdIssuer": "urn:federation:microsoftonline"
+					},
+					"UserPrincipalName": "gradya@mock.onmicrosoft.com"
+				},
+				{
+					"@odata.type": "#SP.User",
+					"@odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/Web/GetUserById(7)",
+					"@odata.editLink": "Web/GetUserById(7)",
+					"Id": 7,
+					"IsHiddenInUI": false,
+					"LoginName": "i:0#.f|membership|jonis@mock.onmicrosoft.com",
+					"Title": "Joni Sherman",
+					"PrincipalType": 1,
+					"Email": "jonis@mock.onmicrosoft.com",
+					"Expiration": "",
+					"IsEmailAuthenticationGuestUser": false,
+					"IsShareByEmailGuestUser": false,
+					"IsSiteAdmin": false,
+					"UserId": {
+						"NameId": "100320007ee3882b",
+						"NameIdIssuer": "urn:federation:microsoftonline"
+					},
+					"UserPrincipalName": "jonis@mock.onmicrosoft.com"
+				},
+				{
+					"@odata.type": "#SP.User",
+					"@odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/Web/GetUserById(10)",
+					"@odata.editLink": "Web/GetUserById(10)",
+					"Id": 10,
+					"IsHiddenInUI": false,
+					"LoginName": "i:0#.f|membership|lidiah@mock.onmicrosoft.com",
+					"Title": "Lidia Holloway",
+					"PrincipalType": 1,
+					"Email": "lidiah@mock.onmicrosoft.com",
+					"Expiration": "",
+					"IsEmailAuthenticationGuestUser": false,
+					"IsShareByEmailGuestUser": false,
+					"IsSiteAdmin": false,
+					"UserId": {
+						"NameId": "1003200067662ad3",
+						"NameIdIssuer": "urn:federation:microsoftonline"
+					},
+					"UserPrincipalName": "lidiah@mock.onmicrosoft.com"
+				}
+			]
+		},
+		{
+			"@odata.type": "#SP.Group",
+			"@odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/Web/SiteGroups/GetById(14)",
+			"@odata.editLink": "Web/SiteGroups/GetById(14)",
+			"Id": 14,
+			"IsHiddenInUI": false,
+			"LoginName": "SharingLinks.40cfe277-dc10-45ea-9488-92db7672f252.OrganizationEdit.008bc302-a305-4ffd-bda2-8cd53e50d475",
+			"Title": "SharingLinks.40cfe277-dc10-45ea-9488-92db7672f252.OrganizationEdit.008bc302-a305-4ffd-bda2-8cd53e50d475",
+			"PrincipalType": 8,
+			"AllowMembersEditMembership": false,
+			"AllowRequestToJoinLeave": false,
+			"AutoAcceptRequestToJoinLeave": false,
+			"Description": "This group is for OrganizationEdit sharing links on item 'SiteAssets/SitePages/58yzjsxv/30668-street-art-shipping-container-freight-highway-163811.jpeg'",
+			"OnlyAllowMembersViewMembership": true,
+			"OwnerTitle": "System Account",
+			"RequestToJoinLeaveEmailSetting": null,
+			"Users@odata.navigationLink": "Web/SiteGroups/GetById(14)/Users",
+			"Users": [
+				{
+					"@odata.type": "#SP.User",
+					"@odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/Web/GetUserById(13)",
+					"@odata.editLink": "Web/GetUserById(13)",
+					"Id": 13,
+					"IsHiddenInUI": false,
+					"LoginName": "i:0#.f|membership|gradya@mock.onmicrosoft.com",
+					"Title": "Grady Archie",
+					"PrincipalType": 1,
+					"Email": "gradya@mock.onmicrosoft.com",
+					"Expiration": "",
+					"IsEmailAuthenticationGuestUser": false,
+					"IsShareByEmailGuestUser": false,
+					"IsSiteAdmin": false,
+					"UserId": {
+						"NameId": "100320009eca239d",
+						"NameIdIssuer": "urn:federation:microsoftonline"
+					},
+					"UserPrincipalName": "gradya@mock.onmicrosoft.com"
+				},
+				{
+					"@odata.type": "#SP.User",
+					"@odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/Web/GetUserById(7)",
+					"@odata.editLink": "Web/GetUserById(7)",
+					"Id": 7,
+					"IsHiddenInUI": false,
+					"LoginName": "i:0#.f|membership|jonis@mock.onmicrosoft.com",
+					"Title": "Joni Sherman",
+					"PrincipalType": 1,
+					"Email": "jonis@mock.onmicrosoft.com",
+					"Expiration": "",
+					"IsEmailAuthenticationGuestUser": false,
+					"IsShareByEmailGuestUser": false,
+					"IsSiteAdmin": false,
+					"UserId": {
+						"NameId": "100320007ee3882b",
+						"NameIdIssuer": "urn:federation:microsoftonline"
+					},
+					"UserPrincipalName": "jonis@mock.onmicrosoft.com"
+				},
+				{
+					"@odata.type": "#SP.User",
+					"@odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/Web/GetUserById(10)",
+					"@odata.editLink": "Web/GetUserById(10)",
+					"Id": 10,
+					"IsHiddenInUI": false,
+					"LoginName": "i:0#.f|membership|lidiah@mock.onmicrosoft.com",
+					"Title": "Lidia Holloway",
+					"PrincipalType": 1,
+					"Email": "lidiah@mock.onmicrosoft.com",
+					"Expiration": "",
+					"IsEmailAuthenticationGuestUser": false,
+					"IsShareByEmailGuestUser": false,
+					"IsSiteAdmin": false,
+					"UserId": {
+						"NameId": "1003200067662ad3",
+						"NameIdIssuer": "urn:federation:microsoftonline"
+					},
+					"UserPrincipalName": "lidiah@mock.onmicrosoft.com"
+				}
+			]
+		}
+	]
+}

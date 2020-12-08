@@ -74,10 +74,31 @@ The following operations enable the use of Person fields in SharePoint Lists usi
 | EnsureUser   | `.Web`            | EnsureUserAsync | 1.17.1           |
 | GetSiteUsers | `.Web.SiteUsers` | GetAsync        | 1.17.1           |
 
+### SharePoint SiteGroups
+The following operations allow for reading SharePoint Groups from a Site.
+
+| Operation        | Request Builder     | Method                   | Released version |
+|------------------|---------------------|--------------------------|------------------|
+| GetSiteGroups    | `.Web.SiteGroups` | GetAsync                 | 3.18.0           |
+|  (GroupMembers)  |                     | Expand('Users')          | 3.18.0           |
+| AssociatedGroups | `.Web`             | GetAssociatedGroupsAsync | 3.18.1
+
 
 ### SharePoint Search
 
-Interested in [SharePoint Search REST API](https://docs.microsoft.com/en-us/sharepoint/dev/general-development/sharepoint-search-rest-api-overview)? [Open an issue](https://github.com/microsoftgraph/msgraph-sdk-dotnet-contrib/issues/new)
+The following operations allow for searching SharePoint.
+
+| Operation  | Request Builder  | Method         | Released version |
+|------------|------------------|----------------|------------------|
+| Search     | `.Search`       | QueryAsync     | 3.18.1           |
+|            |                  | PostQueryAsync | 3.18.1           |
+
+### SharePoint AppTiles
+The following operations allow for reading the AppTiles available in a Site.
+
+| Operation        | Request Builder     | Method                   | Released version |
+|------------------|---------------------|--------------------------|------------------|
+| GetAppTiles      | `.Web.AppTiles`   | GetAsync                 | 3.19.3           |
 
 ### SharePoint User Profile
 

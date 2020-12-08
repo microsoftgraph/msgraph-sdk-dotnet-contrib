@@ -1,0 +1,21 @@
+{
+  "@odata.context": "https://mock.sharepoint.com/sites/mockSite/_api/$metadata#Users/$entity",
+  "@odata.type": "#SP.User",
+  "@odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/Web/GetUserById(10)",
+  "@odata.editLink": "Web/GetUserById(10)",
+  "Id": 10,
+  "IsHiddenInUI": false,
+  "LoginName": "i:0#.f|membership|meganb@mock.onmicrosoft.com",
+  "Title": "Megan Bowen",
+  "PrincipalType": 1,
+  "Email": "meganb@mock.onmicrosoft.com",
+  "Expiration": "",
+  "IsEmailAuthenticationGuestUser": false,
+  "IsShareByEmailGuestUser": false,
+  "IsSiteAdmin": false,
+  "UserId": {
+    "NameId": "100320007ee3882b",
+    "NameIdIssuer": "urn:federation:microsoftonline"
+  },
+  "UserPrincipalName": "meganb@mock.onmicrosoft.com"
+}

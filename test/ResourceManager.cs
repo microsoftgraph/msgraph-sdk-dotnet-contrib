@@ -1,3 +1,6 @@
+using System;
+using System.Net.Http.Headers;
+
 namespace Graph.Community.Test
 {
   internal class ResourceManager
@@ -7,7 +10,8 @@ namespace Graph.Community.Test
       var resourcePath = @"Mocks\" + responseSourceFilename;
 
       var contentString = GetEmbeddedResource(resourcePath);
-      return contentString;
+
+      return contentString.TrimEnd();
     }
 
 #pragma warning disable CA1307 // Specify StringComparison

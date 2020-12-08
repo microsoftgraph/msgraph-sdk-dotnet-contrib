@@ -18,14 +18,14 @@ namespace Graph.Community.Samples
 	{
 		public static async Task Run()
 		{
-      /////////////////////////////
-      //
-      // Programmer configuration
-      //
-      /////////////////////////////
+			/////////////////////////////
+			//
+			// Programmer configuration
+			//
+			/////////////////////////////
 
-      var sharepointDomain = "demo.sharepoint.com";
-      var siteCollectionPath = "/sites/SiteGroupsTest";
+			var sharepointDomain = "demo.sharepoint.com";
+			var siteCollectionPath = "/sites/SiteGroupsTest";
 
 			/////////////////
 			//
@@ -61,7 +61,7 @@ namespace Graph.Community.Samples
 									.Build();
 
 			var scopes = new string[] { $"https://{sharepointDomain}/AllSites.FullControl" };
-			IAuthenticationProvider ap = new InteractiveAuthenticationProvider(pca, scopes); 
+			IAuthenticationProvider ap = new DeviceCodeProvider(pca, scopes);
 
 			using (LoggingMessageHandler loggingHandler = new LoggingMessageHandler(logger))
 			using (HttpProvider hp = new HttpProvider(loggingHandler, false, new Serializer()))
@@ -79,6 +79,7 @@ namespace Graph.Community.Samples
 				var web = await graphServiceClient
 												.SharePointAPI(WebUrl)
 												.Web
+												.SiteGroups
 												.Request()
 												.Expand(g => g.Users)
 												.Expand("Owner")

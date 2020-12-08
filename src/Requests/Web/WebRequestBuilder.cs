@@ -44,6 +44,22 @@ namespace Graph.Community
       }
     }
 
+    public ISiteGroupCollectionRequestBuilder SiteGroups
+    {
+      get
+      {
+        return new SiteGroupCollectionRequestBuilder(this.AppendSegmentToRequestUrl("sitegroups"), this.Client, this.options);
+      }
+    }
+
+    public IAppTileCollectionRequestBuilder AppTiles
+    {
+      get
+      {
+        return new AppTileCollectionRequestBuilder(this.AppendSegmentToRequestUrl("apptiles"), this.Client, this.options);
+      }
+    }
+
     public IWebRequest Request()
     {
       return this.Request(options);

@@ -1,22 +1,19 @@
-﻿# Graph SDK Community Extensions (Graph.Community)
+# Graph SDK Community Extensions (Graph.Community)
 
 The Graph extension library is a community effort to unblock developers building on .Net Standard who need to call endpoints that are not part of the Microsoft Graph.
 
-## Build Status
+![Build Status](https://schaeflein.visualstudio.com/Graph.Community/_apis/build/status/microsoftgraph.msgraph-sdk-dotnet-contrib?branchName=master)
+![NuGet package](https://buildstats.info/nuget/Graph.Community)
 
-|Branch|Status|
-|------|------|
-|master|![Build Status](https://schaeflein.visualstudio.com/Graph.Community/_apis/build/status/microsoftgraph.msgraph-sdk-dotnet-contrib?branchName=master)|
-|prerelease|![Build Status](https://schaeflein.visualstudio.com/Graph.Community/_apis/build/status/microsoftgraph.msgraph-sdk-dotnet-contrib?branchName=prerelease)|
-|dev|![Build Status](https://schaeflein.visualstudio.com/Graph.Community/_apis/build/status/microsoftgraph.msgraph-sdk-dotnet-contrib?branchName=dev)|
-|||
-|NuGet|![NuGet package](https://buildstats.info/nuget/Graph.Community)|
-|NuGet|![NuGet package](https://buildstats.info/nuget/Graph.Community?includePreReleases=true)|
 ## Documentation
 
 This community library contains requests and models that extend the Microsoft Graph SDK. Please review the [Roadmap](./docs/ROADMAP.md) for an index of requests that are included and on the roadmap. 
 
 If there is an endpoint node for which you would like a request, please submit an issue to initiate a conversation. This will help reduce wasted effort.
+
+## Breaking change in v3.18
+
+The `SPUser` class returned from the `Web.SiteUsers` request has been renamed to **`User`**. This aligns with the OData.type property returned from the service.
 
 ## Getting Started
 
