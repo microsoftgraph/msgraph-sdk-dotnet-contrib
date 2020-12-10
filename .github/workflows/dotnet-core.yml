@@ -3,6 +3,7 @@ name: .NET Core
 on:
   push:
   pull_request:
+  release:
 
 jobs:
   inspect-environment:
