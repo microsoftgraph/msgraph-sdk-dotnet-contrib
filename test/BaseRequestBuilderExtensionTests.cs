@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Xunit;
-using Graph.Community.Extensions;
+using Graph.Community;
 
 namespace Graph.Community.Test
 {

@@ -71,7 +71,7 @@ namespace Graph.Community
 
 
 
-			if (!response.IsSuccessStatusCode)
+			if (SharePointServiceHandlerOption != null && !response.IsSuccessStatusCode)
 			{
 				using (response)
 				{
