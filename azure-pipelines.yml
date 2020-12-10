@@ -1,11 +1,12 @@
 trigger:
   branches:
     include:
-    - '*'
+    - master
+    - prerelease
   paths:
     include:
-    - src
-    - test
+    - src/*
+    - test/*
 
 variables:
 - group: Microsoft.Graph.Version
