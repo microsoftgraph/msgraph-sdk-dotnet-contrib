@@ -44,7 +44,7 @@ namespace Graph.Community
 		public string CustomSettingsUrl { get; set; }
 
 		[JsonProperty]
-		public string Description { get; set; }
+		public new string Description { get; set; }
 
 		[JsonProperty]
 		public bool IsCorporateCatalogSite { get; set; }

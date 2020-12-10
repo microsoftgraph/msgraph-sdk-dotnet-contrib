@@ -15,7 +15,7 @@ namespace Graph.Community.Samples
 
 		static async Task Main(string[] args)
 		{
-			await Diagnostics.Run();
+			//await Diagnostics.Run();
 
 			//await RootSite.Run();
 
@@ -28,6 +28,8 @@ namespace Graph.Community.Samples
 			//await SiteDesign.Run();
 
 			//await ImmutableIds.Run();
+
+			await GraphGroupExtensions.Run();
 
 			Console.WriteLine("Press enter to end");
 			Console.ReadLine();
