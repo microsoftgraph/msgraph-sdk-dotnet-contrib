@@ -31,4 +31,4 @@ jobs:
           echo Version: $VERSION
           dotnet pack -v normal -c Release --include-symbols --include-source -p:PackageVersion=$VERSION -p:Version=$VERSION -p:SymbolPackageFormat=snupkg -o nupkg src/$env:PROJECT_NAME.csproj
       - name: Push to NuGet Feed
-        run: dotnet nuget push ./nupkg/*.nupkg --source $NUGET_FEED --skip-duplicate --api-key $NUGET_APIKEY
+        run: dotnet nuget push ./nupkg/*.nupkg --source $env:NUGET_FEED --skip-duplicate --api-key $env:NUGET_APIKEY
