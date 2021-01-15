@@ -1,9 +1,11 @@
 name: 'Build'
 
 on:
+  workflow_dispatch:
   push:
     branches:
-      - "prerelease"
+      - prerelease
+      - master
   pull_request:
     branches:
       - master
