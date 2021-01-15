@@ -29,6 +29,6 @@ jobs:
         run: |
           $VERSION=($env:GITHUB_REF  -split "/" | select -skip 2).TrimStart("v")
           echo Version: $VERSION
-          dotnet pack -v normal -c Release --include-symbols --include-source -p:PackageVersion=$VERSION -p:Version=$VERSION -p:SymbolPackageFormat=snupkg -o nupkg src/$PROJECT_NAME.*proj
+          dotnet pack -v normal -c Release --include-symbols --include-source -p:PackageVersion=$VERSION -p:Version=$VERSION -p:SymbolPackageFormat=snupkg -o nupkg src/$env:PROJECT_NAME.csproj
       - name: Push to NuGet Feed
         run: dotnet nuget push ./nupkg/*.nupkg --source $NUGET_FEED --skip-duplicate --api-key $NUGET_APIKEY
