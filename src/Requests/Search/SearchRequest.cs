@@ -37,24 +37,9 @@ namespace Graph.Community
 			this.Method = HttpMethod.Post.Method;
 			this.ContentType = SharePointAPIRequestConstants.Headers.SearchContentTypeHeaderValue;
 
-			// the method in the base class does not handle the Content-Type header as we need. So perform the Send here, copying and fixing the base method
-			//  https://github.com/microsoftgraph/msgraph-sdk-dotnet-core/issues/165
-
-
-			/*
-			 * These two lines should be used when base request is fixed
-			 */
-			//var response = await this.SendAsync<SearchResult>(searchQuery, cancellationToken).ConfigureAwait(false);
-			//return response;
-
-
-			using (var response = await SendSearchRequest(searchQuery, cancellationToken).ConfigureAwait(false))
-			{
-				var responseHandler = new ResponseHandler(this.Client.HttpProvider.Serializer);
-				return await responseHandler.HandleResponse<SearchResult>(response);
-			}
-
-		}
+      var response = await this.SendAsync<SearchResult>(searchQuery, cancellationToken).ConfigureAwait(false);
+      return response;
+    }
 
 		public async Task<SearchResult> QueryAsync(string queryText)
 		{
