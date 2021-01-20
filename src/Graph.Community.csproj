@@ -21,16 +21,16 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All"/>
+		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.ApplicationInsights" Version="2.16.0" />
-		<PackageReference Include="Microsoft.Graph" Version="*" />
+		<PackageReference Include="Microsoft.Graph" Version="3.22.0" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Include="graph-community.png" Pack="true" PackagePath="\"/>
+		<None Include="graph-community.png" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
 </Project>
