@@ -84,7 +84,7 @@ namespace Graph.Community
 		/// The default implementation creates a new instance of <see cref="HttpClientHandler"/> for each HttpClient.</param>
 		/// <returns>A GraphServiceClient instance with the SharePoint handler configured.</returns>
 		public static GraphServiceClient Create(CommunityGraphClientOptions options, IHttpMessageLogger messageLogger, IAuthenticationProvider authenticationProvider, string version = "v1.0", string nationalCloud = "Global", IWebProxy proxy = null, HttpMessageHandler finalHandler = null)
-    {
+		{
 			LoggingMessageHandler loggingHandler = new LoggingMessageHandler(messageLogger);
 
 			var handlers = GraphClientFactory.CreateDefaultHandlers(authenticationProvider);
@@ -127,12 +127,12 @@ namespace Graph.Community
 			ProductInfoHeaderValue defaultUserAgent = defaultDecoration.ToUserAgent();
 			ProductInfoHeaderValue specifiedUserAgent = default;
 
-      if (!options.UserAgentInfo.IsEmpty())
-      {
+			if (!options.UserAgentInfo.IsEmpty())
+			{
 				specifiedUserAgent = options.UserAgentInfo.ToUserAgent();
 			}
-      else
-      {
+			else
+			{
 				// if we got a user agent string, validate it
 				if (!string.IsNullOrEmpty(options.UserAgent))
 				{
@@ -148,10 +148,10 @@ namespace Graph.Community
 
 			var httpClient = GraphClientFactory.Create(handlers, version, nationalCloud, proxy, finalHandler);
 
-      if (specifiedUserAgent !=null)
-      {
+			if (specifiedUserAgent != null)
+			{
 				httpClient.DefaultRequestHeaders.UserAgent.Add(specifiedUserAgent);
-      }
+			}
 
 			// if the provided string does not have the SharePoint throttling decoration, add the library user agent to the default.
 			//     https://docs.microsoft.com/en-us/sharepoint/dev/general-development/how-to-avoid-getting-throttled-or-blocked-in-sharepoint-online#how-to-decorate-your-http-traffic-to-avoid-throttling
@@ -169,7 +169,7 @@ namespace Graph.Community
 		}
 
 		private static void LogFactoryMethod(string authenticationProvider, bool loggingHandler)
-    {
+		{
 			var telemetryConfiguration = TelemetryConfiguration.CreateDefault();
 			telemetryConfiguration.InstrumentationKey = "d882bd7a-a378-4117-bd7c-71fc95a44cd1";
 			var telemetryClient = new TelemetryClient(telemetryConfiguration);

@@ -12,7 +12,7 @@ namespace Graph.Community
 			internal static readonly string VersionHeaderName = CommunityGraphConstants.Headers.CommunityLibraryVersionHeaderName;
 
 			/// The version for current assembly.
-			internal static string AssemblyVersion = System.Diagnostics.FileVersionInfo.GetVersionInfo(typeof(CommunityGraphConstants).Assembly.Location).ProductVersion;
+			internal static string AssemblyVersion = System.Diagnostics.FileVersionInfo.GetVersionInfo(typeof(CommunityGraphConstants).Assembly.Location).FileVersion;
 
 			/// The value for the SDK version header.
 			internal static string VersionHeaderValue = $"dotnet-{AssemblyVersion}";
@@ -28,7 +28,7 @@ namespace Graph.Community
 		}
 
 		public static class TelemetryProperties
-    {
+		{
 			public const string ResourceUri = nameof(ResourceUri);
 			public const string RequestMethod = nameof(RequestMethod);
 			public const string ClientRequestId = nameof(ClientRequestId);
