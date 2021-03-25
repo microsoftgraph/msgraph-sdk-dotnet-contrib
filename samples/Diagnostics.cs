@@ -3,35 +3,29 @@ using Microsoft.Graph;
 using Microsoft.Graph.Auth;
 using Microsoft.Identity.Client;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Graph.Community.Samples
 {
-	public static class Diagnostics
+  public static class Diagnostics
 	{
 		public static async Task Run()
 		{
-      /////////////////////////////
-      //
-      // Programmer configuration
-      //
-      /////////////////////////////
-
-      var sharepointDomain = "demo.sharepoint.com";
-      var siteCollectionPath = "/sites/SiteGroupsTest";
-
-			/////////////////
+			/////////////////////////////
 			//
-			// Configuration
+			// Programmer configuration
 			//
-			/////////////////
+			/////////////////////////////
+
+			var sharepointDomain = "demo.sharepoint.com";
+			var siteCollectionPath = "/sites/SiteGroupsTest";
+
+			////////////////////////////////
+			//
+			// Azure AD Configuration
+			//
+			////////////////////////////////
 
 			AzureAdOptions azureAdOptions = new AzureAdOptions();
 
@@ -81,7 +75,11 @@ namespace Graph.Community.Samples
 				}
 			}, System.Diagnostics.Tracing.EventLevel.LogAlways);
 
-
+			/////////////////////////////////////
+			//
+			// Client Application Configuration
+			//
+			/////////////////////////////////////
 
 			// Use the system browser to login
 			//  https://github.com/AzureAD/microsoft-authentication-library-for-dotnet/wiki/System-Browser-on-.Net-Core#how-to-use-the-system-browser-ie-the-default-browser-of-the-os
@@ -104,35 +102,40 @@ namespace Graph.Community.Samples
 			// re-sign-in each time the application is run
 			TokenCacheHelper.EnableSerialization(pca.UserTokenCache);
 
+			///////////////////////////////////////////////
+			//
+			//  Auth Provider - Interactive in this sample
+			//
+			///////////////////////////////////////////////
 
 			// Create an authentication provider to attach the token to requests
 			var scopes = new string[] { $"https://{sharepointDomain}/AllSites.FullControl" };
 			IAuthenticationProvider ap = new InteractiveAuthenticationProvider(pca, scopes);
 
 
-			////////////////////////////////////////////////////////////////
+			////////////////////////////////////////////////////////////
 			//
-			//  Create a GraphClient with the SharePoint service handler
+			// Graph Client with Logger and SharePoint service handler
 			//
-			////////////////////////////////////////////////////////////////
+			////////////////////////////////////////////////////////////
 
 			// Configure our client
 			CommunityGraphClientOptions clientOptions = new CommunityGraphClientOptions()
 			{
-				UserAgent = "ExtendedCapabilitiesSample"
+				UserAgent = "DiagnosticsSample"
 			};
 
 			var graphServiceClient = CommunityGraphClientFactory.Create(clientOptions, logger, ap);
 
 
-      ////////////////////////////
-      //
-      // Setup is complete, run the sample
-      //
-      ////////////////////////////
+			///////////////////////////////////////
+			//
+			// Setup is complete, run the sample
+			//
+			///////////////////////////////////////
 
-      try
-      {
+			try
+			{
 				var WebUrl = $"https://{sharepointDomain}{siteCollectionPath}";
 
 				var appTiles = await graphServiceClient
@@ -153,11 +156,11 @@ namespace Graph.Community.Samples
 				Console.WriteLine($"Me.DisplayName: {me.DisplayName}");
 			}
 			catch (Exception ex)
-      {
+			{
 				await logger.WriteLine("");
 				await logger.WriteLine("================== Exception caught ==================");
 				await logger.WriteLine(ex.ToString());
-      }
+			}
 
 
 			Console.WriteLine("Press enter to show log");

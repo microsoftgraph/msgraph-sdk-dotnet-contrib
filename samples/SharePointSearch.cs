@@ -3,11 +3,13 @@ using Microsoft.Graph;
 using Microsoft.Graph.Auth;
 using Microsoft.Identity.Client;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Graph.Community.Samples
 {
-  public static class SiteDesign
+  public static class SharePointSearch
 	{
 		public static async Task Run()
 		{
@@ -18,7 +20,7 @@ namespace Graph.Community.Samples
 			/////////////////////////////
 
 			var sharepointDomain = "demo.sharepoint.com";
-			var siteCollectionPath = "/sites/SiteDesignTest";
+			var siteCollectionPath = "/sites/GraphCommunityDemo";
 
 			////////////////////////////////
 			//
@@ -30,8 +32,7 @@ namespace Graph.Community.Samples
 
 			var settingsFilename = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "appsettings.json");
 			var builder = new ConfigurationBuilder()
-													.AddJsonFile(settingsFilename, optional: false)
-													.AddUserSecrets<Program>();
+													.AddJsonFile(settingsFilename, optional: false);
 			var config = builder.Build();
 			config.Bind("AzureAd", azureAdOptions);
 
@@ -61,13 +62,15 @@ namespace Graph.Community.Samples
 
 			///////////////////////////////////////////////
 			//
-			//  Auth Provider - Device Code in this sample
+			//  Auth Provider - Interactive in this sample
 			//
 			///////////////////////////////////////////////
 
-			// Create an authentication provider to attach the token to requests
+			// Use the system browser to login
+			//  https://github.com/AzureAD/microsoft-authentication-library-for-dotnet/wiki/System-Browser-on-.Net-Core#how-to-use-the-system-browser-ie-the-default-browser-of-the-os
+
 			var scopes = new string[] { $"https://{sharepointDomain}/AllSites.FullControl" };
-			IAuthenticationProvider ap = new DeviceCodeProvider(pca, scopes);
+			IAuthenticationProvider ap = new InteractiveAuthenticationProvider(pca, scopes);
 
 			////////////////////////////////////////////////////////////
 			//
@@ -85,8 +88,9 @@ namespace Graph.Community.Samples
 			// Configure our client
 			CommunityGraphClientOptions clientOptions = new CommunityGraphClientOptions()
 			{
-				UserAgent = "SiteDesignSample"
+				UserAgent = "SharePointSearchSample"
 			};
+
 			var graphServiceClient = CommunityGraphClientFactory.Create(clientOptions, logger, ap);
 
 			///////////////////////////////////////
@@ -97,48 +101,66 @@ namespace Graph.Community.Samples
 
 			var WebUrl = $"https://{sharepointDomain}{siteCollectionPath}";
 
-			var siteScript = new SiteScriptMetadata()
+			var queryText = $"adaptive";
+			var propsToSelect = new List<string>() { "Title", "Path", "DocId]" };
+			var sortList = new List<SearchQuery.Sort>() { new SearchQuery.Sort("DocId", SearchQuery.SortDirection.Ascending) };
+
+			var query = new SearchQuery(
+				queryText: queryText,
+				selectProperties: propsToSelect,
+				sortList: sortList);
+
+			try
 			{
-				Title = "Green Theme",
-				Description = "Apply the Green Theme",
-				Content = "{\"$schema\": \"schema.json\",\"actions\": [{\"verb\": \"applyTheme\",\"themeName\": \"Green\"}],\"bindata\": { },\"version\": 1}",
-			};
+				var results = await graphServiceClient
+												.SharePointAPI(WebUrl)
+												.Search
+												.Request()
+												.PostQueryAsync(query);
 
-			var createdScript = await graphServiceClient
-																	.SharePointAPI(WebUrl)
-																	.SiteScripts
-																	.Request()
-																	.CreateAsync(siteScript);
+				var rowCount = results.PrimaryQueryResult.RelevantResults.RowCount;
+				var totalRows = results.PrimaryQueryResult.RelevantResults.TotalRows;
 
-			var siteDesign = new SiteDesignMetadata()
-			{
-				Title = "Green Theme",
-				Description = "Apply the Green theme",
-				SiteScriptIds = new System.Collections.Generic.List<Guid>() { new Guid(createdScript.Id) },
-				WebTemplate = "64" // 64 = Team Site, 68 = Communication Site, 1 = Groupless Team Site
-			};
+				Console.WriteLine($"rowCount: {rowCount}");
 
-			var createdDesign = await graphServiceClient
-																	.SharePointAPI(WebUrl)
-																	.SiteDesigns
-																	.Request()
-																	.CreateAsync(siteDesign);
+				string lastDocId = null;
+				foreach (var item in results.PrimaryQueryResult.RelevantResults.Table.Rows)
+				{
+					Console.WriteLine(item.Cells.FirstOrDefault(c => c.Key == "Path").Value);
 
-			var applySiteDesignRequest = new ApplySiteDesignRequest
-			{
-				SiteDesignId = createdDesign.Id,
-				WebUrl = WebUrl
-			};
+					var docId = item.Cells.FirstOrDefault(c => c.Key == "DocId")?.Value;
+					if (docId != null)
+					{
+						lastDocId = docId;
+					}
+				}
 
-			var applySiteDesignResponse = await graphServiceClient
-																						.SharePointAPI(WebUrl)
-																						.SiteDesigns.Request()
-																						.ApplyAsync(applySiteDesignRequest);
+				if (totalRows > rowCount && !string.IsNullOrEmpty(lastDocId))
+				{
+					var nextPageQuery = new SearchQuery(
+						queryText: $"{queryText} indexdocid>{lastDocId}",
+						selectProperties: propsToSelect,
+						sortList: sortList);
 
-			foreach (var outcome in applySiteDesignResponse.ActionOutcomes)
-			{
-				Console.WriteLine(outcome.OutcomeText);
+					var page2results = await graphServiceClient
+												.SharePointAPI(WebUrl)
+												.Search
+												.Request()
+												.PostQueryAsync(nextPageQuery);
+
+					foreach (var item in page2results.PrimaryQueryResult.RelevantResults.Table.Rows)
+					{
+						Console.WriteLine(item.Cells.FirstOrDefault(c => c.Key == "Path").Value);
+
+					}
+				}
+				Console.WriteLine($"totalRows: {totalRows}");
 			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
+
 
 
 			Console.WriteLine("Press enter to show log");
@@ -146,6 +168,8 @@ namespace Graph.Community.Samples
 			Console.WriteLine();
 			var log = logger.GetLog();
 			Console.WriteLine(log);
+
+
 		}
 	}
 }

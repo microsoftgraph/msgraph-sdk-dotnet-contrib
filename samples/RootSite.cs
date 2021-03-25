@@ -3,31 +3,28 @@ using Microsoft.Graph;
 using Microsoft.Graph.Auth;
 using Microsoft.Identity.Client;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Graph.Community.Samples
 {
-	public static class RootSite
+  public static class RootSite
 	{
 		public static async Task Run()
 		{
-      /////////////////////////////
-      //
-      // Programmer configuration
-      //
-      /////////////////////////////
-
-      var sharepointDomain = "demo.sharepoint.com";
-      var siteCollectionPath = "/sites/GraphCommunityDemo";
-
-			/////////////////
+			/////////////////////////////
 			//
-			// Configuration
+			// Programmer configuration
 			//
-			/////////////////
+			/////////////////////////////
+
+			var sharepointDomain = "demo.sharepoint.com";
+			var siteCollectionPath = "/sites/GraphCommunityDemo";
+
+			////////////////////////////////
+			//
+			// Azure AD Configuration
+			//
+			////////////////////////////////
 
 			AzureAdOptions azureAdOptions = new AzureAdOptions();
 
@@ -38,22 +35,11 @@ namespace Graph.Community.Samples
 			var config = builder.Build();
 			config.Bind("AzureAd", azureAdOptions);
 
-			////////////////////////////
+			/////////////////////////////////////
 			//
-			// Graph Client with Logger
+			// Client Application Configuration
 			//
-			////////////////////////////
-
-			var logger = new StringBuilderHttpMessageLogger();
-			/*
-			 *  Could also use the Console if preferred...
-			 *  
-			 *  var logger = new ConsoleHttpMessageLogger();
-			 */
-
-
-			// Use the system browser to login
-			//  https://github.com/AzureAD/microsoft-authentication-library-for-dotnet/wiki/System-Browser-on-.Net-Core#how-to-use-the-system-browser-ie-the-default-browser-of-the-os
+			/////////////////////////////////////
 
 			var options = new PublicClientApplicationOptions()
 			{
@@ -73,46 +59,68 @@ namespace Graph.Community.Samples
 			// re-sign-in each time the application is run
 			TokenCacheHelper.EnableSerialization(pca.UserTokenCache);
 
+			///////////////////////////////////////////////
+			//
+			//  Auth Provider - Interactive in this sample
+			//
+			///////////////////////////////////////////////
+
+			// Use the system browser to login
+			//  https://github.com/AzureAD/microsoft-authentication-library-for-dotnet/wiki/System-Browser-on-.Net-Core#how-to-use-the-system-browser-ie-the-default-browser-of-the-os
+
+
+			// Create an authentication provider to attach the token to requests
 			var scopes = new string[] { $"https://graph.microsoft.com/Sites.Read.All" };
 			IAuthenticationProvider ap = new InteractiveAuthenticationProvider(pca, scopes);
 
-			using (LoggingMessageHandler loggingHandler = new LoggingMessageHandler(logger))
-			using (HttpProvider hp = new HttpProvider(loggingHandler, false, new Serializer()))
+			////////////////////////////////////////////////////////////
+			//
+			// Graph Client with Logger and SharePoint service handler
+			//
+			////////////////////////////////////////////////////////////
+
+			var logger = new StringBuilderHttpMessageLogger();
+			/*
+       *  Could also use the Console if preferred...
+       *  
+       *  var logger = new ConsoleHttpMessageLogger();
+       */
+
+			// Configure our client
+			CommunityGraphClientOptions clientOptions = new CommunityGraphClientOptions()
 			{
-				GraphServiceClient graphServiceClient = new GraphServiceClient(ap, hp);
+				UserAgent = "RootSiteSample"
+			};
+			var graphServiceClient = CommunityGraphClientFactory.Create(clientOptions, logger, ap);
 
-				////////////////////////////
-				//
-				// Setup is complete, run the sample
-				//
-				////////////////////////////
+			///////////////////////////////////////
+			//
+			// Setup is complete, run the sample
+			//
+			//////////////////////////////////////
 
-				var WebUrl = $"https://{sharepointDomain}{siteCollectionPath}";
+			var WebUrl = $"https://{sharepointDomain}{siteCollectionPath}";
 
-				try
-				{
-					var results = await graphServiceClient
-													.Sites["root"]
-													.Request()
-													.Select(s => s.DisplayName)
-													.GetAsync();
+			try
+			{
+				var results = await graphServiceClient
+												.Sites["root"]
+												.Request()
+												.Select(s => s.DisplayName)
+												.GetAsync();
 
-					Console.WriteLine($"title: {results.DisplayName}");
-				}
-				catch (Exception ex)
-				{
-					Console.WriteLine(ex.Message);
-				}
-
-
-
-				Console.WriteLine("Press enter to show log");
-				Console.ReadLine();
-				Console.WriteLine();
-				var log = logger.GetLog();
-				Console.WriteLine(log);
+				Console.WriteLine($"title: {results.DisplayName}");
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
 			}
 
+			Console.WriteLine("Press enter to show log");
+			Console.ReadLine();
+			Console.WriteLine();
+			var log = logger.GetLog();
+			Console.WriteLine(log);
 		}
 	}
 }

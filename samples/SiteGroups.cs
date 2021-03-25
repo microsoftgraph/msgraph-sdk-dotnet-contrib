@@ -25,13 +25,13 @@ namespace Graph.Community.Samples
 			/////////////////////////////
 
 			var sharepointDomain = "demo.sharepoint.com";
-			var siteCollectionPath = "/sites/SiteGroupsTest";
+			var siteCollectionPath = "/sites/GraphCommunityDemo";
 
-			/////////////////
+			////////////////////////////////
 			//
-			// Configuration
+			// Azure AD Configuration
 			//
-			/////////////////
+			////////////////////////////////
 
 			AzureAdOptions azureAdOptions = new AzureAdOptions();
 
@@ -42,11 +42,46 @@ namespace Graph.Community.Samples
 			var config = builder.Build();
 			config.Bind("AzureAd", azureAdOptions);
 
-			////////////////////////////
+			/////////////////////////////////////
 			//
-			// Graph Client with Logger
+			// Client Application Configuration
 			//
-			////////////////////////////
+			/////////////////////////////////////
+
+			var options = new PublicClientApplicationOptions()
+			{
+				AadAuthorityAudience = AadAuthorityAudience.AzureAdMyOrg,
+				AzureCloudInstance = AzureCloudInstance.AzurePublic,
+				ClientId = azureAdOptions.ClientId,
+				TenantId = azureAdOptions.TenantId,
+				RedirectUri = "http://localhost"
+			};
+
+			// Create the public client application (desktop app), with a default redirect URI
+			var pca = PublicClientApplicationBuilder
+									.CreateWithApplicationOptions(options)
+									.Build();
+
+			// Enable a simple token cache serialiation so that the user does not need to
+			// re-sign-in each time the application is run
+			TokenCacheHelper.EnableSerialization(pca.UserTokenCache);
+
+			///////////////////////////////////////////////
+			//
+			//  Auth Provider - Device Code in this sample
+			//
+			///////////////////////////////////////////////
+
+			// Create an authentication provider to attach the token to requests
+			var scopes = new string[] { $"https://{sharepointDomain}/AllSites.FullControl" };
+			IAuthenticationProvider ap = new DeviceCodeProvider(pca, scopes);
+
+
+			////////////////////////////////////////////////////////////
+			//
+			// Graph Client with Logger and SharePoint service handler
+			//
+			////////////////////////////////////////////////////////////
 
 			var logger = new StringBuilderHttpMessageLogger();
 			/*
@@ -55,53 +90,46 @@ namespace Graph.Community.Samples
 			 *  var logger = new ConsoleHttpMessageLogger();
 			 */
 
-			var pca = PublicClientApplicationBuilder
-									.Create(azureAdOptions.ClientId)
-									.WithTenantId(azureAdOptions.TenantId)
-									.Build();
-
-			var scopes = new string[] { $"https://{sharepointDomain}/AllSites.FullControl" };
-			IAuthenticationProvider ap = new DeviceCodeProvider(pca, scopes);
-
-			using (LoggingMessageHandler loggingHandler = new LoggingMessageHandler(logger))
-			using (HttpProvider hp = new HttpProvider(loggingHandler, false, new Serializer()))
+			// Configure our client
+			CommunityGraphClientOptions clientOptions = new CommunityGraphClientOptions()
 			{
-				GraphServiceClient graphServiceClient = new GraphServiceClient(ap, hp);
+				UserAgent = "SiteGroupsSample"
+			};
+			var graphServiceClient = CommunityGraphClientFactory.Create(clientOptions, logger, ap);
 
-				////////////////////////////
-				//
-				// Setup is complete, run the sample
-				//
-				////////////////////////////
+			///////////////////////////////////////
+			//
+			// Setup is complete, run the sample
+			//
+			///////////////////////////////////////
 
-				var WebUrl = $"https://{sharepointDomain}{siteCollectionPath}";
+			var WebUrl = $"https://{sharepointDomain}{siteCollectionPath}";
 
-				var groups = await graphServiceClient
-												.SharePointAPI(WebUrl)
-												.Web
-												.SiteGroups
-												.Request()
-												.Expand(g => g.Users)
-												.Expand("Owner")
-												.GetAsync();
+			var groups = await graphServiceClient
+											.SharePointAPI(WebUrl)
+											.Web
+											.SiteGroups
+											.Request()
+											.Expand(g => g.Users)
+											.Expand("Owner")
+											.GetAsync();
 
 
-				foreach (var group in groups)
+			foreach (var group in groups)
+			{
+				Console.WriteLine(group.Title);
+				foreach (var user in group.Users)
 				{
-					Console.WriteLine(group.Title);
-					foreach (var user in group.Users)
-					{
-						Console.WriteLine($"  {user.LoginName}");
-					}
+					Console.WriteLine($"  {user.LoginName}");
 				}
-
-				Console.WriteLine("Press enter to show log");
-				Console.ReadLine();
-				Console.WriteLine();
-				var log = logger.GetLog();
-				Console.WriteLine(log);
 			}
-		}
 
+			Console.WriteLine("Press enter to show log");
+			Console.ReadLine();
+			Console.WriteLine();
+			var log = logger.GetLog();
+			Console.WriteLine(log);
+		}
 	}
+
 }

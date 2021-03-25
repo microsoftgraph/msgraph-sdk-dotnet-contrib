@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Graph;
 using Microsoft.Graph.Auth;
 using Microsoft.Identity.Client;
@@ -12,11 +11,11 @@ namespace Graph.Community.Samples
 	{
 		public static async Task Run()
 		{
-			/////////////////
+			////////////////////////////////
 			//
-			// Configuration
+			// Azure AD Configuration
 			//
-			/////////////////
+			////////////////////////////////
 
 			AzureAdOptions azureAdOptions = new AzureAdOptions();
 
@@ -26,11 +25,11 @@ namespace Graph.Community.Samples
 			var config = builder.Build();
 			config.Bind("AzureAd", azureAdOptions);
 
-			// Log Http Request/Response
-			var logger = new StringBuilderHttpMessageLogger();
-
-			// Use the system browser to login
-			//  https://github.com/AzureAD/microsoft-authentication-library-for-dotnet/wiki/System-Browser-on-.Net-Core#how-to-use-the-system-browser-ie-the-default-browser-of-the-os
+			/////////////////////////////////////
+			//
+			// Client Application Configuration
+			//
+			/////////////////////////////////////
 
 			var options = new PublicClientApplicationOptions()
 			{
@@ -49,6 +48,15 @@ namespace Graph.Community.Samples
 			// re-sign-in each time the application is run
 			TokenCacheHelper.EnableSerialization(pca.UserTokenCache);
 
+			///////////////////////////////////////////////
+			//
+			//  Auth Provider - Interactive in this sample
+			//
+			///////////////////////////////////////////////
+
+			// Use the system browser to login
+			//  https://github.com/AzureAD/microsoft-authentication-library-for-dotnet/wiki/System-Browser-on-.Net-Core#how-to-use-the-system-browser-ie-the-default-browser-of-the-os
+
 			// Create an authentication provider to attach the token to requests
 			var scopes = new string[] { "https://graph.microsoft.com/Directory.AccessAsUser.All" };
 			IAuthenticationProvider ap = new InteractiveAuthenticationProvider(pca, scopes);
@@ -60,6 +68,9 @@ namespace Graph.Community.Samples
 			//
 			////////////////////////////////////////////////////////////////
 
+			// Log Http Request/Response
+			var logger = new StringBuilderHttpMessageLogger();
+
 			// Configure our client
 			CommunityGraphClientOptions clientOptions = new CommunityGraphClientOptions()
 			{
@@ -69,11 +80,11 @@ namespace Graph.Community.Samples
 			var graphServiceClient = CommunityGraphClientFactory.Create(clientOptions, logger, ap);
 
 
-			////////////////////////////
+			///////////////////////////////////////
 			//
 			// Setup is complete, run the sample
 			//
-			////////////////////////////
+			///////////////////////////////////////
 
 			try
 			{
