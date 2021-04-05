@@ -13,13 +13,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="microsoft.extensions.caching.memory" Version="3.1.9" />
-    <PackageReference Include="microsoft.extensions.configuration" Version="3.1.9" />
-    <PackageReference Include="microsoft.extensions.configuration.binder" Version="3.1.9" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.9" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="3.1.9" />
+    <PackageReference Include="microsoft.extensions.caching.memory" Version="3.1.13" />
+    <PackageReference Include="microsoft.extensions.configuration" Version="3.1.13" />
+    <PackageReference Include="microsoft.extensions.configuration.binder" Version="3.1.13" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.13" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="3.1.13" />
     <PackageReference Include="Microsoft.Graph.Auth" Version="1.0.0-preview.5" />
-    <PackageReference Include="Microsoft.Identity.Client.Extensions.Msal" Version="2.16.2" />
+    <PackageReference Include="Microsoft.Identity.Client.Extensions.Msal" Version="2.18.3" />
   </ItemGroup>
 
 	<ItemGroup>
