@@ -34,8 +34,8 @@ namespace Graph.Community
     {
 			baseRequest.Headers.Add(
 				new HeaderOption(
-					"ConsistencyLevel",
-					"eventual")
+					RequestExtensionsConstants.Headers.ConsistencyLevelHeaderName,
+					RequestExtensionsConstants.Headers.ConsistencyLevelEventualValue)
 			);
 			return baseRequest;
     }

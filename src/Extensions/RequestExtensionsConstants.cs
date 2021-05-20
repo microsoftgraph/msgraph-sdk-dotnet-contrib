@@ -13,6 +13,9 @@ namespace Graph.Community
 		{
 			public const string PreferHeaderName = "Prefer";
 			public const string PreferHeaderImmutableIdValue = "IdType=\"ImmutableId\"";
+
+			public const string ConsistencyLevelHeaderName = "ConsistencyLevel";
+			public const string ConsistencyLevelEventualValue = "eventual";
 		}
 	}
 }
