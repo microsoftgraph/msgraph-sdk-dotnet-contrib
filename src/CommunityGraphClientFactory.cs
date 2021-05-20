@@ -44,7 +44,7 @@ namespace Graph.Community
 		{
 			CompanyName = "GraphCommunity",
 			AppName = "CommunityGraphClient",
-			AppVersion = System.Diagnostics.FileVersionInfo.GetVersionInfo(typeof(CommunityGraphClientFactory).Assembly.Location).ProductVersion
+			AppVersion = System.Diagnostics.FileVersionInfo.GetVersionInfo(typeof(CommunityGraphClientFactory).Assembly.Location).FileVersion
 		};
 
 		/// <summary>

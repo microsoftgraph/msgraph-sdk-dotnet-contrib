@@ -7,7 +7,6 @@ namespace Graph.Community
 {
   public class ListRequest : BaseSharePointAPIRequest, IListRequest
   {
-#pragma warning disable CA1054 // URI parameters should not be strings
     public ListRequest(
         string requestUrl,
         IBaseClient client,
@@ -17,7 +16,6 @@ namespace Graph.Community
       this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.AcceptHeaderName, SharePointAPIRequestConstants.Headers.AcceptHeaderValue));
       this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName, SharePointAPIRequestConstants.Headers.ODataVersionHeaderValue));
     }
-#pragma warning restore CA1054 // URI parameters should not be strings
 
     public Task<List> GetAsync()
     {
