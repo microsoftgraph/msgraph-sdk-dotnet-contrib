@@ -1,15 +1,15 @@
 using Microsoft.Graph;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Graph.Community
 {
-  [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
+  [Obsolete("Use XXXCollectionPage classes for v4", false)]
   public class GetCollectionResponse<T> where T : BaseItem
   {
-    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "value", Required = Newtonsoft.Json.Required.Default)]
+    [JsonPropertyName("value")]
     public CollectionPage<T> Value { get; }
 
     public GetCollectionResponse()

@@ -10,9 +10,9 @@ namespace Graph.Community
 {
   public interface IAppTileCollectionRequest : IBaseRequest
   {
-    Task<ICollectionPage<AppTile>> GetAsync();
+    Task<IAppTileCollectionPage> GetAsync();
 
-    Task<ICollectionPage<AppTile>> GetAsync(CancellationToken cancellationToken);
+    Task<IAppTileCollectionPage> GetAsync(CancellationToken cancellationToken);
 
     /// <summary>
     /// Adds the specified select value to the request.

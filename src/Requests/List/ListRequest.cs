@@ -29,11 +29,11 @@ namespace Graph.Community
       return entity;
     }
 
-    public Task<ICollectionPage<Change>> GetChangesAsync(ChangeQuery query)
+    public Task<IChangeLogCollectionPage> GetChangesAsync(ChangeQuery query)
     {
       return this.GetChangesAsync(query, CancellationToken.None);
     }
-    public async Task<ICollectionPage<Change>> GetChangesAsync(ChangeQuery query, CancellationToken cancellationToken)
+    public async Task<IChangeLogCollectionPage> GetChangesAsync(ChangeQuery query, CancellationToken cancellationToken)
     {
       return await ChangeLogRequest.GetChangesAsync(this, query, cancellationToken).ConfigureAwait(false);
     }

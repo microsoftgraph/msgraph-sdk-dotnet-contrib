@@ -20,14 +20,14 @@ namespace Graph.Community
       this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName, SharePointAPIRequestConstants.Headers.ODataVersionHeaderValue));
     }
 
-    public async Task<ICollectionPage<AppTile>> GetAsync()
+    public async Task<IAppTileCollectionPage> GetAsync()
     {
       return await this.GetAsync(CancellationToken.None);
     }
 
-    public async Task<ICollectionPage<AppTile>> GetAsync(CancellationToken cancellationToken)
+    public async Task<IAppTileCollectionPage> GetAsync(CancellationToken cancellationToken)
     {
-      var response = await this.SendAsync<GetCollectionResponse<AppTile>>(null, cancellationToken).ConfigureAwait(false);
+      var response = await this.SendAsync<AppTileCollectionResponse>(null, cancellationToken).ConfigureAwait(false);
 
       if (response?.Value?.CurrentPage != null)
       {

@@ -91,7 +91,7 @@ namespace Graph.Community
 		{
 			SharePointServiceHandlerOption handlerOptions = default;
 
-			string handlerOptionKey = typeof(SharePointServiceHandlerOption).ToString();
+			string handlerOptionKey = typeof(SharePointServiceHandlerOption).Name;
 
 			if (!this.MiddlewareOptions.ContainsKey(handlerOptionKey))
 			{

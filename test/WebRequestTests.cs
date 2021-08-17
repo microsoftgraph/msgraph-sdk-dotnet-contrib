@@ -78,46 +78,46 @@ namespace Graph.Community.Test
 			}
 		}
 
-		[Fact]
-		public async Task GetChanges_GeneratesCorrectRequest()
-		{
-			// ARRANGE
-			var query = new ChangeQuery()
-			{
-				Add = true
-			};
-			var expectedUri = new Uri($"{mockWebUrl}/_api/web/GetChanges");
-			var expectedContent = "{\"query\":{\"Add\":true}}";
+		//[Fact]
+		//public async Task GetChanges_GeneratesCorrectRequest()
+		//{
+		//	// ARRANGE
+		//	var query = new ChangeQuery()
+		//	{
+		//		Add = true
+		//	};
+		//	var expectedUri = new Uri($"{mockWebUrl}/_api/web/GetChanges");
+		//	var expectedContent = "{\"query\":{\"Add\":true}}";
 
-			using (var response = new HttpResponseMessage())
-			using (var gsc = GraphServiceTestClient.Create(response))
-			{
-				// ACT
-				await gsc.GraphServiceClient
-										.SharePointAPI(mockWebUrl)
-										.Web
-										.Request()
-										.GetChangesAsync(query);
-				var actualContent = gsc.HttpProvider.ContentAsString;
+		//	using (var response = new HttpResponseMessage())
+		//	using (var gsc = GraphServiceTestClient.Create(response))
+		//	{
+		//		// ACT
+		//		await gsc.GraphServiceClient
+		//								.SharePointAPI(mockWebUrl)
+		//								.Web
+		//								.Request()
+		//								.GetChangesAsync(query);
+		//		var actualContent = gsc.HttpProvider.ContentAsString;
 
-				// ASSERT
-				gsc.HttpProvider.Verify(
-					provider => provider.SendAsync(
-						It.Is<HttpRequestMessage>(req =>
-							req.Method == HttpMethod.Post &&
-							req.RequestUri == expectedUri &&
-							req.Headers.Authorization != null
-						),
-						It.IsAny<HttpCompletionOption>(),
-						It.IsAny<CancellationToken>()
-					),
-					Times.Exactly(1)
-				);
+		//		// ASSERT
+		//		gsc.HttpProvider.Verify(
+		//			provider => provider.SendAsync(
+		//				It.Is<HttpRequestMessage>(req =>
+		//					req.Method == HttpMethod.Post &&
+		//					req.RequestUri == expectedUri &&
+		//					req.Headers.Authorization != null
+		//				),
+		//				It.IsAny<HttpCompletionOption>(),
+		//				It.IsAny<CancellationToken>()
+		//			),
+		//			Times.Exactly(1)
+		//		);
 
-				Assert.Equal(Microsoft.Graph.CoreConstants.MimeTypeNames.Application.Json, gsc.HttpProvider.ContentHeaders.ContentType.MediaType);
-				Assert.Equal(expectedContent, actualContent);
-			}
-		}
+		//		Assert.Equal(Microsoft.Graph.CoreConstants.MimeTypeNames.Application.Json, gsc.HttpProvider.ContentHeaders.ContentType.MediaType);
+		//		Assert.Equal(expectedContent, actualContent);
+		//	}
+		//}
 
 		[Fact]
 		public async Task EnsureUser_NullParameter_Throws()

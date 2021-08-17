@@ -18,7 +18,7 @@ namespace Graph.Community
 		{
 			this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.AcceptHeaderName, SharePointAPIRequestConstants.Headers.AcceptHeaderValue));
 			this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName, SharePointAPIRequestConstants.Headers.ODataVersionHeaderValue));
-			this.Method = System.Net.Http.HttpMethod.Post.Method;
+			this.Method = HttpMethods.POST;
 		}
 
 		public Task<ICollectionPage<SiteDesignRun>> GetAsync()

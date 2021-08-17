@@ -68,6 +68,8 @@ namespace Graph.Community.Test
         Content = new StringContent(responseContent),
       };
 
+      //var s = new Microsoft.Graph.Serializer();
+      //var so = s.DeserializeObject<AppTileCollectionResponse>(responseContent);
 
       using (responseMessage)
       using (var gsc = GraphServiceTestClient.Create(responseMessage))

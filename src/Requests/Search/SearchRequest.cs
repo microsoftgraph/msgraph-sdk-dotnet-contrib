@@ -34,7 +34,7 @@ namespace Graph.Community
 			}
 
 			this.AppendSegmentToRequestUrl("postquery");
-			this.Method = HttpMethod.Post.Method;
+			this.Method = HttpMethods.POST;
 			this.ContentType = SharePointAPIRequestConstants.Headers.SearchContentTypeHeaderValue;
 
       var response = await this.SendAsync<SearchResult>(searchQuery, cancellationToken).ConfigureAwait(false);
@@ -54,7 +54,7 @@ namespace Graph.Community
 			}
 
 			this.AppendSegmentToRequestUrl("query");
-			this.Method = HttpMethod.Get.Method;
+			this.Method = HttpMethods.GET;
 
 			this.QueryOptions.Add(new QueryOption("queryText", queryText));
 			var response = await this.SendAsync<SearchResult>(null, cancellationToken).ConfigureAwait(false);

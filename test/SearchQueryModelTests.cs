@@ -2,6 +2,7 @@ using Microsoft.Graph;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -63,9 +64,15 @@ namespace Graph.Community.Test
 		public void EmptyProperties_SerializesCorrectly(SearchQuery qry, string expectedSerialization)
 		{
 			// ARRANGE
+			var serOpts = new JsonSerializerOptions()
+			{
+				Converters = { new SPSearchQueryConverter() }
+			};
+			var ser2 = new Serializer(serOpts);
 
 			// ACT
-			var actual = ser.SerializeObject(qry);
+			//var actual = ser.SerializeObject(qry);
+			var actual = ser2.SerializeObject(qry);
 
 			// ASSERT
 			Assert.Equal(expectedSerialization, actual);

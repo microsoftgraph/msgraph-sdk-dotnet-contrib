@@ -35,16 +35,16 @@ namespace Graph.Community
 			return entity;
 		}
 
-		public Task<ICollectionPage<Change>> GetChangesAsync(ChangeQuery query)
-		{
-			return this.GetChangesAsync(query, CancellationToken.None);
-		}
-		public async Task<ICollectionPage<Change>> GetChangesAsync(ChangeQuery query, CancellationToken cancellationToken)
-		{
-			return await ChangeLogRequest.GetChangesAsync(this, query, cancellationToken).ConfigureAwait(false);
-		}
+    public Task<IChangeLogCollectionPage> GetChangesAsync(ChangeQuery query)
+    {
+      return this.GetChangesAsync(query, CancellationToken.None);
+    }
+    public async Task<IChangeLogCollectionPage> GetChangesAsync(ChangeQuery query, CancellationToken cancellationToken)
+    {
+      return await ChangeLogRequest.GetChangesAsync(this, query, cancellationToken).ConfigureAwait(false);
+    }
 
-		public async Task<User> EnsureUserAsync(string logonName)
+    public async Task<User> EnsureUserAsync(string logonName)
 		{
 			return await this.EnsureUserAsync(logonName, CancellationToken.None);
 		}
@@ -57,7 +57,7 @@ namespace Graph.Community
 			}
 
 			this.AppendSegmentToRequestUrl("ensureuser");
-			this.Method = HttpMethod.Post.Method;
+			this.Method = HttpMethods.POST;
 			this.ContentType = "application/json";
 
 			var payload = new { logonName = logonName };

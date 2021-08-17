@@ -5,8 +5,7 @@ using System.Text;
 
 namespace Graph.Community
 {
-  public class Navigation : BaseItem
-  {
-    public bool UseShared { get; set; }
-  }
+	public class AppTileCollectionPage : CollectionPage<AppTile>, IAppTileCollectionPage
+	{
+	}
 }

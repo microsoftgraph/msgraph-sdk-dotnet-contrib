@@ -9,7 +9,7 @@ using System.Text.Json.Serialization;
 
 namespace Graph.Community
 {
-  public class SPDerivedTypeConverter<T> : JsonConverter<T> where T : class
+  public class DerivedTypeConverter<T> : JsonConverter<T> where T : class
   {
     internal static readonly ConcurrentDictionary<string, Type> TypeMappingCache = new ConcurrentDictionary<string, Type>(StringComparer.OrdinalIgnoreCase);
 
@@ -50,7 +50,36 @@ namespace Graph.Community
       object instance;
       if (type.ValueKind != JsonValueKind.Undefined)
       {
-        instance = CreateInstanceFromJsonODataType(objectType, type);
+        var typeString = type.ToString();
+        typeString = typeString.TrimStart('#');
+        typeString = Microsoft.Graph.StringHelper.ConvertTypeToTitleCase(typeString);
+        var typeAssembly = objectType.GetTypeInfo().Assembly;
+        // Use the type assembly as part of the key since users might use v1 and beta at the same causing conflicts
+        var typeMappingCacheKey = $"{typeAssembly.FullName} : {typeString}";
+
+        if (DerivedTypeConverter<T>.TypeMappingCache.TryGetValue(typeMappingCacheKey, out var instanceType))
+        {
+          instance = this.Create(instanceType);
+        }
+        else
+        {
+          instance = this.Create(typeString, typeAssembly);
+        }
+
+        // If @odata.type is set but we aren't able to create an instance of it use the method-provided object type instead.
+        // This means unknown types will be deserialized as a parent type.
+        // Also if the @odata.type is set but the type is not assignable to the method provided type e.g they are not related by inheritance
+        // also use the parent type object. 
+        if (instance == null || !objectType.IsAssignableFrom(instance.GetType()))
+        {
+          instance = this.Create(objectType.AssemblyQualifiedName, /* typeAssembly */ null);
+        }
+
+        if (instance != null && instanceType == null)
+        {
+          // Cache the type mapping resolution if we haven't pulled it from the cache already.
+          DerivedTypeConverter<T>.TypeMappingCache.TryAdd(typeMappingCacheKey, instance.GetType());
+        }
       }
       else
       {
@@ -71,43 +100,6 @@ namespace Graph.Community
 
       PopulateObject(instance, jsonDocument.RootElement, options);
       return (T)instance;
-    }
-
-    private object CreateInstanceFromJsonODataType(Type objectType, JsonElement type)
-    {
-      object instance;
-      var typeString = type.ToString();
-      typeString = typeString.Replace("#SP", "Graph.Community");
-      typeString = Microsoft.Graph.StringHelper.ConvertTypeToTitleCase(typeString);
-      var typeAssembly = objectType.GetTypeInfo().Assembly;
-      // Use the type assembly as part of the key since users might use v1 and beta at the same causing conflicts
-      var typeMappingCacheKey = $"{typeAssembly.FullName} : {typeString}";
-
-      if (DerivedTypeConverter<T>.TypeMappingCache.TryGetValue(typeMappingCacheKey, out var instanceType))
-      {
-        instance = this.Create(instanceType);
-      }
-      else
-      {
-        instance = this.Create(typeString, typeAssembly);
-      }
-
-      // If @odata.type is set but we aren't able to create an instance of it use the method-provided object type instead.
-      // This means unknown types will be deserialized as a parent type.
-      // Also if the @odata.type is set but the type is not assignable to the method provided type e.g they are not related by inheritance
-      // also use the parent type object. 
-      if (instance == null || !objectType.IsAssignableFrom(instance.GetType()))
-      {
-        instance = this.Create(objectType.AssemblyQualifiedName, /* typeAssembly */ null);
-      }
-
-      if (instance != null && instanceType == null)
-      {
-        // Cache the type mapping resolution if we haven't pulled it from the cache already.
-        DerivedTypeConverter<T>.TypeMappingCache.TryAdd(typeMappingCacheKey, instance.GetType());
-      }
-
-      return instance;
     }
 
     /// <summary>
@@ -169,10 +161,7 @@ namespace Graph.Community
               foreach (var property in json.EnumerateArray())
               {
                 // Get the object instance
-                //var instance = JsonSerializer.Deserialize(property.GetRawText(), genericType, options);
-                property.TryGetProperty(Microsoft.Graph.CoreConstants.Serialization.ODataType, out var type);
-                var itemType = CreateInstanceFromJsonODataType(genericType, type);
-                var instance = JsonSerializer.Deserialize(property.GetRawText(), itemType.GetType(), options);
+                var instance = JsonSerializer.Deserialize(property.GetRawText(), genericType, options);
 
                 // Invoke the insert function to add it to the collection as it an IList
                 MethodInfo methodInfo = collectionPropertyInfo.PropertyType.GetMethods().FirstOrDefault(method => method.Name.Equals("Insert"));
@@ -310,10 +299,7 @@ namespace Graph.Community
           return null;
         }
 
-        var r = constructorInfo.Invoke(new object[] { });
-        var r2 = constructorInfo.Invoke(null);
-
-        return r;
+        return constructorInfo.Invoke(new object[] { });
       }
       catch (Exception exception)
       {

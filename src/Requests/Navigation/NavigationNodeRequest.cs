@@ -66,7 +66,7 @@ namespace Graph.Community
 #pragma warning restore CA1303 // Do not pass literals as localized parameters
 
       this.ContentType = "application/json";
-      this.Method = System.Net.Http.HttpMethod.Post.Method;
+      this.Method = HttpMethods.POST;
       this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.XHTTPMethodHeaderName, SharePointAPIRequestConstants.Headers.XHTTPMethodHeaderMergeValue));
       var newEntity = await this.SendAsync<NavigationNode>(navigationNode, cancellationToken).ConfigureAwait(false);
       return newEntity;

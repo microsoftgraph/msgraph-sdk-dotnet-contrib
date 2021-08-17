@@ -1,7 +1,7 @@
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Graph.Community
 {
@@ -31,32 +31,27 @@ namespace Graph.Community
 			}
 		}
 
-		[JsonProperty("request")]
+		[JsonPropertyName("request")]
 		public RequestProperties Request { get; set; }
 
 		public class RequestProperties
 		{
-			[JsonProperty(Order = 1)]
+			[JsonPropertyName("Querytext")]
 			public string Querytext { get; set; }
 			public bool ShouldSerializeQuerytext() => (string.IsNullOrEmpty(this.Querytext)) ? throw new ArgumentException("Querytext must be provided") : true;
 
-			[JsonProperty(Order = 2)]
 			public SelectProperties SelectProperties { get; set; }
 			public bool ShouldSerializeSelectProperties() => this.SelectProperties.PropertyList.Count > 0;
 
-			[JsonProperty(Order = 3)]
 			public SortList SortList { get; set; }
 			public bool ShouldSerializeSortList() => this.SortList.SortProperties.Count > 0;
 
-			[JsonProperty(Order = 4)]
 			public long? StartRow { get; set; }
 			public bool ShouldSerializeStartRow() => this.StartRow.HasValue;
 
-			[JsonProperty(Order = 5)]
 			public int? RowLimit { get; set; }
 			public bool ShouldSerializeRowLimit() => this.RowLimit.HasValue;
 
-			[JsonProperty(Order = 6)]
 			public int? RowsPerPage { get; set; }
 			public bool ShouldSerializeRowsPerPage() => this.RowsPerPage.HasValue;
 
@@ -72,7 +67,7 @@ namespace Graph.Community
 
 		public class SelectProperties
 		{
-			[JsonProperty("results")]
+			[JsonPropertyName("results")]
 			public List<string> PropertyList { get; set; }
 
 			public SelectProperties()
@@ -83,7 +78,7 @@ namespace Graph.Community
 
 		public class SortList
 		{
-			[JsonProperty("results")]
+			[JsonPropertyName("results")]
 			public List<Sort> SortProperties { get; set; }
 
 			public void Add(string property, SortDirection direction)
@@ -109,7 +104,6 @@ namespace Graph.Community
 				this.Direction = direction;
       }
 
-			[JsonProperty(Order = 1)]
 			public string Property { get; set; }
 
 			[JsonIgnore]
@@ -127,9 +121,8 @@ namespace Graph.Community
 			}
 			private SortDirection direction;
 
-
-			[JsonProperty("Direction", Order = 2)]
-			private string directionAsString;
+			[JsonPropertyName("direction")]
+			internal string directionAsString;
 		}
 
 		// Borrowed from Microsoft.SharePoint.Client.Search.Query
