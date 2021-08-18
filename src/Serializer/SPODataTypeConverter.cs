@@ -26,7 +26,7 @@ namespace Graph.Community
     /// <returns></returns>
     public override T Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-      SPDerivedTypeConverter<T> derivedTypeConverter = new();
+      SPDerivedTypeConverter<T> derivedTypeConverter = new SPDerivedTypeConverter<T>();
       return (T)derivedTypeConverter.Read(ref reader, typeof(T), options);
     }
 

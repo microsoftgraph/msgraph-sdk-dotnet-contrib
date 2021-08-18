@@ -53,7 +53,7 @@ namespace Graph.Community
 
         // the usual model is to append the id to the query
         // Site Designs require the id in the request body, so put it in options for now
-        List<QueryOption> options = new() { new QueryOption("id", id.ToString()) };
+        List<QueryOption> options = new List<QueryOption>() { new QueryOption("id", id.ToString()) };
         return new SiteDesignRequestBuilder(this.RequestUrl, this.Client, options);
       }
     }

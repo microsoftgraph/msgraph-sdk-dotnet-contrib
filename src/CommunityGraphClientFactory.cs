@@ -18,7 +18,7 @@ namespace Graph.Community
 	/// </summary>
 	public static class CommunityGraphClientFactory
 	{
-		private static readonly object telemetryFlagLock = new();
+		private static readonly object telemetryFlagLock = new object();
 		internal static bool telemetryDisabled;
 		internal static bool TelemetryDisabled
 		{
@@ -39,7 +39,7 @@ namespace Graph.Community
 		}
 
 
-		private static SharePointThrottlingDecoration defaultDecoration = new()
+		private static SharePointThrottlingDecoration defaultDecoration = new SharePointThrottlingDecoration()
 		{
 			CompanyName = "GraphCommunity",
 			AppName = "CommunityGraphClient",
@@ -197,7 +197,7 @@ namespace Graph.Community
 
 		private static IList<DelegatingHandler> AddLoggingHandlerToGraphDefaults(IHttpMessageLogger messageLogger, IAuthenticationProvider authenticationProvider)
     {
-			LoggingMessageHandler loggingHandler = new(messageLogger);
+			LoggingMessageHandler loggingHandler = new LoggingMessageHandler(messageLogger);
 
 			var handlers = GraphClientFactory.CreateDefaultHandlers(authenticationProvider);
 
@@ -220,7 +220,7 @@ namespace Graph.Community
 			telemetryConfiguration.InstrumentationKey = "d882bd7a-a378-4117-bd7c-71fc95a44cd1";
 			var telemetryClient = new TelemetryClient(telemetryConfiguration);
 
-			Dictionary<string, string> properties = new(10)
+			Dictionary<string, string> properties = new Dictionary<string, string>()
 			{
 				{ CommunityGraphConstants.Headers.CommunityLibraryVersionHeaderName, CommunityGraphConstants.Library.AssemblyVersion },
 				{ CommunityGraphConstants.TelemetryProperties.AuthenticationProvider, loggingOptions.AuthenticationProvider },

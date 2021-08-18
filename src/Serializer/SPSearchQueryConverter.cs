@@ -30,7 +30,7 @@ namespace Graph.Community
 
       if (value.Request.SortList.SortProperties.Count > 0)
       {
-        List<dynamic> sortList = new();
+        List<dynamic> sortList = new List<dynamic>();
         foreach (var sortProperty in value.Request.SortList.SortProperties)
         {
           sortList.Add(new { Property = sortProperty.Property, Direction = sortProperty.directionAsString });

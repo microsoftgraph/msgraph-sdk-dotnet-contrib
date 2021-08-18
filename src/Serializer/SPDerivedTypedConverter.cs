@@ -10,7 +10,7 @@ namespace Graph.Community
 {
   public class SPDerivedTypeConverter<T> : JsonConverter<T> where T : class
   {
-    internal static readonly ConcurrentDictionary<string, Type> TypeMappingCache = new(StringComparer.OrdinalIgnoreCase);
+    internal static readonly ConcurrentDictionary<string, Type> TypeMappingCache = new ConcurrentDictionary<string, Type>(StringComparer.OrdinalIgnoreCase);
 
     /// <summary>
     /// Checks if the given object can be converted. In this instance, all object can be converted.
