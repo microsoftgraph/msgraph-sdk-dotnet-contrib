@@ -1,12 +1,10 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Graph.Community
 {
-  public class SPInterfaceConverter<T> : JsonConverter<T> where T : class
+  public class SPODataTypeConverter<T> : JsonConverter<T> where T : class
   {
     /// <summary>
     /// Checks if the given object can be converted. In this instance, all object can be converted.
@@ -15,7 +13,8 @@ namespace Graph.Community
     /// <returns>True</returns>
     public override bool CanConvert(Type typeToConvert)
     {
-      return typeToConvert.IsInterface && typeToConvert.IsAssignableFrom(typeof(T));
+      //return typeToConvert.IsInterface && typeToConvert.IsAssignableFrom(typeof(T));
+      return typeToConvert.IsAssignableFrom(typeof(T));
     }
 
     /// <summary>
@@ -27,7 +26,7 @@ namespace Graph.Community
     /// <returns></returns>
     public override T Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-      SPDerivedTypeConverter<T> derivedTypeConverter = new SPDerivedTypeConverter<T>();
+      SPDerivedTypeConverter<T> derivedTypeConverter = new();
       return (T)derivedTypeConverter.Read(ref reader, typeof(T), options);
     }
 

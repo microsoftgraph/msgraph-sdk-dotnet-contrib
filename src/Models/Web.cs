@@ -1,31 +1,43 @@
 using Microsoft.Graph;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Graph.Community
 {
-#pragma warning disable CA1724 //Type names should not match namespaces
-
+  [SPDerivedTypeConverter(typeof(SPODataTypeConverter<Web>))]
   public class Web : BaseItem
   {
-    //public ChangeToken CurrentChangeToken { get; set; }
+    [JsonPropertyName("Id")]
+    public new string Id { get; set; }
 
+    [JsonPropertyName("Title")]
+    public string Title { get; set; }
+
+    [JsonPropertyName("CurrentChangeToken")]
+    public ChangeToken CurrentChangeToken { get; set; }
+
+    [JsonPropertyName("UsersNavigationLink")]
     public string UsersNavigationLink { get; set; }
 
+    [JsonPropertyName("Users")]
     public List<User> Users { get; }
 
+    [JsonPropertyName("AssociatedMemberGroupNavigationLink")]
     public string AssociatedMemberGroupNavigationLink { get; set; }
 
+    [JsonPropertyName("AssociatedMemberGroup")]
     public Group AssociatedMemberGroup { get; set; }
 
+    [JsonPropertyName("AssociatedOwnerGroupNavigationLink")]
     public string AssociatedOwnerGroupNavigationLink { get; set; }
 
+    [JsonPropertyName("AssociatedOwnerGroup")]
     public Group AssociatedOwnerGroup { get; set; }
 
+    [JsonPropertyName("AssociatedVisitorGroupNavigationLink")]
     public string AssociatedVisitorGroupNavigationLink { get; set; }
 
+    [JsonPropertyName("AssociatedVisitorGroup")]
     public Group AssociatedVisitorGroup { get; set; }
   }
-#pragma warning restore CA1724 //Type names should not match namespaces
 }

@@ -1,36 +1,47 @@
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Graph.Community
 {
-	public class Group: Principal
+  [SPDerivedTypeConverter(typeof(SPODataTypeConverter<Group>))]
+  public class Group : Principal
   {
-		public bool AllowMembersEditMembership { get; set; }
+    [JsonPropertyName("AllowMembersEditMembership")]
+    public bool AllowMembersEditMembership { get; set; }
 
-		public bool AllowRequestToJoinLeave { get; set; }
+    [JsonPropertyName("AllowRequestToJoinLeave")]
+    public bool AllowRequestToJoinLeave { get; set; }
 
-		public bool AutoAcceptRequestToJoinLeave { get; set; }
+    [JsonPropertyName("AutoAcceptRequestToJoinLeave")]
+    public bool AutoAcceptRequestToJoinLeave { get; set; }
 
-		public new string Description { get; set; }
+    [JsonPropertyName("Description")]
+    public new string Description { get; set; }
 
-		public bool OnlyAllowMembersViewMembership { get; set; }
+    [JsonPropertyName("OnlyAllowMembersViewMembership")]
+    public bool OnlyAllowMembersViewMembership { get; set; }
 
+    [JsonPropertyName("Owner@odata.navigationLink")]
     public string OwnerNavigationLink { get; set; }
 
+    [JsonPropertyName("Owner")]
     public Principal Owner { get; set; }
 
+    [JsonPropertyName("OwnerTitle")]
     public string OwnerTitle { get; set; }
 
-		public string RequestToJoinLeaveEmailSetting { get; set; }
+    [JsonPropertyName("RequestToJoinLeaveEmailSetting")]
+    public string RequestToJoinLeaveEmailSetting { get; set; }
 
+    [JsonPropertyName("Users@odata.navigationLink")]
     public string UsersNavigationLink { get; set; }
 
-		public List<User> Users { get; }
+    [JsonPropertyName("Users")]
+    public List<User> Users { get; private set; }
 
-		public Group()
+    public Group()
     {
-			this.Users = new List<User>();
+      this.Users = new List<User>();
     }
-	}
+  }
 }

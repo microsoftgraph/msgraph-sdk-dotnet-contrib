@@ -1,7 +1,5 @@
 using Microsoft.Graph;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,20 +17,21 @@ namespace Graph.Community
       this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName, SharePointAPIRequestConstants.Headers.ODataVersionHeaderValue));
     }
 
-    public async Task<ICollectionPage<User>> GetAsync()
+    public async Task<ISiteUserCollectionPage> GetAsync()
     {
       return await this.GetAsync(CancellationToken.None);
     }
 
-    public async Task<ICollectionPage<User>> GetAsync(CancellationToken cancellationToken)
+    public async Task<ISiteUserCollectionPage> GetAsync(CancellationToken cancellationToken)
     {
       this.ContentType = "application/json";
-      var response = await this.SendAsync<GetCollectionResponse<User>>(null, cancellationToken).ConfigureAwait(false);
+      var response = await this.SendAsync<SharePointAPICollectionResponse<ISiteUserCollectionPage>>(null, cancellationToken).ConfigureAwait(false);
 
-      if (response != null && response.Value != null && response.Value.CurrentPage != null)
+      if (response?.Value?.CurrentPage != null)
       {
         return response.Value;
       }
+
       return null;
     }
   }

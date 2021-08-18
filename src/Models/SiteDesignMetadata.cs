@@ -1,16 +1,12 @@
 using Microsoft.Graph;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Graph.Community
 {
-#pragma warning disable CA1056 // Uri properties should not be strings
-#pragma warning disable CA2227 // Collection properties should be read only
-
   public class SiteDesignMetadata : BaseItem
   {
-    public Guid DesignPackageId { get; set; }
+    public Guid? DesignPackageId { get; set; }
 
     /// <summary>
     /// (Optional) True if the site design is applied as the default site design; otherwise, false. For more information see Customize a default site design.
@@ -44,7 +40,4 @@ namespace Graph.Community
 
     public int Version { get; set; }
   }
-
-#pragma warning restore CA1056 // Uri properties should not be strings
-#pragma warning restore CA2227 // Collection properties should be read only
 }

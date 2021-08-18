@@ -1,8 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -27,12 +24,16 @@ namespace Graph.Community
         }
         else
         {
-          if (property.Name == nameof(ChangeQuery.ChangeTokenEnd))
+          if (property.Name == nameof(ChangeQuery.ChangeTokenEnd) ||
+              property.Name == nameof(ChangeQuery.ChangeTokenStart))
           {
-              if (property.GetValue(value) != null)
-              {
-                JsonSerializer.Serialize(writer, property.GetValue(value));
-              }
+            if (property.GetValue(value) != null)
+            {
+              var token = property.GetValue(value) as ChangeToken;
+              writer.WriteStartObject(property.Name);
+              writer.WriteString(nameof(token.StringValue), token.StringValue);
+              writer.WriteEndObject();
+            }
           }
         }
       }

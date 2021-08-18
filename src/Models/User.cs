@@ -1,35 +1,37 @@
-using Microsoft.Graph;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Graph.Community
 {
-	public class User : Principal
-	{
+  [SPDerivedTypeConverter(typeof(SPODataTypeConverter<User>))]
+  public class User : Principal
+  {
+    [JsonPropertyName("Email")]
+    public string Email { get; set; }
 
-		/// <summary>
-		/// Gets or sets the email address of the user.
-		/// </summary>
-		public string Email { get; set; }
+    /// <summary>
+    /// Gets or sets a Boolean value that specifies whether the user is a site collection administrator.
+    /// </summary>
+    [JsonPropertyName("IsSiteAdmin")]
+    public bool IsSiteAdmin { get; set; }
 
-		/// <summary>
-		/// Gets or sets a Boolean value that specifies whether the user is a site collection administrator.
-		/// </summary>
-		public bool IsSiteAdmin { get; set; }
+    [JsonPropertyName("IsEmailAuthenticationGuestUser")]
+    public bool IsEmailAuthenticationGuestUser { get; set; }
 
-		public bool IsEmailAuthenticationGuestUser { get; set; }
+    [JsonPropertyName("IsShareByEmailGuestUser")]
+    public bool IsShareByEmailGuestUser { get; set; }
 
-		public bool IsShareByEmailGuestUser { get; set; }
+    [JsonPropertyName("UserPrincipalName")]
+    public string UserPrincipalName { get; set; }
 
-		public string UserPrincipalName { get; set; }
+    [JsonPropertyName("UserId")]
+    public UserId UserId { get; set; }
+  }
 
-		public UserId UserId { get; set; }
-	}
-
-	public class UserId
-	{
-		public string NameId { get; set; }
-		public string NameIdIssuer { get; set; }
-	}
+  public class UserId
+  {
+    [JsonPropertyName("NameId")]
+    public string NameId { get; set; }
+    [JsonPropertyName("NameIdIssuer")]
+    public string NameIdIssuer { get; set; }
+  }
 }

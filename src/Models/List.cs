@@ -4,6 +4,6 @@ namespace Graph.Community
 {
   public class List : BaseItem
   {
-    //public ChangeToken CurrentChangeToken { get; set; }
+    public ChangeToken CurrentChangeToken { get; set; }
   }
 }

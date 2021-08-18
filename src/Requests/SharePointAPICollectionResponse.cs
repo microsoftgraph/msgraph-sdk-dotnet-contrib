@@ -1,23 +1,21 @@
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Text.Json.Serialization;
 
 namespace Graph.Community
 {
-  public class AppTileCollectionResponse
+  public class SharePointAPICollectionResponse<T>
   {
     /// <summary>
-    /// Gets or sets the <see cref="IAppTileCollectionPage"/> value.
+    /// Gets or sets the CollectionPage value.
     /// </summary>
     [JsonPropertyName("value")]
-    public IAppTileCollectionPage Value { get; set; }
-
+    public T Value { get; set; }
 
     /// <summary>
     /// Gets or sets additional data.
     /// </summary>
     [JsonExtensionData]
     public IDictionary<string, object> AdditionalData { get; set; }
+
   }
 }

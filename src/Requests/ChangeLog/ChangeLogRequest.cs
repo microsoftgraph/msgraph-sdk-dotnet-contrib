@@ -1,6 +1,5 @@
 using Microsoft.Graph;
 using System;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -20,7 +19,7 @@ namespace Graph.Community
       request.ContentType = "application/json";
 
       var req = new GetChangesRequest() { Query = query };
-      var response = await request.SendAsync<ChangeLogCollectionResponse>(req, cancellationToken).ConfigureAwait(false);
+      var response = await request.SendAsync<SharePointAPICollectionResponse<IChangeLogCollectionPage>>(req, cancellationToken).ConfigureAwait(false);
 
       if (response != null && response.Value != null && response.Value.CurrentPage != null)
       {

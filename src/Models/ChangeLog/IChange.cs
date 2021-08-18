@@ -5,7 +5,7 @@ using Microsoft.Graph;
 
 namespace Graph.Community
 {
-  [InterfaceConverter(typeof(SPInterfaceConverter<Change>))]
+  [InterfaceConverter(typeof(SPODataTypeConverter<Change>))]
   public interface IChange
   {
     ChangeToken ChangeToken { get; set; }

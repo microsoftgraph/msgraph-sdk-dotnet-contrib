@@ -3,7 +3,6 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -11,7 +10,7 @@ namespace Graph.Community
 {
   public class SPDerivedTypeConverter<T> : JsonConverter<T> where T : class
   {
-    internal static readonly ConcurrentDictionary<string, Type> TypeMappingCache = new ConcurrentDictionary<string, Type>(StringComparer.OrdinalIgnoreCase);
+    internal static readonly ConcurrentDictionary<string, Type> TypeMappingCache = new(StringComparer.OrdinalIgnoreCase);
 
     /// <summary>
     /// Checks if the given object can be converted. In this instance, all object can be converted.
@@ -83,7 +82,7 @@ namespace Graph.Community
       // Use the type assembly as part of the key since users might use v1 and beta at the same causing conflicts
       var typeMappingCacheKey = $"{typeAssembly.FullName} : {typeString}";
 
-      if (DerivedTypeConverter<T>.TypeMappingCache.TryGetValue(typeMappingCacheKey, out var instanceType))
+      if (SPDerivedTypeConverter<T>.TypeMappingCache.TryGetValue(typeMappingCacheKey, out var instanceType))
       {
         instance = this.Create(instanceType);
       }
@@ -104,7 +103,7 @@ namespace Graph.Community
       if (instance != null && instanceType == null)
       {
         // Cache the type mapping resolution if we haven't pulled it from the cache already.
-        DerivedTypeConverter<T>.TypeMappingCache.TryAdd(typeMappingCacheKey, instance.GetType());
+        SPDerivedTypeConverter<T>.TypeMappingCache.TryAdd(typeMappingCacheKey, instance.GetType());
       }
 
       return instance;
@@ -310,10 +309,7 @@ namespace Graph.Community
           return null;
         }
 
-        var r = constructorInfo.Invoke(new object[] { });
-        var r2 = constructorInfo.Invoke(null);
-
-        return r;
+        return constructorInfo.Invoke(new object[] { }); ;
       }
       catch (Exception exception)
       {

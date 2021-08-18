@@ -1,14 +1,13 @@
+using Azure.Core;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Graph;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 
 [assembly: System.Runtime.CompilerServices.InternalsVisibleToAttribute("Graph.Community.Test")]
 
@@ -19,7 +18,7 @@ namespace Graph.Community
 	/// </summary>
 	public static class CommunityGraphClientFactory
 	{
-		private static readonly object telemetryFlagLock = new object();
+		private static readonly object telemetryFlagLock = new();
 		internal static bool telemetryDisabled;
 		internal static bool TelemetryDisabled
 		{
@@ -40,7 +39,7 @@ namespace Graph.Community
 		}
 
 
-		private static SharePointThrottlingDecoration defaultDecoration = new SharePointThrottlingDecoration
+		private static SharePointThrottlingDecoration defaultDecoration = new()
 		{
 			CompanyName = "GraphCommunity",
 			AppName = "CommunityGraphClient",
@@ -48,7 +47,27 @@ namespace Graph.Community
 		};
 
 		/// <summary>
-		/// Creates a new <see cref="HttpClient"/> instance configured with the handlers provided.
+		/// Creates a new <see cref="GraphServiceClient"/> instance configured with to use the provided <see cref="TokenCredential"/>.
+		/// </summary>
+		/// <param name="options">The <see cref="CommunityGraphClientOptions"/> to use.</param>
+		/// <param name="tokenCredential">The <see cref="TokenCredential"/> to use for acquiring tokens.</param>
+		/// <param name="version">The graph version to use.</param>
+		/// <param name="nationalCloud">The national cloud endpoint to use.</param>
+		/// <param name="proxy">The proxy to be used with created client.</param>
+		/// <param name="finalHandler">The last HttpMessageHandler to HTTP calls.
+		/// <returns>A GraphServiceClient instance with the SharePoint handler configured.</returns>
+		public static GraphServiceClient Create(CommunityGraphClientOptions options, TokenCredential tokenCredential, string version = "v1.0", string nationalCloud = "Global", IWebProxy proxy = null, HttpMessageHandler finalHandler = null)
+		{
+			LoggingOptions logOptions = (options.DisableTelemetry != true)
+														? new Community.LoggingOptions() { TokenCredential = tokenCredential.GetType().FullName }
+														: null;
+
+			var handlers = GraphClientFactory.CreateDefaultHandlers(new TokenCredentialAuthProvider(tokenCredential));
+			return Create(logOptions, options, handlers, version, nationalCloud, proxy, finalHandler);
+		}
+
+		/// <summary>
+		/// Creates a new <see cref="GraphServiceClient"/> instance configured to use the provided <see cref="IAuthenticationProvider"/>.
 		/// </summary>
 		/// <param name="options">The <see cref="CommunityGraphClientOptions"/> to use.</param>
 		/// <param name="authenticationProvider">The <see cref="IAuthenticationProvider"/> to authenticate requests.</param>
@@ -56,23 +75,18 @@ namespace Graph.Community
 		/// <param name="nationalCloud">The national cloud endpoint to use.</param>
 		/// <param name="proxy">The proxy to be used with created client.</param>
 		/// <param name="finalHandler">The last HttpMessageHandler to HTTP calls.
-		/// The default implementation creates a new instance of <see cref="HttpClientHandler"/> for each HttpClient.</param>
 		/// <returns>A GraphServiceClient instance with the SharePoint handler configured.</returns>
 		public static GraphServiceClient Create(CommunityGraphClientOptions options, IAuthenticationProvider authenticationProvider, string version = "v1.0", string nationalCloud = "Global", IWebProxy proxy = null, HttpMessageHandler finalHandler = null)
 		{
-			if (options.DisableTelemetry != true)
-			{
-				if (options.DisableTelemetry != true)
-				{
-					LogFactoryMethod(authenticationProvider.GetType().Name, false);
-				}
-			}
+			LoggingOptions logOptions = (options.DisableTelemetry != true)
+														? new Community.LoggingOptions() { AuthenticationProvider = authenticationProvider.GetType().FullName }
+														: null;
 
-			return Create(options, GraphClientFactory.CreateDefaultHandlers(authenticationProvider), version, nationalCloud, proxy, finalHandler);
+			return Create(logOptions, options, GraphClientFactory.CreateDefaultHandlers(authenticationProvider), version, nationalCloud, proxy, finalHandler);
 		}
 
 		/// <summary>
-		/// 
+		/// Creates a new <see cref="GraphServiceClient"/> instance configured to use the <see cref="LoggingMessageHandler"/>.
 		/// </summary>
 		/// <param name="options">The <see cref="CommunityGraphClientOptions"/> to use.</param>
 		/// <param name="messageLogger">An <see cref="IHttpMessageLogger"/> instance to insert into the Http pipeline.</param>
@@ -81,30 +95,38 @@ namespace Graph.Community
 		/// <param name="nationalCloud">The national cloud endpoint to use.</param>
 		/// <param name="proxy">The proxy to be used with created client.</param>
 		/// <param name="finalHandler">The last HttpMessageHandler to HTTP calls.
-		/// The default implementation creates a new instance of <see cref="HttpClientHandler"/> for each HttpClient.</param>
 		/// <returns>A GraphServiceClient instance with the SharePoint handler configured.</returns>
 		public static GraphServiceClient Create(CommunityGraphClientOptions options, IHttpMessageLogger messageLogger, IAuthenticationProvider authenticationProvider, string version = "v1.0", string nationalCloud = "Global", IWebProxy proxy = null, HttpMessageHandler finalHandler = null)
 		{
-			LoggingMessageHandler loggingHandler = new LoggingMessageHandler(messageLogger);
+			LoggingOptions logOptions = (options.DisableTelemetry != true)
+											? new Community.LoggingOptions() { AuthenticationProvider = authenticationProvider.GetType().FullName, LoggingHandler = true }
+											: null;
 
-			var handlers = GraphClientFactory.CreateDefaultHandlers(authenticationProvider);
+			var handlers = AddLoggingHandlerToGraphDefaults(messageLogger, authenticationProvider);
 
-			var compressionHandlerIndex = handlers.ToList().FindIndex(h => h is CompressionHandler);
-			if (compressionHandlerIndex > -1)
-			{
-				handlers.Insert(compressionHandlerIndex, loggingHandler);
-			}
-			else
-			{
-				handlers.Add(loggingHandler);
-			}
+			return Create(logOptions, options, handlers, version, nationalCloud, proxy, finalHandler);
+		}
 
-			if (options.DisableTelemetry != true)
-			{
-				LogFactoryMethod(authenticationProvider.GetType().Name, true);
-			}
+		/// <summary>
+		/// Creates a new <see cref="GraphServiceClient"/> instance configured to use the <see cref="LoggingMessageHandler"/>.
+		/// </summary>
+		/// <param name="options">The <see cref="CommunityGraphClientOptions"/> to use.</param>
+		/// <param name="messageLogger">An <see cref="IHttpMessageLogger"/> instance to insert into the Http pipeline.</param>
+		/// <param name="tokenCredential">The <see cref="TokenCredential"/> to use for acquiring tokens.</param>
+		/// <param name="version">The graph version to use.</param>
+		/// <param name="nationalCloud">The national cloud endpoint to use.</param>
+		/// <param name="proxy">The proxy to be used with created client.</param>
+		/// <param name="finalHandler">The last HttpMessageHandler to HTTP calls.
+		/// <returns>A GraphServiceClient instance with the SharePoint handler configured.</returns>
+		public static GraphServiceClient Create(CommunityGraphClientOptions options, IHttpMessageLogger messageLogger, TokenCredential tokenCredential, string version = "v1.0", string nationalCloud = "Global", IWebProxy proxy = null, HttpMessageHandler finalHandler = null)
+    {
+			LoggingOptions logOptions = (options.DisableTelemetry != true)
+											? new Community.LoggingOptions() { TokenCredential = tokenCredential.GetType().FullName, LoggingHandler = true }
+											: null;
 
-			return Create(options, handlers, version, nationalCloud, proxy, finalHandler);
+			var handlers = AddLoggingHandlerToGraphDefaults(messageLogger, new TokenCredentialAuthProvider(tokenCredential));
+
+			return Create(logOptions, options, handlers, version, nationalCloud, proxy, finalHandler);
 		}
 
 		/// <summary>
@@ -117,11 +139,16 @@ namespace Graph.Community
 		/// <param name="proxy">The proxy to be used with created client.</param>
 		/// <param name="finalHandler">The last HttpMessageHandler to HTTP calls.</param>
 		/// <returns>A GraphServiceClient instance with the configured handlers.</returns>
-		public static GraphServiceClient Create(CommunityGraphClientOptions options, IList<DelegatingHandler> handlers, string version = "v1.0", string nationalCloud = "Global", IWebProxy proxy = null, HttpMessageHandler finalHandler = null)
+		private static GraphServiceClient Create(LoggingOptions logOptions, CommunityGraphClientOptions options, IList<DelegatingHandler> handlers, string version = "v1.0", string nationalCloud = "Global", IWebProxy proxy = null, HttpMessageHandler finalHandler = null)
 		{
 			if (options == null)
 			{
 				throw new ArgumentNullException("options");
+			}
+
+      if (logOptions !=null)
+      {
+				LogFactoryMethod(logOptions);
 			}
 
 			ProductInfoHeaderValue defaultUserAgent = defaultDecoration.ToUserAgent();
@@ -168,21 +195,51 @@ namespace Graph.Community
 			return graphServiceClient;
 		}
 
-		private static void LogFactoryMethod(string authenticationProvider, bool loggingHandler)
+		private static IList<DelegatingHandler> AddLoggingHandlerToGraphDefaults(IHttpMessageLogger messageLogger, IAuthenticationProvider authenticationProvider)
+    {
+			LoggingMessageHandler loggingHandler = new(messageLogger);
+
+			var handlers = GraphClientFactory.CreateDefaultHandlers(authenticationProvider);
+
+			var compressionHandlerIndex = handlers.ToList().FindIndex(h => h is CompressionHandler);
+			if (compressionHandlerIndex > -1)
+			{
+				handlers.Insert(compressionHandlerIndex, loggingHandler);
+			}
+			else
+			{
+				handlers.Add(loggingHandler);
+			}
+
+			return handlers;
+		}
+
+		private static void LogFactoryMethod(LoggingOptions loggingOptions)
 		{
 			var telemetryConfiguration = TelemetryConfiguration.CreateDefault();
 			telemetryConfiguration.InstrumentationKey = "d882bd7a-a378-4117-bd7c-71fc95a44cd1";
 			var telemetryClient = new TelemetryClient(telemetryConfiguration);
 
-			Dictionary<string, string> properties = new Dictionary<string, string>(10)
-				{
-					{ CommunityGraphConstants.Headers.CommunityLibraryVersionHeaderName, CommunityGraphConstants.Library.AssemblyVersion },
-					{ CommunityGraphConstants.TelemetryProperties.AuthenticationProvider, authenticationProvider },
-					{ CommunityGraphConstants.TelemetryProperties.LoggingHandler, loggingHandler.ToString() }
-				};
+			Dictionary<string, string> properties = new(10)
+			{
+				{ CommunityGraphConstants.Headers.CommunityLibraryVersionHeaderName, CommunityGraphConstants.Library.AssemblyVersion },
+				{ CommunityGraphConstants.TelemetryProperties.AuthenticationProvider, loggingOptions.AuthenticationProvider },
+				{ CommunityGraphConstants.TelemetryProperties.TokenCredential, loggingOptions.TokenCredential },
+				{ CommunityGraphConstants.TelemetryProperties.LoggingHandler, loggingOptions.LoggingHandler.ToString() }
+			};
+
 			telemetryClient.TrackEvent("CommunityGraphClientFactory", properties);
 			telemetryClient.Flush();
 
 		}
 	}
+
+	internal class LoggingOptions
+	{
+		public string TokenCredential { get; set; }
+		public string AuthenticationProvider { get; set; }
+		public bool LoggingHandler { get; set; }
+		public LoggingOptions() { }
+	}
+
 }
