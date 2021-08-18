@@ -1,41 +1,52 @@
+using Microsoft.Extensions.CommandLineUtils;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Graph;
-using Microsoft.Graph.Auth;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System;
-using Graph.Community;
+using System.IO;
+using System.Reflection;
 using System.Threading.Tasks;
-using Microsoft.Identity.Client;
-using System.Net.Http;
 
 namespace Graph.Community.Samples
 {
-	class Program
-	{
-		internal static AzureAdOptions azureAdOptions = new AzureAdOptions();
+  class Program
+  {
+    static async Task Main(string[] args)
+    {
+      using var host =
+        Host.CreateDefaultBuilder(args)
+              .UseContentRoot(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))
+              .UseEnvironment("Development")
+              .ConfigureServices((hostContext, services) =>
+              {
+                services.AddSingleton<MenuService>();
 
-		static async Task Main(string[] args)
-		{
+                services.AddOptions<AzureAdSettings>()
+                  .Configure<IConfiguration>((settings, configuration) =>
+                  {
+                    configuration.GetSection(AzureAdSettings.ConfigurationSectionName).Bind(settings);
+                  });
 
-			await Diagnostics.Run();
+                services.AddOptions<SharePointSettings>()
+                  .Configure<IConfiguration>((settings, configuration) =>
+                  {
+                    configuration.GetSection(SharePointSettings.ConfigurationSectionName).Bind(settings);
+                  });
 
-			await RootSite.Run();
+                // Add our sample classes
+                services.AddTransient<Diagnostics>();
+                services.AddTransient<RootSite>();
+                services.AddTransient<ExpiringClientSecrets>();
+                //services.AddTransient<Chan>();
+              })
+              .Build();
 
-			//await Search.Run();
+      await host.StartAsync();
 
-			//await SiteGroups.Run();
+      var menu = host.Services.GetRequiredService<MenuService>();
+      menu.StartMenuLoop(host.Services);
 
-			//await ChangeLog.Run();
-
-			//await SiteDesign.Run();
-
-			//await ImmutableIds.Run();
-
-			//await GraphGroupExtensions.Run();
-
-			await ExpiringClientSecrets.Run();
-
-			Console.WriteLine("Press enter to end");
-			Console.ReadLine();
-		}
-	}
+      await host.WaitForShutdownAsync();
+    }
+  }
 }

@@ -9,20 +9,31 @@
 	</PropertyGroup>
 
   <ItemGroup>
-    <None Remove=".editorconfig" />
+    <Compile Remove="ConsoleHostedService.cs" />
+    <Compile Remove="Utilities\TokenCacheHelper.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="microsoft.extensions.caching.memory" Version="3.1.13" />
-    <PackageReference Include="microsoft.extensions.configuration" Version="3.1.13" />
-    <PackageReference Include="microsoft.extensions.configuration.binder" Version="3.1.13" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.13" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="3.1.13" />
-    <PackageReference Include="Microsoft.Graph.Auth" Version="1.0.0-preview.5" />
-    <PackageReference Include="Microsoft.Identity.Client.Extensions.Msal" Version="2.18.3" />
+    <None Remove=".editorconfig" />
+    <None Remove="appsettings.Development.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.Identity" Version="1.4.1" />
+    <PackageReference Include="microsoft.extensions.caching.memory" Version="3.1.18" />
+    <PackageReference Include="Microsoft.Extensions.CommandLineUtils" Version="1.1.1" />
+    <PackageReference Include="microsoft.extensions.configuration" Version="3.1.18" />
+    <PackageReference Include="microsoft.extensions.configuration.binder" Version="3.1.18" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="3.1.18" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.18" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.18" />
   </ItemGroup>
 
 	<ItemGroup>
+		<Content Include="appsettings.Development.json">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
 		<Content Include="appSettings.json">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>

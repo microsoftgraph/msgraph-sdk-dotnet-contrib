@@ -1,126 +1,89 @@
-using Microsoft.Extensions.Configuration;
+using Azure.Identity;
+using Microsoft.Extensions.Options;
 using Microsoft.Graph;
-using Microsoft.Graph.Auth;
-using Microsoft.Identity.Client;
 using System;
 using System.Threading.Tasks;
 
 namespace Graph.Community.Samples
 {
-  public static class RootSite
-	{
-		public static async Task Run()
-		{
-			/////////////////////////////
-			//
-			// Programmer configuration
-			//
-			/////////////////////////////
+  public class RootSite
+  {
+    private readonly AzureAdSettings azureAdSettings;
+    private readonly SharePointSettings sharePointSettings;
 
-			var sharepointDomain = "demo.sharepoint.com";
-			var siteCollectionPath = "/sites/GraphCommunityDemo";
+    public RootSite(
+      IOptions<AzureAdSettings> azureAdOptions,
+      IOptions<SharePointSettings> sharePointOptions)
+    {
+      this.azureAdSettings = azureAdOptions.Value;
+      this.sharePointSettings = sharePointOptions.Value;
+    }
 
-			////////////////////////////////
-			//
-			// Azure AD Configuration
-			//
-			////////////////////////////////
+    public async Task Run()
+    {
+      //////////////////////
+      //
+      //  TokenCredential 
+      //
+      //////////////////////
 
-			AzureAdOptions azureAdOptions = new AzureAdOptions();
-
-			var settingsFilename = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "appsettings.json");
-			var builder = new ConfigurationBuilder()
-													.AddJsonFile(settingsFilename, optional: false)
-													.AddUserSecrets<Program>();
-			var config = builder.Build();
-			config.Bind("AzureAd", azureAdOptions);
-
-			/////////////////////////////////////
-			//
-			// Client Application Configuration
-			//
-			/////////////////////////////////////
-
-			var options = new PublicClientApplicationOptions()
-			{
-				AadAuthorityAudience = AadAuthorityAudience.AzureAdMyOrg,
-				AzureCloudInstance = AzureCloudInstance.AzurePublic,
-				ClientId = azureAdOptions.ClientId,
-				TenantId = azureAdOptions.TenantId,
-				RedirectUri = "http://localhost"
-			};
-
-			// Create the public client application (desktop app), with a default redirect URI
-			var pca = PublicClientApplicationBuilder
-									.CreateWithApplicationOptions(options)
-									.Build();
-
-			// Enable a simple token cache serialiation so that the user does not need to
-			// re-sign-in each time the application is run
-			TokenCacheHelper.EnableSerialization(pca.UserTokenCache);
-
-			///////////////////////////////////////////////
-			//
-			//  Auth Provider - Interactive in this sample
-			//
-			///////////////////////////////////////////////
-
-			// Use the system browser to login
-			//  https://github.com/AzureAD/microsoft-authentication-library-for-dotnet/wiki/System-Browser-on-.Net-Core#how-to-use-the-system-browser-ie-the-default-browser-of-the-os
+      var credential = new ChainedTokenCredential(
+        new SharedTokenCacheCredential(new SharedTokenCacheCredentialOptions() { TenantId = azureAdSettings.TenantId, ClientId = azureAdSettings.ClientId }),
+        new VisualStudioCredential(new VisualStudioCredentialOptions { TenantId = azureAdSettings.TenantId }),
+        new InteractiveBrowserCredential(new InteractiveBrowserCredentialOptions { TenantId = azureAdSettings.TenantId, ClientId = azureAdSettings.ClientId })
+      );
 
 
-			// Create an authentication provider to attach the token to requests
-			var scopes = new string[] { $"https://graph.microsoft.com/Sites.Read.All" };
-			IAuthenticationProvider ap = new InteractiveAuthenticationProvider(pca, scopes);
 
-			////////////////////////////////////////////////////////////
-			//
-			// Graph Client with Logger and SharePoint service handler
-			//
-			////////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////
+      //
+      // Graph Client with Logger and SharePoint service handler
+      //
+      ////////////////////////////////////////////////////////////
 
-			var logger = new StringBuilderHttpMessageLogger();
-			/*
+      var logger = new StringBuilderHttpMessageLogger();
+      /*
        *  Could also use the Console if preferred...
        *  
        *  var logger = new ConsoleHttpMessageLogger();
        */
 
-			// Configure our client
-			CommunityGraphClientOptions clientOptions = new CommunityGraphClientOptions()
-			{
-				UserAgent = "RootSiteSample"
-			};
-			var graphServiceClient = CommunityGraphClientFactory.Create(clientOptions, logger, ap);
+      // Configure our client
+      CommunityGraphClientOptions clientOptions = new CommunityGraphClientOptions()
+      {
+        UserAgent = "RootSiteSample"
+      };
+      var graphServiceClient = CommunityGraphClientFactory.Create(clientOptions, logger, credential);
 
-			///////////////////////////////////////
-			//
-			// Setup is complete, run the sample
-			//
-			//////////////////////////////////////
+      ///////////////////////////////////////
+      //
+      // Setup is complete, run the sample
+      //
+      //////////////////////////////////////
 
-			var WebUrl = $"https://{sharepointDomain}{siteCollectionPath}";
+      try
+      {
+        var scopes = new string[] { "Sites.Read.All" };
 
-			try
-			{
-				var results = await graphServiceClient
-												.Sites["root"]
-												.Request()
-												.Select(s => s.DisplayName)
-												.GetAsync();
+        var results = await graphServiceClient
+                        .Sites["root"]
+                        .Request()
+                        .Select(s => s.DisplayName)
+                        .WithScopes(scopes)
+                        .GetAsync();
 
-				Console.WriteLine($"title: {results.DisplayName}");
-			}
-			catch (Exception ex)
-			{
-				Console.WriteLine(ex.Message);
-			}
+        Console.WriteLine($"title: {results.DisplayName}");
+      }
+      catch (Exception ex)
+      {
+        Console.WriteLine(ex.Message);
+      }
 
-			Console.WriteLine("Press enter to show log");
-			Console.ReadLine();
-			Console.WriteLine();
-			var log = logger.GetLog();
-			Console.WriteLine(log);
-		}
-	}
+      Console.WriteLine("Press enter to show log");
+      Console.ReadLine();
+      Console.WriteLine();
+      var log = logger.GetLog();
+      Console.WriteLine(log);
+    }
+  }
 }
