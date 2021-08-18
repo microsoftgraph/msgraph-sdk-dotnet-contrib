@@ -4,16 +4,16 @@
 
 namespace Microsoft.Graph.Core.Test.Mocks
 {
-    using Moq;
+  using Moq;
 
-    public class MockSerializer : Mock<ISerializer>
+  public class MockSerializer : Mock<ISerializer>
+  {
+    public MockSerializer()
+        : base(MockBehavior.Strict)
     {
-        public MockSerializer()
-            : base(MockBehavior.Strict)
-        {
-            this.Setup(
-                provider => provider.SerializeObject(It.IsAny<object>()))
-                .Returns("{\"key\": \"value\"}");
-        }
+      this.Setup(
+          provider => provider.SerializeObject(It.IsAny<object>()))
+          .Returns("{\"key\": \"value\"}");
     }
+  }
 }

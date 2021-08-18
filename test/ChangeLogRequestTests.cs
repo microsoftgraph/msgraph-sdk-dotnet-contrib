@@ -1,6 +1,5 @@
 using Microsoft.Graph;
 using Microsoft.Graph.Core.Test.Mocks;
-using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -9,9 +8,6 @@ using Xunit.Abstractions;
 
 namespace Graph.Community.Test
 {
-#pragma warning disable CA1707 // Identifiers should not contain underscores
-#pragma warning disable CA2007 // Consider calling ConfigureAwait on the awaited task
-
   public class ChangeLogRequestTests
   {
     private readonly ITestOutputHelper output;
@@ -61,7 +57,4 @@ namespace Graph.Community.Test
       Assert.IsType<ChangeList>(actual[4]);
     }
   }
-
-#pragma warning restore CA2007 // Consider calling ConfigureAwait on the awaited task
-#pragma warning restore CA1707
 }

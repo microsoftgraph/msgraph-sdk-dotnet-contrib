@@ -43,6 +43,26 @@
 					"NameIdIssuer": "urn:federation:microsoftonline"
 				},
 				"UserPrincipalName": "alexw@mock.onmicrosoft.com"
+			},
+			{
+				"@odata.type": "#SP.User",
+				"@odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/Web/GetUserById(7)",
+				"@odata.editLink": "Web/GetUserById(7)",
+				"Id": 7,
+				"IsHiddenInUI": false,
+				"LoginName": "i:0#.f|membership|meganb@mock.onmicrosoft.com",
+				"Title": "Megan Bowen",
+				"PrincipalType": 1,
+				"Email": "meganb@mock.onmicrosoft.com",
+				"Expiration": "",
+				"IsEmailAuthenticationGuestUser": false,
+				"IsShareByEmailGuestUser": false,
+				"IsSiteAdmin": true,
+				"UserId": {
+					"NameId": "10032000440e68e6",
+					"NameIdIssuer": "urn:federation:microsoftonline"
+				},
+				"UserPrincipalName": "meganb@mock.onmicrosoft.com"
 			}
 		]
 	},

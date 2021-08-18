@@ -8,9 +8,6 @@ using Xunit;
 
 namespace Graph.Community.Test
 {
-#pragma warning disable CA1707 // Identifiers should not contain underscores
-#pragma warning disable CA2007 // Consider calling ConfigureAwait on the awaited task
-
   public class WebNavigationRequestTests
   {
     private readonly string mockWebUrl = "https://mock.sharepoint.com/sites/mockSite";
@@ -18,22 +15,21 @@ namespace Graph.Community.Test
     [Fact]
     public void GeneratesCorrectRequestHeaders()
     {
-      using (var response = new HttpResponseMessage())
-      using (var gsc = GraphServiceTestClient.Create(response))
-      {
-        // ACT
-        var request = gsc.GraphServiceClient
-                            .SharePointAPI(mockWebUrl)
-                            .Web
-                            .Navigation
-                            .Request()
-                            .GetHttpRequestMessage();
+      using HttpResponseMessage response = new HttpResponseMessage();
+      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
 
-        // ASSERT
-        Assert.Equal(SharePointAPIRequestConstants.Headers.AcceptHeaderValue, request.Headers.Accept.ToString());
-        Assert.True(request.Headers.Contains(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName), $"Header does not contain {SharePointAPIRequestConstants.Headers.ODataVersionHeaderName} header");
-        Assert.Equal(SharePointAPIRequestConstants.Headers.ODataVersionHeaderValue, string.Join(',', request.Headers.GetValues(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName)));
-      }
+      // ACT
+      var request = gsc.GraphServiceClient
+                          .SharePointAPI(mockWebUrl)
+                          .Web
+                          .Navigation
+                          .Request()
+                          .GetHttpRequestMessage();
+
+      // ASSERT
+      Assert.Equal(SharePointAPIRequestConstants.Headers.AcceptHeaderValue, request.Headers.Accept.ToString());
+      Assert.True(request.Headers.Contains(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName), $"Header does not contain {SharePointAPIRequestConstants.Headers.ODataVersionHeaderName} header");
+      Assert.Equal(SharePointAPIRequestConstants.Headers.ODataVersionHeaderValue, string.Join(',', request.Headers.GetValues(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName)));
     }
 
     [Fact]
@@ -42,31 +38,30 @@ namespace Graph.Community.Test
       // ARRANGE
       var expectedUri = new Uri($"{mockWebUrl}/_api/web/navigation");
 
-      using (var response = new HttpResponseMessage())
-      using (var gsc = GraphServiceTestClient.Create(response))
-      {
-        // ACT
-        await gsc.GraphServiceClient
-                    .SharePointAPI(mockWebUrl)
-                    .Web
-                    .Navigation
-                    .Request()
-                    .GetAsync();
+      using HttpResponseMessage response = new HttpResponseMessage();
+      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
 
-        // ASSERT
-        gsc.HttpProvider.Verify(
-          provider => provider.SendAsync(
-            It.Is<HttpRequestMessage>(req =>
-              req.Method == HttpMethod.Get &&
-              req.RequestUri == expectedUri &&
-              req.Headers.Authorization != null
-            ),
-            It.IsAny<HttpCompletionOption>(),
-            It.IsAny<CancellationToken>()
-            ),
-          Times.Exactly(1)
-        );
-      }
+      // ACT
+      await gsc.GraphServiceClient
+                  .SharePointAPI(mockWebUrl)
+                  .Web
+                  .Navigation
+                  .Request()
+                  .GetAsync();
+
+      // ASSERT
+      gsc.HttpProvider.Verify(
+        provider => provider.SendAsync(
+          It.Is<HttpRequestMessage>(req =>
+            req.Method == HttpMethod.Get &&
+            req.RequestUri == expectedUri &&
+            req.Headers.Authorization != null
+          ),
+          It.IsAny<HttpCompletionOption>(),
+          It.IsAny<CancellationToken>()
+          ),
+        Times.Exactly(1)
+      );
     }
 
     [Fact]
@@ -74,14 +69,14 @@ namespace Graph.Community.Test
     {
       // ARRANGE
       var responseContent = "{\"odata.metadata\":\"https://mock.sharepoint.com/_api/$metadata#SP.ApiData.Navigations/@Element\",\"odata.type\":\"SP.Navigation\",\"odata.id\":\"https://mock.sharepoint.com/_api/web/navigation\",\"odata.editLink\":\"web/navigation\",\"UseShared\":false}";
-      var responseMessage = new HttpResponseMessage()
+      HttpResponseMessage responseMessage = new HttpResponseMessage()
       {
         StatusCode = HttpStatusCode.OK,
         Content = new StringContent(responseContent),
       };
 
       using (responseMessage)
-      using (var gsc = GraphServiceTestClient.Create(responseMessage))
+      using (GraphServiceTestClient gsc = GraphServiceTestClient.Create(responseMessage))
       {
         // ACT
         var response = await gsc.GraphServiceClient
@@ -103,32 +98,31 @@ namespace Graph.Community.Test
       // ARRANGE
       var expectedUri = new Uri($"{mockWebUrl}/_api/web/navigation/quicklaunch");
 
-      using (var response = new HttpResponseMessage())
-      using (var gsc = GraphServiceTestClient.Create(response))
-      {
-        // ACT
-        await gsc.GraphServiceClient
-                    .SharePointAPI(mockWebUrl)
-                    .Web
-                    .Navigation
-                    .QuickLaunch
-                    .Request()
-                    .GetAsync();
+      using HttpResponseMessage response = new HttpResponseMessage();
+      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
 
-        // ASSERT
-        gsc.HttpProvider.Verify(
-          provider => provider.SendAsync(
-            It.Is<HttpRequestMessage>(req =>
-              req.Method == HttpMethod.Get &&
-              req.RequestUri == expectedUri &&
-              req.Headers.Authorization != null
-            ),
-            It.IsAny<HttpCompletionOption>(),
-            It.IsAny<CancellationToken>()
-            ),
-          Times.Exactly(1)
-        );
-      }
+      // ACT
+      await gsc.GraphServiceClient
+                  .SharePointAPI(mockWebUrl)
+                  .Web
+                  .Navigation
+                  .QuickLaunch
+                  .Request()
+                  .GetAsync();
+
+      // ASSERT
+      gsc.HttpProvider.Verify(
+        provider => provider.SendAsync(
+          It.Is<HttpRequestMessage>(req =>
+            req.Method == HttpMethod.Get &&
+            req.RequestUri == expectedUri &&
+            req.Headers.Authorization != null
+          ),
+          It.IsAny<HttpCompletionOption>(),
+          It.IsAny<CancellationToken>()
+          ),
+        Times.Exactly(1)
+      );
     }
 
     [Fact]
@@ -137,32 +131,31 @@ namespace Graph.Community.Test
       // ARRANGE
       var expectedUri = new Uri($"{mockWebUrl}/_api/web/navigation/topnavigationbar");
 
-      using (var response = new HttpResponseMessage())
-      using (var gsc = GraphServiceTestClient.Create(response))
-      {
-        // ACT
-        await gsc.GraphServiceClient
-                    .SharePointAPI(mockWebUrl)
-                    .Web
-                    .Navigation
-                    .TopNavigationBar
-                    .Request()
-                    .GetAsync();
+      using HttpResponseMessage response = new HttpResponseMessage();
+      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
 
-        // ASSERT
-        gsc.HttpProvider.Verify(
-          provider => provider.SendAsync(
-            It.Is<HttpRequestMessage>(req =>
-              req.Method == HttpMethod.Get &&
-              req.RequestUri == expectedUri &&
-              req.Headers.Authorization != null
-            ),
-            It.IsAny<HttpCompletionOption>(),
-            It.IsAny<CancellationToken>()
-            ),
-          Times.Exactly(1)
-        );
-      }
+      // ACT
+      await gsc.GraphServiceClient
+                  .SharePointAPI(mockWebUrl)
+                  .Web
+                  .Navigation
+                  .TopNavigationBar
+                  .Request()
+                  .GetAsync();
+
+      // ASSERT
+      gsc.HttpProvider.Verify(
+        provider => provider.SendAsync(
+          It.Is<HttpRequestMessage>(req =>
+            req.Method == HttpMethod.Get &&
+            req.RequestUri == expectedUri &&
+            req.Headers.Authorization != null
+          ),
+          It.IsAny<HttpCompletionOption>(),
+          It.IsAny<CancellationToken>()
+          ),
+        Times.Exactly(1)
+      );
     }
 
     [Fact]
@@ -170,14 +163,14 @@ namespace Graph.Community.Test
     {
       // ARRANGE
       var responseContent = ResourceManager.GetHttpResponseContent("NavigationNodeCollectionResponse.json");
-      var responseMessage = new HttpResponseMessage()
+      HttpResponseMessage responseMessage = new HttpResponseMessage()
       {
         StatusCode = HttpStatusCode.OK,
         Content = new StringContent(responseContent),
       };
 
       using (responseMessage)
-      using (var gsc = GraphServiceTestClient.Create(responseMessage))
+      using (GraphServiceTestClient gsc = GraphServiceTestClient.Create(responseMessage))
       {
         // ACT
         var response = await gsc.GraphServiceClient
@@ -204,19 +197,18 @@ namespace Graph.Community.Test
     [Fact]
     public async Task AddNode_NullCreationInfo_Throws()
     {
-      using (var response = new HttpResponseMessage())
-      using (var gsc = GraphServiceTestClient.Create(response))
-      {
-        await Assert.ThrowsAsync<ArgumentNullException>(
-          async () => await gsc.GraphServiceClient
-                                  .SharePointAPI(mockWebUrl)
-                                  .Web
-                                  .Navigation
-                                  .QuickLaunch
-                                  .Request()
-                                  .AddAsync(null)
-        );
-      }
+      using HttpResponseMessage response = new HttpResponseMessage();
+      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+
+      await Assert.ThrowsAsync<ArgumentNullException>(
+        async () => await gsc.GraphServiceClient
+                                .SharePointAPI(mockWebUrl)
+                                .Web
+                                .Navigation
+                                .QuickLaunch
+                                .Request()
+                                .AddAsync(null)
+      );
     }
 
     [Theory]
@@ -230,19 +222,18 @@ namespace Graph.Community.Test
         Url = string.IsNullOrEmpty(url) ? null : new Uri(url)
       };
 
-      using (var response = new HttpResponseMessage())
-      using (var gsc = GraphServiceTestClient.Create(response))
-      {
-        await Assert.ThrowsAsync<ArgumentException>(
-          async () => await gsc.GraphServiceClient
-                                  .SharePointAPI(mockWebUrl)
-                                  .Web
-                                  .Navigation
-                                  .QuickLaunch
-                                  .Request()
-                                  .AddAsync(mockNewNodeRequest)
-        );
-      }
+      using HttpResponseMessage response = new HttpResponseMessage();
+      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+
+      await Assert.ThrowsAsync<ArgumentException>(
+        async () => await gsc.GraphServiceClient
+                                .SharePointAPI(mockWebUrl)
+                                .Web
+                                .Navigation
+                                .QuickLaunch
+                                .Request()
+                                .AddAsync(mockNewNodeRequest)
+      );
     }
 
     [Fact]
@@ -257,35 +248,34 @@ namespace Graph.Community.Test
       var expectedUri = new Uri($"{mockWebUrl}/_api/web/navigation/quicklaunch");
       var expectedContent = "{\"Title\":\"mockTitle\",\"Url\":\"https://mocksite.com\"}";
 
-      using (var response = new HttpResponseMessage())
-      using (var gsc = GraphServiceTestClient.Create(response))
-      {
-        // ACT
-        await gsc.GraphServiceClient
-                    .SharePointAPI(mockWebUrl)
-                    .Web
-                    .Navigation
-                    .QuickLaunch
-                    .Request()
-                    .AddAsync(mockNewNodeRequest);
-        var actualContent = gsc.HttpProvider.ContentAsString;
+      using HttpResponseMessage response = new HttpResponseMessage();
+      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
 
-        // ASSERT
-        gsc.HttpProvider.Verify(
-          provider => provider.SendAsync(
-            It.Is<HttpRequestMessage>(req =>
-              req.Method == HttpMethod.Post &&
-              req.RequestUri == expectedUri &&
-              req.Headers.Authorization != null
-            ),
-            It.IsAny<HttpCompletionOption>(),
-            It.IsAny<CancellationToken>()
-            ),
-          Times.Exactly(1)
-        );
-        Assert.Equal(Microsoft.Graph.CoreConstants.MimeTypeNames.Application.Json, gsc.HttpProvider.ContentHeaders.ContentType.MediaType);
-        Assert.Equal(expectedContent, actualContent);
-      }
+      // ACT
+      await gsc.GraphServiceClient
+                  .SharePointAPI(mockWebUrl)
+                  .Web
+                  .Navigation
+                  .QuickLaunch
+                  .Request()
+                  .AddAsync(mockNewNodeRequest);
+      var actualContent = gsc.HttpProvider.ContentAsString;
+
+      // ASSERT
+      gsc.HttpProvider.Verify(
+        provider => provider.SendAsync(
+          It.Is<HttpRequestMessage>(req =>
+            req.Method == HttpMethod.Post &&
+            req.RequestUri == expectedUri &&
+            req.Headers.Authorization != null
+          ),
+          It.IsAny<HttpCompletionOption>(),
+          It.IsAny<CancellationToken>()
+          ),
+        Times.Exactly(1)
+      );
+      Assert.Equal(Microsoft.Graph.CoreConstants.MimeTypeNames.Application.Json, gsc.HttpProvider.ContentHeaders.ContentType.MediaType);
+      Assert.Equal(expectedContent, actualContent);
     }
 
     [Fact]
@@ -295,31 +285,30 @@ namespace Graph.Community.Test
       var mockNodeId = 2003;
       var expectedUri = new Uri($"{mockWebUrl}/_api/web/navigation/getbyid({mockNodeId})");
 
-      using (var response = new HttpResponseMessage())
-      using (var gsc = GraphServiceTestClient.Create(response))
-      {
-        // ACT
-        await gsc.GraphServiceClient
-                    .SharePointAPI(mockWebUrl)
-                    .Web
-                    .Navigation[mockNodeId]
-                    .Request()
-                    .GetAsync();
+      using HttpResponseMessage response = new HttpResponseMessage();
+      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
 
-        // ASSERT
-        gsc.HttpProvider.Verify(
-          provider => provider.SendAsync(
-            It.Is<HttpRequestMessage>(req =>
-              req.Method == HttpMethod.Get &&
-              req.RequestUri == expectedUri &&
-              req.Headers.Authorization != null
-            ),
-            It.IsAny<HttpCompletionOption>(),
-            It.IsAny<CancellationToken>()
-            ),
-          Times.Exactly(1)
-        );
-      }
+      // ACT
+      await gsc.GraphServiceClient
+                  .SharePointAPI(mockWebUrl)
+                  .Web
+                  .Navigation[mockNodeId]
+                  .Request()
+                  .GetAsync();
+
+      // ASSERT
+      gsc.HttpProvider.Verify(
+        provider => provider.SendAsync(
+          It.Is<HttpRequestMessage>(req =>
+            req.Method == HttpMethod.Get &&
+            req.RequestUri == expectedUri &&
+            req.Headers.Authorization != null
+          ),
+          It.IsAny<HttpCompletionOption>(),
+          It.IsAny<CancellationToken>()
+          ),
+        Times.Exactly(1)
+      );
     }
 
     [Fact]
@@ -335,54 +324,52 @@ namespace Graph.Community.Test
       };
       var expectedContent = "{\"Title\":\"mockTitle\",\"Url\":\"https://mocksite.com\"}";
 
-      using (var response = new HttpResponseMessage())
-      using (var gsc = GraphServiceTestClient.Create(response))
-      {
-        // ACT
-        await gsc.GraphServiceClient
-                    .SharePointAPI(mockWebUrl)
-                    .Web
-                    .Navigation[mockNodeId]
-                    .Request()
-                    .UpdateAsync(mockUpdatedNodeRequest);
-        var actualContent = gsc.HttpProvider.ContentAsString;
+      using HttpResponseMessage response = new HttpResponseMessage();
+      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
 
-        // ASSERT
-        gsc.HttpProvider.Verify(
-          provider => provider.SendAsync(
-            It.Is<HttpRequestMessage>(req =>
-              req.Method == HttpMethod.Post &&
-              req.RequestUri == expectedUri &&
-              req.Headers.Authorization != null &&
-              string.Join("", req.Headers.GetValues("X-HTTP-Method")) == "MERGE"
-            ),
-            It.IsAny<HttpCompletionOption>(),
-            It.IsAny<CancellationToken>()
-            ),
-          Times.Exactly(1)
-        );
+      // ACT
+      await gsc.GraphServiceClient
+                  .SharePointAPI(mockWebUrl)
+                  .Web
+                  .Navigation[mockNodeId]
+                  .Request()
+                  .UpdateAsync(mockUpdatedNodeRequest);
+      var actualContent = gsc.HttpProvider.ContentAsString;
 
-        Assert.Equal(Microsoft.Graph.CoreConstants.MimeTypeNames.Application.Json, gsc.HttpProvider.ContentHeaders.ContentType.MediaType);
-        Assert.Equal(expectedContent, actualContent);
-      }
+      // ASSERT
+      gsc.HttpProvider.Verify(
+        provider => provider.SendAsync(
+          It.Is<HttpRequestMessage>(req =>
+            req.Method == HttpMethod.Post &&
+            req.RequestUri == expectedUri &&
+            req.Headers.Authorization != null &&
+            string.Join("", req.Headers.GetValues("X-HTTP-Method")) == "MERGE"
+          ),
+          It.IsAny<HttpCompletionOption>(),
+          It.IsAny<CancellationToken>()
+          ),
+        Times.Exactly(1)
+      );
+
+      Assert.Equal(Microsoft.Graph.CoreConstants.MimeTypeNames.Application.Json, gsc.HttpProvider.ContentHeaders.ContentType.MediaType);
+      Assert.Equal(expectedContent, actualContent);
     }
 
     [Fact]
     public async Task UpdateNode_NullCreationInfo_Throws()
     {
       var mockNodeId = 2003;
-      using (var response = new HttpResponseMessage())
-      using (var gsc = GraphServiceTestClient.Create(response))
-      {
-        await Assert.ThrowsAsync<ArgumentNullException>(
-          async () => await gsc.GraphServiceClient
-                                  .SharePointAPI(mockWebUrl)
-                                  .Web
-                                  .Navigation[mockNodeId]
-                                  .Request()
-                                  .UpdateAsync(null)
-        );
-      }
+      using HttpResponseMessage response = new HttpResponseMessage();
+      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+
+      await Assert.ThrowsAsync<ArgumentNullException>(
+        async () => await gsc.GraphServiceClient
+                                .SharePointAPI(mockWebUrl)
+                                .Web
+                                .Navigation[mockNodeId]
+                                .Request()
+                                .UpdateAsync(null)
+      );
     }
 
     [Theory]
@@ -397,18 +384,17 @@ namespace Graph.Community.Test
         Url = string.IsNullOrEmpty(url) ? null : new Uri(url)
       };
 
-      using (var response = new HttpResponseMessage())
-      using (var gsc = GraphServiceTestClient.Create(response))
-      {
-        await Assert.ThrowsAsync<ArgumentException>(
-          async () => await gsc.GraphServiceClient
-                                  .SharePointAPI(mockWebUrl)
-                                  .Web
-                                  .Navigation[mockNodeId]
-                                  .Request()
-                                  .UpdateAsync(mockUpdateNodeRequest)
-        );
-      }
+      using HttpResponseMessage response = new HttpResponseMessage();
+      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+
+      await Assert.ThrowsAsync<ArgumentException>(
+        async () => await gsc.GraphServiceClient
+                                .SharePointAPI(mockWebUrl)
+                                .Web
+                                .Navigation[mockNodeId]
+                                .Request()
+                                .UpdateAsync(mockUpdateNodeRequest)
+      );
     }
 
 
@@ -432,7 +418,4 @@ namespace Graph.Community.Test
     }
 
   }
-
-#pragma warning restore CA2007 // Consider calling ConfigureAwait on the awaited task
-#pragma warning restore CA1707 // Identifiers should not contain underscores
 }

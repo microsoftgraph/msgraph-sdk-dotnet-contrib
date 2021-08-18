@@ -1,12 +1,7 @@
-using Microsoft.Graph;
 using Moq;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -31,31 +26,30 @@ namespace Graph.Community.Test
       // ARRANGE
       var expectedUri = new Uri($"{mockWebUrl}/_api/web/siteusers");
 
-      using (var response = new HttpResponseMessage())
-      using (var gsc = GraphServiceTestClient.Create(response))
-      {
-        // ACT
-        await gsc.GraphServiceClient
-                    .SharePointAPI(mockWebUrl)
-                    .Web
-                    .SiteUsers
-                    .Request()
-                    .GetAsync();
+      using HttpResponseMessage response = new HttpResponseMessage();
+      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
 
-        // ASSERT
-        gsc.HttpProvider.Verify(
-          provider => provider.SendAsync(
-            It.Is<HttpRequestMessage>(req =>
-              req.Method == HttpMethod.Get &&
-              req.RequestUri == expectedUri &&
-              req.Headers.Authorization != null
-            ),
-            It.IsAny<HttpCompletionOption>(),
-            It.IsAny<CancellationToken>()
+      // ACT
+      await gsc.GraphServiceClient
+                  .SharePointAPI(mockWebUrl)
+                  .Web
+                  .SiteUsers
+                  .Request()
+                  .GetAsync();
+
+      // ASSERT
+      gsc.HttpProvider.Verify(
+        provider => provider.SendAsync(
+          It.Is<HttpRequestMessage>(req =>
+            req.Method == HttpMethod.Get &&
+            req.RequestUri == expectedUri &&
+            req.Headers.Authorization != null
           ),
-          Times.Exactly(1)
-        );
-      }
+          It.IsAny<HttpCompletionOption>(),
+          It.IsAny<CancellationToken>()
+        ),
+        Times.Exactly(1)
+      );
     }
 
     [Fact]
@@ -63,7 +57,7 @@ namespace Graph.Community.Test
     {
       // ARRANGE
       var responseContent = ResourceManager.GetHttpResponseContent("GetSiteUsersResponse.json");
-      var responseMessage = new HttpResponseMessage()
+      HttpResponseMessage responseMessage = new HttpResponseMessage()
       {
         StatusCode = HttpStatusCode.OK,
         Content = new StringContent(responseContent),
@@ -95,31 +89,30 @@ namespace Graph.Community.Test
       int testUserId = 10;
       var expectedUri = new Uri($"{mockWebUrl}/_api/web/siteusers/getbyid({testUserId})");
 
-      using (var response = new HttpResponseMessage())
-      using (var gsc = GraphServiceTestClient.Create(response))
-      {
-        // ACT
-        await gsc.GraphServiceClient
-                    .SharePointAPI(mockWebUrl)
-                    .Web
-                    .SiteUsers[testUserId]
-                    .Request()
-                    .GetAsync();
+      using HttpResponseMessage response = new HttpResponseMessage();
+      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
 
-        // ASSERT
-        gsc.HttpProvider.Verify(
-          provider => provider.SendAsync(
-            It.Is<HttpRequestMessage>(req =>
-              req.Method == HttpMethod.Get &&
-              req.RequestUri.ToString().ToLower() == expectedUri.ToString().ToLower() &&
-              req.Headers.Authorization != null
-            ),
-            It.IsAny<HttpCompletionOption>(),
-            It.IsAny<CancellationToken>()
+      // ACT
+      await gsc.GraphServiceClient
+                  .SharePointAPI(mockWebUrl)
+                  .Web
+                  .SiteUsers[testUserId]
+                  .Request()
+                  .GetAsync();
+
+      // ASSERT
+      gsc.HttpProvider.Verify(
+        provider => provider.SendAsync(
+          It.Is<HttpRequestMessage>(req =>
+            req.Method == HttpMethod.Get &&
+            req.RequestUri.ToString().ToLower() == expectedUri.ToString().ToLower() &&
+            req.Headers.Authorization != null
           ),
-          Times.Exactly(1)
-        );
-      }
+          It.IsAny<HttpCompletionOption>(),
+          It.IsAny<CancellationToken>()
+        ),
+        Times.Exactly(1)
+      );
     }
 
     [Fact]
@@ -130,7 +123,7 @@ namespace Graph.Community.Test
 
       var responseContent = ResourceManager.GetHttpResponseContent("GetSiteUserResponse.json");
 
-      var responseMessage = new HttpResponseMessage()
+      HttpResponseMessage responseMessage = new HttpResponseMessage()
       {
         StatusCode = HttpStatusCode.OK,
         Content = new StringContent(responseContent),

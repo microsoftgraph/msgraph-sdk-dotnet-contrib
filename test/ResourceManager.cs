@@ -1,6 +1,3 @@
-using System;
-using System.Net.Http.Headers;
-
 namespace Graph.Community.Test
 {
   internal class ResourceManager
@@ -14,7 +11,6 @@ namespace Graph.Community.Test
       return contentString.TrimEnd();
     }
 
-#pragma warning disable CA1307 // Specify StringComparison
     private static string GetEmbeddedResource(string resourcePath)
     {
       var baseNamespace = "Graph.Community.Test";
@@ -23,6 +19,5 @@ namespace Graph.Community.Test
       var _textStreamReader = new System.IO.StreamReader(_assembly.GetManifestResourceStream(resourceName));
       return _textStreamReader.ReadToEnd();
     }
-#pragma warning restore CA1307 // Specify StringComparison
   }
 }

@@ -1,9 +1,5 @@
-using Microsoft.Graph;
-using Microsoft.Graph.Core.Test.Mocks;
 using Moq;
 using Moq.Protected;
-using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -43,15 +39,14 @@ namespace Graph.Community.Test
 
       var handler = new LoggingMessageHandler(logger, nullHandler.Object);
 
-      using (var client = new HttpClient(handler, true))
-      {
-        // ACT
-        _ = await client.GetAsync("http://localhost");
-        var log = logger.GetLog(true);
+      using var client = new HttpClient(handler, true);
 
-        // ASSERT
-        Assert.False(string.IsNullOrEmpty(log));
-      }
+      // ACT
+      _ = await client.GetAsync("http://localhost");
+      var log = logger.GetLog(true);
+
+      // ASSERT
+      Assert.False(string.IsNullOrEmpty(log));
 
     }
 
