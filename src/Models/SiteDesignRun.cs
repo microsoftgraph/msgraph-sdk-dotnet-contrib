@@ -1,11 +1,9 @@
 using Microsoft.Graph;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Graph.Community
 {
-  public class SiteDesignRun: BaseItem
+  public class SiteDesignRun : BaseItem
   {
     public Guid SiteDesignId { get; set; }
 

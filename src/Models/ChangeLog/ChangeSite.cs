@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Graph.Community
 {
   public class ChangeSite : Change
@@ -9,7 +5,6 @@ namespace Graph.Community
     public ChangeSite()
       : base()
     {
-      var paul = "debug";
     }
 
   }

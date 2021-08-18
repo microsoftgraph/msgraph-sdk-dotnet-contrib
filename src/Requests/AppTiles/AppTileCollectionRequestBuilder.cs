@@ -1,13 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.Graph;
+using System.Collections.Generic;
 
 namespace Graph.Community
 {
   public class AppTileCollectionRequestBuilder : BaseRequestBuilder, IAppTileCollectionRequestBuilder
   {
-    private IEnumerable<Option> options;
+    private readonly IEnumerable<Option> options;
 
     public AppTileCollectionRequestBuilder(
       string requestUrl,

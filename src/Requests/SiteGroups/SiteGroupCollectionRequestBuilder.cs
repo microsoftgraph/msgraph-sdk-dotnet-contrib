@@ -1,13 +1,11 @@
 using Microsoft.Graph;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Graph.Community
 {
   public class SiteGroupCollectionRequestBuilder : BaseRequestBuilder, ISiteGroupCollectionRequestBuilder
   {
-    private IEnumerable<Option> options;
+    private readonly IEnumerable<Option> options;
 
     public SiteGroupCollectionRequestBuilder(
       string requestUrl,

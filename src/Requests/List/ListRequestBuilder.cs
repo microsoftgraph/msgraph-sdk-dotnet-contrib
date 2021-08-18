@@ -21,7 +21,7 @@ namespace Graph.Community
     {
       get
       {
-        return new Graph.Community.ListRequestBuilder(this.AppendSegmentToRequestUrl($"lists('{id.ToString()}')"), this.Client);
+        return new Graph.Community.ListRequestBuilder(this.AppendSegmentToRequestUrl($"lists('{id}')"), this.Client);
       }
     }
 
