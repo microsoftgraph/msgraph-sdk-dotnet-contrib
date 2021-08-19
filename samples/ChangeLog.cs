@@ -1,8 +1,6 @@
 using Azure.Identity;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.Graph;
-using Microsoft.Identity.Client;
 using System;
 using System.Threading.Tasks;
 

@@ -1,119 +1,96 @@
-using Microsoft.Extensions.Configuration;
+using Azure.Identity;
+using Microsoft.Extensions.Options;
 using Microsoft.Graph;
-using Microsoft.Identity.Client;
 using System;
 using System.Threading.Tasks;
 
 namespace Graph.Community.Samples
 {
-  //public static class ImmutableIds
-  //{
-  //  public static async Task Run()
-  //  {
-  //    ////////////////////////////////
-  //    //
-  //    // Azure AD Configuration
-  //    //
-  //    ////////////////////////////////
+  public class ImmutableIds
+  {
+    private readonly AzureAdSettings azureAdSettings;
+    private readonly SharePointSettings sharePointSettings;
 
-  //    AzureAdOptions azureAdOptions = new AzureAdOptions();
+    public ImmutableIds(
+      IOptions<AzureAdSettings> azureAdOptions,
+      IOptions<SharePointSettings> sharePointOptions)
+    {
+      this.azureAdSettings = azureAdOptions.Value;
+      this.sharePointSettings = sharePointOptions.Value;
+    }
 
-  //    var settingsFilename = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "appsettings.json");
-  //    var builder = new ConfigurationBuilder()
-  //                        .AddJsonFile(settingsFilename, optional: false)
-  //                        .AddUserSecrets<Program>();
-  //    var config = builder.Build();
-  //    config.Bind("AzureAd", azureAdOptions);
+    public async Task Run()
+    {
+      //////////////////////
+      //
+      //  TokenCredential 
+      //
+      //////////////////////
 
-  //    /////////////////////////////////////
-  //    //
-  //    // Client Application Configuration
-  //    //
-  //    /////////////////////////////////////
+      var credential = new ChainedTokenCredential(
+        new SharedTokenCacheCredential(new SharedTokenCacheCredentialOptions() { TenantId = azureAdSettings.TenantId, ClientId = azureAdSettings.ClientId }),
+        new VisualStudioCredential(new VisualStudioCredentialOptions { TenantId = azureAdSettings.TenantId }),
+        new InteractiveBrowserCredential(new InteractiveBrowserCredentialOptions { TenantId = azureAdSettings.TenantId, ClientId = azureAdSettings.ClientId })
+      );
 
-  //    var options = new PublicClientApplicationOptions()
-  //    {
-  //      AadAuthorityAudience = AadAuthorityAudience.AzureAdMyOrg,
-  //      AzureCloudInstance = AzureCloudInstance.AzurePublic,
-  //      ClientId = azureAdOptions.ClientId,
-  //      TenantId = azureAdOptions.TenantId,
-  //      RedirectUri = "http://localhost"
-  //    };
+      ////////////////////////////////////////////////////////////////
+      //
+      //  Create a GraphClient with the Logging handler
+      //
+      ////////////////////////////////////////////////////////////////
 
-  //    // Create the public client application (desktop app), with a default redirect URI
-  //    var pca = PublicClientApplicationBuilder
-  //                .CreateWithApplicationOptions(options)
-  //                .Build();
+      var logger = new StringBuilderHttpMessageLogger();
+      /*
+			 *  Could also use the Console if preferred...
+			 *  
+			 *  var logger = new ConsoleHttpMessageLogger();
+			 */
 
-  //    // Enable a simple token cache serialiation so that the user does not need to
-  //    // re-sign-in each time the application is run
-  //    TokenCacheHelper.EnableSerialization(pca.UserTokenCache);
+      // Configure our client
+      CommunityGraphClientOptions clientOptions = new CommunityGraphClientOptions()
+      {
+        UserAgent = "ImmutableIdsSample"
+      };
 
-  //    ///////////////////////////////////////////////
-  //    //
-  //    //  Auth Provider - Device Code in this sample
-  //    //
-  //    ///////////////////////////////////////////////
+      var graphServiceClient = CommunityGraphClientFactory.Create(clientOptions, logger, credential);
 
-  //    // Create an authentication provider to attach the token to requests
-  //    var scopes = new string[] { "https://graph.microsoft.com/Mail.Read" };
-  //    IAuthenticationProvider ap = new DeviceCodeProvider(pca, scopes);
+      ///////////////////////////////////////
+      //
+      // Setup is complete, run the sample
+      //
+      ///////////////////////////////////////
 
-  //    ////////////////////////////////////////////////////////////////
-  //    //
-  //    //  Create a GraphClient with the Logging handler
-  //    //
-  //    ////////////////////////////////////////////////////////////////
+      var scopes = new string[] { "https://graph.microsoft.com/Mail.Read" };
 
-  //    var logger = new StringBuilderHttpMessageLogger();
-  //    /*
-		//	 *  Could also use the Console if preferred...
-		//	 *  
-		//	 *  var logger = new ConsoleHttpMessageLogger();
-		//	 */
+      var messages =
+        await graphServiceClient
+                .Me
+                .Messages
+                .Request()
+                .Top(1)
+                .WithScopes(scopes)
+                .GetAsync();
 
-  //    // Configure our client
-  //    CommunityGraphClientOptions clientOptions = new CommunityGraphClientOptions()
-  //    {
-  //      UserAgent = "ImmutableIdsSample"
-  //    };
+      Console.WriteLine($"ID: {messages.CurrentPage[0].Id}");
 
-  //    var graphServiceClient = CommunityGraphClientFactory.Create(clientOptions, logger, ap);
+      Console.WriteLine();
 
-  //    ///////////////////////////////////////
-  //    //
-  //    // Setup is complete, run the sample
-  //    //
-  //    ///////////////////////////////////////
+      var messagesI =
+        await graphServiceClient
+                .Me
+                .Messages
+                .Request()
+                .WithImmutableId()
+                .Top(1)
+                .GetAsync();
 
-  //    var messages =
-  //      await graphServiceClient
-  //              .Me
-  //              .Messages
-  //              .Request()
-  //              .Top(1)
-  //              .GetAsync();
+      Console.WriteLine($"ImmutableId: {messagesI.CurrentPage[0].Id}");
+      Console.WriteLine();
 
-  //    Console.WriteLine($"ID: {messages.CurrentPage[0].Id}");
-
-  //    Console.WriteLine();
-
-  //    var messagesI =
-  //      await graphServiceClient
-  //              .Me
-  //              .Messages
-  //              .Request()
-  //              .WithImmutableId()
-  //              .Top(1)
-  //              .GetAsync();
-
-  //    Console.WriteLine($"ImmutableId: {messagesI.CurrentPage[0].Id}");
-  //    Console.WriteLine();
-
-  //    Console.WriteLine("Press enter to show log");
-  //    Console.ReadLine();
-  //    Console.WriteLine();
-  //    Console.WriteLine(logger.GetLog());
-  //  }
-  //}
+      Console.WriteLine("Press enter to show log");
+      Console.ReadLine();
+      Console.WriteLine();
+      Console.WriteLine(logger.GetLog());
+    }
+  }
 }

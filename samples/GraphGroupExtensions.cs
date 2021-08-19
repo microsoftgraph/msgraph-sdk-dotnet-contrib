@@ -1,122 +1,97 @@
-using Microsoft.Extensions.Configuration;
-using Microsoft.Graph;
-using Microsoft.Identity.Client;
+using Azure.Identity;
+using Microsoft.Extensions.Options;
 using System;
 using System.Threading.Tasks;
 
 namespace Graph.Community.Samples
 {
-  //public static class GraphGroupExtensions
-  //{
-  //  public static async Task Run()
-  //  {
-  //    ////////////////////////////////
-  //    //
-  //    // Azure AD Configuration
-  //    //
-  //    ////////////////////////////////
+  public class GraphGroupExtensions
+  {
+    private readonly AzureAdSettings azureAdSettings;
+    private readonly SharePointSettings sharePointSettings;
 
-  //    AzureAdOptions azureAdOptions = new AzureAdOptions();
+    public GraphGroupExtensions(
+      IOptions<AzureAdSettings> azureAdOptions,
+      IOptions<SharePointSettings> sharePointOptions)
+    {
+      this.azureAdSettings = azureAdOptions.Value;
+      this.sharePointSettings = sharePointOptions.Value;
+    }
 
-  //    var settingsFilename = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "appsettings.json");
-  //    var builder = new ConfigurationBuilder()
-  //                        .AddJsonFile(settingsFilename, optional: false);
-  //    var config = builder.Build();
-  //    config.Bind("AzureAd", azureAdOptions);
+    public async Task Run()
+    {
+      //////////////////////
+      //
+      //  TokenCredential 
+      //
+      //////////////////////
 
-  //    /////////////////////////////////////
-  //    //
-  //    // Client Application Configuration
-  //    //
-  //    /////////////////////////////////////
+      var credential = new ChainedTokenCredential(
+        new SharedTokenCacheCredential(new SharedTokenCacheCredentialOptions() { TenantId = azureAdSettings.TenantId, ClientId = azureAdSettings.ClientId }),
+        new VisualStudioCredential(new VisualStudioCredentialOptions { TenantId = azureAdSettings.TenantId }),
+        new InteractiveBrowserCredential(new InteractiveBrowserCredentialOptions { TenantId = azureAdSettings.TenantId, ClientId = azureAdSettings.ClientId })
+      );
 
-  //    var options = new PublicClientApplicationOptions()
-  //    {
-  //      AadAuthorityAudience = AadAuthorityAudience.AzureAdMyOrg,
-  //      AzureCloudInstance = AzureCloudInstance.AzurePublic,
-  //      ClientId = azureAdOptions.ClientId,
-  //      TenantId = azureAdOptions.TenantId,
-  //      RedirectUri = "http://localhost"
-  //    };
+      ////////////////////////////////////////////////////////////////
+      //
+      //  Create a GraphClient with the Logging handler
+      //
+      ////////////////////////////////////////////////////////////////
 
-  //    // Create the public client application (desktop app), with a default redirect URI
-  //    var pca = PublicClientApplicationBuilder.CreateWithApplicationOptions(options)
-  //        .Build();
+      // Log Http Request/Response
+      var logger = new StringBuilderHttpMessageLogger();
 
-  //    // Enable a simple token cache serialiation so that the user does not need to
-  //    // re-sign-in each time the application is run
-  //    TokenCacheHelper.EnableSerialization(pca.UserTokenCache);
+      // Configure our client
+      CommunityGraphClientOptions clientOptions = new CommunityGraphClientOptions()
+      {
+        UserAgent = "GraphGroupExtensionSample"
+      };
 
-  //    ///////////////////////////////////////////////
-  //    //
-  //    //  Auth Provider - Interactive in this sample
-  //    //
-  //    ///////////////////////////////////////////////
+      var graphServiceClient = CommunityGraphClientFactory.Create(clientOptions, logger, credential);
 
-  //    // Use the system browser to login
-  //    //  https://github.com/AzureAD/microsoft-authentication-library-for-dotnet/wiki/System-Browser-on-.Net-Core#how-to-use-the-system-browser-ie-the-default-browser-of-the-os
+      ///////////////////////////////////////
+      //
+      // Setup is complete, run the sample
+      //
+      ///////////////////////////////////////
 
-  //    // Create an authentication provider to attach the token to requests
-  //    var scopes = new string[] { "https://graph.microsoft.com/Directory.AccessAsUser.All" };
-  //    IAuthenticationProvider ap = new InteractiveAuthenticationProvider(pca, scopes);
+      Console.WriteLine("Enter the UPN of new group owner");
+      var ownerUpn = Console.ReadLine();
 
+      try
+      {
+        var scopes = new string[] { "https://graph.microsoft.com/Directory.AccessAsUser.All" };
 
-  //    ////////////////////////////////////////////////////////////////
-  //    //
-  //    //  Create a GraphClient with the Logging handler
-  //    //
-  //    ////////////////////////////////////////////////////////////////
+        var u = await graphServiceClient.Users[$"{ownerUpn}"].Request().GetAsync();
 
-  //    // Log Http Request/Response
-  //    var logger = new StringBuilderHttpMessageLogger();
+        var g = new Microsoft.Graph.Group
+        {
+          DisplayName = "Graph.Community Extension Sample",
+          MailEnabled = false,
+          MailNickname = "gce-sample",
+          SecurityEnabled = true
+        };
 
-  //    // Configure our client
-  //    CommunityGraphClientOptions clientOptions = new CommunityGraphClientOptions()
-  //    {
-  //      UserAgent = "GraphGroupExtensionSample"
-  //    };
+        g.AddMember(u.Id);
+        g = await graphServiceClient.Groups.Request().AddAsync(g);
 
-  //    var graphServiceClient = CommunityGraphClientFactory.Create(clientOptions, logger, ap);
+        Console.WriteLine($"Group: {g.DisplayName} ({g.Id})");
 
-
-  //    ///////////////////////////////////////
-  //    //
-  //    // Setup is complete, run the sample
-  //    //
-  //    ///////////////////////////////////////
-
-  //    try
-  //    {
-  //      var u = await graphServiceClient.Users["EXISTING-USER-GUID-OR-UPN"].Request().GetAsync();
-
-  //      var g = new Microsoft.Graph.Group
-  //      {
-  //        DisplayName = "Graph.Community Extension Sample",
-  //        MailEnabled = false,
-  //        MailNickname = "gce-sample",
-  //        SecurityEnabled = true
-  //      };
-
-  //      g.AddMember(u.Id);
-  //      g = await graphServiceClient.Groups.Request().AddAsync(g);
-
-  //      Console.WriteLine($"Group: {g.DisplayName} ({g.Id})");
-
-  //    }
-  //    catch (Exception ex)
-  //    {
-  //      await logger.WriteLine("");
-  //      await logger.WriteLine("================== Exception caught ==================");
-  //      await logger.WriteLine(ex.ToString());
-  //    }
+      }
+      catch (Exception ex)
+      {
+        await logger.WriteLine("");
+        await logger.WriteLine("================== Exception caught ==================");
+        await logger.WriteLine(ex.ToString());
+      }
 
 
-  //    Console.WriteLine("Press enter to show log");
-  //    Console.ReadLine();
-  //    Console.WriteLine();
-  //    var log = logger.GetLog();
-  //    Console.WriteLine(log);
-  //  }
-  //}
+      Console.WriteLine("Press enter to show log");
+      Console.ReadLine();
+      Console.WriteLine();
+      var log = logger.GetLog();
+      Console.WriteLine(log);
+    }
+  }
 
 }

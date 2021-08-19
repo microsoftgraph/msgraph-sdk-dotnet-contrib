@@ -1,7 +1,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -36,8 +35,11 @@ namespace Graph.Community.Samples
                 services.AddTransient<Diagnostics>();
                 services.AddTransient<RootSite>();
                 services.AddTransient<ExpiringClientSecrets>();
+                services.AddTransient<ChangeLog>();
                 services.AddTransient<SiteGroups>();
-
+                services.AddTransient<SharePointSearch>();
+                services.AddTransient<SiteDesign>();
+                services.AddTransient<GraphGroupExtensions>();
               })
               .Build();
 

@@ -43,9 +43,9 @@ namespace Graph.Community.Samples
         Console.WriteLine("3. Expiring client secrets");
         Console.WriteLine("4. Change log");
         Console.WriteLine("5. Site Groups");
-        //Console.WriteLine("6. ");
-        //Console.WriteLine("7. ");
-        //Console.WriteLine("8. ");
+        Console.WriteLine("6. SharePoint Search");
+        Console.WriteLine("7. Site Design");
+        Console.WriteLine("8. Add Member to Group (Graph)");
         //Console.WriteLine("9. ");
         Console.WriteLine("");
         Console.WriteLine("");
@@ -56,59 +56,70 @@ namespace Graph.Community.Samples
 
         Console.WriteLine("");
 
-        switch (keyStroke.Key)
+        try
         {
-          case ConsoleKey.D1:
-          case ConsoleKey.NumPad1:
-            var diagnosticSample = serviceProvider.GetRequiredService<Diagnostics>();
-            await diagnosticSample.Run();
-            break;
+          switch (keyStroke.Key)
+          {
+            case ConsoleKey.D1:
+            case ConsoleKey.NumPad1:
+              var diagnosticSample = serviceProvider.GetRequiredService<Diagnostics>();
+              await diagnosticSample.Run();
+              break;
 
-          case ConsoleKey.D2:
-          case ConsoleKey.NumPad2:
-            var rootSiteSample = serviceProvider.GetRequiredService<RootSite>();
-            await rootSiteSample.Run();
-            break;
+            case ConsoleKey.D2:
+            case ConsoleKey.NumPad2:
+              var rootSiteSample = serviceProvider.GetRequiredService<RootSite>();
+              await rootSiteSample.Run();
+              break;
 
-          case ConsoleKey.D3:
-          case ConsoleKey.NumPad3:
-            var expiringSecretsSample = serviceProvider.GetRequiredService<ExpiringClientSecrets>();
-            await expiringSecretsSample.Run();
-            break;
+            case ConsoleKey.D3:
+            case ConsoleKey.NumPad3:
+              var expiringSecretsSample = serviceProvider.GetRequiredService<ExpiringClientSecrets>();
+              await expiringSecretsSample.Run();
+              break;
 
+            case ConsoleKey.D4:
+            case ConsoleKey.NumPad4:
+              var changeLogSample = serviceProvider.GetRequiredService<ChangeLog>();
+              await changeLogSample.Run();
+              break;
 
-          case ConsoleKey.D4:
-          case ConsoleKey.NumPad4:
-            var changeLogSample = serviceProvider.GetRequiredService<ChangeLog>();
-            await changeLogSample.Run();
-            break;
+            case ConsoleKey.D5:
+            case ConsoleKey.NumPad5:
+              var siteGroupsSample = serviceProvider.GetRequiredService<SiteGroups>();
+              await siteGroupsSample.Run();
+              break;
 
-          case ConsoleKey.D5:
-          case ConsoleKey.NumPad5:
-            var siteGroupsSample = serviceProvider.GetRequiredService<SiteGroups>();
-            await siteGroupsSample.Run();
-            break;
+            case ConsoleKey.D6:
+            case ConsoleKey.NumPad6:
+              var searchSample = serviceProvider.GetRequiredService<SharePointSearch>();
+              await searchSample.Run();
+              break;
 
-          case ConsoleKey.D6:
-          case ConsoleKey.NumPad6:
-            //await Search.Run();
-            break;
-          case ConsoleKey.D7:
-          case ConsoleKey.NumPad7:
-            //await SiteDesign.Run();
-            break;
-          case ConsoleKey.D8:
-          case ConsoleKey.NumPad8:
-            //await ImmutableIds.Run();
-            break;
-          case ConsoleKey.D9:
-          case ConsoleKey.NumPad9:
-            //await GraphGroupExtensions.Run();
-            break;
-          default:
-            break;
+            case ConsoleKey.D7:
+            case ConsoleKey.NumPad7:
+              var siteDesignSample = serviceProvider.GetRequiredService<SiteDesign>();
+              await siteDesignSample.Run();
+              break;
+
+            case ConsoleKey.D8:
+            case ConsoleKey.NumPad8:
+              var graphGroupSample = serviceProvider.GetRequiredService<GraphGroupExtensions>();
+              await graphGroupSample.Run();
+              break;
+
+            case ConsoleKey.D9:
+            case ConsoleKey.NumPad9:
+              break;
+            default:
+              break;
+          }
+
         }
-
+        catch (Exception ex)
+        {
+          Console.WriteLine(ex.Message);
+        }
       }
     }
   }

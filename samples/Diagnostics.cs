@@ -1,6 +1,5 @@
 using Azure.Core.Diagnostics;
 using Azure.Identity;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.Graph;
 using Microsoft.Identity.Client;
@@ -10,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Graph.Community.Samples
 {
-	public class Diagnostics
+  public class Diagnostics
 	{
 		private readonly AzureAdSettings azureAdSettings;
 		private readonly SharePointSettings sharePointSettings;
@@ -96,15 +95,6 @@ namespace Graph.Community.Samples
 				new VisualStudioCredential(new VisualStudioCredentialOptions { TenantId = azureAdSettings.TenantId }),
 				new InteractiveBrowserCredential(new InteractiveBrowserCredentialOptions { TenantId = azureAdSettings.TenantId, ClientId = azureAdSettings.ClientId })
 			);
-
-			//var credential = new DefaultAzureCredential(
-			//	new DefaultAzureCredentialOptions()
-			//	{
-			//		SharedTokenCacheTenantId = azureAdSettings.TenantId,
-			//		ExcludeInteractiveBrowserCredential = false,
-			//		InteractiveBrowserTenantId = azureAdSettings.TenantId,
-			//	}
-			//);
 
 
 			////////////////////////////////////////////////////////////
