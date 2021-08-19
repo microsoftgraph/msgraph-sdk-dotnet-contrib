@@ -2,9 +2,11 @@ using Graph.Community.Diagnostics;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Graph;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -67,7 +69,6 @@ namespace Graph.Community
       GraphCommunityEventSource.Singleton.SharePointServiceHandlerPostprocess(resourceUri, context, response.StatusCode);
 
 
-
       if (SharePointServiceHandlerOption != null && !response.IsSuccessStatusCode)
       {
         using (response)
@@ -80,47 +81,47 @@ namespace Graph.Community
             LogServiceRequest(resourceUri, context, request.Method, response.StatusCode, responseContent);
           }
 
+          var errorResponse = this.ConvertErrorResponseAsync(responseContent);
+          Error error = null;
 
-          ////var errorResponse = this.ConvertErrorResponseAsync(responseContent);
-          ////Error error = null;
+          if (errorResponse == null || errorResponse.Error == null)
+          {
+            // we couldn't parse the error, so return generic message
+            if (response != null && response.StatusCode == HttpStatusCode.NotFound)
+            {
+              error = new Error { Code = "itemNotFound" };
+            }
+            else
+            {
+              error = new Error
+              {
+                Code = "generalException",
+                Message = "Unexpected exception returned from the service."
+              };
+            }
+          }
+          else
+          {
+            error = errorResponse.Error;
+          }
 
-          ////if (errorResponse == null || errorResponse.Error == null)
-          ////{
-          ////	if (response != null && response.StatusCode == HttpStatusCode.NotFound)
-          ////	{
-          ////		error = new Error { Code = "itemNotFound" };
-          ////	}
-          ////	else
-          ////	{
-          ////		error = new Error
-          ////		{
-          ////			Code = "generalException",
-          ////			Message = "Unexpected exception returned from the service."
-          ////		};
-          ////	}
-          ////}
-          ////else
-          ////{
-          ////	error = errorResponse.Error;
-          ////}
+          // If the error has a json body, include it in the exception.
+          if (response.Content?.Headers.ContentType?.MediaType == "application/json")
+          {
+            string rawResponseBody = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
-
-          //if (response.Content?.Headers.ContentType?.MediaType == "application/json")
-          //{
-          //	string rawResponseBody = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-
-          //	throw new ServiceException(error,
-          //														 response.Headers,
-          //														 response.StatusCode,
-          //														 rawResponseBody);
-          //}
-          //else
-          //{
-          //	// Pass through the response headers and status code to the ServiceException.
-          //	// System.Net.HttpStatusCode does not support RFC 6585, Additional HTTP Status Codes.
-          //	// Throttling status code 429 is in RFC 6586. The status code 429 will be passed through.
-          //	throw new ServiceException(error, response.Headers, response.StatusCode);
-          //}
+            throw new ServiceException(error,
+                                       response.Headers,
+                                       response.StatusCode,
+                                       rawResponseBody);
+          }
+          else
+          {
+            // Pass through the response headers and status code to the ServiceException.
+            // System.Net.HttpStatusCode does not support RFC 6585, Additional HTTP Status Codes.
+            // Throttling status code 429 is in RFC 6586. The status code 429 will be passed through.
+            throw new ServiceException(error, response.Headers, response.StatusCode);
+          }
         }
       }
       else
@@ -140,32 +141,35 @@ namespace Graph.Community
     /// </summary>
     /// <param name="response">The <see cref="HttpResponseMessage"/> to convert.</param>
     /// <returns>The <see cref="ErrorResponse"/> object.</returns>
-    //private ErrorResponse ConvertErrorResponseAsync(string responseContent)
-    //{
-    //	try
-    //	{
+    private ErrorResponse ConvertErrorResponseAsync(string responseContent)
+    {
+      try
+      {
+        // try our best to provide a helpful message...
+        var responseObject = JsonDocument.Parse(responseContent).RootElement;
+        var message = responseObject.TryGetProperty("error_description", out var errorDescription)
+          ? errorDescription.ToString()
+          : responseContent;
 
-    //		var responseObject = Newtonsoft.Json.Linq.JObject.Parse(responseContent);
+        var error = new ErrorResponse()
+        {
+          Error = new Error()
+          {
+            Code = "SPError",
+            Message = message
+          }
+        };
 
-    //		var error = new ErrorResponse()
-    //		{
-    //			Error = new Error()
-    //			{
-    //				Code = "SPError",
-    //				Message = responseObject.Value<string>("error_description")
-    //			}
-    //		};
+        return error;
 
-    //		return error;
-
-    //	}
-    //	catch (Exception)
-    //	{
-    //		// If there's an exception deserializing the error response return null and throw a generic
-    //		// ServiceException later.
-    //		return null;
-    //	}
-    //}
+      }
+      catch (Exception)
+      {
+        // If there's an exception deserializing the error response,
+        // return null and throw a generic ServiceException later.
+        return null;
+      }
+    }
 
     internal void LogServiceRequest(string resourceUri, GraphRequestContext context, HttpMethod requestMethod, HttpStatusCode statusCode, string rawResponseContent)
     {
