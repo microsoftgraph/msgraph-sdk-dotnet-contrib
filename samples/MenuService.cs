@@ -42,7 +42,7 @@ namespace Graph.Community.Samples
         Console.WriteLine("2. Root site (Graph)");
         Console.WriteLine("3. Expiring client secrets");
         Console.WriteLine("4. Change log");
-        //Console.WriteLine("5. ");
+        Console.WriteLine("5. Site Groups");
         //Console.WriteLine("6. ");
         //Console.WriteLine("7. ");
         //Console.WriteLine("8. ");
@@ -79,17 +79,19 @@ namespace Graph.Community.Samples
 
           case ConsoleKey.D4:
           case ConsoleKey.NumPad4:
-            var changeLogSample = serviceProvider.GetRequiredService<RootSite>();
+            var changeLogSample = serviceProvider.GetRequiredService<ChangeLog>();
             await changeLogSample.Run();
             break;
 
           case ConsoleKey.D5:
           case ConsoleKey.NumPad5:
-            //await Search.Run();
+            var siteGroupsSample = serviceProvider.GetRequiredService<SiteGroups>();
+            await siteGroupsSample.Run();
             break;
+
           case ConsoleKey.D6:
           case ConsoleKey.NumPad6:
-            //await SiteGroups.Run();
+            //await Search.Run();
             break;
           case ConsoleKey.D7:
           case ConsoleKey.NumPad7:

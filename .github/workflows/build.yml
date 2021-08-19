@@ -4,10 +4,11 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - prerelease
+      - graph-v4
       - master
   pull_request:
     branches:
+      - graph-v4
       - master
 
 env:

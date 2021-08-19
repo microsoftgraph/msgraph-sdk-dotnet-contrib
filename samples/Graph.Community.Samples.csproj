@@ -21,7 +21,6 @@
   <ItemGroup>
     <PackageReference Include="Azure.Identity" Version="1.4.1" />
     <PackageReference Include="microsoft.extensions.caching.memory" Version="3.1.18" />
-    <PackageReference Include="Microsoft.Extensions.CommandLineUtils" Version="1.1.1" />
     <PackageReference Include="microsoft.extensions.configuration" Version="3.1.18" />
     <PackageReference Include="microsoft.extensions.configuration.binder" Version="3.1.18" />
     <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="3.1.18" />

@@ -1,4 +1,3 @@
-using Microsoft.Extensions.CommandLineUtils;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -37,7 +36,8 @@ namespace Graph.Community.Samples
                 services.AddTransient<Diagnostics>();
                 services.AddTransient<RootSite>();
                 services.AddTransient<ExpiringClientSecrets>();
-                //services.AddTransient<Chan>();
+                services.AddTransient<SiteGroups>();
+
               })
               .Build();
 
