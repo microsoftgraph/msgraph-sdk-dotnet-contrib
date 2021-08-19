@@ -2,22 +2,24 @@ using Azure.Core.Diagnostics;
 using Azure.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.Graph;
-using Microsoft.Identity.Client;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Graph.Community.Samples
 {
-  public class Diagnostics
+  public class DiagnosticsILogger
 	{
 		private readonly AzureAdSettings azureAdSettings;
 		private readonly SharePointSettings sharePointSettings;
+		private readonly DotNetILoggerHttpMessageLogger logger;
 
-		public Diagnostics(
+		public DiagnosticsILogger(
+			DotNetILoggerHttpMessageLogger logger,
 			IOptions<AzureAdSettings> azureAdOptions,
 			IOptions<SharePointSettings> sharePointOptions)
 		{
+			this.logger = logger;
 			this.azureAdSettings = azureAdOptions.Value;
 			this.sharePointSettings = sharePointOptions.Value;
 		}
@@ -31,18 +33,11 @@ namespace Graph.Community.Samples
 			//
 			///////////////////////////////////////
 
-			// Start with an IHttpMessageLogger that will write to a StringBuilder 
-			var logger = new StringBuilderHttpMessageLogger();
-			/*
-			 *  Could also use the Console if preferred...
-			 *  
-			 *  var logger = new ConsoleHttpMessageLogger();
-			 */
-
+			// Using the ILogger from Microsoft.Extensions.DependencyInjection
 
 			// MSAL provides logging via a callback on the client application.
 			//  Write those entries to the same logger, prefixed with MSAL
-			async void MSALLogging(LogLevel level, string message, bool containsPii)
+			async void MSALLogging(Microsoft.Identity.Client.LogLevel level, string message, bool containsPii)
 			{
 				await logger.WriteLine($"MSAL {level} {containsPii} {message}");
 			}
@@ -146,11 +141,11 @@ namespace Graph.Community.Samples
 			}
 
 
-			Console.WriteLine("Press enter to show log");
-			Console.ReadLine();
-			Console.WriteLine();
-			var log = logger.GetLog();
-			Console.WriteLine(log);
+			//Console.WriteLine("Press enter to show log");
+			//Console.ReadLine();
+			//Console.WriteLine();
+			//var log = logger.GetLog();
+			//Console.WriteLine(log);
 		}
 	}
 
