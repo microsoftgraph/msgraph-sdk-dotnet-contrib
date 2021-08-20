@@ -1,4 +1,5 @@
 using Microsoft.Graph;
+using System;
 
 namespace Graph.Community
 {
@@ -6,6 +7,11 @@ namespace Graph.Community
   {
     public static IUserMailboxSettingsRequestBuilder MailboxSettings(this IUserRequestBuilder builder)
     {
+      if (builder is null)
+      {
+        throw new ArgumentNullException(nameof(builder));
+      }
+
       return new UserMailboxSettingsRequestBuilder(builder.AppendSegmentToRequestUrl("mailboxSettings"), builder.Client);
     }
   }

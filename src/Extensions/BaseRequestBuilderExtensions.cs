@@ -12,6 +12,11 @@ namespace Graph.Community
     /// <returns>URL to use for the Resource property of Subscription object when creating a new subscription</returns>
     public static string GetResourceSubscriptionPath(this IBaseRequestBuilder requestBuilder)
     {
+      if (requestBuilder is null)
+      {
+        throw new ArgumentNullException(nameof(requestBuilder));
+      }
+
       var pathAndQuery = new Uri(requestBuilder.RequestUrl).PathAndQuery;
       return pathAndQuery.Substring(pathAndQuery.IndexOf('/', 1)); //skips first / to ignore the version
     }
@@ -25,6 +30,16 @@ namespace Graph.Community
     /// <returns>Request builder with OData cast filter applied</returns>
     public static T WithODataCast<T>(this T requestBuilder, string oDataCast) where T : IBaseRequestBuilder
     {
+      if (requestBuilder is null)
+      {
+        throw new ArgumentNullException(nameof(requestBuilder));
+      }
+
+      if (string.IsNullOrEmpty(oDataCast))
+      {
+        throw new ArgumentException($"'{nameof(oDataCast)}' cannot be null or empty.", nameof(oDataCast));
+      }
+
       var updatedUrl = requestBuilder.AppendSegmentToRequestUrl(oDataCast);
       var updatedBuilder = (T)Activator.CreateInstance(requestBuilder.GetType(), updatedUrl, requestBuilder.Client);
 

@@ -33,7 +33,7 @@ namespace Graph.Community
       public const string AuthenticationProvider = nameof(AuthenticationProvider);
       public const string TokenCredential = nameof(TokenCredential);
       public const string LoggingHandler = nameof(LoggingHandler);
-
+      public const string ExtensionMethod = nameof(ExtensionMethod);
     }
   }
 }

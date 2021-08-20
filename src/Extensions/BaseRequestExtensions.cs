@@ -1,4 +1,5 @@
 using Microsoft.Graph;
+using System;
 
 namespace Graph.Community
 {
@@ -12,6 +13,11 @@ namespace Graph.Community
     /// <returns></returns>
     public static T WithImmutableId<T>(this T baseRequest) where T : IBaseRequest
     {
+      if (baseRequest is null)
+      {
+        throw new ArgumentNullException(nameof(baseRequest));
+      }
+
       baseRequest.Headers.Add(
         new HeaderOption(
           RequestExtensionsConstants.Headers.PreferHeaderName,
@@ -29,6 +35,11 @@ namespace Graph.Community
     /// <returns></returns>
     public static T WithEventualConsistency<T>(this T baseRequest) where T : IBaseRequest
     {
+      if (baseRequest is null)
+      {
+        throw new ArgumentNullException(nameof(baseRequest));
+      }
+
       baseRequest.Headers.Add(
         new HeaderOption(
           RequestExtensionsConstants.Headers.ConsistencyLevelHeaderName,

@@ -53,11 +53,13 @@ namespace Graph.Community.Test
 
     public static GraphServiceTestClient Create(HttpResponseMessage httpResponseMessage = null)
     {
+      CommunityGraphClientFactory.telemetryDisabled = true;
       return new GraphServiceTestClient(httpResponseMessage);
     }
 
     public static GraphServiceTestClient Create(HttpMessageHandler handler, HttpResponseMessage httpResponseMessage = null)
     {
+      CommunityGraphClientFactory.telemetryDisabled = true;
       return new GraphServiceTestClient(handler, httpResponseMessage);
     }
 
