@@ -45,7 +45,7 @@ namespace Graph.Community.Samples
         Console.WriteLine("5. Site Groups");
         Console.WriteLine("6. SharePoint Search");
         Console.WriteLine("7. Site Design");
-        Console.WriteLine("8. Add Member to Group (Graph)");
+        Console.WriteLine("8. Group extensions (Graph)");
         //Console.WriteLine("9. ");
         Console.WriteLine("");
         Console.WriteLine("");

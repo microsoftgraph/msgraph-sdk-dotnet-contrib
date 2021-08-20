@@ -5,93 +5,121 @@ using System.Threading.Tasks;
 
 namespace Graph.Community.Samples
 {
-  public class GraphGroupExtensions
-  {
-    private readonly AzureAdSettings azureAdSettings;
-    private readonly SharePointSettings sharePointSettings;
+	public class GraphGroupExtensions
+	{
+		private readonly AzureAdSettings azureAdSettings;
+		private readonly SharePointSettings sharePointSettings;
 
-    public GraphGroupExtensions(
-      IOptions<AzureAdSettings> azureAdOptions,
-      IOptions<SharePointSettings> sharePointOptions)
-    {
-      this.azureAdSettings = azureAdOptions.Value;
-      this.sharePointSettings = sharePointOptions.Value;
-    }
+		public GraphGroupExtensions(
+			IOptions<AzureAdSettings> azureAdOptions,
+			IOptions<SharePointSettings> sharePointOptions)
+		{
+			this.azureAdSettings = azureAdOptions.Value;
+			this.sharePointSettings = sharePointOptions.Value;
+		}
 
-    public async Task Run()
-    {
-      //////////////////////
-      //
-      //  TokenCredential 
-      //
-      //////////////////////
+		public async Task Run()
+		{
+			//////////////////////
+			//
+			//  TokenCredential 
+			//
+			//////////////////////
 
-      var credential = new ChainedTokenCredential(
-        new SharedTokenCacheCredential(new SharedTokenCacheCredentialOptions() { TenantId = azureAdSettings.TenantId, ClientId = azureAdSettings.ClientId }),
-        new VisualStudioCredential(new VisualStudioCredentialOptions { TenantId = azureAdSettings.TenantId }),
-        new InteractiveBrowserCredential(new InteractiveBrowserCredentialOptions { TenantId = azureAdSettings.TenantId, ClientId = azureAdSettings.ClientId })
-      );
+			var credential = new ChainedTokenCredential(
+				new SharedTokenCacheCredential(new SharedTokenCacheCredentialOptions() { TenantId = azureAdSettings.TenantId, ClientId = azureAdSettings.ClientId }),
+				new VisualStudioCredential(new VisualStudioCredentialOptions { TenantId = azureAdSettings.TenantId }),
+				new InteractiveBrowserCredential(new InteractiveBrowserCredentialOptions { TenantId = azureAdSettings.TenantId, ClientId = azureAdSettings.ClientId })
+			);
 
-      ////////////////////////////////////////////////////////////////
-      //
-      //  Create a GraphClient with the Logging handler
-      //
-      ////////////////////////////////////////////////////////////////
+			////////////////////////////////////////////////////////////////
+			//
+			//  Create a GraphClient with the Logging handler
+			//
+			////////////////////////////////////////////////////////////////
 
-      // Log Http Request/Response
-      var logger = new StringBuilderHttpMessageLogger();
+			// Log Http Request/Response
+			var logger = new StringBuilderHttpMessageLogger();
 
-      // Configure our client
-      CommunityGraphClientOptions clientOptions = new CommunityGraphClientOptions()
-      {
-        UserAgent = "GraphGroupExtensionSample"
-      };
+			// Configure our client
+			CommunityGraphClientOptions clientOptions = new CommunityGraphClientOptions()
+			{
+				UserAgent = "GraphGroupExtensionSample"
+			};
 
-      var graphServiceClient = CommunityGraphClientFactory.Create(clientOptions, logger, credential);
+			var graphServiceClient = CommunityGraphClientFactory.Create(clientOptions, logger, credential);
 
-      ///////////////////////////////////////
-      //
-      // Setup is complete, run the sample
-      //
-      ///////////////////////////////////////
+			///////////////////////////////////////
+			//
+			// Setup is complete, run the sample
+			//
+			///////////////////////////////////////
 
-      Console.WriteLine("Enter the UPN of new group owner");
-      var ownerUpn = Console.ReadLine();
+			Console.WriteLine("Enter a name for the new group.");
+			var groupName = Console.ReadLine().Trim();
 
-      try
-      {
-        var scopes = new string[] { "https://graph.microsoft.com/Directory.AccessAsUser.All" };
+			if (string.IsNullOrEmpty(groupName))
+			{
+				Console.WriteLine("Group name is required.");
+				return;
+			}
 
-        var u = await graphServiceClient.Users[$"{ownerUpn}"].Request().GetAsync();
+			Console.WriteLine("Enter the UPN of a user. The User will be added as a group owner and member");
+			var userUpn = Console.ReadLine().Trim();
+			if (string.IsNullOrEmpty(userUpn))
+			{
+				Console.WriteLine("User UPN is required.");
+				return;
+			}
 
-        var g = new Microsoft.Graph.Group
-        {
-          DisplayName = "Graph.Community Extension Sample",
-          MailEnabled = false,
-          MailNickname = "gce-sample",
-          SecurityEnabled = true
-        };
+			try
+			{
+				var scopes = new string[] { "https://graph.microsoft.com/Directory.AccessAsUser.All" };
 
-        g.AddMember(u.Id);
-        g = await graphServiceClient.Groups.Request().AddAsync(g);
+				var u = await graphServiceClient.Users[$"{userUpn}"].Request().GetAsync();
 
-        Console.WriteLine($"Group: {g.DisplayName} ({g.Id})");
+				var g = new Microsoft.Graph.Group
+				{
+					DisplayName = groupName,
+					MailEnabled = false,
+					MailNickname = groupName.Replace(" ","").ToLower(),
+					SecurityEnabled = true
+				};
 
-      }
-      catch (Exception ex)
-      {
-        await logger.WriteLine("");
-        await logger.WriteLine("================== Exception caught ==================");
-        await logger.WriteLine(ex.ToString());
-      }
+				// This extension method adds the user to the collection in the in-memory Group object
+				g.AddOwner(u.Id);
+				g.AddMember(u.Id);
+				g = await graphServiceClient.Groups.Request().AddAsync(g);
+
+				Console.WriteLine($"Group: {g.DisplayName} ({g.Id})");
 
 
-      Console.WriteLine("Press enter to show log");
-      Console.ReadLine();
-      Console.WriteLine();
-      var log = logger.GetLog();
-      Console.WriteLine(log);
-    }
-  }
+				Console.WriteLine("Press enter to remove the user");
+				Console.ReadLine();
+
+				// Cannot remove last owner of a group, so commented
+				//await graphServiceClient.Groups[g.Id].Owners.Request().RemoveAsync(u.Id);
+				await graphServiceClient.Groups[g.Id].Members.Request().RemoveAsync(u.Id);
+
+				Console.WriteLine("Press enter to delete the group");
+				Console.ReadLine();
+
+				await graphServiceClient.Groups[g.Id].Request().DeleteAsync();
+			}
+			catch (Exception ex)
+			{
+				await logger.WriteLine("");
+				await logger.WriteLine("================== Exception caught ==================");
+				await logger.WriteLine(ex.ToString());
+			}
+
+
+			Console.WriteLine("Press enter to show log");
+			Console.ReadLine();
+			Console.WriteLine();
+			var log = logger.GetLog();
+			Console.WriteLine(log);
+		}
+	}
 
 }
