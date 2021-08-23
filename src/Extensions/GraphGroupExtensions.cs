@@ -1,14 +1,11 @@
-using Microsoft.ApplicationInsights;
-using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Graph;
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Graph.Community
 {
-	public static class GraphGroupExtensions
+  public static class GraphGroupExtensions
 	{
 		/// <summary>
 		/// Update the <see cref="Microsoft.Graph.Group"/> object with the specified directory object as a member
@@ -23,7 +20,7 @@ namespace Graph.Community
         throw new ArgumentNullException(nameof(group));
       }
 
-      LogExtensionMethod(nameof(AddMember));
+      CommunityGraphTelemetry.LogExtensionMethod(nameof(AddMember));
 
 			if (group.AdditionalData == null)
 			{
@@ -48,7 +45,7 @@ namespace Graph.Community
 				group.AdditionalData = new Dictionary<string, object>();
 			}
 
-			LogExtensionMethod(nameof(AddOwner));
+			CommunityGraphTelemetry.LogExtensionMethod(nameof(AddMember));
 
 			string[] ownersToAdd = new string[1];
 			ownersToAdd[0] = $"https://graph.microsoft.com/v1.0/users/{userId}";
@@ -73,7 +70,7 @@ namespace Graph.Community
         throw new ArgumentException($"'{nameof(directoryObjectId)}' cannot be null or empty.", nameof(directoryObjectId));
       }
 
-      LogExtensionMethod(nameof(AddAsync));
+			CommunityGraphTelemetry.LogExtensionMethod(nameof(AddMember));
 
 			var directoryObject = new DirectoryObject
 			{
@@ -107,7 +104,7 @@ namespace Graph.Community
 				throw new ArgumentException($"'{nameof(directoryObjectId)}' cannot be null or empty.", nameof(directoryObjectId));
 			}
 
-			LogExtensionMethod(nameof(RemoveAsync));
+			CommunityGraphTelemetry.LogExtensionMethod(nameof(AddMember));
 
 			var requestUri = new Uri(request.RequestUrl);
 			var refUrl = $"{requestUri.GetComponents(UriComponents.SchemeAndServer | UriComponents.Path, UriFormat.Unescaped)}/{directoryObjectId}/$ref";
@@ -137,7 +134,7 @@ namespace Graph.Community
 				throw new ArgumentException($"'{nameof(directoryObjectId)}' cannot be null or empty.", nameof(directoryObjectId));
 			}
 
-			LogExtensionMethod(nameof(AddAsync));
+			CommunityGraphTelemetry.LogExtensionMethod(nameof(AddMember));
 
 			var directoryObject = new DirectoryObject
 			{
@@ -171,7 +168,7 @@ namespace Graph.Community
 				throw new ArgumentException($"'{nameof(directoryObjectId)}' cannot be null or empty.", nameof(directoryObjectId));
 			}
 
-			LogExtensionMethod(nameof(RemoveAsync));
+			CommunityGraphTelemetry.LogExtensionMethod(nameof(AddMember));
 
 			var requestUri = new Uri(request.RequestUrl);
 			var refUrl = $"{requestUri.GetComponents(UriComponents.SchemeAndServer | UriComponents.Path, UriFormat.Unescaped)}/{directoryObjectId}/$ref";
@@ -183,26 +180,5 @@ namespace Graph.Community
 		}
 
 
-		private static void LogExtensionMethod(string extensionMethodName = "Not specified")
-		{
-			if (CommunityGraphClientFactory.TelemetryDisabled)
-			{
-				return;
-			}
-
-			Dictionary<string, string> properties = new Dictionary<string, string>(10)
-			{
-				{ CommunityGraphConstants.Headers.CommunityLibraryVersionHeaderName, CommunityGraphConstants.Library.AssemblyVersion },
-				{ CommunityGraphConstants.TelemetryProperties.ExtensionMethod, extensionMethodName },
-			};
-
-			TelemetryConfiguration telemetryConfiguration = TelemetryConfiguration.CreateDefault();
-			TelemetryClient telemetryClient = new TelemetryClient(telemetryConfiguration);
-
-			telemetryClient.TrackEvent("GraphCommunityExtensionMethod", properties);
-			telemetryClient.Flush();
-
-
-		}
 	}
 }

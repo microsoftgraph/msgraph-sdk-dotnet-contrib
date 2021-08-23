@@ -1,6 +1,4 @@
 using Azure.Core;
-using Microsoft.ApplicationInsights;
-using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Graph;
 using System;
 using System.Collections.Generic;
@@ -13,10 +11,10 @@ using System.Net.Http.Headers;
 
 namespace Graph.Community
 {
-	/// <summary>
-	/// CommunityGraphClientFactory class to create the HTTP client configured to support Community-created requests 
-	/// </summary>
-	public static class CommunityGraphClientFactory
+  /// <summary>
+  /// CommunityGraphClientFactory class to create the HTTP client configured to support Community-created requests 
+  /// </summary>
+  public static class CommunityGraphClientFactory
 	{
 		private static readonly object telemetryFlagLock = new object();
 		internal static bool telemetryDisabled;
@@ -148,7 +146,7 @@ namespace Graph.Community
 
       if (logOptions !=null)
       {
-				LogFactoryMethod(logOptions);
+				CommunityGraphTelemetry.LogFactoryMethod(logOptions);
 			}
 
 			ProductInfoHeaderValue defaultUserAgent = defaultDecoration.ToUserAgent();
@@ -214,24 +212,6 @@ namespace Graph.Community
 			return handlers;
 		}
 
-		private static void LogFactoryMethod(LoggingOptions loggingOptions)
-		{
-			var telemetryConfiguration = TelemetryConfiguration.CreateDefault();
-			telemetryConfiguration.InstrumentationKey = "d882bd7a-a378-4117-bd7c-71fc95a44cd1";
-			var telemetryClient = new TelemetryClient(telemetryConfiguration);
-
-			Dictionary<string, string> properties = new Dictionary<string, string>()
-			{
-				{ CommunityGraphConstants.Headers.CommunityLibraryVersionHeaderName, CommunityGraphConstants.Library.AssemblyVersion },
-				{ CommunityGraphConstants.TelemetryProperties.AuthenticationProvider, loggingOptions.AuthenticationProvider },
-				{ CommunityGraphConstants.TelemetryProperties.TokenCredential, loggingOptions.TokenCredential },
-				{ CommunityGraphConstants.TelemetryProperties.LoggingHandler, loggingOptions.LoggingHandler.ToString() }
-			};
-
-			telemetryClient.TrackEvent("CommunityGraphClientFactory", properties);
-			telemetryClient.Flush();
-
-		}
 	}
 
 	internal class LoggingOptions
