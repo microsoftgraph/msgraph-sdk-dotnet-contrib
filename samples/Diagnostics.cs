@@ -1,6 +1,7 @@
-using Microsoft.Extensions.Configuration;
+using Azure.Core.Diagnostics;
+using Azure.Identity;
+using Microsoft.Extensions.Options;
 using Microsoft.Graph;
-using Microsoft.Graph.Auth;
 using Microsoft.Identity.Client;
 using System;
 using System.Linq;
@@ -8,33 +9,22 @@ using System.Threading.Tasks;
 
 namespace Graph.Community.Samples
 {
-  public static class Diagnostics
+  public class Diagnostics
 	{
-		public static async Task Run()
+		private readonly AzureAdSettings azureAdSettings;
+		private readonly SharePointSettings sharePointSettings;
+
+		public Diagnostics(
+			IOptions<AzureAdSettings> azureAdOptions,
+			IOptions<SharePointSettings> sharePointOptions)
 		{
-			/////////////////////////////
-			//
-			// Programmer configuration
-			//
-			/////////////////////////////
+			this.azureAdSettings = azureAdOptions.Value;
+			this.sharePointSettings = sharePointOptions.Value;
+		}
 
-			var sharepointDomain = "demo.sharepoint.com";
-			var siteCollectionPath = "/sites/SiteGroupsTest";
 
-			////////////////////////////////
-			//
-			// Azure AD Configuration
-			//
-			////////////////////////////////
-
-			AzureAdOptions azureAdOptions = new AzureAdOptions();
-
-			var settingsFilename = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "appsettings.json");
-			var builder = new ConfigurationBuilder()
-													.AddJsonFile(settingsFilename, optional: false);
-			var config = builder.Build();
-			config.Bind("AzureAd", azureAdOptions);
-
+		public async Task Run()
+		{
 			////////////////////////////////////////
 			//
 			// Capture all diagnostic information
@@ -52,11 +42,26 @@ namespace Graph.Community.Samples
 
 			// MSAL provides logging via a callback on the client application.
 			//  Write those entries to the same logger, prefixed with MSAL
-			async void MSALLogging(LogLevel level, string message, bool containsPii)
-			{
-				await logger.WriteLine($"MSAL {level} {containsPii} {message}");
-			}
+			//async void MSALLogging(LogLevel level, string message, bool containsPii)
+			//{
+			//	await logger.WriteLine($"MSAL {level} {containsPii} {message}");
+			//}
 
+
+			// AzureSDK uses an EventSource to publish diagnostics in the token acquisition.
+			// Setup a listener to monitor logged events.
+			//using AzureEventSourceListener azListener = AzureEventSourceListener.CreateConsoleLogger();
+			var azListener = new AzureEventSourceListener(async (args, message) =>
+			{
+				// create a dictionary of the properties of the args object
+				var properties = args.PayloadNames
+													.Zip(args.Payload, (string k, object v) => new { Key = k, Value = v })
+													.ToDictionary(x => x.Key, x => x.Value.ToString());
+
+				// log the message and payload, prefixed with COMM
+				var traceMessage = string.Format(args.Message, args.Payload.ToArray());
+				await logger.WriteLine($"AZ {traceMessage}");
+			}, System.Diagnostics.Tracing.EventLevel.LogAlways);
 
 			// GraphCommunity uses an EventSource to publish diagnostics in the handler.
 			//    This follows the pattern used by the Azure SDK.
@@ -75,42 +80,18 @@ namespace Graph.Community.Samples
 				}
 			}, System.Diagnostics.Tracing.EventLevel.LogAlways);
 
-			/////////////////////////////////////
+
+			//////////////////////
 			//
-			// Client Application Configuration
+			//  TokenCredential 
 			//
-			/////////////////////////////////////
+			//////////////////////
 
-			// Use the system browser to login
-			//  https://github.com/AzureAD/microsoft-authentication-library-for-dotnet/wiki/System-Browser-on-.Net-Core#how-to-use-the-system-browser-ie-the-default-browser-of-the-os
-
-			var options = new PublicClientApplicationOptions()
-			{
-				AadAuthorityAudience = AadAuthorityAudience.AzureAdMyOrg,
-				AzureCloudInstance = AzureCloudInstance.AzurePublic,
-				ClientId = azureAdOptions.ClientId,
-				TenantId = azureAdOptions.TenantId,
-				RedirectUri = "http://localhost"
-			};
-
-			// Create the public client application (desktop app), with a default redirect URI
-			var pca = PublicClientApplicationBuilder.CreateWithApplicationOptions(options)
-					.WithLogging(MSALLogging, LogLevel.Verbose, true, true)
-					.Build();
-
-			// Enable a simple token cache serialiation so that the user does not need to
-			// re-sign-in each time the application is run
-			TokenCacheHelper.EnableSerialization(pca.UserTokenCache);
-
-			///////////////////////////////////////////////
-			//
-			//  Auth Provider - Interactive in this sample
-			//
-			///////////////////////////////////////////////
-
-			// Create an authentication provider to attach the token to requests
-			var scopes = new string[] { $"https://{sharepointDomain}/AllSites.FullControl" };
-			IAuthenticationProvider ap = new InteractiveAuthenticationProvider(pca, scopes);
+			var credential = new ChainedTokenCredential(
+				new SharedTokenCacheCredential(new SharedTokenCacheCredentialOptions() { TenantId = azureAdSettings.TenantId, ClientId = azureAdSettings.ClientId }),
+				new VisualStudioCredential(new VisualStudioCredentialOptions { TenantId = azureAdSettings.TenantId }),
+				new InteractiveBrowserCredential(new InteractiveBrowserCredentialOptions { TenantId = azureAdSettings.TenantId, ClientId = azureAdSettings.ClientId })
+			);
 
 
 			////////////////////////////////////////////////////////////
@@ -125,7 +106,7 @@ namespace Graph.Community.Samples
 				UserAgent = "DiagnosticsSample"
 			};
 
-			var graphServiceClient = CommunityGraphClientFactory.Create(clientOptions, logger, ap);
+			var graphServiceClient = CommunityGraphClientFactory.Create(clientOptions, logger, credential);
 
 
 			///////////////////////////////////////
@@ -136,13 +117,15 @@ namespace Graph.Community.Samples
 
 			try
 			{
-				var WebUrl = $"https://{sharepointDomain}{siteCollectionPath}";
+				var scopes = new string[] { $"https://{sharePointSettings.Hostname}/AllSites.FullControl" };
+				var WebUrl = $"https://{sharePointSettings.Hostname}{sharePointSettings.SiteCollectionUrl}";
 
 				var appTiles = await graphServiceClient
 												.SharePointAPI(WebUrl)
 												.Web
 												.AppTiles
 												.Request()
+												.WithScopes(scopes)
 												.GetAsync();
 
 				Console.WriteLine($"Tile count: {appTiles.Count}");

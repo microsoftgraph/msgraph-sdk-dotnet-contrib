@@ -1,73 +1,38 @@
-using Microsoft.Extensions.Configuration;
+using Azure.Identity;
+using Microsoft.Extensions.Options;
 using Microsoft.Graph;
-using Microsoft.Graph.Auth;
-using Microsoft.Identity.Client;
 using System;
 using System.Threading.Tasks;
 
 namespace Graph.Community.Samples
 {
-  public static class SiteDesign
+  public class SiteDesign
 	{
-		public static async Task Run()
+		private readonly AzureAdSettings azureAdSettings;
+		private readonly SharePointSettings sharePointSettings;
+
+		public SiteDesign(
+			IOptions<AzureAdSettings> azureAdOptions,
+			IOptions<SharePointSettings> sharePointOptions)
 		{
-			/////////////////////////////
+			this.azureAdSettings = azureAdOptions.Value;
+			this.sharePointSettings = sharePointOptions.Value;
+		}
+
+		public async Task Run()
+		{
+			//////////////////////
 			//
-			// Programmer configuration
+			//  TokenCredential 
 			//
-			/////////////////////////////
+			//////////////////////
 
-			var sharepointDomain = "demo.sharepoint.com";
-			var siteCollectionPath = "/sites/SiteDesignTest";
+			var credential = new ChainedTokenCredential(
+				new SharedTokenCacheCredential(new SharedTokenCacheCredentialOptions() { TenantId = azureAdSettings.TenantId, ClientId = azureAdSettings.ClientId }),
+				new VisualStudioCredential(new VisualStudioCredentialOptions { TenantId = azureAdSettings.TenantId }),
+				new InteractiveBrowserCredential(new InteractiveBrowserCredentialOptions { TenantId = azureAdSettings.TenantId, ClientId = azureAdSettings.ClientId })
+			);
 
-			////////////////////////////////
-			//
-			// Azure AD Configuration
-			//
-			////////////////////////////////
-
-			AzureAdOptions azureAdOptions = new AzureAdOptions();
-
-			var settingsFilename = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "appsettings.json");
-			var builder = new ConfigurationBuilder()
-													.AddJsonFile(settingsFilename, optional: false)
-													.AddUserSecrets<Program>();
-			var config = builder.Build();
-			config.Bind("AzureAd", azureAdOptions);
-
-			/////////////////////////////////////
-			//
-			// Client Application Configuration
-			//
-			/////////////////////////////////////
-
-			var options = new PublicClientApplicationOptions()
-			{
-				AadAuthorityAudience = AadAuthorityAudience.AzureAdMyOrg,
-				AzureCloudInstance = AzureCloudInstance.AzurePublic,
-				ClientId = azureAdOptions.ClientId,
-				TenantId = azureAdOptions.TenantId,
-				RedirectUri = "http://localhost"
-			};
-
-			// Create the public client application (desktop app), with a default redirect URI
-			var pca = PublicClientApplicationBuilder
-									.CreateWithApplicationOptions(options)
-									.Build();
-
-			// Enable a simple token cache serialiation so that the user does not need to
-			// re-sign-in each time the application is run
-			TokenCacheHelper.EnableSerialization(pca.UserTokenCache);
-
-			///////////////////////////////////////////////
-			//
-			//  Auth Provider - Device Code in this sample
-			//
-			///////////////////////////////////////////////
-
-			// Create an authentication provider to attach the token to requests
-			var scopes = new string[] { $"https://{sharepointDomain}/AllSites.FullControl" };
-			IAuthenticationProvider ap = new DeviceCodeProvider(pca, scopes);
 
 			////////////////////////////////////////////////////////////
 			//
@@ -87,7 +52,7 @@ namespace Graph.Community.Samples
 			{
 				UserAgent = "SiteDesignSample"
 			};
-			var graphServiceClient = CommunityGraphClientFactory.Create(clientOptions, logger, ap);
+			var graphServiceClient = CommunityGraphClientFactory.Create(clientOptions, logger, credential);
 
 			///////////////////////////////////////
 			//
@@ -95,7 +60,8 @@ namespace Graph.Community.Samples
 			//
 			///////////////////////////////////////
 
-			var WebUrl = $"https://{sharepointDomain}{siteCollectionPath}";
+			var scopes = new string[] { $"https://{sharePointSettings.Hostname}/AllSites.FullControl" };
+			var WebUrl = $"https://{sharePointSettings.Hostname}{sharePointSettings.SiteCollectionUrl}";
 
 			var siteScript = new SiteScriptMetadata()
 			{
@@ -108,6 +74,7 @@ namespace Graph.Community.Samples
 																	.SharePointAPI(WebUrl)
 																	.SiteScripts
 																	.Request()
+																	.WithScopes(scopes)
 																	.CreateAsync(siteScript);
 
 			var siteDesign = new SiteDesignMetadata()
@@ -122,6 +89,7 @@ namespace Graph.Community.Samples
 																	.SharePointAPI(WebUrl)
 																	.SiteDesigns
 																	.Request()
+																	.WithScopes(scopes)
 																	.CreateAsync(siteDesign);
 
 			var applySiteDesignRequest = new ApplySiteDesignRequest
@@ -132,10 +100,12 @@ namespace Graph.Community.Samples
 
 			var applySiteDesignResponse = await graphServiceClient
 																						.SharePointAPI(WebUrl)
-																						.SiteDesigns.Request()
+																						.SiteDesigns
+																						.Request()
+																						.WithScopes(scopes)
 																						.ApplyAsync(applySiteDesignRequest);
 
-			foreach (var outcome in applySiteDesignResponse.ActionOutcomes)
+			foreach (var outcome in applySiteDesignResponse.CurrentPage)
 			{
 				Console.WriteLine(outcome.OutcomeText);
 			}

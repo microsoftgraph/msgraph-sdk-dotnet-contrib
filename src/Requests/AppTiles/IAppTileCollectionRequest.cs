@@ -1,8 +1,6 @@
 using Microsoft.Graph;
 using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -10,9 +8,9 @@ namespace Graph.Community
 {
   public interface IAppTileCollectionRequest : IBaseRequest
   {
-    Task<ICollectionPage<AppTile>> GetAsync();
+    Task<IAppTileCollectionPage> GetAsync();
 
-    Task<ICollectionPage<AppTile>> GetAsync(CancellationToken cancellationToken);
+    Task<IAppTileCollectionPage> GetAsync(CancellationToken cancellationToken);
 
     /// <summary>
     /// Adds the specified select value to the request.

@@ -11,28 +11,28 @@ namespace Graph.Community
     Task<Web> GetAsync();
     Task<Web> GetAsync(CancellationToken cancellationToken);
 
-    Task<ICollectionPage<Change>> GetChangesAsync(ChangeQuery query);
-    Task<ICollectionPage<Change>> GetChangesAsync(ChangeQuery query, CancellationToken cancellationToken);
+    Task<IChangeLogCollectionPage> GetChangesAsync(ChangeQuery query);
+    Task<IChangeLogCollectionPage> GetChangesAsync(ChangeQuery query, CancellationToken cancellationToken);
 
     Task<User> EnsureUserAsync(string logonName);
     Task<User> EnsureUserAsync(string logonName, CancellationToken cancellationToken);
 
     Task<Web> GetAssociatedGroupsAsync();
-		Task<Web> GetAssociatedGroupsAsync(bool includeUsers);
+    Task<Web> GetAssociatedGroupsAsync(bool includeUsers);
     Task<Web> GetAssociatedGroupsAsync(bool includeUsers, CancellationToken cancellationToken);
 
-		/// <summary>
-		/// Adds the specified expand value to the request.
-		/// </summary>
-		/// <param name="value">The expand value.</param>
-		/// <returns>The request object to send.</returns>
-		IWebRequest Expand(string value);
+    /// <summary>
+    /// Adds the specified expand value to the request.
+    /// </summary>
+    /// <param name="value">The expand value.</param>
+    /// <returns>The request object to send.</returns>
+    IWebRequest Expand(string value);
 
-		/// <summary>
-		/// Adds the specified expand value to the request.
-		/// </summary>
-		/// <param name="expandExpression">The expression from which to calculate the expand value.</param>
-		/// <returns>The request object to send.</returns>
-		IWebRequest Expand(Expression<Func<Group, object>> expandExpression);
-	}
+    /// <summary>
+    /// Adds the specified expand value to the request.
+    /// </summary>
+    /// <param name="expandExpression">The expression from which to calculate the expand value.</param>
+    /// <returns>The request object to send.</returns>
+    IWebRequest Expand(Expression<Func<Group, object>> expandExpression);
+  }
 }

@@ -1,15 +1,12 @@
-using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Graph.Community
 {
-  [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
   public class ApplySiteDesignResponse
   {
-    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "value", Required = Newtonsoft.Json.Required.Default)]
+    [JsonPropertyName("value")]
     public List<SiteScriptActionResult> ActionOutcomes { get; }
 
     public ApplySiteDesignResponse()
@@ -21,11 +18,19 @@ namespace Graph.Community
   [DebuggerDisplay("{Title, nq}")]
   public class SiteScriptActionResult
   {
+    [JsonPropertyName("Outcome")]
+    [JsonConverter(typeof(SPEnumIntAsStringConverter<SiteScriptActionOutcome>))]
     public SiteScriptActionOutcome Outcome { get; set; }
 
+    [JsonPropertyName("OutcomeText")]
     public string OutcomeText { get; set; }
 
+    [JsonPropertyName("Title")]
     public string Title { get; set; }
+
+    public SiteScriptActionResult()
+    {
+    }
   }
 
   public enum SiteScriptActionOutcome

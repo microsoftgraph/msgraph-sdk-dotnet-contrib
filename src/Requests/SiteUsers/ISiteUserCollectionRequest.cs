@@ -1,7 +1,4 @@
 using Microsoft.Graph;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -9,9 +6,9 @@ namespace Graph.Community
 {
   public interface ISiteUserCollectionRequest : IBaseRequest
   {
-    Task<ICollectionPage<User>> GetAsync();
+    Task<ISiteUserCollectionPage> GetAsync();
 
-    Task<ICollectionPage<User>> GetAsync(CancellationToken cancellationToken);
+    Task<ISiteUserCollectionPage> GetAsync(CancellationToken cancellationToken);
 
 
     /// <summary>

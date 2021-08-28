@@ -1,46 +1,42 @@
 using Microsoft.Graph;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Graph.Community
 {
-	public class SiteDesignRunRequest : BaseSharePointAPIRequest, ISiteDesignRunRequest
-	{
+  public class SiteDesignRunRequest : BaseSharePointAPIRequest, ISiteDesignRunRequest
+  {
 
-		public SiteDesignRunRequest(
-			string requestUrl,
-			IBaseClient client,
-			IEnumerable<Option> options)
-			: base("SiteDesignRun", requestUrl, client, options)
-		{
-			this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.AcceptHeaderName, SharePointAPIRequestConstants.Headers.AcceptHeaderValue));
-			this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName, SharePointAPIRequestConstants.Headers.ODataVersionHeaderValue));
-			this.Method = System.Net.Http.HttpMethod.Post.Method;
-		}
+    public SiteDesignRunRequest(
+      string requestUrl,
+      IBaseClient client,
+      IEnumerable<Option> options)
+      : base("SiteDesignRun", requestUrl, client, options)
+    {
+      this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.AcceptHeaderName, SharePointAPIRequestConstants.Headers.AcceptHeaderValue));
+      this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName, SharePointAPIRequestConstants.Headers.ODataVersionHeaderValue));
+      this.Method = HttpMethods.POST;
+    }
 
-		public Task<ICollectionPage<SiteDesignRun>> GetAsync()
-		{
-			return this.GetAsync(CancellationToken.None);
-		}
+    public Task<ISiteDesignRunCollectionPage> GetAsync()
+    {
+      return this.GetAsync(CancellationToken.None);
+    }
 
-		public async Task<ICollectionPage<SiteDesignRun>> GetAsync(CancellationToken cancellationToken)
-		{
-			GetSiteDesignRunCollectionResponse response = new GetSiteDesignRunCollectionResponse();
+    public async Task<ISiteDesignRunCollectionPage> GetAsync(CancellationToken cancellationToken)
+    {
+      this.AppendSegmentToRequestUrl("Microsoft.Sharepoint.Utilities.WebTemplateExtensions.SiteScriptUtility.GetSiteDesignRun");
 
-			this.AppendSegmentToRequestUrl("Microsoft.Sharepoint.Utilities.WebTemplateExtensions.SiteScriptUtility.GetSiteDesignRun");
+      var response = await this.SendAsync<SharePointAPICollectionResponse<ISiteDesignRunCollectionPage>>(null, cancellationToken).ConfigureAwait(false);
 
-			response = await this.SendAsync<GetSiteDesignRunCollectionResponse>(null, cancellationToken).ConfigureAwait(false);
+      if (response?.Value?.CurrentPage != null)
+      {
+        return response.Value;
+      }
 
-			if (response != null && response.Value != null && response.Value.CurrentPage != null)
-			{
-				return response.Value;
-			}
+      return null;
+    }
 
-			return null;
-		}
-
-	}
+  }
 }

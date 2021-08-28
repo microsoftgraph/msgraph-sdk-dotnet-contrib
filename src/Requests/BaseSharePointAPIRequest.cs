@@ -1,8 +1,6 @@
 using Microsoft.Graph;
-using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -81,7 +79,6 @@ namespace Graph.Community
 			return base.SendAsync(serializableObject, cancellationToken, completionOption);
 		}
 
-
 		private void SetHandlerOptions()
 		{
 			SetHandlerOptions(CommunityGraphClientFactory.TelemetryDisabled);
@@ -91,7 +88,7 @@ namespace Graph.Community
 		{
 			SharePointServiceHandlerOption handlerOptions = default;
 
-			string handlerOptionKey = typeof(SharePointServiceHandlerOption).ToString();
+			string handlerOptionKey = typeof(SharePointServiceHandlerOption).Name;
 
 			if (!this.MiddlewareOptions.ContainsKey(handlerOptionKey))
 			{
@@ -107,7 +104,6 @@ namespace Graph.Community
 				handlerOptions = this.MiddlewareOptions[handlerOptionKey] as SharePointServiceHandlerOption;
 				handlerOptions.ResourceUri = this.resourceUri;
 			}
-
 		}
 
 		public BaseRequest WithTelemetryDisabled()

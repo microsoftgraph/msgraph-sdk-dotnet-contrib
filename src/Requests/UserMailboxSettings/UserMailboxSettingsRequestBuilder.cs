@@ -1,13 +1,11 @@
 using Microsoft.Graph;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Graph.Community
 {
   public class UserMailboxSettingsRequestBuilder : BaseRequestBuilder, IUserMailboxSettingsRequestBuilder
   {
-    private IEnumerable<Option> options;
+    private readonly IEnumerable<Option> options;
 
     public UserMailboxSettingsRequestBuilder(
         string requestUrl,

@@ -1,20 +1,21 @@
 using Microsoft.Graph;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 
 namespace Graph.Community
 {
   [DebuggerDisplay("{ODataType, nq}")]
-  [JsonObject(MemberSerialization = MemberSerialization.OptOut)]
-  [JsonConverter(typeof(SPDerivedTypedConverter))]
-  public class Change : BaseItem, IChange
+  [SPDerivedTypeConverter(typeof(SPODataTypeConverter<Group>))]
+  public class Change : BaseItem
   {
     public ChangeToken ChangeToken { get; set; }
     public ChangeType ChangeType { get; set; }
     public Guid SiteId { get; set; }
     public DateTime Time { get; set; }
+
+    public Change()
+      : base()
+    {
+    }
   }
 }

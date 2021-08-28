@@ -1,50 +1,47 @@
-using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Graph.Community
 {
-	[JsonObject(MemberSerialization = MemberSerialization.OptOut)]
-	[JsonConverter(typeof(SPDerivedTypedConverter))]
-	public class Group: Principal
+  [SPDerivedTypeConverter(typeof(SPODataTypeConverter<Group>))]
+  public class Group : Principal
   {
-		[JsonProperty(PropertyName = "AllowMembersEditMembership")]
-		public bool AllowMembersEditMembership { get; set; }
+    [JsonPropertyName("AllowMembersEditMembership")]
+    public bool AllowMembersEditMembership { get; set; }
 
-		[JsonProperty(PropertyName = "AllowRequestToJoinLeave")]
-		public bool AllowRequestToJoinLeave { get; set; }
+    [JsonPropertyName("AllowRequestToJoinLeave")]
+    public bool AllowRequestToJoinLeave { get; set; }
 
-		[JsonProperty(PropertyName = "AutoAcceptRequestToJoinLeave")]
-		public bool AutoAcceptRequestToJoinLeave { get; set; }
+    [JsonPropertyName("AutoAcceptRequestToJoinLeave")]
+    public bool AutoAcceptRequestToJoinLeave { get; set; }
 
-		[JsonProperty]
-		public new string Description { get; set; }
+    [JsonPropertyName("Description")]
+    public new string Description { get; set; }
 
-    [JsonProperty(PropertyName = "OnlyAllowMembersViewMembership")]
-		public bool OnlyAllowMembersViewMembership { get; set; }
+    [JsonPropertyName("OnlyAllowMembersViewMembership")]
+    public bool OnlyAllowMembersViewMembership { get; set; }
 
-		[JsonProperty(PropertyName = "Owner@odata.navigationLinkUrl")]
+    [JsonPropertyName("Owner@odata.navigationLink")]
     public string OwnerNavigationLink { get; set; }
 
-    [JsonProperty]
+    [JsonPropertyName("Owner")]
     public Principal Owner { get; set; }
 
-    [JsonProperty]
+    [JsonPropertyName("OwnerTitle")]
     public string OwnerTitle { get; set; }
 
-    [JsonProperty(PropertyName = "RequestToJoinLeaveEmailSetting")]
-		public string RequestToJoinLeaveEmailSetting { get; set; }
+    [JsonPropertyName("RequestToJoinLeaveEmailSetting")]
+    public string RequestToJoinLeaveEmailSetting { get; set; }
 
-		[JsonProperty(PropertyName = "Users@odata.navigationLink")]
+    [JsonPropertyName("Users@odata.navigationLink")]
     public string UsersNavigationLink { get; set; }
 
-    [JsonProperty]
-		public List<User> Users { get; }
+    [JsonPropertyName("Users")]
+    public List<User> Users { get; private set; }
 
-		public Group()
+    public Group()
     {
-			this.Users = new List<User>();
+      this.Users = new List<User>();
     }
-	}
+  }
 }

@@ -1,13 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.Graph;
+using System.Collections.Generic;
 
 namespace Graph.Community
 {
   public class SiteUserCollectionRequestBuilder : BaseRequestBuilder, ISiteUserCollectionRequestBuilder
   {
-    private IEnumerable<Option> options;
+    private readonly IEnumerable<Option> options;
 
     public SiteUserCollectionRequestBuilder(
       string requestUrl,
@@ -25,8 +23,6 @@ namespace Graph.Community
         return new SiteUserRequestBuilder(this.AppendSegmentToRequestUrl($"getbyid({id})"), this.Client, options);
       }
     }
-
-
 
     public ISiteUserCollectionRequest Request()
     {

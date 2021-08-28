@@ -1,9 +1,7 @@
 using Moq;
 using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -25,21 +23,20 @@ namespace Graph.Community.Test
     [Fact]
     public void GeneratesCorrectRequestHeaders()
     {
-      using (var response = new HttpResponseMessage())
-      using (var gsc = GraphServiceTestClient.Create(response))
-      {
-        // ACT
-        var request = gsc.GraphServiceClient
-                            .SharePointAPI(mockWebUrl)
-                            .SiteDesignRuns
-                            .Request()
-                            .GetHttpRequestMessage();
+      using HttpResponseMessage response = new HttpResponseMessage();
+      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
 
-        // ASSERT
-        Assert.Equal(SharePointAPIRequestConstants.Headers.AcceptHeaderValue, request.Headers.Accept.ToString());
-        Assert.True(request.Headers.Contains(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName), $"Header does not contain {SharePointAPIRequestConstants.Headers.ODataVersionHeaderName} header");
-        Assert.Equal(SharePointAPIRequestConstants.Headers.ODataVersionHeaderValue, string.Join(',', request.Headers.GetValues(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName)));
-      }
+      // ACT
+      var request = gsc.GraphServiceClient
+                          .SharePointAPI(mockWebUrl)
+                          .SiteDesignRuns
+                          .Request()
+                          .GetHttpRequestMessage();
+
+      // ASSERT
+      Assert.Equal(SharePointAPIRequestConstants.Headers.AcceptHeaderValue, request.Headers.Accept.ToString());
+      Assert.True(request.Headers.Contains(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName), $"Header does not contain {SharePointAPIRequestConstants.Headers.ODataVersionHeaderName} header");
+      Assert.Equal(SharePointAPIRequestConstants.Headers.ODataVersionHeaderValue, string.Join(',', request.Headers.GetValues(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName)));
     }
 
     [Fact]
@@ -48,30 +45,29 @@ namespace Graph.Community.Test
       // ARRANGE
       var expectedUri = new Uri($"{mockWebUrl}/_api/Microsoft.Sharepoint.Utilities.WebTemplateExtensions.SiteScriptUtility.GetSiteDesignRun");
 
-      using (var response = new HttpResponseMessage())
-      using (var gsc = GraphServiceTestClient.Create(response))
-      {
-        // ACT
-        await gsc.GraphServiceClient
-                    .SharePointAPI(mockWebUrl)
-                    .SiteDesignRuns
-                    .Request()
-                    .GetAsync();
+      using HttpResponseMessage response = new HttpResponseMessage();
+      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
 
-        // ASSERT
-        gsc.HttpProvider.Verify(
-          provider => provider.SendAsync(
-            It.Is<HttpRequestMessage>(req =>
-              req.Method == HttpMethod.Post &&
-              req.RequestUri == expectedUri &&
-              req.Headers.Authorization != null
-            ),
-            It.IsAny<HttpCompletionOption>(),
-            It.IsAny<CancellationToken>()
-            ),
-          Times.Exactly(1)
-        );
-      }
+      // ACT
+      await gsc.GraphServiceClient
+                  .SharePointAPI(mockWebUrl)
+                  .SiteDesignRuns
+                  .Request()
+                  .GetAsync();
+
+      // ASSERT
+      gsc.HttpProvider.Verify(
+        provider => provider.SendAsync(
+          It.Is<HttpRequestMessage>(req =>
+            req.Method == HttpMethod.Post &&
+            req.RequestUri == expectedUri &&
+            req.Headers.Authorization != null
+          ),
+          It.IsAny<HttpCompletionOption>(),
+          It.IsAny<CancellationToken>()
+          ),
+        Times.Exactly(1)
+      );
     }
 
     [Fact]
@@ -107,8 +103,5 @@ namespace Graph.Community.Test
         Assert.Equal(new Guid("cd5f4ac4-40cc-4a4c-8640-7acf7ec579c4"), actual[0].WebId);
       }
     }
-
-#pragma warning restore CA2007 // Consider calling ConfigureAwait on the awaited task
-#pragma warning restore CA1707
   }
 }

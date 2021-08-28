@@ -1,7 +1,5 @@
 using Microsoft.Graph;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -16,9 +14,6 @@ namespace Graph.Community
       : base(requestUrl, client, options)
     {
     }
-
-
-
     public async Task<MailboxSettings> GetAsync()
     {
       return await this.GetAsync(CancellationToken.None);

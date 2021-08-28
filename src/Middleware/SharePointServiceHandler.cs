@@ -1,13 +1,9 @@
-using Microsoft.ApplicationInsights;
-using Microsoft.ApplicationInsights.Extensibility;
 using Graph.Community.Diagnostics;
 using Microsoft.Graph;
 using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -21,20 +17,12 @@ namespace Graph.Community
 		internal SharePointServiceHandlerOption SharePointServiceHandlerOption { get; set; }
 
 		/// <summary>
-		/// Azure AppInsights Telemetry client
-		/// </summary>
-		internal TelemetryClient TelemetryClient { get; private set; }
-		private readonly TelemetryConfiguration telemetryConfiguration = TelemetryConfiguration.CreateDefault();
-
-		/// <summary>
 		/// Constructs a new <see cref="SharePointServiceHandler"/> 
 		/// </summary>
 		/// <param name="sharepointServiceHandlerOption">An OPTIONAL <see cref="Microsoft.Graph.SharePointServiceHandlerOption"/> to configure <see cref="SharePointServiceHandler"/></param>
 		public SharePointServiceHandler(SharePointServiceHandlerOption sharepointServiceHandlerOption = null)
 		{
 			SharePointServiceHandlerOption = sharepointServiceHandlerOption ?? new SharePointServiceHandlerOption();
-			telemetryConfiguration.InstrumentationKey = "d882bd7a-a378-4117-bd7c-71fc95a44cd1";
-			TelemetryClient = new TelemetryClient(telemetryConfiguration);
 		}
 
 		protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
@@ -70,7 +58,6 @@ namespace Graph.Community
 			GraphCommunityEventSource.Singleton.SharePointServiceHandlerPostprocess(resourceUri, context, response.StatusCode);
 
 
-
 			if (SharePointServiceHandlerOption != null && !response.IsSuccessStatusCode)
 			{
 				using (response)
@@ -78,17 +65,14 @@ namespace Graph.Community
 					var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 					GraphCommunityEventSource.Singleton.SharePointServiceHandlerNonsuccess(resourceUri, context, responseContent);
 
-					if (disableTelemetry != true)
-					{
-						LogServiceRequest(resourceUri, context, request.Method, response.StatusCode, responseContent);
-					}
-
+					CommunityGraphTelemetry.LogServiceRequest(resourceUri, context.ClientRequestId, request.Method, response.StatusCode, responseContent);
 
 					var errorResponse = this.ConvertErrorResponseAsync(responseContent);
 					Error error = null;
 
 					if (errorResponse == null || errorResponse.Error == null)
 					{
+						// we couldn't parse the error, so return generic message
 						if (response != null && response.StatusCode == HttpStatusCode.NotFound)
 						{
 							error = new Error { Code = "itemNotFound" };
@@ -107,7 +91,7 @@ namespace Graph.Community
 						error = errorResponse.Error;
 					}
 
-
+					// If the error has a json body, include it in the exception.
 					if (response.Content?.Headers.ContentType?.MediaType == "application/json")
 					{
 						string rawResponseBody = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -128,10 +112,7 @@ namespace Graph.Community
 			}
 			else
 			{
-				if (disableTelemetry != true)
-				{
-					LogServiceRequest(resourceUri, context, request.Method, response.StatusCode, null);
-				}
+				CommunityGraphTelemetry.LogServiceRequest(resourceUri, context.ClientRequestId, request.Method, response.StatusCode, null);
 			}
 
 			return response;
@@ -147,15 +128,18 @@ namespace Graph.Community
 		{
 			try
 			{
-
-				var responseObject = Newtonsoft.Json.Linq.JObject.Parse(responseContent);
+				// try our best to provide a helpful message...
+				var responseObject = JsonDocument.Parse(responseContent).RootElement;
+				var message = responseObject.TryGetProperty("error_description", out var errorDescription)
+					? errorDescription.ToString()
+					: responseContent;
 
 				var error = new ErrorResponse()
 				{
 					Error = new Error()
 					{
 						Code = "SPError",
-						Message = responseObject.Value<string>("error_description")
+						Message = message
 					}
 				};
 
@@ -164,31 +148,12 @@ namespace Graph.Community
 			}
 			catch (Exception)
 			{
-				// If there's an exception deserializing the error response return null and throw a generic
-				// ServiceException later.
+				// If there's an exception deserializing the error response,
+				// return null and throw a generic ServiceException later.
 				return null;
 			}
 		}
 
-		internal void LogServiceRequest(string resourceUri, GraphRequestContext context, HttpMethod requestMethod, HttpStatusCode statusCode, string rawResponseContent)
-		{
-			Dictionary<string, string> properties = new Dictionary<string, string>(10)
-			{
-				{ CommunityGraphConstants.Headers.CommunityLibraryVersionHeaderName, CommunityGraphConstants.Library.AssemblyVersion },
-				{ CommunityGraphConstants.TelemetryProperties.ResourceUri, resourceUri },
-				{ CommunityGraphConstants.TelemetryProperties.RequestMethod, requestMethod.ToString() },
-				{ CommunityGraphConstants.TelemetryProperties.ClientRequestId, context.ClientRequestId },
-				{ CommunityGraphConstants.TelemetryProperties.ResponseStatus, $"{statusCode} ({(int)statusCode})" }
-			};
-
-			if (!string.IsNullOrEmpty(rawResponseContent))
-			{
-				properties.Add(CommunityGraphConstants.TelemetryProperties.RawErrorResponse, rawResponseContent);
-			}
-
-			TelemetryClient.TrackEvent("GraphCommunityRequest", properties);
-			TelemetryClient.Flush();
-		}
 
 	}
 }

@@ -9,7 +9,7 @@ namespace Graph.Community
     Task<List> GetAsync();
     Task<List> GetAsync(CancellationToken cancellationToken);
 
-    Task<ICollectionPage<Change>> GetChangesAsync(ChangeQuery query);
-    Task<ICollectionPage<Change>> GetChangesAsync(ChangeQuery query, CancellationToken cancellationToken);
+    Task<IChangeLogCollectionPage> GetChangesAsync(ChangeQuery query);
+    Task<IChangeLogCollectionPage> GetChangesAsync(ChangeQuery query, CancellationToken cancellationToken);
   }
 }

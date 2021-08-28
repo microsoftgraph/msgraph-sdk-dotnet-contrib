@@ -1,11 +1,7 @@
 using Moq;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -30,31 +26,30 @@ namespace Graph.Community.Test
       // ARRANGE
       var expectedUri = new Uri($"{mockWebUrl}/_api/web/apptiles");
 
-      using (var response = new HttpResponseMessage())
-      using (var gsc = GraphServiceTestClient.Create(response))
-      {
-        // ACT
-        await gsc.GraphServiceClient
-                    .SharePointAPI(mockWebUrl)
-                    .Web
-                    .AppTiles
-                    .Request()
-                    .GetAsync();
+      using HttpResponseMessage response = new HttpResponseMessage();
+      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
 
-        // ASSERT
-        gsc.HttpProvider.Verify(
-          provider => provider.SendAsync(
-            It.Is<HttpRequestMessage>(req =>
-              req.Method == HttpMethod.Get &&
-              req.RequestUri == expectedUri &&
-              req.Headers.Authorization != null
-            ),
-            It.IsAny<HttpCompletionOption>(),
-            It.IsAny<CancellationToken>()
+      // ACT
+      await gsc.GraphServiceClient
+                  .SharePointAPI(mockWebUrl)
+                  .Web
+                  .AppTiles
+                  .Request()
+                  .GetAsync();
+
+      // ASSERT
+      gsc.HttpProvider.Verify(
+        provider => provider.SendAsync(
+          It.Is<HttpRequestMessage>(req =>
+            req.Method == HttpMethod.Get &&
+            req.RequestUri == expectedUri &&
+            req.Headers.Authorization != null
           ),
-          Times.Exactly(1)
-        );
-      }
+          It.IsAny<HttpCompletionOption>(),
+          It.IsAny<CancellationToken>()
+        ),
+        Times.Exactly(1)
+      );
     }
 
     [Fact]
@@ -67,7 +62,6 @@ namespace Graph.Community.Test
         StatusCode = HttpStatusCode.OK,
         Content = new StringContent(responseContent),
       };
-
 
       using (responseMessage)
       using (var gsc = GraphServiceTestClient.Create(responseMessage))
@@ -83,10 +77,10 @@ namespace Graph.Community.Test
 
         // ASSERT
         Assert.Equal(10, actual.Count);
-        Assert.Equal("264ae551-d91e-4a00-89c3-5d2300006cee",actual[1].AppId.ToString());
+        Assert.Equal("264ae551-d91e-4a00-89c3-5d2300006cee", actual[1].AppId.ToString());
         Assert.Equal(AppStatus.Installed, actual[1].AppStatus);
         Assert.Equal("1/16/2020 10:15 PM", actual[1].LastModified);
-        Assert.Equal(new DateTimeOffset(2020,01,16,22,15,12, new TimeSpan(0)), actual[1].LastModifiedDate);
+        Assert.Equal(new DateTimeOffset(2020, 01, 16, 22, 15, 12, new TimeSpan(0)), actual[1].LastModifiedDate);
       }
     }
   }

@@ -1,31 +1,31 @@
 using Microsoft.Graph;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Graph.Community
 {
-  [JsonObject(MemberSerialization = MemberSerialization.OptOut)]
+  [JsonConverter(typeof(SPNavigationNodeConverter))]
   public class NavigationNode : BaseItem
   {
-    [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+    [JsonPropertyName("Id")]
     public new int Id { get; set; }
 
+    [JsonPropertyName("Title")]
     public string Title { get; set; }
 
+    [JsonPropertyName("Url")]
     public Uri Url { get; set; }
 
-    [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+    [JsonPropertyName("IsDocLib")]
     public bool IsDocLib { get; set; }
 
-    [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+    [JsonPropertyName("IsExternal")]
     public bool IsExternal { get; set; }
 
-    [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+    [JsonPropertyName("IsVisible")]
     public bool IsVisible { get; set; }
 
-    [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+    [JsonPropertyName("ListTemplateType")]
     public int ListTemplateType { get; set; }
   }
 }

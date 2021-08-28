@@ -1,15 +1,12 @@
 using Microsoft.Graph;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Graph.Community
 {
   public class WebRequestBuilder : BaseRequestBuilder, IWebRequestBuilder
   {
-    private IEnumerable<Option> options;
+    private readonly IEnumerable<Option> options;
 
-#pragma warning disable CA1054 // URI parameters should not be strings
     public WebRequestBuilder(
       string requestUrl,
       IBaseClient client,
@@ -18,7 +15,6 @@ namespace Graph.Community
     {
       this.options = options;
     }
-#pragma warning restore CA1054 // URI parameters should not be strings
 
     public IListRequestBuilder Lists
     {

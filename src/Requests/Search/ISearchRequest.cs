@@ -1,7 +1,4 @@
 using Microsoft.Graph;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -17,7 +14,7 @@ namespace Graph.Community
     /// <remarks>This method supports only the queryText parameter. For more advanced search queries, use the <see cref="PostQueryAsync(SearchQuery)"/> method.</remarks>
     Task<Graph.Community.SearchResult> QueryAsync(string queryText);
     Task<Graph.Community.SearchResult> QueryAsync(string queryText, CancellationToken cancellationToken);
-    
+
 
     Task<Graph.Community.SearchResult> PostQueryAsync(SearchQuery searchQuery);
     Task<Graph.Community.SearchResult> PostQueryAsync(SearchQuery searchQuery, CancellationToken cancellationToken);

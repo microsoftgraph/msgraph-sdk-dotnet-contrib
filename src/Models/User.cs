@@ -1,47 +1,37 @@
-using Microsoft.Graph;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Graph.Community
 {
-	[JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-	[JsonConverter(typeof(SPDerivedTypedConverter))]
-	public class User : Principal
-	{
+  [SPDerivedTypeConverter(typeof(SPODataTypeConverter<User>))]
+  public class User : Principal
+  {
+    [JsonPropertyName("Email")]
+    public string Email { get; set; }
 
-		/// <summary>
-		/// Gets or sets the email address of the user.
-		/// </summary>
-		[JsonProperty(PropertyName = "Email")]
-		public string Email { get; set; }
+    /// <summary>
+    /// Gets or sets a Boolean value that specifies whether the user is a site collection administrator.
+    /// </summary>
+    [JsonPropertyName("IsSiteAdmin")]
+    public bool IsSiteAdmin { get; set; }
 
-		/// <summary>
-		/// Gets or sets a Boolean value that specifies whether the user is a site collection administrator.
-		/// </summary>
-		[JsonProperty(PropertyName = "IsSiteAdmin")]
-		public bool IsSiteAdmin { get; set; }
+    [JsonPropertyName("IsEmailAuthenticationGuestUser")]
+    public bool IsEmailAuthenticationGuestUser { get; set; }
 
-		[JsonProperty(PropertyName = "IsEmailAuthenticationGuestUser")]
-		public bool IsEmailAuthenticationGuestUser { get; set; }
+    [JsonPropertyName("IsShareByEmailGuestUser")]
+    public bool IsShareByEmailGuestUser { get; set; }
 
-		[JsonProperty(PropertyName = "IsShareByEmailGuestUser")]
-		public bool IsShareByEmailGuestUser { get; set; }
+    [JsonPropertyName("UserPrincipalName")]
+    public string UserPrincipalName { get; set; }
 
-		[JsonProperty(PropertyName = "UserPrincipalName")]
-		public string UserPrincipalName { get; set; }
+    [JsonPropertyName("UserId")]
+    public UserId UserId { get; set; }
+  }
 
-		[JsonProperty(PropertyName = "UserId")]
-		public UserId UserId { get; set; }
-	}
-
-	[JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-	public class UserId
-	{
-		[JsonProperty(PropertyName = "NameId")]
-		public string NameId { get; set; }
-		[JsonProperty(PropertyName = "NameIdIssuer")]
-		public string NameIdIssuer { get; set; }
-	}
+  public class UserId
+  {
+    [JsonPropertyName("NameId")]
+    public string NameId { get; set; }
+    [JsonPropertyName("NameIdIssuer")]
+    public string NameIdIssuer { get; set; }
+  }
 }

@@ -4,49 +4,46 @@
 
 namespace Microsoft.Graph.Core.Test.Mocks
 {
-	using System;
-	using System.IO;
-	using System.Net.Http;
-	using System.Net.Http.Headers;
-	using System.Threading;
-	using System.Threading.Tasks;
+  using Moq;
+  using System.Net.Http;
+  using System.Net.Http.Headers;
+  using System.Threading;
+  using System.Threading.Tasks;
 
-	using Moq;
+  public class MockHttpProvider : Mock<IHttpProvider>
+  {
+    public string ContentAsString { get; private set; }
+    public HttpContentHeaders ContentHeaders { get; private set; }
 
-	public class MockHttpProvider : Mock<IHttpProvider>
-	{
-		public string ContentAsString { get; private set; }
-		public HttpContentHeaders ContentHeaders { get; private set; }
-
-		public MockHttpProvider(HttpResponseMessage httpResponseMessage, ISerializer serializer = null)
-				: base(MockBehavior.Loose)
-		{
-			this.Setup(provider => provider.SendAsync(It.IsAny<HttpRequestMessage>(), It.IsAny<HttpCompletionOption>(), It.IsAny<CancellationToken>()))
-				.Callback<HttpRequestMessage, HttpCompletionOption, CancellationToken>(async (req, opt, tok) => await this.ReadRequestContent(req))
-				.ReturnsAsync(httpResponseMessage);
+    public MockHttpProvider(HttpResponseMessage httpResponseMessage, ISerializer serializer = null)
+        : base(MockBehavior.Loose)
+    {
+      this.Setup(provider => provider.SendAsync(It.IsAny<HttpRequestMessage>(), It.IsAny<HttpCompletionOption>(), It.IsAny<CancellationToken>()))
+        .Callback<HttpRequestMessage, HttpCompletionOption, CancellationToken>(async (req, opt, tok) => await this.ReadRequestContent(req))
+        .ReturnsAsync(httpResponseMessage);
 
 
-			this.SetupGet(provider => provider.Serializer).Returns(serializer);
-		}
+      this.SetupGet(provider => provider.Serializer).Returns(serializer);
+    }
 
-		private async Task ReadRequestContent(HttpRequestMessage req)
-		{
-			if (req.Content != null)
-			{
-				this.ContentHeaders = req.Content.Headers;
-				this.ContentAsString = await req.Content.ReadAsStringAsync();
-			}
-		}
+    private async Task ReadRequestContent(HttpRequestMessage req)
+    {
+      if (req.Content != null)
+      {
+        this.ContentHeaders = req.Content.Headers;
+        this.ContentAsString = await req.Content.ReadAsStringAsync();
+      }
+    }
 
-		public MockHttpProvider(HttpMessageHandler handler, HttpResponseMessage httpResponseMessage, ISerializer serializer = null)
-		{
-			var invoker = new HttpMessageInvoker(handler);
+    public MockHttpProvider(HttpMessageHandler handler, HttpResponseMessage httpResponseMessage)
+    {
+      var invoker = new HttpMessageInvoker(handler);
 
 
-			this.Setup(provider => provider.SendAsync(It.IsAny<HttpRequestMessage>(), It.IsAny<HttpCompletionOption>(), It.IsAny<CancellationToken>()))
-				.Callback<HttpRequestMessage, HttpCompletionOption, CancellationToken>(async (req, opt, tok) => await invoker.SendAsync(req, CancellationToken.None))
-				.ReturnsAsync(httpResponseMessage);
+      this.Setup(provider => provider.SendAsync(It.IsAny<HttpRequestMessage>(), It.IsAny<HttpCompletionOption>(), It.IsAny<CancellationToken>()))
+        .Callback<HttpRequestMessage, HttpCompletionOption, CancellationToken>(async (req, opt, tok) => await invoker.SendAsync(req, CancellationToken.None))
+        .ReturnsAsync(httpResponseMessage);
 
-		}
-	}
+    }
+  }
 }

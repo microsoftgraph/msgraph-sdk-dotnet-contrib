@@ -4,23 +4,22 @@
 
 namespace Microsoft.Graph.Core.Test.Mocks
 {
-    using System.Net.Http;
-    using System.Net.Http.Headers;
-    using System.Threading.Tasks;
+  using Moq;
+  using System.Net.Http;
+  using System.Net.Http.Headers;
+  using System.Threading.Tasks;
 
-    using Moq;
-
-    public class MockAuthenticationProvider : Mock<IAuthenticationProvider>
+  public class MockAuthenticationProvider : Mock<IAuthenticationProvider>
+  {
+    public MockAuthenticationProvider(string accessToken = null)
+        : base(MockBehavior.Strict)
     {
-        public MockAuthenticationProvider(string accessToken = null)
-            : base(MockBehavior.Strict)
-        {
-            this.SetupAllProperties();
+      this.SetupAllProperties();
 
-            this.Setup(
-                provider => provider.AuthenticateRequestAsync(It.IsAny<HttpRequestMessage>()))
-                .Callback<HttpRequestMessage>(r => r.Headers.Authorization = new AuthenticationHeaderValue(CoreConstants.Headers.Bearer, accessToken ?? "Default-Token"))
-                .Returns(Task.FromResult(0));
-        }
+      this.Setup(
+          provider => provider.AuthenticateRequestAsync(It.IsAny<HttpRequestMessage>()))
+          .Callback<HttpRequestMessage>(r => r.Headers.Authorization = new AuthenticationHeaderValue(CoreConstants.Headers.Bearer, accessToken ?? "Default-Token"))
+          .Returns(Task.FromResult(0));
     }
+  }
 }

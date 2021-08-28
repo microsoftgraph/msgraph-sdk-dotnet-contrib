@@ -1,43 +1,43 @@
 using Microsoft.Graph;
-using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Graph.Community
 {
-#pragma warning disable CA1724 //Type names should not match namespaces
-
-  [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-  [JsonConverter(typeof(SPDerivedTypedConverter))]
+  [SPDerivedTypeConverter(typeof(SPODataTypeConverter<Web>))]
   public class Web : BaseItem
   {
-    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "CurrentChangeToken", Required = Newtonsoft.Json.Required.Default)]
+    [JsonPropertyName("Id")]
+    public new string Id { get; set; }
+
+    [JsonPropertyName("Title")]
+    public string Title { get; set; }
+
+    [JsonPropertyName("CurrentChangeToken")]
     public ChangeToken CurrentChangeToken { get; set; }
 
-    [JsonProperty(PropertyName = "Users@odata.navigationLink")]
+    [JsonPropertyName("UsersNavigationLink")]
     public string UsersNavigationLink { get; set; }
 
-    [JsonProperty]
+    [JsonPropertyName("Users")]
     public List<User> Users { get; }
 
-    [JsonProperty(PropertyName = "AssociatedMemberGroup@odata.navigationLink")]
+    [JsonPropertyName("AssociatedMemberGroupNavigationLink")]
     public string AssociatedMemberGroupNavigationLink { get; set; }
 
-    [JsonProperty]
+    [JsonPropertyName("AssociatedMemberGroup")]
     public Group AssociatedMemberGroup { get; set; }
 
-    [JsonProperty(PropertyName = "AssociatedOwnerGroup@odata.navigationLink")]
+    [JsonPropertyName("AssociatedOwnerGroupNavigationLink")]
     public string AssociatedOwnerGroupNavigationLink { get; set; }
 
-    [JsonProperty]
+    [JsonPropertyName("AssociatedOwnerGroup")]
     public Group AssociatedOwnerGroup { get; set; }
 
-    [JsonProperty(PropertyName = "AssociatedVisitorGroup@odata.navigationLink")]
+    [JsonPropertyName("AssociatedVisitorGroupNavigationLink")]
     public string AssociatedVisitorGroupNavigationLink { get; set; }
 
-    [JsonProperty]
+    [JsonPropertyName("AssociatedVisitorGroup")]
     public Group AssociatedVisitorGroup { get; set; }
   }
-#pragma warning restore CA1724 //Type names should not match namespaces
 }

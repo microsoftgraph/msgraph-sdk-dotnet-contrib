@@ -1,66 +1,36 @@
-using Microsoft.Extensions.Configuration;
-using Microsoft.Graph;
-using Microsoft.Graph.Auth;
-using Microsoft.Identity.Client;
+using Azure.Identity;
+using Microsoft.Extensions.Options;
 using System;
 using System.Threading.Tasks;
 
 namespace Graph.Community.Samples
 {
-	public static class GraphGroupExtensions
+	public class GraphGroupExtensions
 	{
-		public static async Task Run()
+		private readonly AzureAdSettings azureAdSettings;
+		private readonly SharePointSettings sharePointSettings;
+
+		public GraphGroupExtensions(
+			IOptions<AzureAdSettings> azureAdOptions,
+			IOptions<SharePointSettings> sharePointOptions)
 		{
-			////////////////////////////////
+			this.azureAdSettings = azureAdOptions.Value;
+			this.sharePointSettings = sharePointOptions.Value;
+		}
+
+		public async Task Run()
+		{
+			//////////////////////
 			//
-			// Azure AD Configuration
+			//  TokenCredential 
 			//
-			////////////////////////////////
+			//////////////////////
 
-			AzureAdOptions azureAdOptions = new AzureAdOptions();
-
-			var settingsFilename = System.IO.Path.Combine(System.IO.Directory.GetCurrentDirectory(), "appsettings.json");
-			var builder = new ConfigurationBuilder()
-													.AddJsonFile(settingsFilename, optional: false);
-			var config = builder.Build();
-			config.Bind("AzureAd", azureAdOptions);
-
-			/////////////////////////////////////
-			//
-			// Client Application Configuration
-			//
-			/////////////////////////////////////
-
-			var options = new PublicClientApplicationOptions()
-			{
-				AadAuthorityAudience = AadAuthorityAudience.AzureAdMyOrg,
-				AzureCloudInstance = AzureCloudInstance.AzurePublic,
-				ClientId = azureAdOptions.ClientId,
-				TenantId = azureAdOptions.TenantId,
-				RedirectUri = "http://localhost"
-			};
-
-			// Create the public client application (desktop app), with a default redirect URI
-			var pca = PublicClientApplicationBuilder.CreateWithApplicationOptions(options)
-					.Build();
-
-			// Enable a simple token cache serialiation so that the user does not need to
-			// re-sign-in each time the application is run
-			TokenCacheHelper.EnableSerialization(pca.UserTokenCache);
-
-			///////////////////////////////////////////////
-			//
-			//  Auth Provider - Interactive in this sample
-			//
-			///////////////////////////////////////////////
-
-			// Use the system browser to login
-			//  https://github.com/AzureAD/microsoft-authentication-library-for-dotnet/wiki/System-Browser-on-.Net-Core#how-to-use-the-system-browser-ie-the-default-browser-of-the-os
-
-			// Create an authentication provider to attach the token to requests
-			var scopes = new string[] { "https://graph.microsoft.com/Directory.AccessAsUser.All" };
-			IAuthenticationProvider ap = new InteractiveAuthenticationProvider(pca, scopes);
-
+			var credential = new ChainedTokenCredential(
+				new SharedTokenCacheCredential(new SharedTokenCacheCredentialOptions() { TenantId = azureAdSettings.TenantId, ClientId = azureAdSettings.ClientId }),
+				new VisualStudioCredential(new VisualStudioCredentialOptions { TenantId = azureAdSettings.TenantId }),
+				new InteractiveBrowserCredential(new InteractiveBrowserCredentialOptions { TenantId = azureAdSettings.TenantId, ClientId = azureAdSettings.ClientId })
+			);
 
 			////////////////////////////////////////////////////////////////
 			//
@@ -77,8 +47,7 @@ namespace Graph.Community.Samples
 				UserAgent = "GraphGroupExtensionSample"
 			};
 
-			var graphServiceClient = CommunityGraphClientFactory.Create(clientOptions, logger, ap);
-
+			var graphServiceClient = CommunityGraphClientFactory.Create(clientOptions, logger, credential);
 
 			///////////////////////////////////////
 			//
@@ -86,23 +55,56 @@ namespace Graph.Community.Samples
 			//
 			///////////////////////////////////////
 
+			Console.WriteLine("Enter a name for the new group.");
+			var groupName = Console.ReadLine().Trim();
+
+			if (string.IsNullOrEmpty(groupName))
+			{
+				Console.WriteLine("Group name is required.");
+				return;
+			}
+
+			Console.WriteLine("Enter the UPN of a user. The User will be added as a group owner and member");
+			var userUpn = Console.ReadLine().Trim();
+			if (string.IsNullOrEmpty(userUpn))
+			{
+				Console.WriteLine("User UPN is required.");
+				return;
+			}
+
 			try
 			{
-				var u = await graphServiceClient.Users["EXISTING-USER-GUID-OR-UPN"].Request().GetAsync();
+				var scopes = new string[] { "https://graph.microsoft.com/Directory.AccessAsUser.All" };
+
+				var u = await graphServiceClient.Users[$"{userUpn}"].Request().GetAsync();
 
 				var g = new Microsoft.Graph.Group
 				{
-					DisplayName = "Graph.Community Extension Sample",
+					DisplayName = groupName,
 					MailEnabled = false,
-					MailNickname = "gce-sample",
+					MailNickname = groupName.Replace(" ","").ToLower(),
 					SecurityEnabled = true
 				};
 
+				// This extension method adds the user to the collection in the in-memory Group object
+				g.AddOwner(u.Id);
 				g.AddMember(u.Id);
 				g = await graphServiceClient.Groups.Request().AddAsync(g);
 
 				Console.WriteLine($"Group: {g.DisplayName} ({g.Id})");
 
+
+				Console.WriteLine("Press enter to remove the user");
+				Console.ReadLine();
+
+				// Cannot remove last owner of a group, so commented
+				//await graphServiceClient.Groups[g.Id].Owners.Request().RemoveAsync(u.Id);
+				await graphServiceClient.Groups[g.Id].Members.Request().RemoveAsync(u.Id);
+
+				Console.WriteLine("Press enter to delete the group");
+				Console.ReadLine();
+
+				await graphServiceClient.Groups[g.Id].Request().DeleteAsync();
 			}
 			catch (Exception ex)
 			{
