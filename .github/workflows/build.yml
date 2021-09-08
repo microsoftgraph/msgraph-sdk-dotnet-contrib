@@ -6,6 +6,7 @@ on:
     branches:
       - prerelease
       - master
+      - graph-v3
   pull_request:
     branches:
       - master

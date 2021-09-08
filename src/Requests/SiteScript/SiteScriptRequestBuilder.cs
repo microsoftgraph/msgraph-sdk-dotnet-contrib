@@ -1,7 +1,5 @@
 using Microsoft.Graph;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Graph.Community
 {
@@ -9,7 +7,6 @@ namespace Graph.Community
   {
     private IEnumerable<Option> options;
 
-#pragma warning disable CA1054 // URI parameters should not be strings
     public SiteScriptRequestBuilder(
         string requestUrl,
         IBaseClient client,
@@ -18,7 +15,6 @@ namespace Graph.Community
     {
       this.options = options;
     }
-#pragma warning restore CA1054 // URI parameters should not be strings
 
     /// <summary>
     /// Builds the request.
@@ -37,28 +33,6 @@ namespace Graph.Community
     public ISiteScriptRequest Request(IEnumerable<Option> options)
     {
       return new SiteScriptRequest(this.RequestUrl, this.Client, options);
-    }
-
-    /// <summary>
-    /// Gets an <see cref="ISiteDesignCollectionRequestBuilder"/> for the specified SiteDesign.
-    /// </summary>
-    /// <param name="id">The ID for the SiteDesign.</param>
-    /// <returns>The <see cref="ISiteDesignCollectionRequestBuilder"/>.</returns>
-    public ISiteScriptRequestBuilder this[string id]
-    {
-      get
-      {
-        if (id == null)
-        {
-          throw new ArgumentNullException(nameof(id));
-        }
-
-#pragma warning disable CA1305 //Specify IFormatProvider
-        List<QueryOption> options = new List<QueryOption>() { new QueryOption("id", id.ToString()) };
-#pragma warning restore CA1305 //Specify IFormatProvider
-
-        return new SiteScriptRequestBuilder(this.RequestUrl, this.Client, options);
-      }
     }
   }
 }

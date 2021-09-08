@@ -20,5 +20,8 @@ namespace Graph.Community
 
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "Content", Required = Newtonsoft.Json.Required.Default)]
     public string Content { get; set; }
+
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "IsSiteScriptPackage", Required = Newtonsoft.Json.Required.Default)]
+    public bool IsSiteScriptPackage { get; set; }
   }
 }

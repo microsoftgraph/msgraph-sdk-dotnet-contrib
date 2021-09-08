@@ -7,13 +7,17 @@ namespace Graph.Community
 {
   public interface ISiteScriptRequestBuilder : IBaseRequestBuilder
   {
+    /// <summary>
+    /// Builds the request.
+    /// </summary>
+    /// <returns>The built request.</returns>
     ISiteScriptRequest Request();
 
     /// <summary>
-    /// Gets a <see cref="ISiteScriptRequestBuilder"/> for the specified Site Script.
+    /// Builds the request.
     /// </summary>
-    /// <param name="id">The ID for the Site Script.</param>
-    /// <returns>The <see cref="ISiteScriptRequestBuilder"/>.</returns>
-    ISiteScriptRequestBuilder this[string id] { get; }
+    /// <param name="options">The query and header options for the request.</param>
+    /// <returns>The built request.</returns>
+    ISiteScriptRequest Request(IEnumerable<Option> options);
   }
 }

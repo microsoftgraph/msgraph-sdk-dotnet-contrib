@@ -1,31 +1,30 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Text.Json.Serialization;
 
 namespace Graph.Community
 {
   public class SiteDesignRequestInfo
   {
-    [JsonPropertyName("Title")]
+    [JsonProperty("Title", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
     public string Title { get; set; }
 
-    [JsonPropertyName("Description")]
+    [JsonProperty("Description", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
     public string Description { get; set; }
 
-    [JsonPropertyName("SiteScriptIds")]
+    [JsonProperty("SiteScriptIds", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
     public List<Guid> SiteScriptIds { get; set; }
 
-    [JsonPropertyName("WebTemplate")]
+    [JsonProperty("WebTemplate", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
     public string WebTemplate { get; set; }
 
-    [JsonPropertyName("PreviewImageUrl")]
+    [JsonProperty("PreviewImageUrl", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
     public string PreviewImageUrl { get; set; }
 
-    [JsonPropertyName("PreviewImageAltText")]
+    [JsonProperty("PreviewImageAltText", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
     public string PreviewImageAltText { get; set; }
 
-    [JsonPropertyName("ThumbnailUrl")]
+    [JsonProperty("ThumbnailUrl", NullValueHandling = NullValueHandling.Ignore, DefaultValueHandling = DefaultValueHandling.Ignore)]
     public string ThumbnailUrl { get; set; }
 
   }

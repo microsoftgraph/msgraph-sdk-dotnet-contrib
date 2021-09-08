@@ -5,11 +5,11 @@ using System.Text;
 
 namespace Graph.Community
 {
-  public class SiteDesignCollectionRequestBuilder : BaseRequestBuilder, ISiteDesignCollectionRequestBuilder
+  public class SiteScriptCollectionRequestBuilder : BaseRequestBuilder, ISiteScriptCollectionRequestBuilder
   {
     private IEnumerable<Option> options;
 
-    public SiteDesignCollectionRequestBuilder(
+    public SiteScriptCollectionRequestBuilder(
         string requestUrl,
         IBaseClient client,
         IEnumerable<Option> options = null)
@@ -22,7 +22,7 @@ namespace Graph.Community
     /// Builds the request.
     /// </summary>
     /// <returns>The built request.</returns>
-    public ISiteDesignCollectionRequest Request()
+    public ISiteScriptCollectionRequest Request()
     {
       return this.Request(this.options);
     }
@@ -32,17 +32,17 @@ namespace Graph.Community
     /// </summary>
     /// <param name="options">The query and header options for the request.</param>
     /// <returns>The built request.</returns>
-    public ISiteDesignCollectionRequest Request(IEnumerable<Option> options)
+    public ISiteScriptCollectionRequest Request(IEnumerable<Option> options)
     {
-      return new SiteDesignCollectionRequest(this.RequestUrl, this.Client, options);
+      return new SiteScriptCollectionRequest(this.RequestUrl, this.Client, options);
     }
 
     /// <summary>
-    /// Gets an <see cref="ISiteDesignRequestBuilder"/> for the specified SiteDesign.
+    /// Gets an <see cref="ISiteScriptRequestBuilder"/> for the specified SiteScript.
     /// </summary>
-    /// <param name="id">The ID for the SiteDesign.</param>
-    /// <returns>The <see cref="ISiteDesignRequestBuilder"/>.</returns>
-    public ISiteDesignRequestBuilder this[string id]
+    /// <param name="id">The ID for the SiteScript.</param>
+    /// <returns>The <see cref="ISiteScriptRequestBuilder"/>.</returns>
+    public ISiteScriptRequestBuilder this[string id]
     {
       get
       {
@@ -53,9 +53,8 @@ namespace Graph.Community
 
         List<QueryOption> options = new List<QueryOption>() { new QueryOption("id", id.ToString()) };
 
-        return new SiteDesignRequestBuilder(this.RequestUrl, this.Client, options);
+        return new SiteScriptRequestBuilder(this.RequestUrl, this.Client, options);
       }
     }
-
   }
 }

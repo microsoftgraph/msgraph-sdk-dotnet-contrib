@@ -6,13 +6,11 @@ namespace Graph.Community
 {
   public interface ISiteScriptRequest : IBaseRequest
   {
+    Task<SiteScriptMetadata> GetAsync();
+    Task<SiteScriptMetadata> GetAsync(CancellationToken cancellationToken);
 
-    Task<ICollectionPage<SiteScriptMetadata>> GetAsync();
-    Task<ICollectionPage<SiteScriptMetadata>> GetAsync(CancellationToken cancellationToken);
-
-    //	"/_api/Microsoft.Sharepoint.Utilities.WebTemplateExtensions.SiteScriptUtility.CreateSiteScript
-    Task<SiteScriptMetadata> CreateAsync(SiteScriptMetadata siteScriptMetadata);
-    Task<SiteScriptMetadata> CreateAsync(SiteScriptMetadata siteScriptMetadata, CancellationToken cancellationToken);
+    Task<SiteScriptMetadata> UpdateAsync(SiteScriptMetadata updatedSiteScriptMetadata);
+    Task<SiteScriptMetadata> UpdateAsync(SiteScriptMetadata updatedSiteScriptMetadata, CancellationToken cancellationToken);
 
   }
 }

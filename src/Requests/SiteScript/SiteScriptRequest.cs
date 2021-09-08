@@ -8,99 +8,104 @@ using System.Web;
 
 namespace Graph.Community
 {
-  public class SiteScriptRequest : BaseSharePointAPIRequest, ISiteScriptRequest
-  {
-#pragma warning disable CA1054 // URI parameters should not be strings
-    public SiteScriptRequest(
-      string requestUrl,
-      IBaseClient client,
-      IEnumerable<Option> options)
-      : base("SiteScript", requestUrl, client, options)
-    {
-      this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.AcceptHeaderName, SharePointAPIRequestConstants.Headers.AcceptHeaderValue));
-      this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName, SharePointAPIRequestConstants.Headers.ODataVersionHeaderValue));
-      this.Method = System.Net.Http.HttpMethod.Post.Method;
-    }
-#pragma warning restore CA1054 // URI parameters should not be strings
+	public class SiteScriptRequest : BaseSharePointAPIRequest, ISiteScriptRequest
+	{
+		public SiteScriptRequest(
+			string requestUrl,
+			IBaseClient client,
+			IEnumerable<Option> options)
+			: base("SiteScript", requestUrl, client, options)
+		{
+			this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.AcceptHeaderName, SharePointAPIRequestConstants.Headers.AcceptHeaderValue));
+			this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName, SharePointAPIRequestConstants.Headers.ODataVersionHeaderValue));
+			this.Method = System.Net.Http.HttpMethod.Post.Method;
+		}
 
-    #region Get
 
-    public Task<ICollectionPage<SiteScriptMetadata>> GetAsync()
-    {
-      return this.GetAsync(CancellationToken.None);
-    }
+		#region Get
 
-    public async Task<ICollectionPage<SiteScriptMetadata>> GetAsync(CancellationToken cancellationToken)
-    {
-      GetSiteScriptCollectionResponse response = new GetSiteScriptCollectionResponse();
+		public Task<SiteScriptMetadata> GetAsync()
+		{
+			return this.GetAsync(CancellationToken.None);
+		}
 
-      if (this.QueryOptions.Any(o => o.Name.Equals("id", StringComparison.InvariantCultureIgnoreCase)))
-      {
+		public async Task<SiteScriptMetadata> GetAsync(CancellationToken cancellationToken)
+		{
+			// the usual model is to append the id to the query
+			// Site Scripts require the id in the request body, so grab it from options 
 
-        // TODO: Create separate requests for Metadata and Collection of metadata
+			var idOption = this.QueryOptions.First(o => o.Name.Equals("id", StringComparison.InvariantCultureIgnoreCase));
+			if (idOption == null)
+			{
+				throw new ArgumentNullException("Id");
+			}
 
-        var idOption = this.QueryOptions.First(o => o.Name.Equals("id", StringComparison.InvariantCultureIgnoreCase));
-        var request = new { id = idOption.Value };
-        this.QueryOptions.Remove(idOption);
+			var builderId = idOption.Value;
+			if (string.IsNullOrEmpty(builderId))
+			{
+				throw new ArgumentNullException("Id");
+			}
 
-        this.AppendSegmentToRequestUrl("Microsoft.Sharepoint.Utilities.WebTemplateExtensions.SiteScriptUtility.GetSiteScriptMetadata");
-        this.ContentType = "application/json";
-        var entity = await this.SendAsync<SiteScriptMetadata>(request, cancellationToken).ConfigureAwait(false);
+			this.QueryOptions.Remove(idOption);
 
-        response.Value.Add(entity);
-      }
-      else
-      {
-        this.AppendSegmentToRequestUrl("Microsoft.Sharepoint.Utilities.WebTemplateExtensions.SiteScriptUtility.GetSiteScripts");
+			// create the object that must be posted 
+			var request = new { id = idOption.Value };
 
-        // TODO: use GetCollectionResponse<SiteDesignMetadata>>
-        response = await this.SendAsync<GetSiteScriptCollectionResponse>(null, cancellationToken).ConfigureAwait(false);
-      }
+			// still need to update the url, just not with the Id
+			this.AppendSegmentToRequestUrl("Microsoft.Sharepoint.Utilities.WebTemplateExtensions.SiteScriptUtility.GetSiteScriptMetadata");
 
-      if (response != null && response.Value != null && response.Value.CurrentPage != null)
-      {
-        return response.Value;
-      }
+			this.ContentType = "application/json";
+			var entity = await this.SendAsync<SiteScriptMetadata>(request, cancellationToken).ConfigureAwait(false);
 
-      return null;
-    }
+			return entity;
+		}
 
-    #endregion
+		#endregion
 
-    #region Create
+		#region Update
 
-    public Task<SiteScriptMetadata> CreateAsync(SiteScriptMetadata siteScriptMetadata)
-    {
-      return this.CreateAsync(siteScriptMetadata, CancellationToken.None);
-    }
+		public Task<SiteScriptMetadata> UpdateAsync(SiteScriptMetadata siteScriptMetadata)
+		{
+			return this.UpdateAsync(siteScriptMetadata, CancellationToken.None);
+		}
 
-    public async Task<SiteScriptMetadata> CreateAsync(SiteScriptMetadata siteScriptMetadata, CancellationToken cancellationToken)
-    {
-      if (siteScriptMetadata == null)
-      {
-        throw new ArgumentNullException(nameof(siteScriptMetadata));
-      }
+		public async Task<SiteScriptMetadata> UpdateAsync(SiteScriptMetadata siteScriptMetadata, CancellationToken cancellationToken)
+		{
+			if (siteScriptMetadata == null)
+			{
+				throw new ArgumentNullException(nameof(siteScriptMetadata));
+			}
+			
+			// the usual model is to append the id to the query
+			// Site Designs require the id in the request body, so grab it from options 
 
-      if (string.IsNullOrEmpty(siteScriptMetadata.Title))
-      {
-#pragma warning disable CA1303 // Do not pass literals as localized parameters
-#pragma warning disable CA2208 // Instantiate argument exceptions correctly
-        throw new ArgumentOutOfRangeException(paramName: nameof(siteScriptMetadata.Title), message: "Title must be provided");
-#pragma warning restore CA2208 // Instantiate argument exceptions correctly
-#pragma warning restore CA1303 // Do not pass literals as localized parameters
-      }
+			var idOption = this.QueryOptions.FirstOrDefault(o => o.Name.Equals("id", StringComparison.InvariantCultureIgnoreCase));
+			if (idOption == null)
+			{
+				throw new ArgumentNullException("Id");
+			}
 
-      var title = HttpUtility.UrlEncode(siteScriptMetadata.Title);
-      var desc = HttpUtility.UrlEncode(siteScriptMetadata.Description ?? string.Empty);
+			// if the id used in the request builder differs from what they passed to the method, throw
+			var builderId = idOption.Value;
+			if (!string.IsNullOrEmpty(siteScriptMetadata.Id) && builderId != siteScriptMetadata.Id)
+			{
+				throw new ArgumentOutOfRangeException("Id", "The id passed as part of the metadata does not match the id in the request builder");
+			}
 
-      var segment = $"Microsoft.Sharepoint.Utilities.WebTemplateExtensions.SiteScriptUtility.CreateSiteScript(Title=@title,Description=@description)?@title='{title}'&@description='{desc}'";
-      this.AppendSegmentToRequestUrl(segment);
+			this.QueryOptions.Remove(idOption);
 
-      this.ContentType = "application/json";
-      var newEntity = await this.SendAsync<SiteScriptMetadata>(siteScriptMetadata.Content, cancellationToken).ConfigureAwait(false);
-      return newEntity;
-    }
+			// create the object that must be posted 
+			var request = new UpdateSiteScriptRequest(builderId, siteScriptMetadata);
 
-    #endregion
-  }
+			// still need to update the url, just not with the Id
+			this.AppendSegmentToRequestUrl("Microsoft.Sharepoint.Utilities.WebTemplateExtensions.SiteScriptUtility.UpdateSiteScript");
+
+			this.ContentType = "application/json";
+			var entity = await this.SendAsync<SiteScriptMetadata>(siteScriptMetadata.Content, cancellationToken).ConfigureAwait(false);
+
+			return entity;
+		}
+
+		#endregion
+	}
 }

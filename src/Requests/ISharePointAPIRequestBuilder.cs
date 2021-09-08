@@ -8,7 +8,7 @@ namespace Graph.Community
 
     ISiteDesignRunRequestBuilder SiteDesignRuns { get; }
 
-    ISiteScriptRequestBuilder SiteScripts { get; }
+    ISiteScriptCollectionRequestBuilder SiteScripts { get; }
 
     ISiteRequestBuilder Site { get; }
 

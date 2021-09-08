@@ -31,11 +31,11 @@ namespace Graph.Community
       }
     }
 
-    public ISiteScriptRequestBuilder SiteScripts
+    public ISiteScriptCollectionRequestBuilder SiteScripts
     {
       get
       {
-        return new SiteScriptRequestBuilder(this.AppendSegmentToRequestUrl("_api"), this.Client);
+        return new SiteScriptCollectionRequestBuilder(this.AppendSegmentToRequestUrl("_api"), this.Client);
       }
     }
     public Graph.Community.ISiteRequestBuilder Site

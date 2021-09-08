@@ -33,7 +33,18 @@ namespace Graph.Community
 			// the usual model is to append the id to the query
 			// Site Designs require the id in the request body, so grab it from options 
 
-			var idOption = this.QueryOptions.First(o => o.Name.Equals("id", StringComparison.InvariantCultureIgnoreCase));
+			var idOption = this.QueryOptions.FirstOrDefault(o => o.Name.Equals("id", StringComparison.InvariantCultureIgnoreCase));
+			if (idOption == null)
+			{
+				throw new ArgumentNullException("Id");
+			}
+
+			var builderId = idOption.Value;
+			if (string.IsNullOrEmpty(builderId))
+			{
+				throw new ArgumentNullException("Id");
+			}
+
 			this.QueryOptions.Remove(idOption);
 
 			// create the object that must be posted 
