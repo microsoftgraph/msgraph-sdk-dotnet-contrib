@@ -15,11 +15,11 @@ namespace Graph.Community
     {
     }
 
-    public ISiteDesignRequestBuilder SiteDesigns
+    public ISiteDesignCollectionRequestBuilder SiteDesigns
     {
       get
       {
-        return new SiteDesignRequestBuilder(this.AppendSegmentToRequestUrl("_api"), this.Client);
+        return new SiteDesignCollectionRequestBuilder(this.AppendSegmentToRequestUrl("_api"), this.Client);
       }
     }
 

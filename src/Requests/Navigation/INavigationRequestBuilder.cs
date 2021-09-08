@@ -16,7 +16,7 @@ namespace Graph.Community
     /// Gets a <see cref="INavigationNodeCollectionRequestBuilder"/> for the specified Site Design.
     /// </summary>
     /// <param name="id">The ID for the NavigationNode.</param>
-    /// <returns>The <see cref="ISiteDesignRequestBuilder"/>.</returns>
+    /// <returns>The <see cref="ISiteDesignCollectionRequestBuilder"/>.</returns>
     INavigationNodeRequestBuilder this[int id] { get; }
   }
 }

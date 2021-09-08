@@ -7,126 +7,88 @@ using System.Threading.Tasks;
 
 namespace Graph.Community
 {
-  public class SiteDesignRequest : BaseSharePointAPIRequest, ISiteDesignRequest
-  {
-    //_api/Microsoft.Sharepoint.Utilities.WebTemplateExtensions.SiteScriptUtility.CreateSiteDesign
-    //_api/Microsoft.Sharepoint.Utilities.WebTemplateExtensions.SiteScriptUtility.UpdateSiteDesign
+	public class SiteDesignRequest : BaseSharePointAPIRequest, ISiteDesignRequest
+	{
+		//_api/Microsoft.Sharepoint.Utilities.WebTemplateExtensions.SiteScriptUtility.CreateSiteDesign
+		//_api/Microsoft.Sharepoint.Utilities.WebTemplateExtensions.SiteScriptUtility.UpdateSiteDesign
 
-#pragma warning disable CA1054 // URI parameters should not be strings
-    public SiteDesignRequest(
-      string requestUrl,
-      IBaseClient client,
-      IEnumerable<Option> options)
-      : base("SiteDesign", requestUrl, client, options)
-    {
-      this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.AcceptHeaderName, SharePointAPIRequestConstants.Headers.AcceptHeaderValue));
-      this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName, SharePointAPIRequestConstants.Headers.ODataVersionHeaderValue));
-      this.Method = System.Net.Http.HttpMethod.Post.Method;
-    }
-#pragma warning restore CA1054 // URI parameters should not be strings
+		public SiteDesignRequest(
+			string requestUrl,
+			IBaseClient client,
+			IEnumerable<Option> options)
+			: base("SiteDesign", requestUrl, client, options)
+		{
+			this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.AcceptHeaderName, SharePointAPIRequestConstants.Headers.AcceptHeaderValue));
+			this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName, SharePointAPIRequestConstants.Headers.ODataVersionHeaderValue));
+			this.Method = System.Net.Http.HttpMethod.Post.Method;
+		}
 
-    #region Get
+		public Task<SiteDesignMetadata> GetAsync()
+		{
+			return this.GetAsync(CancellationToken.None);
+		}
 
-    public Task<ICollectionPage<SiteDesignMetadata>> GetAsync()
-    {
-      return this.GetAsync(CancellationToken.None);
-    }
+		public async Task<SiteDesignMetadata> GetAsync(CancellationToken cancellationToken)
+		{
+			// the usual model is to append the id to the query
+			// Site Designs require the id in the request body, so grab it from options 
 
-    public async Task<ICollectionPage<SiteDesignMetadata>> GetAsync(CancellationToken cancellationToken)
-    {
-      GetSiteDesignCollectionResponse response = new GetSiteDesignCollectionResponse();
+			var idOption = this.QueryOptions.First(o => o.Name.Equals("id", StringComparison.InvariantCultureIgnoreCase));
+			this.QueryOptions.Remove(idOption);
 
-      if (this.QueryOptions.Any(o => o.Name.Equals("id", StringComparison.InvariantCultureIgnoreCase)))
-      {
+			// create the object that must be posted 
+			var request = new { id = idOption.Value };
 
-        // TODO: Create separate requests for Metadata and Collection of metadata
+			// still need to update the url, just not with the Id
+			this.AppendSegmentToRequestUrl("Microsoft.Sharepoint.Utilities.WebTemplateExtensions.SiteScriptUtility.GetSiteDesignMetadata");
 
-        var idOption = this.QueryOptions.First(o => o.Name.Equals("id", StringComparison.InvariantCultureIgnoreCase));
-        var request = new { id = idOption.Value };
-        this.QueryOptions.Remove(idOption);
+			this.ContentType = "application/json";
+			var entity = await this.SendAsync<SiteDesignMetadata>(request, cancellationToken).ConfigureAwait(false);
 
-        this.AppendSegmentToRequestUrl("Microsoft.Sharepoint.Utilities.WebTemplateExtensions.SiteScriptUtility.GetSiteDesignMetadata");
-        this.ContentType = "application/json";
-        var entity = await this.SendAsync<SiteDesignMetadata>(request, cancellationToken).ConfigureAwait(false);
+			return entity;
+		}
 
-        response.Value.Add(entity);
-      }
-      else
-      {
-        this.AppendSegmentToRequestUrl("Microsoft.Sharepoint.Utilities.WebTemplateExtensions.SiteScriptUtility.GetSiteDesigns");
+		public Task<SiteDesignMetadata> UpdateAsync(SiteDesignMetadata siteDesignMetadata)
+		{
+			return this.UpdateAsync(siteDesignMetadata, CancellationToken.None);
+		}
 
-        // TODO: use GetCollectionResponse<SiteDesignMetadata>>
-        response = await this.SendAsync<GetSiteDesignCollectionResponse>(null, cancellationToken).ConfigureAwait(false);
-      }
+		public async Task<SiteDesignMetadata> UpdateAsync(SiteDesignMetadata siteDesignMetadata, CancellationToken cancellationToken)
+		{
+			if (siteDesignMetadata is null)
+			{
+				throw new ArgumentNullException(nameof(siteDesignMetadata));
+			}
 
-      if (response != null && response.Value != null && response.Value.CurrentPage != null)
-      {
-        return response.Value;
-      }
+			// the usual model is to append the id to the query
+			// Site Designs require the id in the request body, so grab it from options 
 
-      return null;
-    }
+			var idOption = this.QueryOptions.FirstOrDefault(o => o.Name.Equals("id", StringComparison.InvariantCultureIgnoreCase));
+			if (idOption == null)
+			{
+				throw new ArgumentNullException("Id");
+			}
 
-    #endregion
+			// if the id used in the request builder differs from what they passed to the method, throw
+			var builderId = idOption.Value;
+			if (!string.IsNullOrEmpty(siteDesignMetadata.Id) && builderId != siteDesignMetadata.Id)
+			{
+				throw new ArgumentOutOfRangeException("Id", "The id passed as part of the metadata does not match the id in the request builder");
+			}
 
-    #region Create
+			this.QueryOptions.Remove(idOption);
 
-    public Task<SiteDesignMetadata> CreateAsync(SiteDesignMetadata siteDesignMetadata)
-    {
-      return this.CreateAsync(siteDesignMetadata, CancellationToken.None);
-    }
+			// create the object that must be posted 
+			var request = new UpdateSiteDesignRequest(builderId, siteDesignMetadata);
 
-    public async Task<SiteDesignMetadata> CreateAsync(SiteDesignMetadata siteDesignMetadata, CancellationToken cancellationToken)
-    {
-      if (siteDesignMetadata == null)
-      {
-        throw new ArgumentNullException(nameof(siteDesignMetadata));
-      }
+			// still need to update the url, just not with the Id
+			this.AppendSegmentToRequestUrl("Microsoft.Sharepoint.Utilities.WebTemplateExtensions.SiteScriptUtility.UpdateSiteDesign");
 
-#pragma warning disable CA1303 // Do not pass literals as localized parameters
-#pragma warning disable CA2208 // Instantiate argument exceptions correctly
+			this.ContentType = "application/json";
+			var entity = await this.SendAsync<SiteDesignMetadata>(request, cancellationToken).ConfigureAwait(false);
 
-      if (string.IsNullOrEmpty(siteDesignMetadata.Title))
-      {
-        throw new ArgumentException(paramName: nameof(siteDesignMetadata.Title), message: "Title must be provided");
-      }
-      if (siteDesignMetadata.SiteScriptIds == null ||
-          siteDesignMetadata.SiteScriptIds.Count == 0)
-      {
-        throw new ArgumentException(paramName: nameof(siteDesignMetadata.SiteScriptIds), message: "Site Script Id(s) must be provided");
-      }
-      if (string.IsNullOrEmpty(siteDesignMetadata.WebTemplate))
-      {
-        throw new ArgumentException(paramName: nameof(siteDesignMetadata.WebTemplate), message: "Web Template must be provided");
-      }
+			return entity;
+		}
 
-#pragma warning restore CA2208 // Instantiate argument exceptions correctly
-#pragma warning restore CA1303 // Do not pass literals as localized parameters
-
-
-      this.AppendSegmentToRequestUrl("Microsoft.Sharepoint.Utilities.WebTemplateExtensions.SiteScriptUtility.CreateSiteDesign");
-      this.ContentType = "application/json";
-      var requestData = new CreateSiteDesignRequest(siteDesignMetadata);
-      var newEntity = await this.SendAsync<SiteDesignMetadata>(requestData, cancellationToken).ConfigureAwait(false);
-      return newEntity;
-    }
-
-    #endregion
-
-    #region ApplySiteDesign
-
-    public Task<ApplySiteDesignResponse> ApplyAsync(ApplySiteDesignRequest site)
-    {
-      return this.ApplyAsync(site, CancellationToken.None);
-    }
-
-    public Task<ApplySiteDesignResponse> ApplyAsync(ApplySiteDesignRequest siteDesign, CancellationToken cancellationToken)
-    {
-      this.AppendSegmentToRequestUrl("Microsoft.Sharepoint.Utilities.WebTemplateExtensions.SiteScriptUtility.ApplySiteDesign");
-      this.ContentType = "application/json";
-      return this.SendAsync<ApplySiteDesignResponse>(siteDesign, cancellationToken);
-    }
-
-    #endregion
-  }
+	}
 }

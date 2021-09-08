@@ -4,7 +4,7 @@ namespace Graph.Community
 {
   public interface ISharePointAPIRequestBuilder : IBaseRequestBuilder
   {
-    ISiteDesignRequestBuilder SiteDesigns { get; }
+    ISiteDesignCollectionRequestBuilder SiteDesigns { get; }
 
     ISiteDesignRunRequestBuilder SiteDesignRuns { get; }
 

@@ -5,12 +5,11 @@ using System.Text;
 
 namespace Graph.Community
 {
-  public class SiteScriptRequestBuilder : BaseRequestBuilder, ISiteScriptRequestBuilder
+  public class SiteDesignCollectionRequestBuilder : BaseRequestBuilder, ISiteDesignCollectionRequestBuilder
   {
     private IEnumerable<Option> options;
 
-#pragma warning disable CA1054 // URI parameters should not be strings
-    public SiteScriptRequestBuilder(
+    public SiteDesignCollectionRequestBuilder(
         string requestUrl,
         IBaseClient client,
         IEnumerable<Option> options = null)
@@ -18,13 +17,12 @@ namespace Graph.Community
     {
       this.options = options;
     }
-#pragma warning restore CA1054 // URI parameters should not be strings
 
     /// <summary>
     /// Builds the request.
     /// </summary>
     /// <returns>The built request.</returns>
-    public ISiteScriptRequest Request()
+    public ISiteDesignCollectionRequest Request()
     {
       return this.Request(this.options);
     }
@@ -34,9 +32,9 @@ namespace Graph.Community
     /// </summary>
     /// <param name="options">The query and header options for the request.</param>
     /// <returns>The built request.</returns>
-    public ISiteScriptRequest Request(IEnumerable<Option> options)
+    public ISiteDesignCollectionRequest Request(IEnumerable<Option> options)
     {
-      return new SiteScriptRequest(this.RequestUrl, this.Client, options);
+      return new SiteDesignCollectionRequest(this.RequestUrl, this.Client, options);
     }
 
     /// <summary>
@@ -44,7 +42,7 @@ namespace Graph.Community
     /// </summary>
     /// <param name="id">The ID for the SiteDesign.</param>
     /// <returns>The <see cref="ISiteDesignCollectionRequestBuilder"/>.</returns>
-    public ISiteScriptRequestBuilder this[string id]
+    public ISiteDesignRequestBuilder this[string id]
     {
       get
       {
@@ -53,12 +51,12 @@ namespace Graph.Community
           throw new ArgumentNullException(nameof(id));
         }
 
-#pragma warning disable CA1305 //Specify IFormatProvider
         List<QueryOption> options = new List<QueryOption>() { new QueryOption("id", id.ToString()) };
-#pragma warning restore CA1305 //Specify IFormatProvider
 
-        return new SiteScriptRequestBuilder(this.RequestUrl, this.Client, options);
+
+        return new SiteDesignRequestBuilder(this.RequestUrl, this.Client, options);
       }
     }
+
   }
 }

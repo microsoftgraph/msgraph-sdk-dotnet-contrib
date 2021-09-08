@@ -1,10 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Graph.Community
 {
-public   interface ISiteGroupRequest
-  {
-  }
+  public interface ISiteGroupRequest
+	{
+		Task<Group> GetAsync();
+		Task<Group> GetAsync(CancellationToken cancellationToken);
+	}
 }
