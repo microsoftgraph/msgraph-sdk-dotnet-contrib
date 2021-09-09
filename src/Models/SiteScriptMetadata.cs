@@ -12,16 +12,16 @@ namespace Graph.Community
     /// <summary>
     /// The display name of the site script.
     /// </summary>
-    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "Title", Required = Newtonsoft.Json.Required.Default)]
+    [JsonProperty("Title", NullValueHandling = NullValueHandling.Ignore)]
     public string Title { get; set; }
 
-    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "Version", Required = Newtonsoft.Json.Required.Default)]
+    [JsonProperty("Version", DefaultValueHandling = DefaultValueHandling.Ignore)]
     public int Version { get; set; }
 
-    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "Content", Required = Newtonsoft.Json.Required.Default)]
+    [JsonProperty("Content", NullValueHandling = NullValueHandling.Ignore)]
     public string Content { get; set; }
 
-    [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "IsSiteScriptPackage", Required = Newtonsoft.Json.Required.Default)]
+    [JsonProperty("IsSiteScriptPackage", DefaultValueHandling = DefaultValueHandling.Ignore)]
     public bool IsSiteScriptPackage { get; set; }
   }
 }

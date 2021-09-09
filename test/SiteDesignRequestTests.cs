@@ -135,6 +135,7 @@ namespace Graph.Community.Test
         Assert.False(actual.IsDefault);
         Assert.Equal("mockPreviewImageAltText", actual.PreviewImageAltText);
         Assert.Equal("mockPreviewImageUrl", actual.PreviewImageUrl);
+        Assert.Equal("mockThumbnailUrl", actual.ThumbnailUrl);
         Assert.Equal("64", actual.WebTemplate);
         Assert.Equal(2, actual.SiteScriptIds.Count);
         Assert.Equal(new Guid("ebb4bcd6-1c19-47fc-9910-fb618d2d3c13"), actual.SiteScriptIds[1]);
@@ -312,7 +313,7 @@ namespace Graph.Community.Test
 
 
     [Fact]
-    public async Task UpdateSiteDesign_ReturnsCorrectResponse()
+    public async Task Update_ReturnsCorrectResponse()
     {
       // ARRANGE
       var mockSiteDesignId = "mockSiteDesignId";

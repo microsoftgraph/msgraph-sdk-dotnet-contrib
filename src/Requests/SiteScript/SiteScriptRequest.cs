@@ -101,7 +101,7 @@ namespace Graph.Community
 			this.AppendSegmentToRequestUrl("Microsoft.Sharepoint.Utilities.WebTemplateExtensions.SiteScriptUtility.UpdateSiteScript");
 
 			this.ContentType = "application/json";
-			var entity = await this.SendAsync<SiteScriptMetadata>(siteScriptMetadata.Content, cancellationToken).ConfigureAwait(false);
+			var entity = await this.SendAsync<SiteScriptMetadata>(request, cancellationToken).ConfigureAwait(false);
 
 			return entity;
 		}

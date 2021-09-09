@@ -6,25 +6,30 @@ using System.Text;
 
 namespace Graph.Community
 {
-#pragma warning disable CA1056 // Uri properties should not be strings
-#pragma warning disable CA2227 // Collection properties should be read only
-
   public class SiteDesignMetadata : BaseItem
   {
     [JsonProperty(PropertyName = "DesignPackageId", NullValueHandling = NullValueHandling.Ignore)]
     public Guid DesignPackageId { get; set; }
 
+    [JsonProperty(PropertyName = "DesignType", NullValueHandling = NullValueHandling.Ignore)]
     public string DesignType { get; set; }
 
     /// <summary>
     /// (Optional) True if the site design is applied as the default site design; otherwise, false. For more information see Customize a default site design.
     /// </summary>
-    [JsonProperty(PropertyName = "IsDefault", NullValueHandling = NullValueHandling.Ignore)]
+    [JsonProperty(PropertyName = "IsDefault", DefaultValueHandling = DefaultValueHandling.Ignore)]
     public bool IsDefault { get; set; }
 
+    [JsonProperty(PropertyName = "IsOutOfBoxTemplate", DefaultValueHandling = DefaultValueHandling.Ignore)]
     public bool IsOutOfBoxTemplate { get; set; }
+
+    [JsonProperty(PropertyName = "IsTenantAdminOnly", DefaultValueHandling = DefaultValueHandling.Ignore)]
     public bool IsTenantAdminOnly { get; set; }
+
+    [JsonProperty(PropertyName = "ListColor", NullValueHandling = NullValueHandling.Ignore)]
     public string ListColor { get; set; }
+
+    [JsonProperty(PropertyName = "ListIcon", NullValueHandling = NullValueHandling.Ignore)]
     public string ListIcon { get; set; }
 
 
@@ -40,8 +45,13 @@ namespace Graph.Community
     [JsonProperty(PropertyName = "PreviewImageUrl", NullValueHandling = NullValueHandling.Ignore)]
     public string PreviewImageUrl { get; set; }
 
+    [JsonProperty(PropertyName = "RequiresGroupConnected", DefaultValueHandling = DefaultValueHandling.Ignore)]
     public bool RequiresGroupConnected { get; set; }
+
+    [JsonProperty(PropertyName = "RequiresTeamsConnected", DefaultValueHandling = DefaultValueHandling.Ignore)]
     public bool RequiresTeamsConnected { get; set; }
+
+    [JsonProperty(PropertyName = "RequiresYammerConnected", DefaultValueHandling = DefaultValueHandling.Ignore)]
     public bool RequiresYammerConnected { get; set; }
 
     /// <summary>
@@ -50,8 +60,13 @@ namespace Graph.Community
     [JsonProperty(PropertyName = "SiteScriptIds", NullValueHandling = NullValueHandling.Ignore)]
     public List<Guid> SiteScriptIds { get; set; }
 
+    [JsonProperty(PropertyName = "SupportedWebTemplates", NullValueHandling = NullValueHandling.Ignore)]
     public string[] SupportedWebTemplates { get; set; }
+
+    [JsonProperty(PropertyName = "TemplateFeatures", NullValueHandling = NullValueHandling.Ignore)]
     public string[] TemplateFeatures { get; set; }
+
+    [JsonProperty(PropertyName = "ThumbnailUrl", NullValueHandling = NullValueHandling.Ignore)]
     public string ThumbnailUrl { get; set; }
 
     /// <summary>
@@ -66,12 +81,10 @@ namespace Graph.Community
     [JsonProperty(PropertyName = "WebTemplate", NullValueHandling = NullValueHandling.Ignore)]
     public string WebTemplate { get; set; }
 
+    [JsonProperty(PropertyName = "Order", NullValueHandling = NullValueHandling.Ignore)]
     public string Order { get; set; }
 
     [JsonProperty(PropertyName = "Version", NullValueHandling = NullValueHandling.Ignore)]
     public int Version { get; set; }
   }
-
-#pragma warning restore CA1056 // Uri properties should not be strings
-#pragma warning restore CA2227 // Collection properties should be read only
 }
