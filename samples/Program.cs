@@ -28,7 +28,18 @@ namespace Graph.Community.Samples
 
 			//await SiteDesign.Run();
 
-			//await ImmutableIds.Run();
+								// Add our sample classes
+								services.AddTransient<Diagnostics>();
+								services.AddTransient<RootSite>();
+								services.AddTransient<ExpiringClientSecrets>();
+								services.AddTransient<ChangeLog>();
+								services.AddTransient<SiteGroups>();
+								services.AddTransient<SharePointSearch>();
+								services.AddTransient<SiteDesign>();
+								services.AddTransient<GraphGroupExtensions>();
+								services.AddTransient<CreateTeam>();
+							})
+							.Build();
 
 			//await GraphGroupExtensions.Run();
 
