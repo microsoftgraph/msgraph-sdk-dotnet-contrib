@@ -14,7 +14,5 @@ namespace Graph.Community
 
     Task<SiteDesignMetadata> CreateAsync(SiteDesignMetadata siteDesignMetadata);
     Task<SiteDesignMetadata> CreateAsync(SiteDesignMetadata siteDesignMetadata, CancellationToken cancellationToken);
-
-    //_api/Microsoft.Sharepoint.Utilities.WebTemplateExtensions.SiteScriptUtility.UpdateSiteDesign
   }
 }

@@ -127,6 +127,15 @@ namespace Graph.Community
 			return Create(logOptions, options, handlers, version, nationalCloud, proxy, finalHandler);
 		}
 
+		public static GraphServiceClient Create(CommunityGraphClientOptions options, IList<DelegatingHandler> handlers, string version = "v1.0", string nationalCloud = "Global", IWebProxy proxy = null, HttpMessageHandler finalHandler = null)
+    {
+			LoggingOptions logOptions = (options.DisableTelemetry != true)
+											? new Community.LoggingOptions() { TokenCredential = "N/A", LoggingHandler = true }
+											: null;
+
+			return Create(logOptions, options, handlers, version, nationalCloud, proxy, finalHandler);
+		}
+
 		/// <summary>
 		/// Creates a new System.Net.Http.HttpClient instance configured with the Graph.Community middleware plus the handlers provided.
 		/// </summary>

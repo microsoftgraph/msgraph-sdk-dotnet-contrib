@@ -8,5 +8,8 @@ namespace Graph.Community
   {
     Task<SiteScriptMetadata> GetAsync();
     Task<SiteScriptMetadata> GetAsync(CancellationToken cancellationToken);
+
+    Task<SiteScriptMetadata> UpdateAsync(SiteScriptMetadata updatedSiteScriptMetadata);
+    Task<SiteScriptMetadata> UpdateAsync(SiteScriptMetadata updatedSiteScriptMetadata, CancellationToken cancellationToken);
   }
 }

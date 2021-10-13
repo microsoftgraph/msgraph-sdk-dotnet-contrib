@@ -12,5 +12,6 @@ namespace Graph.Community
     public int Version { get; set; }
 
     public string Content { get; set; }
+    public bool IsSiteScriptPackage { get; set; }
   }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Graph.Community
 {
-  public interface ISiteDesignRequestBuilder
+  public interface ISiteDesignRequestBuilder : IBaseRequestBuilder
   {
     /// <summary>
     /// Builds the request.

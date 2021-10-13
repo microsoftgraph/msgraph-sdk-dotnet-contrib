@@ -40,6 +40,8 @@
 		<EmbeddedResource Include="Mocks\GetWebAssociatedGroupsWithUsersResponse.json" />
     <EmbeddedResource Include="Mocks\NavigationNodeCollectionResponse.json" />
     <EmbeddedResource Include="Mocks\SearchQueryResponse.json" />
+    <EmbeddedResource Include="Mocks\UpdateSiteDesignResponse.json" />
+    <EmbeddedResource Include="Mocks\UpdateSiteScriptResponse.json" />
   </ItemGroup>
 
   <ItemGroup>
