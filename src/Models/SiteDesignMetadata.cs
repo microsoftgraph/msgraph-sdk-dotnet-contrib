@@ -8,7 +8,7 @@ namespace Graph.Community
   {
     public Guid? DesignPackageId { get; set; }
 
-    public string DesignType { get; set; }
+    public int DesignType { get; set; }
 
     /// <summary>
     /// (Optional) True if the site design is applied as the default site design; otherwise, false. For more information see Customize a default site design.
@@ -17,8 +17,8 @@ namespace Graph.Community
 
     public bool IsOutOfBoxTemplate { get; set; }
     public bool IsTenantAdminOnly { get; set; }
-    public string ListColor { get; set; }
-    public string ListIcon { get; set; }
+    public int ListColor { get; set; }
+    public int ListIcon { get; set; }
 
 
     /// <summary>
