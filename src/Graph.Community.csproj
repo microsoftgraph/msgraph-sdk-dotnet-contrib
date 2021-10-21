@@ -38,7 +38,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.ApplicationInsights" Version="2.18.0" />
-		<PackageReference Include="Microsoft.Graph" Version="4.6.0" />
+		<PackageReference Include="Microsoft.Graph" Version="4.7.0" />
 	</ItemGroup>
 
 	<ItemGroup>
