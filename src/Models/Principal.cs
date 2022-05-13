@@ -1,5 +1,5 @@
-using Microsoft.Graph;
 using System.Text.Json.Serialization;
+using Microsoft.Graph;
 
 namespace Graph.Community
 {

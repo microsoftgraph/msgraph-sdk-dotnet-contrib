@@ -1,9 +1,9 @@
-using Microsoft.Graph;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
+using Microsoft.Graph;
 
 namespace Graph.Community
 {

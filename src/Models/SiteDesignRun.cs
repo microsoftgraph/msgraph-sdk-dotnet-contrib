@@ -1,5 +1,5 @@
-using Microsoft.Graph;
 using System;
+using Microsoft.Graph;
 
 namespace Graph.Community
 {

@@ -23,7 +23,7 @@ namespace Graph.Community
         WebTemplate = siteDesignMetadata.WebTemplate,
         PreviewImageUrl = siteDesignMetadata.PreviewImageUrl,
         PreviewImageAltText = siteDesignMetadata.PreviewImageAltText,
-				ThumbnailUrl = siteDesignMetadata.ThumbnailUrl,
+        ThumbnailUrl = siteDesignMetadata.ThumbnailUrl,
       };
 
     }

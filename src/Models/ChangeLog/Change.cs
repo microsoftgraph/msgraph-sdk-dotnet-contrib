@@ -1,6 +1,6 @@
-using Microsoft.Graph;
 using System;
 using System.Diagnostics;
+using Microsoft.Graph;
 
 namespace Graph.Community
 {

@@ -22,7 +22,7 @@ namespace Graph.Community.Test
       yield return new object[]
       {
         new ChangeQuery(true,true),
-				"{\"Add\":true,\"Alert\":true,\"ContentType\":true,\"DeleteObject\":true,\"Field\":true,\"File\":true,\"Folder\":true,\"Group\":true,\"GroupMembershipAdd\":true,\"GroupMembershipDelete\":true,\"Item\":true,\"List\":true,\"Move\":true,\"Navigation\":true,\"Rename\":true,\"Restore\":true,\"RoleAssignmentAdd\":true,\"RoleAssignmentDelete\":true,\"RoleDefinitionAdd\":true,\"RoleDefinitionDelete\":true,\"RoleDefinitionUpdate\":true,\"SecurityPolicy\":true,\"Site\":true,\"SystemUpdate\":true,\"Update\":true,\"User\":true,\"View\":true,\"Web\":true}"
+                "{\"Add\":true,\"Alert\":true,\"ContentType\":true,\"DeleteObject\":true,\"Field\":true,\"File\":true,\"Folder\":true,\"Group\":true,\"GroupMembershipAdd\":true,\"GroupMembershipDelete\":true,\"Item\":true,\"List\":true,\"Move\":true,\"Navigation\":true,\"Rename\":true,\"Restore\":true,\"RoleAssignmentAdd\":true,\"RoleAssignmentDelete\":true,\"RoleDefinitionAdd\":true,\"RoleDefinitionDelete\":true,\"RoleDefinitionUpdate\":true,\"SecurityPolicy\":true,\"Site\":true,\"SystemUpdate\":true,\"Update\":true,\"User\":true,\"View\":true,\"Web\":true}"
       };
       yield return new object[]
       {

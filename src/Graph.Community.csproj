@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<LangVersion>latest</LangVersion>
-		<TargetFramework>netstandard2.0</TargetFramework>
+		<TargetFramework>netstandard2.1</TargetFramework>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/microsoftgraph/msgraph-sdk-dotnet-contrib</PackageProjectUrl>
@@ -38,11 +38,16 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.ApplicationInsights" Version="2.20.0" />
-		<PackageReference Include="Microsoft.Graph" Version="4.20.0" />
+		<PackageReference Include="Microsoft.Graph" Version="4.28.0" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<None Include="C:\Repos\microsoftgraph\msgraph-sdk-dotnet-contrib\src\.editorconfig" />
 		<None Include="graph-community.png" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EditorConfigFiles Remove="C:\Repos\microsoftgraph\msgraph-sdk-dotnet-contrib\src\.editorconfig" />
 	</ItemGroup>
 
 </Project>
