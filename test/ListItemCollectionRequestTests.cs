@@ -115,7 +115,7 @@ namespace Graph.Community.Test
     }
 
     [Fact]
-    public async Task GetAsSitePageListItems_GeneratesCorrectRequest()
+    public void GetAsSitePageListItems_GeneratesCorrectRequest()
     {
       // ARRANGE
       var mockListId = Guid.NewGuid();

@@ -173,7 +173,7 @@ namespace Graph.Community.Test
     }
 
     [Fact]
-    public async Task GetItems_GeneratesCorrectRequestUriAndHeaders()
+    public void GetItems_GeneratesCorrectRequestUriAndHeaders()
     {
       // ARRANGE
       var mockListId = Guid.NewGuid();
