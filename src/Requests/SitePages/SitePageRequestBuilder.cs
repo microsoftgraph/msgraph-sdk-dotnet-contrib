@@ -5,11 +5,11 @@ using Microsoft.Graph;
 
 namespace Graph.Community
 {
-  public class ListItemRequestBuilder : BaseRequestBuilder, IListItemRequestBuilder
+  public class SitePageRequestBuilder : BaseRequestBuilder, ISitePageRequestBuilder
   {
     private readonly IEnumerable<Option> options;
 
-    public ListItemRequestBuilder(
+    public SitePageRequestBuilder(
       string requestUrl,
       IBaseClient client,
       IEnumerable<Option> options = null)
@@ -18,14 +18,14 @@ namespace Graph.Community
       this.options = options;
     }
 
-    public IListItemRequest Request()
+    public ISitePageRequest Request()
     {
       return this.Request(options);
     }
 
-    public Graph.Community.IListItemRequest Request(IEnumerable<Option> options)
+    public ISitePageRequest Request(IEnumerable<Option> options)
     {
-      return new Graph.Community.ListItemRequest(this.RequestUrl, this.Client, options);
+      return new SitePageRequest(this.RequestUrl, this.Client, options);
     }
   }
 }

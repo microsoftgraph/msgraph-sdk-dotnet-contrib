@@ -2,9 +2,9 @@
 
 namespace Graph.Community
 {
-  public class SitePageListItemCollectionPage : CollectionPage<SitePageListItem>, ISitePageListItemCollectionPage
+  public class SitePageCollectionPage : CollectionPage<SitePage>, ISitePageCollectionPage
   {
-    public IListItemCollectionRequest NextPageRequest { get; private set; }
+    public ISitePageCollectionRequest NextPageRequest { get; private set; }
 
     /// <summary>
     /// Initializes the NextPageRequest property.
@@ -13,7 +13,7 @@ namespace Graph.Community
     {
       if (!string.IsNullOrEmpty(nextPageLinkString))
       {
-        this.NextPageRequest = new ListItemCollectionRequest(
+        this.NextPageRequest = new SitePageCollectionRequest(
             nextPageLinkString,
             client,
             null);

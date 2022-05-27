@@ -11,8 +11,5 @@ namespace Graph.Community
   {
     Task<IListItemCollectionPage> GetAsync();
     Task<IListItemCollectionPage> GetAsync(CancellationToken cancellationToken);
-
-    Task<ISitePageListItemCollectionPage> GetAsSitePageListItemAsync();
-    Task<ISitePageListItemCollectionPage> GetAsSitePageListItemAsync(CancellationToken cancellationToken);
   }
 }

@@ -1,4 +1,4 @@
-using Microsoft.Graph;
+﻿using Microsoft.Graph;
 
 namespace Graph.Community
 {
@@ -47,6 +47,15 @@ namespace Graph.Community
       get
       {
         return new Graph.Community.WebRequestBuilder(this.AppendSegmentToRequestUrl("_api/web"), this.Client);
+      }
+    }
+
+    public ISitePageCollectionRequestBuilder SitePages
+    {
+      get
+      {
+        // getting one page has different base url (web/getfilebyserverrelativeurl) than getting all (sitepages/pages)
+        return new SitePageCollectionRequestBuilder(this.AppendSegmentToRequestUrl("_api"), this.Client);
       }
     }
 

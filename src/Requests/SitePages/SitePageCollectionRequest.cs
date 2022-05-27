@@ -1,31 +1,33 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Graph;
 
 namespace Graph.Community
 {
-  public class ListItemCollectionRequest : BaseSharePointAPIRequest, IListItemCollectionRequest
+  public class SitePageCollectionRequest : BaseSharePointAPIRequest, ISitePageCollectionRequest
   {
-    public ListItemCollectionRequest(
+    public SitePageCollectionRequest(
       string requestUrl,
       IBaseClient client,
       IEnumerable<Option> options)
-      : base("ListItem", requestUrl, client, options)
+      : base("SitePages", requestUrl, client, options)
     {
       this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.AcceptHeaderName, SharePointAPIRequestConstants.Headers.AcceptHeaderValue));
       this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName, SharePointAPIRequestConstants.Headers.ODataVersionHeaderValue));
     }
 
-    public async Task<IListItemCollectionPage> GetAsync()
+    public Task<ISitePageCollectionPage> GetAsync()
     {
-      return await this.GetAsync(CancellationToken.None);
+      return this.GetAsync(CancellationToken.None);
     }
 
-    public async Task<IListItemCollectionPage> GetAsync(CancellationToken cancellationToken)
+    public async Task<ISitePageCollectionPage> GetAsync(CancellationToken cancellationToken)
     {
       this.ContentType = "application/json";
-      var response = await this.SendAsync<SharePointAPICollectionResponse<IListItemCollectionPage>>(null, cancellationToken).ConfigureAwait(false);
+      var response = await this.SendAsync<SharePointAPICollectionResponse<ISitePageCollectionPage>>(null, cancellationToken).ConfigureAwait(false);
 
       if (response?.Value?.CurrentPage != null)
       {

@@ -1,4 +1,4 @@
-using Microsoft.Graph;
+﻿using Microsoft.Graph;
 
 namespace Graph.Community
 {
@@ -13,6 +13,8 @@ namespace Graph.Community
     ISiteRequestBuilder Site { get; }
 
     IWebRequestBuilder Web { get; }
+
+    ISitePageCollectionRequestBuilder SitePages { get; }
 
     ISearchRequestBuilder Search { get; }
   }

@@ -17,7 +17,8 @@
     <None Remove="Mocks\GetListResponse.json" />
     <None Remove="Mocks\GetListsResponse.json" />
     <None Remove="Mocks\GetSiteDesignRunsResponse.json" />
-    <None Remove="Mocks\GetSitePageListItemsResponse.json" />
+    <None Remove="Mocks\GetSitePageResponse.json" />
+    <None Remove="Mocks\GetSitePagesResponse.json" />
     <None Remove="Mocks\GetSiteUsersResponse.json" />
     <None Remove="Mocks\GetUserMailboxSettingsResponse.json" />
     <None Remove="Mocks\GetWebAppTilesResponse.json" />
@@ -40,7 +41,8 @@
     <EmbeddedResource Include="Mocks\GetSiteDesignsResponse.json" />
 		<EmbeddedResource Include="Mocks\GetSiteGroupsExpandUsersResponse.json" />
     <EmbeddedResource Include="Mocks\GetSiteGroupsResponse.json" />
-    <EmbeddedResource Include="Mocks\GetSitePageListItemsResponse.json" />
+    <EmbeddedResource Include="Mocks\GetSitePageResponse.json" />
+    <EmbeddedResource Include="Mocks\GetSitePagesResponse.json" />
 		<EmbeddedResource Include="Mocks\GetSiteScriptMetadataResponse.json" />
     <EmbeddedResource Include="Mocks\GetSiteScriptsResponse.json" />
     <EmbeddedResource Include="Mocks\GetSiteUserResponse.json" />
