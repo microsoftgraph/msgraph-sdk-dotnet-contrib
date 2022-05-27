@@ -12,11 +12,17 @@
 
   <ItemGroup>
     <None Remove="Mocks\EnsureUserResponse.json" />
+    <None Remove="Mocks\GetListItemResponse.json" />
+    <None Remove="Mocks\GetListItemsResponse.json" />
+    <None Remove="Mocks\GetListResponse.json" />
+    <None Remove="Mocks\GetListsResponse.json" />
     <None Remove="Mocks\GetSiteDesignRunsResponse.json" />
+    <None Remove="Mocks\GetSitePageListItemsResponse.json" />
     <None Remove="Mocks\GetSiteUsersResponse.json" />
     <None Remove="Mocks\GetUserMailboxSettingsResponse.json" />
     <None Remove="Mocks\GetWebAppTilesResponse.json" />
     <None Remove="Mocks\GetWebAssociatedGroupsWithUsersResponse.json" />
+    <None Remove="Mocks\GetWebSitePagesListResponse.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,11 +31,16 @@
     <EmbeddedResource Include="Mocks\CreateSiteScriptResponse.json" />
     <EmbeddedResource Include="Mocks\EnsureUserResponse.json" />
     <EmbeddedResource Include="Mocks\GetChangesResponse.json" />
+    <EmbeddedResource Include="Mocks\GetListItemResponse.json" />
+    <EmbeddedResource Include="Mocks\GetListItemsResponse.json" />
+    <EmbeddedResource Include="Mocks\GetListResponse.json" />
+    <EmbeddedResource Include="Mocks\GetListsResponse.json" />
     <EmbeddedResource Include="Mocks\GetSiteDesignMetadataResponse.json" />
     <EmbeddedResource Include="Mocks\GetSiteDesignRunsResponse.json" />
     <EmbeddedResource Include="Mocks\GetSiteDesignsResponse.json" />
 		<EmbeddedResource Include="Mocks\GetSiteGroupsExpandUsersResponse.json" />
     <EmbeddedResource Include="Mocks\GetSiteGroupsResponse.json" />
+    <EmbeddedResource Include="Mocks\GetSitePageListItemsResponse.json" />
 		<EmbeddedResource Include="Mocks\GetSiteScriptMetadataResponse.json" />
     <EmbeddedResource Include="Mocks\GetSiteScriptsResponse.json" />
     <EmbeddedResource Include="Mocks\GetSiteUserResponse.json" />
@@ -38,6 +49,7 @@
 		<EmbeddedResource Include="Mocks\GetWebAppTilesResponse.json" />
 		<EmbeddedResource Include="Mocks\GetWebAssociatedGroupsResponse.json" />
 		<EmbeddedResource Include="Mocks\GetWebAssociatedGroupsWithUsersResponse.json" />
+		<EmbeddedResource Include="Mocks\GetWebSitePagesListResponse.json" />
     <EmbeddedResource Include="Mocks\NavigationNodeCollectionResponse.json" />
     <EmbeddedResource Include="Mocks\SearchQueryResponse.json" />
     <EmbeddedResource Include="Mocks\UpdateSiteDesignResponse.json" />

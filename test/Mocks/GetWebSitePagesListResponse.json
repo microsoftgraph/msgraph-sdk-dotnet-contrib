@@ -1,0 +1,147 @@
+{
+  "odata.metadata": "https://mock.sharepoint.com/sites/mockSite/_api/$metadata#SP.ApiData.Webs/@Element&$select=Id,Title,Lists/Id,Lists/BaseTemplate",
+  "odata.type": "SP.Web",
+  "odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/Web",
+  "odata.editLink": "Web",
+  "Lists@odata.navigationLinkUrl": "Web/Lists",
+  "Lists": [
+    {
+      "odata.type": "SP.List",
+      "odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/Web/Lists(guid'07c1697e-fbf2-4aa1-8c06-5c7abe12c95d')",
+      "odata.etag": "\"0\"",
+      "odata.editLink": "Web/Lists(guid'07c1697e-fbf2-4aa1-8c06-5c7abe12c95d')",
+      "BaseTemplate": 125,
+      "Id": "07c1697e-fbf2-4aa1-8c06-5c7abe12c95d"
+    },
+    {
+      "odata.type": "SP.List",
+      "odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/Web/Lists(guid'd5b5aa3c-2e71-486a-aad7-c277f4d58779')",
+      "odata.etag": "\"0\"",
+      "odata.editLink": "Web/Lists(guid'd5b5aa3c-2e71-486a-aad7-c277f4d58779')",
+      "BaseTemplate": 126,
+      "Id": "d5b5aa3c-2e71-486a-aad7-c277f4d58779"
+    },
+    {
+      "odata.type": "SP.List",
+      "odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/Web/Lists(guid'091cc664-98b8-44cb-9e06-5ad551eaa908')",
+      "odata.etag": "\"0\"",
+      "odata.editLink": "Web/Lists(guid'091cc664-98b8-44cb-9e06-5ad551eaa908')",
+      "BaseTemplate": 124,
+      "Id": "091cc664-98b8-44cb-9e06-5ad551eaa908"
+    },
+    {
+      "odata.type": "SP.List",
+      "odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/Web/Lists(guid'fd517452-775c-492c-8049-cb8c661806f6')",
+      "odata.etag": "\"1\"",
+      "odata.editLink": "Web/Lists(guid'fd517452-775c-492c-8049-cb8c661806f6')",
+      "BaseTemplate": 10102,
+      "Id": "fd517452-775c-492c-8049-cb8c661806f6"
+    },
+    {
+      "odata.type": "SP.List",
+      "odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/Web/Lists(guid'f12b876b-54d7-44e4-9dad-122bedd899a6')",
+      "odata.etag": "\"1\"",
+      "odata.editLink": "Web/Lists(guid'f12b876b-54d7-44e4-9dad-122bedd899a6')",
+      "BaseTemplate": 101,
+      "Id": "f12b876b-54d7-44e4-9dad-122bedd899a6"
+    },
+    {
+      "odata.type": "SP.List",
+      "odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/Web/Lists(guid'6f094ea6-2222-4f2e-b864-54f706f8b07a')",
+      "odata.etag": "\"0\"",
+      "odata.editLink": "Web/Lists(guid'6f094ea6-2222-4f2e-b864-54f706f8b07a')",
+      "BaseTemplate": 106,
+      "Id": "6f094ea6-2222-4f2e-b864-54f706f8b07a"
+    },
+    {
+      "odata.type": "SP.List",
+      "odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/Web/Lists(guid'39f8858c-a47e-43bc-8d14-d401003a384c')",
+      "odata.etag": "\"14\"",
+      "odata.editLink": "Web/Lists(guid'39f8858c-a47e-43bc-8d14-d401003a384c')",
+      "BaseTemplate": 101,
+      "Id": "39f8858c-a47e-43bc-8d14-d401003a384c"
+    },
+    {
+      "odata.type": "SP.List",
+      "odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/Web/Lists(guid'4f94b6e9-7224-4c95-8448-e9b61a171c19')",
+      "odata.etag": "\"5\"",
+      "odata.editLink": "Web/Lists(guid'4f94b6e9-7224-4c95-8448-e9b61a171c19')",
+      "BaseTemplate": 100,
+      "Id": "4f94b6e9-7224-4c95-8448-e9b61a171c19"
+    },
+    {
+      "odata.type": "SP.List",
+      "odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/Web/Lists(guid'ca1bdac7-5026-4c65-9167-234f90b02c90')",
+      "odata.etag": "\"0\"",
+      "odata.editLink": "Web/Lists(guid'ca1bdac7-5026-4c65-9167-234f90b02c90')",
+      "BaseTemplate": 114,
+      "Id": "ca1bdac7-5026-4c65-9167-234f90b02c90"
+    },
+    {
+      "odata.type": "SP.List",
+      "odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/Web/Lists(guid'56f3d3f0-a2bf-47bd-8eab-a9f4625b6bf8')",
+      "odata.etag": "\"12\"",
+      "odata.editLink": "Web/Lists(guid'56f3d3f0-a2bf-47bd-8eab-a9f4625b6bf8')",
+      "BaseTemplate": 116,
+      "Id": "56f3d3f0-a2bf-47bd-8eab-a9f4625b6bf8"
+    },
+    {
+      "odata.type": "SP.List",
+      "odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/Web/Lists(guid'10ea14eb-9eba-4202-9def-143e9a022d85')",
+      "odata.etag": "\"36\"",
+      "odata.editLink": "Web/Lists(guid'10ea14eb-9eba-4202-9def-143e9a022d85')",
+      "BaseTemplate": 119,
+      "Id": "10ea14eb-9eba-4202-9def-143e9a022d85"
+    },
+    {
+      "odata.type": "SP.List",
+      "odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/Web/Lists(guid'44cc2656-2788-4133-ba6b-42539aa1c693')",
+      "odata.etag": "\"0\"",
+      "odata.editLink": "Web/Lists(guid'44cc2656-2788-4133-ba6b-42539aa1c693')",
+      "BaseTemplate": 121,
+      "Id": "44cc2656-2788-4133-ba6b-42539aa1c693"
+    },
+    {
+      "odata.type": "SP.List",
+      "odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/Web/Lists(guid'e9be5da4-5a3d-45ad-930e-63da689d4fcc')",
+      "odata.etag": "\"0\"",
+      "odata.editLink": "Web/Lists(guid'e9be5da4-5a3d-45ad-930e-63da689d4fcc')",
+      "BaseTemplate": 101,
+      "Id": "e9be5da4-5a3d-45ad-930e-63da689d4fcc"
+    },
+    {
+      "odata.type": "SP.List",
+      "odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/Web/Lists(guid'ec820b25-7828-43d8-913b-74edb450fbc2')",
+      "odata.etag": "\"111\"",
+      "odata.editLink": "Web/Lists(guid'ec820b25-7828-43d8-913b-74edb450fbc2')",
+      "BaseTemplate": 100,
+      "Id": "ec820b25-7828-43d8-913b-74edb450fbc2"
+    },
+    {
+      "odata.type": "SP.List",
+      "odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/Web/Lists(guid'166b2b92-1e04-4b81-ad18-8c74380354e2')",
+      "odata.etag": "\"0\"",
+      "odata.editLink": "Web/Lists(guid'166b2b92-1e04-4b81-ad18-8c74380354e2')",
+      "BaseTemplate": 123,
+      "Id": "166b2b92-1e04-4b81-ad18-8c74380354e2"
+    },
+    {
+      "odata.type": "SP.List",
+      "odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/Web/SiteUserInfoList",
+      "odata.etag": "\"53\"",
+      "odata.editLink": "Web/SiteUserInfoList",
+      "BaseTemplate": 112,
+      "Id": "659811db-e54e-4582-b936-c6d8614823e5"
+    },
+    {
+      "odata.type": "SP.List",
+      "odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/Web/Lists(guid'723dcd70-f336-4fc1-98cb-3d7f1fe0aa48')",
+      "odata.etag": "\"0\"",
+      "odata.editLink": "Web/Lists(guid'723dcd70-f336-4fc1-98cb-3d7f1fe0aa48')",
+      "BaseTemplate": 113,
+      "Id": "723dcd70-f336-4fc1-98cb-3d7f1fe0aa48"
+    }
+  ],
+  "Id": "b3bb5585-bb7b-4fba-8619-a2bcfa2ff24e",
+  "Title": "Mock Site"
+}

@@ -1,5 +1,6 @@
 using Moq;
 using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -18,6 +19,7 @@ namespace Graph.Community.Test
     {
       this.output = output;
     }
+
 
     [Fact]
     public void GetById_GeneratesCorrectRequestUriAndHeaders()
@@ -45,6 +47,56 @@ namespace Graph.Community.Test
     }
 
     [Fact]
+    public async Task GetById_MissingId_Throws()
+    {
+      using (var response = new HttpResponseMessage())
+      using (var gsc = GraphServiceTestClient.Create(response))
+      {
+        // ACT & ASSERT
+        await Assert.ThrowsAsync<ArgumentOutOfRangeException>(
+        async () => await gsc.GraphServiceClient
+                                .SharePointAPI(mockWebUrl)
+                                .Web
+                                .Lists[Guid.Empty]
+                                .Request()
+                                .GetAsync()
+        );
+      }
+    }
+
+    [Fact]
+    public async Task GetById_ReturnsCorrectResponse()
+    {
+      // ARRANGE
+      var mockListId = new Guid("6f094ea6-2222-4f2e-b864-54f706f8b07a");
+
+      var responseContent = ResourceManager.GetHttpResponseContent("GetListResponse.json");
+      var responseMessage = new HttpResponseMessage()
+      {
+        StatusCode = HttpStatusCode.OK,
+        Content = new StringContent(responseContent),
+      };
+
+      using (responseMessage)
+      using (GraphServiceTestClient gsc = GraphServiceTestClient.Create(responseMessage))
+      {
+        // ACT
+        var actual = await gsc.GraphServiceClient
+                                  .SharePointAPI(mockWebUrl)
+                                  .Web
+                                  .Lists[mockListId]
+                                  .Request()
+                                  .GetAsync();
+
+        // ASSERT
+        Assert.Equal("6f094ea6-2222-4f2e-b864-54f706f8b07a", actual.Id);
+        Assert.Equal("Events", actual.Title);
+        Assert.Equal(106, actual.BaseTemplate);
+      }
+    }
+
+
+    [Fact]
     public void GetByTitle_GeneratesCorrectRequestUriAndHeaders()
     {
       // ARRANGE
@@ -59,6 +111,83 @@ namespace Graph.Community.Test
                           .SharePointAPI(mockWebUrl)
                           .Web
                           .Lists[mockListTitle]
+                          .Request()
+                          .GetHttpRequestMessage();
+
+      // ASSERT
+      Assert.Equal(expectedUri, request.RequestUri);
+      Assert.Equal(SharePointAPIRequestConstants.Headers.AcceptHeaderValue, request.Headers.Accept.ToString());
+      Assert.True(request.Headers.Contains(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName), $"Header does not contain {SharePointAPIRequestConstants.Headers.ODataVersionHeaderName} header");
+      Assert.Equal(SharePointAPIRequestConstants.Headers.ODataVersionHeaderValue, string.Join(',', request.Headers.GetValues(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName)));
+    }
+
+    [Theory]
+    [InlineData("")]
+    [InlineData(null)]
+    public async Task GetByTitle_MissingTitle_Throws(string title)
+    {
+      using (var response = new HttpResponseMessage())
+      using (var gsc = GraphServiceTestClient.Create(response))
+      {
+        // ACT & ASSERT
+        await Assert.ThrowsAsync<ArgumentNullException>(
+        async () => await gsc.GraphServiceClient
+                                .SharePointAPI(mockWebUrl)
+                                .Web
+                                .Lists[title]
+                                .Request()
+                                .GetAsync()
+        );
+      }
+    }
+
+    [Fact]
+    public async Task GetByTitle_ReturnsCorrectResponse()
+    {
+      // ARRANGE
+      var mockListTitle = "Events";
+
+      var responseContent = ResourceManager.GetHttpResponseContent("GetListResponse.json");
+      var responseMessage = new HttpResponseMessage()
+      {
+        StatusCode = HttpStatusCode.OK,
+        Content = new StringContent(responseContent),
+      };
+
+      using (responseMessage)
+      using (GraphServiceTestClient gsc = GraphServiceTestClient.Create(responseMessage))
+      {
+        // ACT
+        var actual = await gsc.GraphServiceClient
+                                  .SharePointAPI(mockWebUrl)
+                                  .Web
+                                  .Lists[mockListTitle]
+                                  .Request()
+                                  .GetAsync();
+
+        // ASSERT
+        Assert.Equal("6f094ea6-2222-4f2e-b864-54f706f8b07a", actual.Id);
+        Assert.Equal("Events", actual.Title);
+        Assert.Equal("", actual.Description);
+      }
+    }
+
+    [Fact]
+    public async Task GetItems_GeneratesCorrectRequestUriAndHeaders()
+    {
+      // ARRANGE
+      var mockListId = Guid.NewGuid();
+      var expectedUri = new Uri($"{mockWebUrl}/_api/web/lists('{mockListId}')/items");
+
+      using HttpResponseMessage response = new HttpResponseMessage();
+      using GraphServiceTestClient testClient = GraphServiceTestClient.Create(response);
+
+      // ACT
+      var request = testClient.GraphServiceClient
+                          .SharePointAPI(mockWebUrl)
+                          .Web
+                          .Lists[mockListId]
+                          .Items
                           .Request()
                           .GetHttpRequestMessage();
 

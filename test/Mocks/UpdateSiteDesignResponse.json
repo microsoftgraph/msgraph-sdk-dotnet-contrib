@@ -1,5 +1,5 @@
 {
-	"odata.metadata": "https://modeladdin365.sharepoint.com/_api/$metadata#Microsoft.SharePoint.Utilities.WebTemplateExtensions.SiteDesignMetadata",
+	"odata.metadata": "https://mock.sharepoint.com/_api/$metadata#Microsoft.SharePoint.Utilities.WebTemplateExtensions.SiteDesignMetadata",
 	"Description": "mockSiteDesignDescription",
 	"DesignPackageId": "00000000-0000-0000-0000-000000000000",
 	"DesignType": 0,

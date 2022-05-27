@@ -1,0 +1,113 @@
+{
+  "odata.metadata": "https://mock.sharepoint.com/sites/mockSite/_api/$metadata#SP.ListData.SitePagesItems&$select=Id,Title,Description,Created,Modified,FirstPublishedDate,OData__ModernAudienceTargetUserFieldId,PromotedState,Author/Title,Author/Name,Author/EMail,Editor/Title,Editor/Name,Editor/EMail,CheckoutUser/Title,CheckoutUser/Name,CheckoutUser/EMail",
+  "value": [
+    {
+      "odata.type": "SP.Data.SitePagesItem",
+      "odata.id": "c80a1840-bf83-4e04-bdf5-def3bb4ad244",
+      "odata.etag": "\"2\"",
+      "odata.editLink": "Web/Lists(guid'10ea14eb-9eba-4202-9def-143e9a022d85')/Items(1)",
+      "Author@odata.navigationLinkUrl": "Web/Lists(guid'10ea14eb-9eba-4202-9def-143e9a022d85')/Items(1)/Author",
+      "Author": {
+        "odata.type": "SP.Data.UserInfoItem",
+        "odata.id": "2a86ff19-e54f-47a5-8521-7baae6e451c6",
+        "Title": "System Account",
+        "Name": "SHAREPOINT\\system",
+        "EMail": null
+      },
+      "Editor@odata.navigationLinkUrl": "Web/Lists(guid'10ea14eb-9eba-4202-9def-143e9a022d85')/Items(1)/Editor",
+      "Editor": {
+        "odata.type": "SP.Data.UserInfoItem",
+        "odata.id": "9873d140-ff66-4b0d-8dde-e5e497d29006",
+        "Title": "System Account",
+        "Name": "SHAREPOINT\\system",
+        "EMail": ""
+      },
+      "CheckoutUser@odata.navigationLinkUrl": "Web/Lists(guid'10ea14eb-9eba-4202-9def-143e9a022d85')/Items(1)/CheckoutUser",
+      "Id": 1,
+      "Title": "Home",
+      "Description": null,
+      "PromotedState": 0.0,
+      "FirstPublishedDate": null,
+      "OData__ModernAudienceTargetUserFieldId": null,
+      "ID": 1,
+      "Created": "2022-05-22T00:10:52Z",
+      "Modified": "2022-05-22T00:10:52Z"
+    },
+    {
+      "odata.type": "SP.Data.SitePagesItem",
+      "odata.id": "f323f787-13ea-4109-87f5-dd3636d5c732",
+      "odata.etag": "\"7\"",
+      "odata.editLink": "Web/Lists(guid'10ea14eb-9eba-4202-9def-143e9a022d85')/Items(2)",
+      "Author@odata.navigationLinkUrl": "Web/Lists(guid'10ea14eb-9eba-4202-9def-143e9a022d85')/Items(2)/Author",
+      "Author": {
+        "odata.type": "SP.Data.UserInfoItem",
+        "odata.id": "751eccd5-5c93-4d98-88af-bb9aa2f4cd72",
+        "Title": "Mock User",
+        "Name": "i:0#.f|membership|user@mock.microsoftonline.com",
+        "EMail": "user@mock.microsoftonline.com"
+      },
+      "Editor@odata.navigationLinkUrl": "Web/Lists(guid'10ea14eb-9eba-4202-9def-143e9a022d85')/Items(2)/Editor",
+      "Editor": {
+        "odata.type": "SP.Data.UserInfoItem",
+        "odata.id": "936e951c-6689-487f-adc2-06c7b94c9b6c",
+        "Title": "Mock User",
+        "Name": "i:0#.f|membership|user@mock.microsoftonline.com",
+        "EMail": "user@mock.microsoftonline.com"
+      },
+      "CheckoutUser@odata.navigationLinkUrl": "Web/Lists(guid'10ea14eb-9eba-4202-9def-143e9a022d85')/Items(2)/CheckoutUser",
+      "Id": 2,
+      "Title": "News Page",
+      "Description": "Hello! This is a Text web part in one of two columns in this section .\u00a0You can click inside this text block when in Edit mode to make changes. Next to this paragraph is a column that contains an image web part. Click the image, and you can use the t\u2026",
+      "PromotedState": 2.0,
+      "FirstPublishedDate": "2022-05-25T23:07:42Z",
+      "OData__ModernAudienceTargetUserFieldId": [
+        10
+      ],
+      "ID": 2,
+      "Created": "2022-05-25T23:07:33Z",
+      "Modified": "2022-05-26T12:06:34Z"
+    },
+    {
+      "odata.type": "SP.Data.SitePagesItem",
+      "odata.id": "c42cacb0-3220-4df7-aef9-4e35d0e762a2",
+      "odata.etag": "\"5\"",
+      "odata.editLink": "Web/Lists(guid'10ea14eb-9eba-4202-9def-143e9a022d85')/Items(3)",
+      "Author@odata.navigationLinkUrl": "Web/Lists(guid'10ea14eb-9eba-4202-9def-143e9a022d85')/Items(3)/Author",
+      "Author": {
+        "odata.type": "SP.Data.UserInfoItem",
+        "odata.id": "8e2c287a-fb58-4207-966d-b143f51b76d8",
+        "Title": "Mock User",
+        "Name": "i:0#.f|membership|user@mock.microsoftonline.com",
+        "EMail": "user@mock.microsoftonline.com"
+      },
+      "Editor@odata.navigationLinkUrl": "Web/Lists(guid'10ea14eb-9eba-4202-9def-143e9a022d85')/Items(3)/Editor",
+      "Editor": {
+        "odata.type": "SP.Data.UserInfoItem",
+        "odata.id": "8e994a65-3305-445f-836d-329493d498a9",
+        "Title": "Mock User",
+        "Name": "i:0#.f|membership|user@mock.microsoftonline.com",
+        "EMail": "user@mock.microsoftonline.com"
+      },
+      "CheckoutUser@odata.navigationLinkUrl": "Web/Lists(guid'10ea14eb-9eba-4202-9def-143e9a022d85')/Items(3)/CheckoutUser",
+      "CheckoutUser": {
+        "odata.type": "SP.Data.UserInfoItem",
+        "odata.id": "708627a1-4178-4898-b2aa-3bf594aca2fe",
+        "Title": "Mock User",
+        "Name": "i:0#.f|membership|user@mock.microsoftonline.com",
+        "EMail": "user@mock.microsoftonline.com"
+      },
+      "Id": 3,
+      "Title": "This one is not posted",
+      "Description": "How do you get started? Select 'Edit' to start working with this basic two-column template with an emphasis on text and examples of text formatting.\n    \n    With your page in edit mode, select this paragraph and replace it with your own text. Then,\u2026",
+      "PromotedState": 1.0,
+      "FirstPublishedDate": null,
+      "OData__ModernAudienceTargetUserFieldId": [
+        11,
+        12
+      ],
+      "ID": 3,
+      "Created": "2022-05-25T23:07:56Z",
+      "Modified": "2022-05-26T12:07:28Z"
+    }
+  ]
+}
