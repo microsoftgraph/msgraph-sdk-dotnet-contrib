@@ -1,4 +1,4 @@
-using Microsoft.Graph;
+﻿using Microsoft.Graph;
 
 namespace Graph.Community
 {
@@ -6,14 +6,14 @@ namespace Graph.Community
   {
     IWebRequest Request();
 
-    IListRequestBuilder Lists { get; }
+    IAppTileCollectionRequestBuilder AppTiles { get; }
+
+    IListCollectionRequestBuilder Lists { get; }
 
     INavigationRequestBuilder Navigation { get; }
 
     ISiteUserCollectionRequestBuilder SiteUsers { get; }
 
     ISiteGroupCollectionRequestBuilder SiteGroups { get; }
-
-    IAppTileCollectionRequestBuilder AppTiles { get; }
   }
 }

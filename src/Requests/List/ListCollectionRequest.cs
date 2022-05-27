@@ -1,33 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Graph;
 
 namespace Graph.Community
 {
-  public class SiteGroupCollectionRequest : BaseSharePointAPIRequest, ISiteGroupCollectionRequest
+  public class ListCollectionRequest : BaseSharePointAPIRequest, IListCollectionRequest
   {
-    public SiteGroupCollectionRequest(
-      string requestUrl,
-      IBaseClient client,
-      IEnumerable<Option> options)
-      : base("SiteGroupCollection", requestUrl, client, options)
+    public ListCollectionRequest(
+      string requestUrl, 
+      IBaseClient client, 
+      IEnumerable<Option> options) 
+      : base("List", requestUrl, client, options)
     {
       this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.AcceptHeaderName, SharePointAPIRequestConstants.Headers.AcceptHeaderValue));
       this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName, SharePointAPIRequestConstants.Headers.ODataVersionHeaderValue));
     }
 
-    public async Task<ISiteGroupCollectionPage> GetAsync()
+    public async Task<IListCollectionPage> GetAsync()
     {
       return await this.GetAsync(CancellationToken.None);
     }
 
-    public async Task<ISiteGroupCollectionPage> GetAsync(CancellationToken cancellationToken)
+    public async Task<IListCollectionPage> GetAsync(CancellationToken cancellationToken)
     {
       this.ContentType = "application/json";
-      var response = await this.SendAsync<SharePointAPICollectionResponse<ISiteGroupCollectionPage>>(null, cancellationToken).ConfigureAwait(false);
+      var response = await this.SendAsync<SharePointAPICollectionResponse<IListCollectionPage>>(null, cancellationToken).ConfigureAwait(false);
 
       if (response?.Value?.CurrentPage != null)
       {
@@ -37,13 +38,13 @@ namespace Graph.Community
       return null;
     }
 
-    public ISiteGroupCollectionRequest Expand(string value)
+    public IListCollectionRequest Expand(string value)
     {
       this.QueryOptions.Add(new QueryOption("$expand", value));
       return this;
     }
 
-    public ISiteGroupCollectionRequest Expand(Expression<Func<Group, object>> expandExpression)
+    public IListCollectionRequest Expand(Expression<Func<List, object>> expandExpression)
     {
       if (expandExpression == null)
       {
@@ -60,5 +61,6 @@ namespace Graph.Community
       }
       return this;
     }
+
   }
 }

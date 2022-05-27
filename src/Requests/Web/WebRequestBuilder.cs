@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Graph;
 
 namespace Graph.Community
@@ -16,11 +16,11 @@ namespace Graph.Community
       this.options = options;
     }
 
-    public IListRequestBuilder Lists
+    public IListCollectionRequestBuilder Lists
     {
       get
       {
-        return new ListRequestBuilder(this.RequestUrl, this.Client, this.options);
+        return new ListCollectionRequestBuilder(this.RequestUrl, this.Client, this.options);
       }
     }
 

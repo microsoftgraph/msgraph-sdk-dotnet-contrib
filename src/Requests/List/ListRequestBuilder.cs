@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Microsoft.Graph;
 
@@ -17,19 +17,11 @@ namespace Graph.Community
       this.options = options;
     }
 
-    public IListRequestBuilder this[Guid id]
-    {
+    public IListItemCollectionRequestBuilder Items 
+    { 
       get
       {
-        return new Graph.Community.ListRequestBuilder(this.AppendSegmentToRequestUrl($"lists('{id}')"), this.Client);
-      }
-    }
-
-    public IListRequestBuilder this[string title]
-    {
-      get
-      {
-        return new Graph.Community.ListRequestBuilder(this.AppendSegmentToRequestUrl($"lists/getByTitle('{title}')"), this.Client);
+        return new ListItemCollectionRequestBuilder(this.RequestUrl, this.Client);
       }
     }
 

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,6 +20,9 @@ namespace Graph.Community
     Task<Web> GetAssociatedGroupsAsync();
     Task<Web> GetAssociatedGroupsAsync(bool includeUsers);
     Task<Web> GetAssociatedGroupsAsync(bool includeUsers, CancellationToken cancellationToken);
+
+    Task<List> GetSitePagesListAsync();
+    Task<List> GetSitePagesListAsync(CancellationToken cancellationToken);
 
     /// <summary>
     /// Adds the specified expand value to the request.

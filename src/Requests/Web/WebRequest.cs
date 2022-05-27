@@ -1,6 +1,8 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Graph;
@@ -85,6 +87,26 @@ namespace Graph.Community
       return web;
     }
 
+    public async Task<List> GetSitePagesListAsync()
+    {
+      return await this.GetSitePagesListAsync(CancellationToken.None);
+    }
+    public async Task<List> GetSitePagesListAsync(CancellationToken cancellationToken)
+    {
+      this.QueryOptions.Add(new QueryOption("$expand", "Lists"));
+      this.QueryOptions.Add(new QueryOption("$select", "Id,Title,Lists/Id,Lists/BaseTemplate"));
+
+      var web = await this.SendAsync<Web>(null, cancellationToken);
+      var adLists = web.AdditionalData["Lists"];
+      if (adLists != null && 
+          adLists is System.Text.Json.JsonElement listsElement &&
+          listsElement.ValueKind == System.Text.Json.JsonValueKind.Array)
+      {
+        var lists = listsElement.Deserialize<List<Graph.Community.List>>();
+        return lists.FirstOrDefault(l => l.BaseTemplate.Equals(119));
+      }
+      return null;
+    }
 
     public IWebRequest Expand(string value)
     {
@@ -110,5 +132,6 @@ namespace Graph.Community
       }
       return this;
     }
+  
   }
 }
