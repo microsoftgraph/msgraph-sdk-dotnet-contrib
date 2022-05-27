@@ -19,6 +19,15 @@ https://docs.microsoft.com/en-us/graph/outlook-immutable-id
 
 The Office 365 SharePoint endpoint has request builders accessible using the `SharePointAPI` method. The reference page for the SharePoint  extensions is https://docs.microsoft.com/en-us/sharepoint/dev/sp-add-ins/sharepoint-net-server-csom-jsom-and-rest-api-index and https://docs.microsoft.com/en-us/previous-versions/office/developer/sharepoint-2010/ee536622(v=office.14)
 
+### SitePages
+
+The following operations allow for finding the Site Pages library in a site, and getting ListItems with Site Page-specific properties.
+
+| Operation          | Request Builder        | Method        | Released version|
+|--------------------|------------------------|---------------|-----------------|
+| GetSitePages       | `.SitePages            | GetAsync      | 4.29            |
+
+
 ### Site Scripts and Site Designs
 The following operations use the `_api/Microsoft.Sharepoint.Utilities.WebTemplateExtensions.SiteScriptUtility.GetSiteScripts` url.
 

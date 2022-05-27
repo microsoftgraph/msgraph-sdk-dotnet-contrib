@@ -42,7 +42,7 @@ namespace Graph.Community.Samples
         Console.WriteLine("2. Root site (Graph)");
         Console.WriteLine("3. Expiring client secrets");
         Console.WriteLine("4. Change log");
-        Console.WriteLine("5. Site Groups");
+        Console.WriteLine("5. Site Pages");
         Console.WriteLine("6. SharePoint Search");
         Console.WriteLine("7. Site Design");
         Console.WriteLine("8. Group extensions (Graph)");
@@ -86,8 +86,8 @@ namespace Graph.Community.Samples
 
             case ConsoleKey.D5:
             case ConsoleKey.NumPad5:
-              var siteGroupsSample = serviceProvider.GetRequiredService<SiteGroups>();
-              await siteGroupsSample.Run();
+              var sitePagesSample = serviceProvider.GetRequiredService<SitePages>();
+              await sitePagesSample.Run();
               break;
 
             case ConsoleKey.D6:
