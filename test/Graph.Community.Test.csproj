@@ -6,25 +6,6 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="GraphServiceFixture.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Mocks\EnsureUserResponse.json" />
-    <None Remove="Mocks\GetListItemResponse.json" />
-    <None Remove="Mocks\GetListItemsResponse.json" />
-    <None Remove="Mocks\GetListResponse.json" />
-    <None Remove="Mocks\GetListsResponse.json" />
-    <None Remove="Mocks\GetSiteDesignRunsResponse.json" />
-    <None Remove="Mocks\GetSitePageResponse.json" />
-    <None Remove="Mocks\GetSitePagesResponse.json" />
-    <None Remove="Mocks\GetSiteUsersResponse.json" />
-    <None Remove="Mocks\GetUserMailboxSettingsResponse.json" />
-    <None Remove="Mocks\GetWebAppTilesResponse.json" />
-    <None Remove="Mocks\GetWebAssociatedGroupsWithUsersResponse.json" />
-    <None Remove="Mocks\GetWebSitePagesListResponse.json" />
-  </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Mocks\ApplySiteDesignResponse.json" />

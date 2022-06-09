@@ -6,7 +6,6 @@ using Microsoft.Graph;
 
 namespace Graph.Community
 {
-  //[JsonConverter(typeof(SitePageFileInfoConverter))]
   public class SitePageFileInfo : BaseItem
   {
     public new int Id
@@ -40,6 +39,20 @@ namespace Graph.Community
     }
 
     public SitePagePromotedState PromotedState { get; set; }
+
+    public SitePageModerationStatus? ModerationStatus
+    {
+      get
+      {
+        var moderationStatusJsonElement = GetListItemFieldElement("OData__ModerationStatus");
+        if (moderationStatusJsonElement.ValueKind == JsonValueKind.Number)
+        {
+          var moderationStatusInt = moderationStatusJsonElement.Deserialize<int>();
+          return (SitePageModerationStatus)moderationStatusInt;
+        }
+        return null;
+      }
+    }
 
     public DateTime? FirstPublishedDate { get; set; }
 
@@ -115,9 +128,20 @@ namespace Graph.Community
 
     public SitePageCheckoutType CheckoutType { get; set; }
 
-    public UserInfo CheckoutUser { get; set; }
-
-    //public string Name { get; set; }   //Inherited
+    public UserInfo CheckoutUser
+    {
+      get
+      {
+        var checkOutUserElement = GetListItemFieldElement("CheckoutUserId");
+        if (checkOutUserElement.ValueKind == JsonValueKind.Number)
+        {
+          var id = checkOutUserElement.GetInt32();
+          return new UserInfo() { Id = id };
+        }
+        return null;
+      }
+      set { }
+    }
 
     public string ServerRelativeUrl { get; set; }
 

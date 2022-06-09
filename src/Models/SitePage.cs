@@ -10,11 +10,8 @@ namespace Graph.Community
  
     public string Title { get; set; }
     
-    //public string Description { get; set; }  //Inherited
-    
-    //[JsonConverter(typeof(SitePagePromotedStateConverterFactory))]
     public SitePagePromotedState PromotedState { get; set; }
-    
+
     public DateTime? FirstPublishedDate { get; set; }
     
     [JsonPropertyName("Modified")]

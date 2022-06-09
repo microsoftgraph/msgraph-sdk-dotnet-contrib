@@ -81,34 +81,16 @@ namespace Graph.Community.Test
       using (GraphServiceTestClient gsc = GraphServiceTestClient.Create(responseMessage))
       {
         // ACT
-        var testPage = await gsc.GraphServiceClient
+        var testPageFileInfo = await gsc.GraphServiceClient
                                   .SharePointAPI(mockWebUrl)
                                   .SitePages[mockPagename]
                                   .Request()
                                   .GetAsync();
 
         // ASSERT
-        Assert.IsType<SitePageFileInfo>(testPage);
+        Assert.IsType<SitePageFileInfo>(testPageFileInfo);
 
-        // explicit props
-        //Assert.Equal(2, actual[2].ModernAudienceTargetUsers.Count);
-        //Assert.Equal(new DateTimeOffset(2022, 5, 25, 23, 7, 56, new TimeSpan()), actual[2].CreatedDateTime);
-        //Assert.IsType<Graph.Community.UserInfo>(actual[0].Author);
-        //Assert.Equal("Mock User", actual[1].Editor.Title);
-        //Assert.Null(actual[1].CheckoutType);
-        //Assert.Null(actual[1].CheckoutUser);
-        //Assert.Equal("2022-05-26T17:00:00Z", testPage.ServerRelativeUrl);
-
-        // inherited props
-        Assert.Equal(6, testPage.Id);
-        Assert.Equal("Champions", testPage.Title);
-        Assert.StartsWith("Make a difference ", testPage.Description);
-        Assert.Equal(SitePagePromotedState.NotPromoted, testPage.PromotedState);
-        Assert.Null(testPage.FirstPublishedDate);
-        Assert.Equal(new DateTimeOffset(2021, 9, 10, 15, 11, 28, new TimeSpan()), testPage.LastModifiedDateTime);
-        Assert.Equal("champions.aspx", testPage.FileName);
-        Assert.Equal("cef16a53-9b15-44f2-898e-ba67b9ada101", testPage.UniqueId);
-
+        // Props checked in SitePageFileInfoConverterTests
       }
     }
   }

@@ -20,19 +20,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="Models\ChangeLog\IChange.cs" />
-	  <Compile Remove="Models\HttpMessages\GetCollectionResponse.cs" />
-	  <Compile Remove="Models\HttpMessages\GetSiteDesignCollectionResponse.cs" />
-	  <Compile Remove="Models\HttpMessages\GetSiteDesignRunCollectionResponse.cs" />
-	  <Compile Remove="Models\HttpMessages\GetSiteScriptCollectionResponse.cs" />
-	  <Compile Remove="Models\IGroup.cs" />
-	  <Compile Remove="Models\IUser.cs" />
-	  <Compile Remove="Models\IWeb.cs" />
-	  <Compile Remove="Serializer\DerivedTypeConverter.cs" />
-	  <Compile Remove="Serializer\SPDerivedTypeConverterFactory.cs" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
 	</ItemGroup>
 

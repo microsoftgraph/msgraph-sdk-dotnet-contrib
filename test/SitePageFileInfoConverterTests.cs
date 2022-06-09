@@ -50,7 +50,6 @@ namespace Graph.Community.Test
       Assert.Null(testPage.FirstPublishedDate);
       Assert.Equal(new DateTimeOffset(2021, 9, 10, 15, 11, 28, new TimeSpan()), testPage.LastModifiedDateTime);
       Assert.Equal("champions.aspx", testPage.FileName);
-      Assert.Equal("/sites/mockSite/SitePages/champions.aspx", testPage.ServerRelativeUrl);
       Assert.Equal("cef16a53-9b15-44f2-898e-ba67b9ada101", testPage.UniqueId);
       Assert.Equal(2, testPage.ModernAudienceTargetUsers.Count);
       Assert.Equal(new DateTimeOffset(2021, 6, 24, 5, 29, 16, new TimeSpan()), testPage.CreatedDateTime);
@@ -58,8 +57,9 @@ namespace Graph.Community.Test
       Assert.Equal(6, testPage.Author.Id);
       Assert.IsType<Graph.Community.UserInfo>(testPage.Editor);
       Assert.Equal(17, testPage.Editor.Id);
-      Assert.Equal(SitePageCheckoutType.Online, testPage.CheckoutType);
-      Assert.Null(testPage.CheckoutUser);
+      Assert.Equal(SitePageCheckoutType.None, testPage.CheckoutType);
+      Assert.Equal(6, testPage.CheckoutUser.Id);
+      Assert.Equal("/sites/mockSite/SitePages/champions.aspx", testPage.ServerRelativeUrl);
     }
   }
 }
