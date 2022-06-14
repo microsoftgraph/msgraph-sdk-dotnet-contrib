@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using Microsoft.Graph;
 
@@ -39,5 +39,8 @@ namespace Graph.Community
 
     [JsonPropertyName("AssociatedVisitorGroup")]
     public Group AssociatedVisitorGroup { get; set; }
+
+    [JsonPropertyName("WelcomePage")]
+    public string WelcomePage { get; set; }
   }
 }

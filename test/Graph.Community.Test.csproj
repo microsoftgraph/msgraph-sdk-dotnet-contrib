@@ -6,7 +6,6 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
-
   <ItemGroup>
     <EmbeddedResource Include="Mocks\ApplySiteDesignResponse.json" />
     <EmbeddedResource Include="Mocks\CreateSiteDesignResponse.json" />
@@ -32,6 +31,7 @@
 		<EmbeddedResource Include="Mocks\GetWebAppTilesResponse.json" />
 		<EmbeddedResource Include="Mocks\GetWebAssociatedGroupsResponse.json" />
 		<EmbeddedResource Include="Mocks\GetWebAssociatedGroupsWithUsersResponse.json" />
+		<EmbeddedResource Include="Mocks\GetWebResponse.json" />
 		<EmbeddedResource Include="Mocks\GetWebSitePagesListResponse.json" />
     <EmbeddedResource Include="Mocks\NavigationNodeCollectionResponse.json" />
     <EmbeddedResource Include="Mocks\SearchQueryResponse.json" />

@@ -42,6 +42,33 @@ namespace Graph.Community.Test
     }
 
     [Fact]
+    public async void Get_ReturnsCorrectResponse()
+    {
+      // ARRANGE
+      var responseContent = ResourceManager.GetHttpResponseContent("GetWebResponse.json");
+      var responseMessage = new HttpResponseMessage()
+      {
+        StatusCode = HttpStatusCode.OK,
+        Content = new StringContent(responseContent),
+      };
+
+      using (responseMessage)
+      using (GraphServiceTestClient gsc = GraphServiceTestClient.Create(responseMessage))
+      {
+        // ACT
+        var actual = await gsc.GraphServiceClient
+                                  .SharePointAPI(mockWebUrl)
+                                  .Web
+                                  .Request()
+                                  .GetAsync();
+
+        // ASSERT
+        Assert.Equal("Mock Site", actual.Title);
+        Assert.Equal("SitePages/This-one-is-not-posted.aspx", actual.WelcomePage);
+      }
+    }
+
+    [Fact]
     public async Task Get_GeneratesCorrectRequest()
     {
       // ARRANGE
