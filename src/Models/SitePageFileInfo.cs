@@ -24,7 +24,7 @@ namespace Graph.Community
 
     public string Title { get; set; }
 
-    public new string Description 
+    public new string Description
     {
       get
       {
@@ -59,8 +59,8 @@ namespace Graph.Community
     [JsonPropertyName("TimeLastModified")]
     public new DateTimeOffset? LastModifiedDateTime { get; set; }
 
-    public string FileName 
-    { 
+    public string FileName
+    {
       get { return this.Name; }
       set { }
     }
@@ -80,8 +80,8 @@ namespace Graph.Community
       }
     }
 
-    public new DateTimeOffset? CreatedDateTime 
-    { 
+    public new DateTimeOffset? CreatedDateTime
+    {
       get
       {
         var createdJsonElement = GetListItemFieldElement("Created");
@@ -96,8 +96,8 @@ namespace Graph.Community
       set { }
     }
 
-    public UserInfo Author 
-    { 
+    public UserInfo Author
+    {
       get
       {
         var idElement = GetListItemFieldElement("AuthorId");
@@ -108,7 +108,7 @@ namespace Graph.Community
         }
         return null;
       }
-      set { } 
+      set { }
     }
 
     public UserInfo Editor
@@ -147,16 +147,17 @@ namespace Graph.Community
 
     private JsonElement GetListItemFieldElement(string fieldName)
     {
+      JsonElement idElement = new JsonElement();
       if (this.AdditionalData.TryGetValue("ListItemAllFields", out object listItemAllFieldsRaw))
       {
         if (listItemAllFieldsRaw is JsonElement listItemAllFieldsJsonElement &&
             listItemAllFieldsJsonElement.ValueKind == JsonValueKind.Object)
         {
-          var idElement = listItemAllFieldsJsonElement.GetProperty(fieldName);
-          return idElement;
+          _ = listItemAllFieldsJsonElement.TryGetProperty(fieldName, out idElement);
+
         }
       }
-      return new JsonElement();
+      return idElement;
     }
   }
 }
