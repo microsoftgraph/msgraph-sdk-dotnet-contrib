@@ -54,7 +54,21 @@ namespace Graph.Community
       }
     }
 
-    public DateTime? FirstPublishedDate { get; set; }
+    public DateTimeOffset? FirstPublishedDate
+    {
+      get
+      {
+        var firstPublishedDateJsonElement = GetListItemFieldElement("FirstPublishedDate");
+        if (firstPublishedDateJsonElement.ValueKind == JsonValueKind.String)
+        {
+          // we don't get a timezone offset. so forcing to utc
+          var forcedOffsetCreated = firstPublishedDateJsonElement.ToString() + "Z";
+          return DateTimeOffset.Parse(forcedOffsetCreated);
+        }
+        return null;
+      }
+      set { }
+    }
 
     [JsonPropertyName("TimeLastModified")]
     public new DateTimeOffset? LastModifiedDateTime { get; set; }
@@ -147,17 +161,16 @@ namespace Graph.Community
 
     private JsonElement GetListItemFieldElement(string fieldName)
     {
-      JsonElement idElement = new JsonElement();
+      JsonElement fieldElement = new JsonElement();
       if (this.AdditionalData.TryGetValue("ListItemAllFields", out object listItemAllFieldsRaw))
       {
         if (listItemAllFieldsRaw is JsonElement listItemAllFieldsJsonElement &&
             listItemAllFieldsJsonElement.ValueKind == JsonValueKind.Object)
         {
-          _ = listItemAllFieldsJsonElement.TryGetProperty(fieldName, out idElement);
-
+          _ = listItemAllFieldsJsonElement.TryGetProperty(fieldName, out fieldElement);
         }
       }
-      return idElement;
+      return fieldElement;
     }
   }
 }
