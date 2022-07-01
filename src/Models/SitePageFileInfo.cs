@@ -54,7 +54,7 @@ namespace Graph.Community
       }
     }
 
-    public DateTimeOffset? FirstPublishedDate
+    public DateTimeOffset? FirstPublishedDateTime
     {
       get
       {
