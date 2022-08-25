@@ -25,5 +25,13 @@ namespace Graph.Community
         return new AppCatalogUrlRequestBuilder(this.RequestUrl, this.Client, this.options);
       }
     }
+
+    public IStorageEntityCollectionRequestBuilder StorageEntities
+    {
+      get
+      {
+        return new StorageEntityCollectionRequestBuilder(this.RequestUrl, this.Client, this.options);
+      }
+    }
   }
 }

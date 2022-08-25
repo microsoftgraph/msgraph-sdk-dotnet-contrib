@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Mocks\GetStorageEntitiesResponse.json" />
     <None Remove="Mocks\GetTenantAppCatalogUrlResponse.json" />
   </ItemGroup>
 
@@ -31,6 +32,7 @@
     <EmbeddedResource Include="Mocks\GetSiteScriptsResponse.json" />
     <EmbeddedResource Include="Mocks\GetSiteUserResponse.json" />
 		<EmbeddedResource Include="Mocks\GetSiteUsersResponse.json" />
+		<EmbeddedResource Include="Mocks\GetStorageEntitiesResponse.json" />
 		<EmbeddedResource Include="Mocks\GetTenantAppCatalogUrlResponse.json" />
 		<EmbeddedResource Include="Mocks\GetUserMailboxSettingsResponse.json" />
 		<EmbeddedResource Include="Mocks\GetWebAppTilesResponse.json" />

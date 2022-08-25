@@ -1,0 +1,7 @@
+{
+  "odata.metadata": "https://devaddin365.sharepoint.com/sites/apps/_api/$metadata#SP.ApiData.PropertyValuess/@Element&$select=storageentitiesindex",
+  "odata.type": "SP.PropertyValues",
+  "odata.id": "https://devaddin365.sharepoint.com/sites/apps/_api/web/AllProperties",
+  "odata.editLink": "web/AllProperties",
+  "storageentitiesindex": "{\"key-1\":{\"Value\":\"false\",\"Comment\":\"refer to documentation.\",\"Description\":\"Storage entity key 1.\"},\"key-2\":{\"Value\":\"random_string_value\",\"Comment\":\"\\\"Added\\\"\",\"Description\":\"\"},\"key-3\":{\"Value\":\"https://pnp.github.io/custom-learning-office-365/learningpathways/\",\"Comment\":null,\"Description\":\"CDN source for Microsoft Content\"}}"
+}

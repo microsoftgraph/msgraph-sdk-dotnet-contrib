@@ -15,7 +15,7 @@ namespace Graph.Community
       string requestUrl,
       IBaseClient client,
       IEnumerable<Option> options)
-      : base("SiteScript", requestUrl, client, options)
+      : base("AppCatalogUrl", requestUrl, client, options)
     {
       this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.AcceptHeaderName, SharePointAPIRequestConstants.Headers.AcceptHeaderValue));
       this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName, SharePointAPIRequestConstants.Headers.ODataVersionHeaderValue));
