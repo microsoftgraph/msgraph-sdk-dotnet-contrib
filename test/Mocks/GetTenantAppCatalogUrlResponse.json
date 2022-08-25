@@ -1,0 +1,7 @@
+{
+  "odata.metadata": "https://mock.sharepoint.com/_api/$metadata#SP.ApiData.TenantSettingss/@Element",
+  "odata.type": "SP.TenantSettings",
+  "odata.id": "https://mock.sharepoint.com/_api/SP_TenantSettings_Current",
+  "odata.editLink": "SP_TenantSettings_Current",
+  "CorporateCatalogUrl": "https://mock.sharepoint.com/sites/apps"
+}

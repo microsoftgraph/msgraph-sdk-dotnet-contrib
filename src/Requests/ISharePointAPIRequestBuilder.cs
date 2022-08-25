@@ -17,5 +17,7 @@ namespace Graph.Community
     ISitePageCollectionRequestBuilder SitePages { get; }
 
     ISearchRequestBuilder Search { get; }
+
+    ITenantRequestBuilder Tenant { get; } 
   }
 }

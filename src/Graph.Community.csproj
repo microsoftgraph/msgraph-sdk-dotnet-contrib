@@ -37,4 +37,8 @@
 	  <EditorConfigFiles Remove="C:\Repos\microsoftgraph\msgraph-sdk-dotnet-contrib\src\.editorconfig" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Remove="Requests\AppCatalog\AppCatalogUrlRequest.txt" />
+	</ItemGroup>
+
 </Project>
