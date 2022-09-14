@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Graph;
 
 namespace Graph.Community
@@ -22,6 +21,14 @@ namespace Graph.Community
       get
       {
         return new ListItemCollectionRequestBuilder(this.RequestUrl, this.Client);
+      }
+    }
+
+    public IListFieldCollectionRequestBuilder Fields
+    {
+      get
+      {
+        return new ListFieldCollectionRequestBuilder(this.RequestUrl, this.Client);
       }
     }
 

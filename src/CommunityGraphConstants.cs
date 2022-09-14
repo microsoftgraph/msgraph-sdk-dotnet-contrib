@@ -1,4 +1,4 @@
-namespace Graph.Community
+﻿namespace Graph.Community
 {
   public static class CommunityGraphConstants
   {
@@ -12,6 +12,11 @@ namespace Graph.Community
 
       /// The value for the SDK version header.
       internal static string VersionHeaderValue = $"dotnet-{AssemblyVersion}";
+    }
+
+    public static class Serialization
+    {
+      internal const string ODataType = "odata.type";
     }
 
     public static class Headers

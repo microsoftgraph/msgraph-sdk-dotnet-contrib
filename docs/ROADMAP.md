@@ -62,10 +62,19 @@ The following operations allow for reading the SharePoint change log. The inform
 |----------------------------------------|-------------------------------------------------------|-----------------|-----------------|
 | [Web Information](src/Models/Web.cs)   | `.Web`                                                | GetAsync        |1.16             |
 | Web Changes                            | `.Web`                                                | GetChangesAsync |1.16             |
-| [List Information](src/Models/List.cs) | `.Web.Lists[Guid id]` <br/>`.Web.Lists[string title]` | GetAsync        |1.16             |
 | List Changes                           | `.Web.Lists`                                          | GetChangesAsync |1.16             |
 
+### Lists
+
+The following operations allow for reading the fields in a List.
+
+| Operation  | Request Builder | Method         | Released version |
+|------------|-----------------|----------------|------------------|
+| [List Information](src/Models/List.cs) | `.Web.Lists[Guid id]` <br/>`.Web.Lists[string title]`               | GetAsync | 1.16             |
+| GetFields                              | `.Web.Lists[Guid id].Fields` <br/>`.Web.Lists[string title].Fields` | GetAsync | 4.40.0           |
+
 ### Navigation
+
 The following operations allow for reading the Web [navigation properties](https://docs.microsoft.com/en-us/previous-versions/office/developer/sharepoint-2010/ee544902%28v%3doffice.14%29).
 
 | Operation                   | Request Builder                                                      | Method      | Released version |

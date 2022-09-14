@@ -239,5 +239,6 @@ namespace Graph.Community.Test
       Assert.Equal(Microsoft.Graph.CoreConstants.MimeTypeNames.Application.Json, gsc.HttpProvider.ContentHeaders.ContentType.MediaType);
       Assert.Equal(expectedContent, actualContent);
     }
+
   }
 }

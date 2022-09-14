@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +38,11 @@ namespace Graph.Community
         // try to get the @odata.type property if we can
         if (!jsonDocument.RootElement.TryGetProperty(Microsoft.Graph.CoreConstants.Serialization.ODataType, out type))
         {
-          type = default;
+          // try the other format of that prop
+          if (!jsonDocument.RootElement.TryGetProperty(CommunityGraphConstants.Serialization.ODataType, out type))
+          {
+            type = default;
+          }
         }
       }
       catch (InvalidOperationException)
@@ -76,7 +80,14 @@ namespace Graph.Community
     {
       object instance;
       var typeString = type.ToString();
-      typeString = typeString.Replace("#SP", "Graph.Community");
+
+      // Map the type from SPO's response to what we know about...
+      //   first the "namespace"
+      typeString = typeString.Replace("#SP.", "Graph.Community.")
+                             .Replace("SP.", "Graph.Community.");
+      // then specific types
+      typeString = typeString.Replace("Taxonomy.TaxonomyField", "FieldTaxonomy");
+
       typeString = Microsoft.Graph.StringHelper.ConvertTypeToTitleCase(typeString);
       var typeAssembly = objectType.GetTypeInfo().Assembly;
       // Use the type assembly as part of the key since users might use v1 and beta at the same causing conflicts
@@ -168,8 +179,17 @@ namespace Graph.Community
               foreach (var property in json.EnumerateArray())
               {
                 // Get the object instance
-                //var instance = JsonSerializer.Deserialize(property.GetRawText(), genericType, options);
-                property.TryGetProperty(Microsoft.Graph.CoreConstants.Serialization.ODataType, out var type);
+                JsonElement type = default;
+                if (!property.TryGetProperty(Microsoft.Graph.CoreConstants.Serialization.ODataType, out type))
+                {
+                  property.TryGetProperty(CommunityGraphConstants.Serialization.ODataType, out type);
+                }
+
+                if (type.ValueKind == JsonValueKind.Undefined)
+                {
+                  break;
+                };
+
                 var itemType = CreateInstanceFromJsonODataType(genericType, type);
                 var instance = JsonSerializer.Deserialize(property.GetRawText(), itemType.GetType(), options);
 

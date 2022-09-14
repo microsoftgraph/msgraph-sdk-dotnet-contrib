@@ -3,23 +3,22 @@ using Microsoft.Graph;
 
 namespace Graph.Community
 {
-  public interface IListRequestBuilder : IBaseRequestBuilder
+  public interface IListFieldCollectionRequestBuilder
   {
-    public IListItemCollectionRequestBuilder Items { get; }
-
-    public IListFieldCollectionRequestBuilder Fields { get; }
-
     /// <summary>
     /// Builds the request.
     /// </summary>
     /// <returns>The built request.</returns>
-    IListRequest Request();
+    IListFieldCollectionRequest Request();
 
     /// <summary>
     /// Builds the request.
     /// </summary>
     /// <param name="options">The query and header options for the request.</param>
     /// <returns>The built request.</returns>
-    IListRequest Request(IEnumerable<Option> options);
+    IListFieldCollectionRequest Request(IEnumerable<Option> options);
+
+    IListFieldRequestBuilder this[string id] { get; }
+
   }
 }
