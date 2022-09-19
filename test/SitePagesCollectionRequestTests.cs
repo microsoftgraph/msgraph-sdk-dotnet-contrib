@@ -89,6 +89,8 @@ namespace Graph.Community.Test
         Assert.Equal(new DateTimeOffset(2021, 9, 10, 15, 11, 28, new TimeSpan()), testPage.LastModifiedDateTime);
         Assert.Equal("champions.aspx", testPage.FileName);
         Assert.Equal("https://mock.sharepoint.com/sites/mockSite/SitePages/champions.aspx", testPage.AbsoluteUrl);
+        Assert.Equal("https://cdn.hubblecontent.osi.office.net/m365content/publish/4e9be88c-6728-47ae-b894-dba9a5ff2e54/thumbnails/large.jpg?file=518251288.jpg", testPage.BannerImageUrl);
+        Assert.Equal("https://cdn.hubblecontent.osi.office.net/m365content/publish/4e9be88c-6728-47ae-b894-dba9a5ff2e54/thumbnails/thumbnail.jpg?file=518251288.jpg", testPage.BannerThumbnailUrl);
         Assert.Equal("SitePages/champions.aspx", testPage.Url);
         Assert.Equal("cef16a53-9b15-44f2-898e-ba67b9ada101", testPage.UniqueId);
       }
