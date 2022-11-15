@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Graph;
 
-namespace Graph.Community.Models
+namespace Graph.Community
 {
   public class Form : BaseItem
   {
