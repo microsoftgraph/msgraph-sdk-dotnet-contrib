@@ -1,5 +1,4 @@
-﻿using Graph.Community.Models;
-using Microsoft.Graph;
+﻿using Microsoft.Graph;
 
 namespace Graph.Community
 {

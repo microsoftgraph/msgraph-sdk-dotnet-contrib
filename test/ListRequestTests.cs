@@ -1,4 +1,3 @@
-using Graph.Community.Models;
 using Moq;
 using System;
 using System.Net;
