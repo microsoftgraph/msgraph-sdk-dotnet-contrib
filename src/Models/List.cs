@@ -1,4 +1,5 @@
-﻿using Microsoft.Graph;
+﻿using Graph.Community.Models;
+using Microsoft.Graph;
 
 namespace Graph.Community
 {
@@ -7,6 +8,7 @@ namespace Graph.Community
     public new string Id { get; set; }
     public string Title { get; set; }
     public int BaseTemplate { get; set; }
+    public System.Collections.Generic.List<Form> Forms { get; set; }
     public ChangeToken CurrentChangeToken { get; set; }
   }
 }

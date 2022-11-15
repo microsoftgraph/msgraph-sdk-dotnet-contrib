@@ -61,5 +61,41 @@
   "ParserDisabled": false,
   "ServerTemplateCanCreateFolders": false,
   "TemplateFeatureId": "00bfea71-ec85-4903-972d-ebe475780106",
-  "Title": "Events"
+  "Title": "Events",
+  "Forms@odata.navigationLink": "Web/Lists(guid'6f094ea6-2222-4f2e-b864-54f706f8b07a')/Forms",
+  "Forms": [
+    {
+      "@odata.type": "#SP.Form",
+      "@odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/Web/Lists(guid'6f094ea6-2222-4f2e-b864-54f706f8b07a')/Forms(guid'698377d9-cfca-4c9a-8e05-ae6558599f4b')",
+      "@odata.editLink": "Web/Lists(guid'6f094ea6-2222-4f2e-b864-54f706f8b07a')/Forms(guid'698377d9-cfca-4c9a-8e05-ae6558599f4b')",
+      "Id": "698377d9-cfca-4c9a-8e05-ae6558599f4b",
+      "ResourcePath": {
+        "DecodedUrl": "Lists/MockList/DispForm.aspx"
+      },
+      "ServerRelativeUrl": "sites/mockSite/Lists/MockList/DispForm.aspx",
+      "FormType": 4
+    },
+    {
+      "@odata.type": "#SP.Form",
+      "@odata.id": "https://devaddin365.sharepoint.comsites/mockSite/_api/Web/Lists(guid'6f094ea6-2222-4f2e-b864-54f706f8b07a')/Forms(guid'872d8a83-ccc2-409a-81f3-b2e36d544545')",
+      "@odata.editLink": "Web/Lists(guid'6f094ea6-2222-4f2e-b864-54f706f8b07a')/Forms(guid'872d8a83-ccc2-409a-81f3-b2e36d544545')",
+      "Id": "872d8a83-ccc2-409a-81f3-b2e36d544545",
+      "ResourcePath": {
+        "DecodedUrl": "Lists/MockList/EditForm.aspx"
+      },
+      "ServerRelativeUrl": "sites/mockSite/Lists/MockList/EditForm.aspx",
+      "FormType": 6
+    },
+    {
+      "@odata.type": "#SP.Form",
+      "@odata.id": "https://devaddin365.sharepoint.comsites/mockSite/_api/Web/Lists(guid'6f094ea6-2222-4f2e-b864-54f706f8b07a')/Forms(guid'6a0ce162-9829-4920-ae99-498772719d8b')",
+      "@odata.editLink": "Web/Lists(guid'6f094ea6-2222-4f2e-b864-54f706f8b07a')/Forms(guid'6a0ce162-9829-4920-ae99-498772719d8b')",
+      "Id": "6a0ce162-9829-4920-ae99-498772719d8b",
+      "ResourcePath": {
+        "DecodedUrl": "Lists/MockList/NewForm.aspx"
+      },
+      "ServerRelativeUrl": "sites/mockSite/Lists/MockList/NewForm.aspx",
+      "FormType": 8
+    }
+  ]
 }

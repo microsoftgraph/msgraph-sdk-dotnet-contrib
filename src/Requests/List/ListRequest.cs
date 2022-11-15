@@ -1,4 +1,6 @@
+﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Graph;
@@ -28,6 +30,31 @@ namespace Graph.Community
       var entity = await this.SendAsync<Graph.Community.List>(null, cancellationToken).ConfigureAwait(false);
       return entity;
     }
+
+    public IListRequest Expand(string value)
+    {
+      this.QueryOptions.Add(new QueryOption("$expand", value));
+      return this;
+    }
+
+    public IListRequest Expand(Expression<Func<List, object>> expandExpression)
+    {
+      if (expandExpression == null)
+      {
+        throw new ArgumentNullException(nameof(expandExpression));
+      }
+      string value = ExpressionExtractHelper.ExtractMembers(expandExpression, out string error);
+      if (value == null)
+      {
+        throw new ArgumentException(error, nameof(expandExpression));
+      }
+      else
+      {
+        this.QueryOptions.Add(new QueryOption("$expand", value));
+      }
+      return this;
+    }
+
 
     public Task<IChangeLogCollectionPage> GetChangesAsync(ChangeQuery query)
     {
