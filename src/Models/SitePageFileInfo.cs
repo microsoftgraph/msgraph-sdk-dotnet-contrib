@@ -94,21 +94,8 @@ namespace Graph.Community
       }
     }
 
-    public new DateTimeOffset? CreatedDateTime
-    {
-      get
-      {
-        var createdJsonElement = GetListItemFieldElement("Created");
-        if (createdJsonElement.ValueKind == JsonValueKind.String)
-        {
-          // we don't get a timezone offset. so forcing to utc
-          var forcedOffsetCreated = createdJsonElement.ToString() + "Z";
-          return DateTimeOffset.Parse(forcedOffsetCreated);
-        }
-        return null;
-      }
-      set { }
-    }
+    [JsonPropertyName("TimeCreated")]
+    public new DateTimeOffset? CreatedDateTime { get; set; }
 
     public UserInfo Author
     {

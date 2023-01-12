@@ -52,7 +52,7 @@ namespace Graph.Community.Test
       Assert.Equal("champions.aspx", testPage.FileName);
       Assert.Equal("cef16a53-9b15-44f2-898e-ba67b9ada101", testPage.UniqueId);
       Assert.Equal(2, testPage.ModernAudienceTargetUsers.Count);
-      Assert.Equal(new DateTimeOffset(2021, 6, 24, 5, 29, 16, new TimeSpan()), testPage.CreatedDateTime);
+      Assert.Equal(new DateTimeOffset(2021, 6, 24, 12, 29, 16, new TimeSpan()), testPage.CreatedDateTime);
       Assert.IsType<Graph.Community.UserInfo>(testPage.Author);
       Assert.Equal(6, testPage.Author.Id);
       Assert.IsType<Graph.Community.UserInfo>(testPage.Editor);
