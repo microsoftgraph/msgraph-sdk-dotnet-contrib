@@ -61,9 +61,20 @@ namespace Graph.Community
         var firstPublishedDateJsonElement = GetListItemFieldElement("FirstPublishedDate");
         if (firstPublishedDateJsonElement.ValueKind == JsonValueKind.String)
         {
+          var firstPublishedDateString = firstPublishedDateJsonElement.ToString();
+          if (DateTimeOffset.TryParse(firstPublishedDateString, out var firstPublishedDate))
+          {
+            return firstPublishedDate;
+          }
+
           // we don't get a timezone offset. so forcing to utc
-          var forcedOffsetCreated = firstPublishedDateJsonElement.ToString() + "Z";
-          return DateTimeOffset.Parse(forcedOffsetCreated);
+          if (!firstPublishedDateString.EndsWith("Z"))
+          {
+            if (DateTimeOffset.TryParse($"{firstPublishedDateString}Z", out firstPublishedDate))
+            {
+              return firstPublishedDate;
+            }
+          }
         }
         return null;
       }
