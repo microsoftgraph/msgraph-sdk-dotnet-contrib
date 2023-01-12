@@ -47,7 +47,7 @@ namespace Graph.Community.Test
       Assert.Equal("Champions", testPage.Title);
       Assert.StartsWith("Make a difference ", testPage.Description);
       Assert.Equal(SitePagePromotedState.NotPromoted, testPage.PromotedState);
-      Assert.Equal(new DateTimeOffset(2022, 5, 25, 16, 07, 42, new TimeSpan()), testPage.FirstPublishedDateTime);
+      Assert.Equal(new DateTimeOffset(2022, 5, 25, 16, 07, 42, new TimeSpan(-8,0,0)), testPage.FirstPublishedDateTime);
       Assert.Equal(new DateTimeOffset(2021, 9, 10, 15, 11, 28, new TimeSpan()), testPage.LastModifiedDateTime);
       Assert.Equal("champions.aspx", testPage.FileName);
       Assert.Equal("cef16a53-9b15-44f2-898e-ba67b9ada101", testPage.UniqueId);
