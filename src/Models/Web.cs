@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using Graph.Community.Models;
 using Microsoft.Graph;
 
 namespace Graph.Community
@@ -42,5 +43,8 @@ namespace Graph.Community
 
     [JsonPropertyName("WelcomePage")]
     public string WelcomePage { get; set; }
+
+    [JsonPropertyName("RegionalSettings")]
+    public RegionalSettings RegionalSettings { get; set; }
   }
 }

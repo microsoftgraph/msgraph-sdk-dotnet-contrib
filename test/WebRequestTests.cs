@@ -60,11 +60,14 @@ namespace Graph.Community.Test
                                   .SharePointAPI(mockWebUrl)
                                   .Web
                                   .Request()
+                                  .Expand("RegionalSettings,RegionalSettings/TimeZone")
                                   .GetAsync();
 
         // ASSERT
         Assert.Equal("Mock Site", actual.Title);
         Assert.Equal("SitePages/This-one-is-not-posted.aspx", actual.WelcomePage);
+        Assert.NotNull(actual.RegionalSettings);
+        Assert.Equal(13, actual.RegionalSettings.TimeZone.Id);
       }
     }
 
@@ -97,6 +100,32 @@ namespace Graph.Community.Test
           ),
         Times.Exactly(1)
       );
+    }
+
+    [Fact]
+    public async Task Get_GeneratesCorrectRequest_WithExpand()
+    {
+      // ARRANGE
+      var expectedUri = new Uri($"{mockWebUrl}/_api/web?$expand=RegionalSettings%2CRegionalSettings%2FTimeZone");
+
+      using HttpResponseMessage response = new HttpResponseMessage();
+      using GraphServiceTestClient testClient = GraphServiceTestClient.Create(response);
+
+      // ACT
+      var request = testClient.GraphServiceClient
+                          .SharePointAPI(mockWebUrl)
+                          .Web
+                          .Request()
+                          .Expand("RegionalSettings,RegionalSettings/TimeZone")
+                          .GetHttpRequestMessage();
+
+
+
+      // ASSERT
+      Assert.Equal(expectedUri, request.RequestUri);
+      Assert.Equal(SharePointAPIRequestConstants.Headers.AcceptHeaderValue, request.Headers.Accept.ToString());
+      Assert.True(request.Headers.Contains(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName), $"Header does not contain {SharePointAPIRequestConstants.Headers.ODataVersionHeaderName} header");
+      Assert.Equal(SharePointAPIRequestConstants.Headers.ODataVersionHeaderValue, string.Join(',', request.Headers.GetValues(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName)));
     }
 
     [Fact]
@@ -355,5 +384,6 @@ namespace Graph.Community.Test
         Assert.Empty(actual.AssociatedVisitorGroup.Users);
       }
     }
+
   }
 }

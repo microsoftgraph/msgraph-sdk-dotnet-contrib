@@ -7,12 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Mocks\GetListFieldsResponse.json" />
-    <None Remove="Mocks\GetStorageEntitiesResponse.json" />
-    <None Remove="Mocks\GetTenantAppCatalogUrlResponse.json" />
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Include="Mocks\ApplySiteDesignResponse.json" />
     <EmbeddedResource Include="Mocks\CreateSiteDesignResponse.json" />
     <EmbeddedResource Include="Mocks\CreateSiteScriptResponse.json" />
