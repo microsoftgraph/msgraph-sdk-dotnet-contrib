@@ -13,21 +13,9 @@ namespace Graph.Community
     public bool IsCurrentVersion { get; set; }
 
     // Refer to https://github.com/pnp/pnpcore/issues/581
-    public string Length { get; set; }
+    //public int Length { get; set; }
 
-    [JsonIgnore]
-    public long Size
-    {
-      get
-      {
-        if (long.TryParse(Length, out var size))
-        {
-          return size;
-        }
-        return 0;
-      }
-
-    }
+    public long Size { get; set; }
 
     public string VersionLabel { get; set; }
   }
