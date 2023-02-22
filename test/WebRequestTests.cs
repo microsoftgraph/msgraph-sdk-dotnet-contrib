@@ -103,7 +103,7 @@ namespace Graph.Community.Test
     }
 
     [Fact]
-    public async Task Get_GeneratesCorrectRequest_WithExpand()
+    public void Get_GeneratesCorrectRequest_WithExpand()
     {
       // ARRANGE
       var expectedUri = new Uri($"{mockWebUrl}/_api/web?$expand=RegionalSettings%2CRegionalSettings%2FTimeZone");

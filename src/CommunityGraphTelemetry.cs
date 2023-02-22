@@ -11,7 +11,7 @@ namespace Graph.Community
 
     static CommunityGraphTelemetry()
     {
-      telemetryConfiguration.InstrumentationKey = "d882bd7a-a378-4117-bd7c-71fc95a44cd1";
+      telemetryConfiguration.ConnectionString= "InstrumentationKey=d882bd7a-a378-4117-bd7c-71fc95a44cd1;IngestionEndpoint=https://centralus-0.in.applicationinsights.azure.com/;LiveEndpoint=https://centralus.livediagnostics.monitor.azure.com/";
       telemetryClient = new TelemetryClient(telemetryConfiguration);
     }
 
