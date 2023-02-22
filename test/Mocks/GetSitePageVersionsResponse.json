@@ -1,0 +1,44 @@
+{
+  "odata.metadata": "https://mock.sharepoint.com/sites/mockSite/_api/$metadata#SP.ApiData.FileVersions",
+  "value": [
+    {
+      "odata.type": "SP.FileVersion",
+      "odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/SP.FileVersionc75ac36c-9b5b-4645-afac-ac14d63cb005",
+      "odata.editLink": "SP.FileVersionc75ac36c-9b5b-4645-afac-ac14d63cb005",
+      "CheckInComment": "",
+      "Created": "2023-02-14T10:56:13Z",
+      "ID": 512,
+      "IsCurrentVersion": false,
+      "Length": "26340",
+      "Size": 26340,
+      "Url": "_vti_history/512/SitePages/home.aspx.IgnoreExt?IgnoreExt=1",
+      "VersionLabel": "1.0"
+    },
+    {
+      "odata.type": "SP.FileVersion",
+      "odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/SP.FileVersion53bee446-0c9a-4cda-ad3e-c81b5a53a980",
+      "odata.editLink": "SP.FileVersion53bee446-0c9a-4cda-ad3e-c81b5a53a980",
+      "CheckInComment": "",
+      "Created": "2023-02-20T21:33:06Z",
+      "ID": 1024,
+      "IsCurrentVersion": true,
+      "Length": "27887",
+      "Size": 27887,
+      "Url": "_vti_history/1024/SitePages/home.aspx.IgnoreExt?IgnoreExt=1",
+      "VersionLabel": "2.0"
+    },
+    {
+      "odata.type": "SP.FileVersion",
+      "odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/SP.FileVersion744871d5-1b26-41a5-bd18-9923986e9fed",
+      "odata.editLink": "SP.FileVersion744871d5-1b26-41a5-bd18-9923986e9fed",
+      "CheckInComment": "",
+      "Created": "2023-02-22T21:28:29Z",
+      "ID": 1025,
+      "IsCurrentVersion": false,
+      "Length": "27744",
+      "Size": 27744,
+      "Url": "_vti_history/1025/SitePages/home.aspx.IgnoreExt?IgnoreExt=1",
+      "VersionLabel": "2.1"
+    }
+  ]
+}

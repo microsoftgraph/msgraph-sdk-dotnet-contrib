@@ -27,5 +27,13 @@ namespace Graph.Community
     {
       return new SitePageRequest(this.RequestUrl, this.Client, options);
     }
+
+    public ISitePageVersionCollectionRequestBuilder Versions
+    {
+      get
+      {
+        return new Graph.Community.SitePageVersionCollectionRequestBuilder(this.AppendSegmentToRequestUrl("versions"), this.Client);
+      }
+    }
   }
 }

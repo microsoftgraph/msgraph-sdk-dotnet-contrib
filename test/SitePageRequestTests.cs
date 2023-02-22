@@ -93,5 +93,73 @@ namespace Graph.Community.Test
         // Props checked in SitePageFileInfoConverterTests
       }
     }
+
+    [Fact]
+    public void GetVersions_GeneratesCorrectRequestUriAndHeaders()
+    {
+      // ARRANGE
+      var mockPagename = "champions.aspx";
+      var expectedUri = new Uri($"{mockWebUrl}/_api/web/getfilebyserverrelativeurl('/sites/mockSite/SitePages/{mockPagename}')/versions");
+
+      using HttpResponseMessage response = new HttpResponseMessage();
+      using GraphServiceTestClient testClient = GraphServiceTestClient.Create(response);
+
+      // ACT
+      var request = testClient.GraphServiceClient
+                          .SharePointAPI(mockWebUrl)
+                          .SitePages[mockPagename]
+                          .Versions
+                          .Request()
+                          .GetHttpRequestMessage();
+
+      // ASSERT
+
+      Assert.Equal(expectedUri, request.RequestUri);
+      Assert.Equal(SharePointAPIRequestConstants.Headers.AcceptHeaderValue, request.Headers.Accept.ToString());
+      Assert.True(request.Headers.Contains(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName), $"Header does not contain {SharePointAPIRequestConstants.Headers.ODataVersionHeaderName} header");
+      Assert.Equal(SharePointAPIRequestConstants.Headers.ODataVersionHeaderValue, string.Join(',', request.Headers.GetValues(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName)));
+
+    }
+
+    [Fact]
+    public async Task GetVersions_ReturnsCorrectResponse()
+    {
+      // ARRANGE
+      var mockPagename = "champions.aspx";
+
+      var responseContent = ResourceManager.GetHttpResponseContent("GetSitePageVersionsResponse.json");
+      var responseMessage = new HttpResponseMessage()
+      {
+        StatusCode = HttpStatusCode.OK,
+        Content = new StringContent(responseContent),
+      };
+
+      using (responseMessage)
+      using (GraphServiceTestClient gsc = GraphServiceTestClient.Create(responseMessage))
+      {
+        // ACT
+        var response = await gsc.GraphServiceClient
+                                    .SharePointAPI(mockWebUrl)
+                                    .SitePages[mockPagename]
+                                    .Versions
+                                    .Request()
+                                    .GetAsync();
+
+
+        var actual = response.CurrentPage;
+
+        //// ASSERT
+        Assert.IsAssignableFrom<IList<SitePageVersion>>(actual);
+        Assert.Equal(3, actual.Count);
+
+        var testVersion = actual[1];
+        Assert.Equal(new DateTime(2023, 2, 20, 21, 33, 6), testVersion.Created);
+        Assert.True(testVersion.IsCurrentVersion);
+        Assert.Equal(27887, testVersion.Size);
+        Assert.Equal("2.0", testVersion.VersionLabel);
+
+
+      }
+    }
   }
 }

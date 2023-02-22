@@ -19,5 +19,7 @@ namespace Graph.Community
     /// <param name="options">The query and header options for the request.</param>
     /// <returns>The built request.</returns>
     ISitePageRequest Request(IEnumerable<Option> options);
+
+    ISitePageVersionCollectionRequestBuilder Versions { get; }
   }
 }

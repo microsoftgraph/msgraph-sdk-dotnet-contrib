@@ -5,27 +5,27 @@ using Microsoft.Graph;
 
 namespace Graph.Community
 {
-  public class SitePageCollectionRequest : BaseSharePointAPIRequest, ISitePageCollectionRequest
+  public class SitePageVersionCollectionRequest : BaseSharePointAPIRequest, ISitePageVersionCollectionRequest
   {
-    public SitePageCollectionRequest(
+    public SitePageVersionCollectionRequest(
       string requestUrl,
       IBaseClient client,
       IEnumerable<Option> options)
-      : base("SitePages", requestUrl, client, options)
+      : base("SitePageVersionCollection", requestUrl, client, options)
     {
       this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.AcceptHeaderName, SharePointAPIRequestConstants.Headers.AcceptHeaderValue));
       this.Headers.Add(new HeaderOption(SharePointAPIRequestConstants.Headers.ODataVersionHeaderName, SharePointAPIRequestConstants.Headers.ODataVersionHeaderValue));
     }
 
-    public Task<ISitePageCollectionPage> GetAsync()
+    public async Task<ISitePageVersionCollectionPage> GetAsync()
     {
-      return this.GetAsync(CancellationToken.None);
+      return await this.GetAsync(CancellationToken.None);
     }
 
-    public async Task<ISitePageCollectionPage> GetAsync(CancellationToken cancellationToken)
+    public async Task<ISitePageVersionCollectionPage> GetAsync(CancellationToken cancellationToken)
     {
       this.ContentType = "application/json";
-      var response = await this.SendAsync<SharePointAPICollectionResponse<ISitePageCollectionPage>>(null, cancellationToken).ConfigureAwait(false);
+      var response = await this.SendAsync<SharePointAPICollectionResponse<ISitePageVersionCollectionPage>>(null, cancellationToken).ConfigureAwait(false);
 
       if (response?.Value?.CurrentPage != null)
       {
@@ -34,5 +34,6 @@ namespace Graph.Community
 
       return null;
     }
+
   }
 }
