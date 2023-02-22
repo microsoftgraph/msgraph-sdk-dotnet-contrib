@@ -54,6 +54,9 @@ namespace Graph.Community
       }
     }
 
+    [JsonPropertyName("Level")]
+    public SitePagePublishedStatus? PublishedStatus { get; set; }
+
     public DateTimeOffset? FirstPublishedDateTime
     {
       get
