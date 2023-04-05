@@ -1,4 +1,4 @@
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Graph;
 
@@ -11,5 +11,8 @@ namespace Graph.Community
 
     Task<SiteScriptMetadata> UpdateAsync(SiteScriptMetadata updatedSiteScriptMetadata);
     Task<SiteScriptMetadata> UpdateAsync(SiteScriptMetadata updatedSiteScriptMetadata, CancellationToken cancellationToken);
+
+    Task DeleteAsync();
+    Task DeleteAsync(CancellationToken cancellationToken);
   }
 }

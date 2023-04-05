@@ -505,6 +505,65 @@ namespace Graph.Community.Test
         Assert.True(actual.IsSiteScriptPackage);
       }
     }
+
+    [Fact]
+    public async Task Delete_GeneratesCorrectRequest()
+    {
+      // ARRANGE
+      var mockSiteScriptId = "mockSiteScriptId";
+
+      var expectedUri = new Uri($"{mockWebUrl}/_api/Microsoft.Sharepoint.Utilities.WebTemplateExtensions.SiteScriptUtility.DeleteSiteScript");
+      var expectedContent = $"{{\"id\":\"{mockSiteScriptId}\"}}";
+
+      using HttpResponseMessage response = new HttpResponseMessage();
+      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+
+      // ACT
+      await gsc.GraphServiceClient
+                  .SharePointAPI(mockWebUrl)
+                  .SiteScripts[mockSiteScriptId]
+                  .Request()
+                  .DeleteAsync();
+      var actualContent = gsc.HttpProvider.ContentAsString;
+
+      // ASSERT
+      gsc.HttpProvider.Verify(
+          provider => provider.SendAsync(
+              It.Is<HttpRequestMessage>(req =>
+                  req.Method == HttpMethod.Post &&
+                  req.RequestUri == expectedUri &&
+                  req.Headers.Authorization != null
+              ),
+              It.IsAny<HttpCompletionOption>(),
+              It.IsAny<CancellationToken>()
+          ),
+          Times.Exactly(1)
+      );
+      Assert.Equal(Microsoft.Graph.CoreConstants.MimeTypeNames.Application.Json, gsc.HttpProvider.ContentHeaders.ContentType.MediaType);
+      Assert.Equal(expectedContent, actualContent);
+    }
+
+    [Fact]
+    public async Task Delete_MissingId_Throws()
+    {
+      // ARRANGE
+      string siteScriptId = default;
+
+      using HttpResponseMessage response = new HttpResponseMessage();
+      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+
+      await Assert.ThrowsAsync<ArgumentNullException>(
+          async () => await gsc.GraphServiceClient
+                                  .SharePointAPI(mockWebUrl)
+                                  .SiteDesigns[siteScriptId]
+                                  .Request()
+                                  .DeleteAsync()
+      );
+
+
+    }
+
+
     private SiteScriptMetadata CreateMockSiteScriptMetadata()
     {
       var result = new SiteScriptMetadata()

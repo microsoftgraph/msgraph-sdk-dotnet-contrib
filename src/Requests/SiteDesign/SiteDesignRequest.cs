@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -26,16 +26,6 @@ namespace Graph.Community
     }
 
     public Task<ApplySiteDesignResponse> ApplyAsync(ApplySiteDesignRequest siteDesign, CancellationToken cancellationToken)
-    {
-      throw new NotImplementedException();
-    }
-
-    public Task<SiteDesignMetadata> CreateAsync(SiteDesignMetadata siteDesignMetadata)
-    {
-      throw new NotImplementedException();
-    }
-
-    public Task<SiteDesignMetadata> CreateAsync(SiteDesignMetadata siteDesignMetadata, CancellationToken cancellationToken)
     {
       throw new NotImplementedException();
     }
@@ -106,5 +96,38 @@ namespace Graph.Community
 
       return entity;
     }
+
+    #region Delete
+
+    public Task DeleteAsync()
+    {
+      return this.DeleteAsync(CancellationToken.None);
+    }
+
+    public async Task DeleteAsync(CancellationToken cancellationToken)
+    {
+      // the usual model is to append the id to the query
+      // Site Designs require the id in the request body, so grab it from options 
+
+      var idOption = this.QueryOptions.First(o => o.Name.Equals("id", StringComparison.InvariantCultureIgnoreCase));
+      this.QueryOptions.Remove(idOption);
+
+      if (string.IsNullOrEmpty(idOption.Value))
+      {
+        throw new ArgumentNullException("siteDesignId");
+      }
+
+      // create the object that must be posted 
+      var request = new { id = idOption.Value };
+
+      // still need to update the url, just not with the Id
+      this.AppendSegmentToRequestUrl("Microsoft.Sharepoint.Utilities.WebTemplateExtensions.SiteScriptUtility.DeleteSiteDesign");
+
+      this.ContentType = "application/json";
+      await this.SendAsync(request, cancellationToken).ConfigureAwait(false);
+    }
+
+    #endregion
+
   }
 }
