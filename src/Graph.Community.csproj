@@ -4,6 +4,7 @@
 		<LangVersion>latest</LangVersion>
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/microsoftgraph/msgraph-sdk-dotnet-contrib</PackageProjectUrl>
 		<PackageIcon>graph-community.png</PackageIcon>
@@ -30,7 +31,8 @@
 
 	<ItemGroup>
 		<None Include="C:\Repos\microsoftgraph\msgraph-sdk-dotnet-contrib\src\.editorconfig" />
-		<None Include="graph-community.png" Pack="true" PackagePath="\" />
+    <None Include="graph-community.png" Pack="true" PackagePath="\" />
+    <None Include="README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
 	<ItemGroup>
