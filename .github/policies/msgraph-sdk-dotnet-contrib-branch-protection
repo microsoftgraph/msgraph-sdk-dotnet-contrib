@@ -1,0 +1,11 @@
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
+
+# File initially created using https://github.com/MIchaelMainer/policyservicetoolkit/blob/main/branch_protection_export.ps1.
+
+name: msgraph-sdk-dotnet-contrib-branch-protection
+description: Branch protection policy for the msgraph-sdk-dotnet-contrib repository
+resource: repository
+configuration:
+  branchProtectionRules:
+
