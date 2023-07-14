@@ -21,6 +21,9 @@ namespace Graph.Community
     Task<Web> GetAssociatedGroupsAsync(bool includeUsers);
     Task<Web> GetAssociatedGroupsAsync(bool includeUsers, CancellationToken cancellationToken);
 
+    Task<List> EnsureSiteAssetsAsync();
+    Task<List> EnsureSiteAssetsAsync(CancellationToken cancellationToken);
+
     /// <summary>
     /// Adds the specified expand value to the request.
     /// </summary>

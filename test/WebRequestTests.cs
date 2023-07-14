@@ -385,5 +385,66 @@ namespace Graph.Community.Test
       }
     }
 
+
+    [Fact]
+    public async Task EnsureSiteAssets_GeneratesCorrectRequest()
+    {
+      // ARRANGE
+      var expectedUri = new Uri($"{mockWebUrl}/_api/web/Lists/EnsureSiteAssetsLibrary");
+
+      using HttpResponseMessage response = new HttpResponseMessage();
+      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+
+      // ACT
+      await gsc.GraphServiceClient
+                  .SharePointAPI(mockWebUrl)
+                  .Web
+                  .Request()
+                  .EnsureSiteAssetsAsync();
+
+      // ASSERT
+      gsc.HttpProvider.Verify(
+        provider => provider.SendAsync(
+          It.Is<HttpRequestMessage>(req =>
+            req.Method == HttpMethod.Post &&
+            req.RequestUri == expectedUri &&
+            req.Headers.Authorization != null
+          ),
+          It.IsAny<HttpCompletionOption>(),
+          It.IsAny<CancellationToken>()
+        ),
+        Times.Exactly(1)
+      );
+    }
+
+    [Fact]
+    public async Task EnsureSiteAssets_ReturnsCorrectResponse()
+    {
+      // ARRANGE
+      var responseContent = ResourceManager.GetHttpResponseContent("EnsureSiteAssetsResponse.json");
+      HttpResponseMessage responseMessage = new HttpResponseMessage()
+      {
+        StatusCode = HttpStatusCode.OK,
+        Content = new StringContent(responseContent),
+      };
+
+
+      using (responseMessage)
+      using (var gsc = GraphServiceTestClient.Create(responseMessage))
+      {
+        // ACT
+        var response = await gsc.GraphServiceClient
+                        .SharePointAPI(mockWebUrl)
+                        .Web
+                        .Request()
+                        .EnsureSiteAssetsAsync();
+        var actual = response;
+
+        // ASSERT
+        Assert.NotNull(actual);
+        Assert.Equal("481f59e9-e3a8-4216-8188-642076ab4c74", actual.Id);
+      }
+    }
+
   }
 }

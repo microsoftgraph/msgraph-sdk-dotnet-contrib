@@ -108,6 +108,20 @@ namespace Graph.Community
       return null;
     }
 
+    public Task<List> EnsureSiteAssetsAsync()
+    {
+      return this.EnsureSiteAssetsAsync(CancellationToken.None);
+    }
+
+    public async Task<List> EnsureSiteAssetsAsync(CancellationToken cancellationToken)
+    {
+      this.AppendSegmentToRequestUrl("Lists/EnsureSiteAssetsLibrary");
+      this.Method = HttpMethods.POST;
+
+      var entity = await this.SendAsync<Graph.Community.List>(null, cancellationToken).ConfigureAwait(false);
+      return entity;
+    }
+
     public IWebRequest Expand(string value)
     {
       this.QueryOptions.Add(new QueryOption("$expand", value));
