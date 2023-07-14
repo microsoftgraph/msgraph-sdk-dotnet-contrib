@@ -27,7 +27,7 @@ namespace Graph.Community.Test
       var expectedUri = new Uri($"{mockWebUrl}/_api/web/apptiles");
 
       using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient gsc = TestGraphServiceClient.Create(response);
 
       // ACT
       await gsc.GraphServiceClient
@@ -64,7 +64,7 @@ namespace Graph.Community.Test
       };
 
       using (responseMessage)
-      using (var gsc = GraphServiceTestClient.Create(responseMessage))
+      using (var gsc = TestGraphServiceClient.Create(responseMessage))
       {
         // ACT
         var response = await gsc.GraphServiceClient

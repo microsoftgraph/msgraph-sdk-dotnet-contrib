@@ -20,7 +20,7 @@ namespace Graph.Community.Test
     {
       // ARRANGE
       var handler = new MockSharePointServiceHandler();
-      var client = GraphServiceTestClient.Create(handler);
+      var client = TestGraphServiceClient.Create(handler);
       var req = new BaseSharePointAPIRequest("TEST", "http://localhost", client.GraphServiceClient, null);
 
       // ACT
@@ -35,7 +35,7 @@ namespace Graph.Community.Test
     {
       // ARRANGE
       var handler = new MockSharePointServiceHandler();
-      var client = GraphServiceTestClient.Create(handler);
+      var client = TestGraphServiceClient.Create(handler);
       var expected = true;
       var req = new BaseSharePointAPIRequest("TEST", "http://localhost", client.GraphServiceClient, null);
 
@@ -52,7 +52,7 @@ namespace Graph.Community.Test
     {
       // ARRANGE
       var handler = new MockSharePointServiceHandler();
-      var client = GraphServiceTestClient.Create(handler);
+      var client = TestGraphServiceClient.Create(handler);
       var expected = true;
       CommunityGraphClientFactory.TelemetryDisabled = expected;
       var req = new BaseSharePointAPIRequest("TEST", "http://localhost", client.GraphServiceClient, null);

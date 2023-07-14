@@ -29,7 +29,7 @@ namespace Graph.Community.Test
       var expectedUri = new Uri($"{mockWebUrl}/_api/web/lists('{mockListId}')");
 
       using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient testClient = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient testClient = TestGraphServiceClient.Create(response);
 
       // ACT
       var request = testClient.GraphServiceClient
@@ -54,7 +54,7 @@ namespace Graph.Community.Test
       var expectedUri = new Uri($"{mockWebUrl}/_api/web/lists('{mockListId}')?$expand=Forms");
 
       using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient testClient = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient testClient = TestGraphServiceClient.Create(response);
 
       // ACT
       var request = testClient.GraphServiceClient
@@ -78,7 +78,7 @@ namespace Graph.Community.Test
     public async Task GetById_MissingId_Throws()
     {
       using (var response = new HttpResponseMessage())
-      using (var gsc = GraphServiceTestClient.Create(response))
+      using (var gsc = TestGraphServiceClient.Create(response))
       {
         // ACT & ASSERT
         await Assert.ThrowsAsync<ArgumentOutOfRangeException>(
@@ -100,7 +100,7 @@ namespace Graph.Community.Test
       var expectedUri = new Uri($"{mockWebUrl}/_api/web/lists/getByTitle('{mockListTitle}')");
 
       using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient gsc = TestGraphServiceClient.Create(response);
 
       // ACT
       var request = gsc.GraphServiceClient
@@ -125,7 +125,7 @@ namespace Graph.Community.Test
       var expectedUri = new Uri($"{mockWebUrl}/_api/web/lists/getByTitle('{mockListTitle}')?$expand=Forms");
 
       using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient gsc = TestGraphServiceClient.Create(response);
 
       // ACT
       var request = gsc.GraphServiceClient
@@ -149,7 +149,7 @@ namespace Graph.Community.Test
     public async Task GetByTitle_MissingTitle_Throws(string title)
     {
       using (var response = new HttpResponseMessage())
-      using (var gsc = GraphServiceTestClient.Create(response))
+      using (var gsc = TestGraphServiceClient.Create(response))
       {
         // ACT & ASSERT
         await Assert.ThrowsAsync<ArgumentNullException>(
@@ -177,7 +177,7 @@ namespace Graph.Community.Test
       };
 
       using (responseMessage)
-      using (GraphServiceTestClient gsc = GraphServiceTestClient.Create(responseMessage))
+      using (TestGraphServiceClient gsc = TestGraphServiceClient.Create(responseMessage))
       {
         // ACT
         var actual = await gsc.GraphServiceClient
@@ -207,7 +207,7 @@ namespace Graph.Community.Test
       var expectedUri = new Uri($"{mockWebUrl}/_api/web/lists('{mockListId}')/items");
 
       using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient testClient = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient testClient = TestGraphServiceClient.Create(response);
 
       // ACT
       var request = testClient.GraphServiceClient
@@ -238,7 +238,7 @@ namespace Graph.Community.Test
       var expectedContent = "{\"query\":{\"Add\":true}}";
 
       using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient gsc = TestGraphServiceClient.Create(response);
 
       // ACT
       await gsc.GraphServiceClient

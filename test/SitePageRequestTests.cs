@@ -28,7 +28,7 @@ namespace Graph.Community.Test
       var expectedUri = new Uri($"{mockWebUrl}/_api/web/getfilebyserverrelativeurl('/sites/mockSite/SitePages/{mockPagename}')?$expand={WebUtility.UrlEncode(expectedQSParms)}");
 
       using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient testClient = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient testClient = TestGraphServiceClient.Create(response);
 
       // ACT
       var request = testClient.GraphServiceClient
@@ -51,7 +51,7 @@ namespace Graph.Community.Test
     public async Task GetByName_MissingId_Throws(string mockPagename)
     {
       using (var response = new HttpResponseMessage())
-      using (var gsc = GraphServiceTestClient.Create(response))
+      using (var gsc = TestGraphServiceClient.Create(response))
       {
         // ACT & ASSERT
         await Assert.ThrowsAsync<ArgumentNullException>(
@@ -78,7 +78,7 @@ namespace Graph.Community.Test
       };
 
       using (responseMessage)
-      using (GraphServiceTestClient gsc = GraphServiceTestClient.Create(responseMessage))
+      using (TestGraphServiceClient gsc = TestGraphServiceClient.Create(responseMessage))
       {
         // ACT
         var testPageFileInfo = await gsc.GraphServiceClient
@@ -102,7 +102,7 @@ namespace Graph.Community.Test
       var expectedUri = new Uri($"{mockWebUrl}/_api/web/getfilebyserverrelativeurl('/sites/mockSite/SitePages/{mockPagename}')/versions");
 
       using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient testClient = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient testClient = TestGraphServiceClient.Create(response);
 
       // ACT
       var request = testClient.GraphServiceClient
@@ -135,7 +135,7 @@ namespace Graph.Community.Test
       };
 
       using (responseMessage)
-      using (GraphServiceTestClient gsc = GraphServiceTestClient.Create(responseMessage))
+      using (TestGraphServiceClient gsc = TestGraphServiceClient.Create(responseMessage))
       {
         // ACT
         var response = await gsc.GraphServiceClient

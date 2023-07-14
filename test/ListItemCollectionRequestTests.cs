@@ -26,7 +26,7 @@ namespace Graph.Community.Test
       // ARRANGE
 
       using (var response = new HttpResponseMessage())
-      using (var gsc = GraphServiceTestClient.Create(response))
+      using (var gsc = TestGraphServiceClient.Create(response))
       {
         // ACT
         var request = gsc.GraphServiceClient
@@ -52,7 +52,7 @@ namespace Graph.Community.Test
       var expectedUri = new Uri($"{mockWebUrl}/_api/web/lists('{mockListId}')/items");
 
       using var response = new HttpResponseMessage();
-      using var gsc = GraphServiceTestClient.Create(response);
+      using var gsc = TestGraphServiceClient.Create(response);
 
       // ACT
       await gsc.GraphServiceClient
@@ -95,7 +95,7 @@ namespace Graph.Community.Test
       ChangeToken expectedChangeToken = new ChangeToken() { StringValue = "1;3;f12b876b-54d7-44e4-9dad-122bedd899a6;637891749137700000;350718294" };
 
       using (responseMessage)
-      using (var gsc = GraphServiceTestClient.Create(responseMessage))
+      using (var gsc = TestGraphServiceClient.Create(responseMessage))
       {
         // ACT
         var response = await gsc.GraphServiceClient

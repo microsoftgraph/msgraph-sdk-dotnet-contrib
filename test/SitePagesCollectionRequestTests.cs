@@ -30,7 +30,7 @@ namespace Graph.Community.Test
       var expectedUri = new Uri($"{mockWebUrl}/_api/sitepages/pages");
 
       using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient testClient = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient testClient = TestGraphServiceClient.Create(response);
 
       // ACT
       var request = testClient.GraphServiceClient
@@ -65,7 +65,7 @@ namespace Graph.Community.Test
       };
 
       using (responseMessage)
-      using (var gsc = GraphServiceTestClient.Create(responseMessage))
+      using (var gsc = TestGraphServiceClient.Create(responseMessage))
       {
         // ACT
         var response = await gsc.GraphServiceClient

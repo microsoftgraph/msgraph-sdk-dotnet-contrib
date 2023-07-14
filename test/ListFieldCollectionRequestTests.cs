@@ -30,7 +30,7 @@ namespace Graph.Community.Test
       // ARRANGE
       var mockListId = Guid.NewGuid();
       using (var response = new HttpResponseMessage())
-      using (var gsc = GraphServiceTestClient.Create(response))
+      using (var gsc = TestGraphServiceClient.Create(response))
       {
         // ACT
         var request = gsc.GraphServiceClient
@@ -57,7 +57,7 @@ namespace Graph.Community.Test
       var expectedUri = new Uri($"{mockWebUrl}/_api/web/lists('{mockListId}')/fields");
 
       using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient gsc = TestGraphServiceClient.Create(response);
 
       // ACT
       var request = gsc.GraphServiceClient
@@ -96,7 +96,7 @@ namespace Graph.Community.Test
       };
 
       var mockAuthProvider = new MockAuthenticationProvider();
-      var mockHttpProvider = new MockHttpProvider(responseMessage, new Serializer());
+      var mockHttpProvider = new MockHttpProvider(responseMessage, new Graph.Community.Test.TestSerializer());
       var graphServiceClient = new GraphServiceClient(mockAuthProvider.Object, mockHttpProvider.Object);
 
       // ACT

@@ -11,7 +11,7 @@ namespace Graph.Community.Test
       // ARRANGE
 
       using var response = new HttpResponseMessage();
-      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient gsc = TestGraphServiceClient.Create(response);
       // ACT
       var request = gsc.GraphServiceClient
                           .Me
@@ -30,7 +30,7 @@ namespace Graph.Community.Test
       // ARRANGE
 
       using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient gsc = TestGraphServiceClient.Create(response);
       // ACT
       var request = gsc.GraphServiceClient
                           .SharePointAPI("https://mockSite.sharepoint.com")
@@ -50,7 +50,7 @@ namespace Graph.Community.Test
       // ARRANGE
 
       using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient gsc = TestGraphServiceClient.Create(response);
 
       // ACT
       var request = gsc.GraphServiceClient

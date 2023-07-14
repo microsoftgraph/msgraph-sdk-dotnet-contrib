@@ -25,7 +25,7 @@ namespace Graph.Community.Test
     public void GeneratesCorrectRequestHeaders()
     {
       using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient gsc = TestGraphServiceClient.Create(response);
       // ARRANGE
       var mockSiteDesignId = "mockSiteDesignId";
 
@@ -49,7 +49,7 @@ namespace Graph.Community.Test
       var expectedUri = new Uri($"{mockWebUrl}/_api/Microsoft.Sharepoint.Utilities.WebTemplateExtensions.SiteScriptUtility.GetSiteDesigns");
 
       using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient gsc = TestGraphServiceClient.Create(response);
 
       // ACT
       await gsc.GraphServiceClient
@@ -79,7 +79,7 @@ namespace Graph.Community.Test
     public async Task Get_MissingId_Throws(string siteDesignId)
     {
       using (var response = new HttpResponseMessage())
-      using (var gsc = GraphServiceTestClient.Create(response))
+      using (var gsc = TestGraphServiceClient.Create(response))
       {
         // ACT & ASSERT
         await Assert.ThrowsAsync<ArgumentNullException>(
@@ -101,7 +101,7 @@ namespace Graph.Community.Test
       var expectedContent = $"{{\"id\":\"{mockSiteDesignId}\"}}";
 
       using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient gsc = TestGraphServiceClient.Create(response);
       // ACT
       _ = await gsc.GraphServiceClient
                                       .SharePointAPI(mockWebUrl)
@@ -141,7 +141,7 @@ namespace Graph.Community.Test
       var expectedContent = $"{{\"siteDesignId\":\"mockSiteDesignId\",\"webUrl\":\"{mockWebUrl}\"}}";
 
       using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient gsc = TestGraphServiceClient.Create(response);
 
       // ACT
       _ = await gsc.GraphServiceClient
@@ -180,7 +180,7 @@ namespace Graph.Community.Test
       };
 
       using (responseMessage)
-      using (GraphServiceTestClient gsc = GraphServiceTestClient.Create(responseMessage))
+      using (TestGraphServiceClient gsc = TestGraphServiceClient.Create(responseMessage))
       {
         // ACT
         var response = await gsc.GraphServiceClient
@@ -218,7 +218,7 @@ namespace Graph.Community.Test
       };
 
       using (responseMessage)
-      using (GraphServiceTestClient gsc = GraphServiceTestClient.Create(responseMessage))
+      using (TestGraphServiceClient gsc = TestGraphServiceClient.Create(responseMessage))
       {
         // ACT
         var actual = await gsc.GraphServiceClient
@@ -260,7 +260,7 @@ namespace Graph.Community.Test
       };
 
       using (responseMessage)
-      using (GraphServiceTestClient gsc = GraphServiceTestClient.Create(responseMessage))
+      using (TestGraphServiceClient gsc = TestGraphServiceClient.Create(responseMessage))
       {
         // ACT
         var response = await gsc.GraphServiceClient
@@ -288,7 +288,7 @@ namespace Graph.Community.Test
     public async Task GetById_MissingId_Throws(string siteDesignId)
     {
       using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient gsc = TestGraphServiceClient.Create(response);
 
       // ACT & ASSERT
       await Assert.ThrowsAsync<ArgumentNullException>(
@@ -305,7 +305,7 @@ namespace Graph.Community.Test
     public async Task Update_MissingId_Throws(string siteDesignId)
     {
       using (var response = new HttpResponseMessage())
-      using (var gsc = GraphServiceTestClient.Create(response))
+      using (var gsc = TestGraphServiceClient.Create(response))
       {
         // ACT & ASSERT
         await Assert.ThrowsAsync<ArgumentNullException>(
@@ -324,7 +324,7 @@ namespace Graph.Community.Test
       var mockSiteDesignId = "mockSiteDesignId";
 
       using (var response = new HttpResponseMessage())
-      using (var gsc = GraphServiceTestClient.Create(response))
+      using (var gsc = TestGraphServiceClient.Create(response))
       {
         // ACT & ASSERT
         await Assert.ThrowsAsync<ArgumentNullException>(
@@ -347,7 +347,7 @@ namespace Graph.Community.Test
       };
 
       using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient gsc = TestGraphServiceClient.Create(response);
       // ACT & ASSERT
       await Assert.ThrowsAsync<ArgumentOutOfRangeException>(
       async () => await gsc.GraphServiceClient
@@ -411,7 +411,7 @@ namespace Graph.Community.Test
       var mockSiteDesignId = "mockSiteDesignId";
 
       using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient gsc = TestGraphServiceClient.Create(response);
 
       // ACT
       //var actual = ser.SerializeObject(updateRequest);
@@ -429,7 +429,7 @@ namespace Graph.Community.Test
     public async Task Create_NullParams_Throws()
     {
       using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient gsc = TestGraphServiceClient.Create(response);
       // ACT & ASSERT
       await Assert.ThrowsAsync<ArgumentNullException>(
       async () => await gsc.GraphServiceClient
@@ -461,7 +461,7 @@ namespace Graph.Community.Test
       };
 
       using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient gsc = TestGraphServiceClient.Create(response);
 
       await Assert.ThrowsAsync<ArgumentException>(
           async () => await gsc.GraphServiceClient
@@ -484,8 +484,7 @@ namespace Graph.Community.Test
       var expectedUri = new Uri($"{mockWebUrl}/_api/Microsoft.Sharepoint.Utilities.WebTemplateExtensions.SiteScriptUtility.UpdateSiteDesign");
       var expectedContent = "{\"updateInfo\":{\"Id\":\"mockSiteDesignId\",\"Title\":\"UPDATED mockSiteDesignTitle\"}}";
 
-      using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient gsc = TestGraphServiceClient.Create();
 
       // ACT
       await gsc.GraphServiceClient
@@ -527,8 +526,7 @@ namespace Graph.Community.Test
       var expectedUri = new Uri($"{mockWebUrl}/_api/Microsoft.Sharepoint.Utilities.WebTemplateExtensions.SiteScriptUtility.CreateSiteDesign");
       var expectedContent = "{\"info\":{\"Title\":\"mockSiteDesign\",\"Description\":\"mockSiteDesignDescription\",\"SiteScriptIds\":[\"a0da01a9-8b93-496e-9bbd-1b53009e543e\"],\"WebTemplate\":\"64\",\"PreviewImageUrl\":\"https://mock.sharepoint.com\",\"PreviewImageAltText\":\"mockPreviewImageAltText\"}}";
 
-      using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient gsc = TestGraphServiceClient.Create();
 
       // ACT
       await gsc.GraphServiceClient
@@ -576,7 +574,7 @@ namespace Graph.Community.Test
       };
 
       using (responseMessage)
-      using (GraphServiceTestClient gsc = GraphServiceTestClient.Create(responseMessage))
+      using (TestGraphServiceClient gsc = TestGraphServiceClient.Create(responseMessage))
       {
         // ACT
         var response = await gsc.GraphServiceClient
@@ -621,7 +619,7 @@ namespace Graph.Community.Test
       };
 
       using (responseMessage)
-      using (GraphServiceTestClient gsc = GraphServiceTestClient.Create(responseMessage))
+      using (TestGraphServiceClient gsc = TestGraphServiceClient.Create(responseMessage))
       {
         // ACT
         var response = await gsc.GraphServiceClient
@@ -656,7 +654,7 @@ namespace Graph.Community.Test
       var expectedContent = $"{{\"id\":\"{mockSiteDesignId}\"}}";
 
       using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient gsc = TestGraphServiceClient.Create(response);
 
       // ACT
       await gsc.GraphServiceClient
@@ -690,7 +688,7 @@ namespace Graph.Community.Test
       string mockSiteDesignId = default;
 
       using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient gsc = TestGraphServiceClient.Create(response);
 
       await Assert.ThrowsAsync<ArgumentNullException>(
           async () => await gsc.GraphServiceClient

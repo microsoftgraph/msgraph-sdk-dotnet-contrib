@@ -24,7 +24,7 @@ namespace Graph.Community.Test
     public void GeneratesCorrectRequestHeaders()
     {
       using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient gsc = TestGraphServiceClient.Create(response);
 
       // ACT
       var request = gsc.GraphServiceClient
@@ -46,7 +46,7 @@ namespace Graph.Community.Test
       var expectedUri = new Uri($"{mockWebUrl}/_api/site");
 
       using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient gsc = TestGraphServiceClient.Create(response);
       // ACT
       await gsc.GraphServiceClient
                   .SharePointAPI(mockWebUrl)

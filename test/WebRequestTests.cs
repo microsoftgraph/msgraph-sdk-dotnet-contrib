@@ -26,7 +26,7 @@ namespace Graph.Community.Test
       // TODO: move this to a base test class...
 
       using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient gsc = TestGraphServiceClient.Create(response);
 
       // ACT
       var request = gsc.GraphServiceClient
@@ -53,7 +53,7 @@ namespace Graph.Community.Test
       };
 
       using (responseMessage)
-      using (GraphServiceTestClient gsc = GraphServiceTestClient.Create(responseMessage))
+      using (TestGraphServiceClient gsc = TestGraphServiceClient.Create(responseMessage))
       {
         // ACT
         var actual = await gsc.GraphServiceClient
@@ -78,7 +78,7 @@ namespace Graph.Community.Test
       var expectedUri = new Uri($"{mockWebUrl}/_api/web");
 
       using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient gsc = TestGraphServiceClient.Create(response);
 
       // ACT
       await gsc.GraphServiceClient
@@ -109,7 +109,7 @@ namespace Graph.Community.Test
       var expectedUri = new Uri($"{mockWebUrl}/_api/web?$expand=RegionalSettings%2CRegionalSettings%2FTimeZone");
 
       using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient testClient = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient testClient = TestGraphServiceClient.Create(response);
 
       // ACT
       var request = testClient.GraphServiceClient
@@ -140,7 +140,7 @@ namespace Graph.Community.Test
       var expectedContent = "{\"query\":{\"Add\":true}}";
 
       using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient gsc = TestGraphServiceClient.Create(response);
 
       // ACT
       await gsc.GraphServiceClient
@@ -172,7 +172,7 @@ namespace Graph.Community.Test
     public async Task EnsureUser_NullParameter_Throws()
     {
       using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient gsc = TestGraphServiceClient.Create(response);
 
       await Assert.ThrowsAsync<ArgumentNullException>(
         async () => await gsc.GraphServiceClient
@@ -192,7 +192,7 @@ namespace Graph.Community.Test
 
 
       using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient gsc = TestGraphServiceClient.Create(response);
 
       // ACT
       await gsc.GraphServiceClient
@@ -233,7 +233,7 @@ namespace Graph.Community.Test
 
 
       using (responseMessage)
-      using (GraphServiceTestClient gsc = GraphServiceTestClient.Create(responseMessage))
+      using (TestGraphServiceClient gsc = TestGraphServiceClient.Create(responseMessage))
       {
         // ACT
         var response = await gsc.GraphServiceClient
@@ -259,7 +259,7 @@ namespace Graph.Community.Test
       var expectedUri = new Uri($"{mockWebUrl}/_api/web?$expand=associatedownergroup%2Cassociatedmembergroup%2Cassociatedvisitorgroup&$select=id%2Ctitle%2Cassociatedownergroup%2Cassociatedmembergroup%2Cassociatedvisitorgroup");
 
       using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient gsc = TestGraphServiceClient.Create(response);
 
       // ACT
       await gsc.GraphServiceClient
@@ -291,7 +291,7 @@ namespace Graph.Community.Test
       var expectedUri = new Uri($"{mockWebUrl}/_api/web?$expand=associatedownergroup%2Cassociatedmembergroup%2Cassociatedvisitorgroup%2Cassociatedownergroup%2Fusers%2Cassociatedmembergroup%2Fusers%2Cassociatedvisitorgroup%2Fusers&$select=id%2Ctitle%2Cassociatedownergroup%2Cassociatedmembergroup%2Cassociatedvisitorgroup");
 
       using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient gsc = TestGraphServiceClient.Create(response);
 
       // ACT
       await gsc.GraphServiceClient
@@ -330,7 +330,7 @@ namespace Graph.Community.Test
 
 
       using (responseMessage)
-      using (GraphServiceTestClient gsc = GraphServiceTestClient.Create(responseMessage))
+      using (TestGraphServiceClient gsc = TestGraphServiceClient.Create(responseMessage))
       {
         // ACT
         var actual = await gsc.GraphServiceClient
@@ -363,7 +363,7 @@ namespace Graph.Community.Test
 
 
       using (responseMessage)
-      using (GraphServiceTestClient gsc = GraphServiceTestClient.Create(responseMessage))
+      using (TestGraphServiceClient gsc = TestGraphServiceClient.Create(responseMessage))
       {
         // ACT
         var actual = await gsc.GraphServiceClient
@@ -393,7 +393,7 @@ namespace Graph.Community.Test
       var expectedUri = new Uri($"{mockWebUrl}/_api/web/Lists/EnsureSiteAssetsLibrary");
 
       using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient gsc = TestGraphServiceClient.Create(response);
 
       // ACT
       await gsc.GraphServiceClient
@@ -430,7 +430,7 @@ namespace Graph.Community.Test
 
 
       using (responseMessage)
-      using (var gsc = GraphServiceTestClient.Create(responseMessage))
+      using (var gsc = TestGraphServiceClient.Create(responseMessage))
       {
         // ACT
         var response = await gsc.GraphServiceClient

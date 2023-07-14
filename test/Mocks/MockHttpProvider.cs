@@ -15,15 +15,21 @@ namespace Microsoft.Graph.Core.Test.Mocks
     public string ContentAsString { get; private set; }
     public HttpContentHeaders ContentHeaders { get; private set; }
 
-    public MockHttpProvider(HttpResponseMessage httpResponseMessage, ISerializer serializer = null)
-        : base(MockBehavior.Loose)
+    public MockHttpProvider(HttpResponseMessage httpResponseMessage, ISerializer serializer)
+        : base(MockBehavior.Strict)
     {
+      var paul = "Debug";
+
       this.Setup(provider => provider.SendAsync(It.IsAny<HttpRequestMessage>(), It.IsAny<HttpCompletionOption>(), It.IsAny<CancellationToken>()))
         .Callback<HttpRequestMessage, HttpCompletionOption, CancellationToken>(async (req, opt, tok) => await this.ReadRequestContent(req))
         .ReturnsAsync(httpResponseMessage);
 
 
-      this.SetupGet(provider => provider.Serializer).Returns(serializer);
+      ISerializer s() {
+        var paul = "debug";
+        return serializer;
+      }
+      this.SetupGet(provider => provider.Serializer).Returns(s());
     }
 
     private async Task ReadRequestContent(HttpRequestMessage req)

@@ -16,7 +16,7 @@ namespace Graph.Community.Test
       var expectedMeMessagesPath = "/me/messages";
 
       // ACT
-      using var gsc = GraphServiceTestClient.Create();
+      using var gsc = TestGraphServiceClient.Create();
       var channelResource = gsc.GraphServiceClient.Teams[teamId].Channels[channelId];
       var actualChannelPath = (channelResource as IBaseRequestBuilder).GetResourceSubscriptionPath();
 
@@ -36,7 +36,7 @@ namespace Graph.Community.Test
       var expectedUrl = "/me/memberOf/microsoft.graph.directoryRole";
 
       // ACT
-      using var gsc = GraphServiceTestClient.Create();
+      using var gsc = TestGraphServiceClient.Create();
       var request = gsc.GraphServiceClient.Me.MemberOf.WithODataCast(oDataCast).Request();
       var actualUrl = request.RequestUrl;
 

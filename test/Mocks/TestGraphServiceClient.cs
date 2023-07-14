@@ -5,7 +5,7 @@ using System.Net.Http;
 
 namespace Graph.Community.Test
 {
-  public class GraphServiceTestClient : IDisposable
+  public class TestGraphServiceClient : IDisposable
   {
     public GraphServiceClient GraphServiceClient { get; set; }
     public MockHttpProvider HttpProvider { get; set; }
@@ -13,7 +13,7 @@ namespace Graph.Community.Test
     private readonly HttpResponseMessage httpResponseMessage;
     private readonly bool disposeHttpResponseMessage = false;
 
-    public GraphServiceTestClient(HttpResponseMessage httpResponseMessage = null)
+    public TestGraphServiceClient(HttpResponseMessage httpResponseMessage = null)
     {
       if (httpResponseMessage == null)
       {
@@ -26,12 +26,12 @@ namespace Graph.Community.Test
       }
 
       var ap = new MockAuthenticationProvider();
-      var ser = new Serializer();
+      var ser = new Graph.Community.Test.TestSerializer();
       this.HttpProvider = new MockHttpProvider(this.httpResponseMessage, ser);
       this.GraphServiceClient = new GraphServiceClient(ap.Object, this.HttpProvider.Object);
     }
 
-    public GraphServiceTestClient(HttpMessageHandler handler, HttpResponseMessage httpResponseMessage = null)
+    public TestGraphServiceClient(HttpMessageHandler handler, HttpResponseMessage httpResponseMessage = null)
     {
       if (httpResponseMessage == null)
       {
@@ -44,23 +44,23 @@ namespace Graph.Community.Test
       }
 
       var ap = new MockAuthenticationProvider();
-      var ser = new Serializer();
+      var ser = new Graph.Community.Test.TestSerializer();
       this.HttpProvider = new MockHttpProvider(handler, this.httpResponseMessage);
       this.GraphServiceClient = new GraphServiceClient(ap.Object, this.HttpProvider.Object);
 
     }
 
 
-    public static GraphServiceTestClient Create(HttpResponseMessage httpResponseMessage = null)
+    public static TestGraphServiceClient Create(HttpResponseMessage httpResponseMessage = null)
     {
       CommunityGraphClientFactory.telemetryDisabled = true;
-      return new GraphServiceTestClient(httpResponseMessage);
+      return new TestGraphServiceClient(httpResponseMessage);
     }
 
-    public static GraphServiceTestClient Create(HttpMessageHandler handler, HttpResponseMessage httpResponseMessage = null)
+    public static TestGraphServiceClient Create(HttpMessageHandler handler, HttpResponseMessage httpResponseMessage = null)
     {
       CommunityGraphClientFactory.telemetryDisabled = true;
-      return new GraphServiceTestClient(handler, httpResponseMessage);
+      return new TestGraphServiceClient(handler, httpResponseMessage);
     }
 
 

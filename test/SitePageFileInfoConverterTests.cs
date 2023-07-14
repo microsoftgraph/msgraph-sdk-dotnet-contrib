@@ -18,7 +18,7 @@ namespace Graph.Community.Test
     public void DeserializesFromBaseEntity()
     {
       var responseContent = ResourceManager.GetHttpResponseContent("GetSitePageResponse.json");
-      using (GraphServiceTestClient gsc = GraphServiceTestClient.Create())
+      using (TestGraphServiceClient gsc = TestGraphServiceClient.Create())
       {
         var testPage = gsc.GraphServiceClient.HttpProvider.Serializer.DeserializeObject<SitePageFileInfo>(responseContent);
 
@@ -32,7 +32,7 @@ namespace Graph.Community.Test
     public void DeserializesFromSitePageFileInfo()
     {
       var responseContent = ResourceManager.GetHttpResponseContent("GetSitePageResponse.json");
-      using (GraphServiceTestClient gsc = GraphServiceTestClient.Create())
+      using (TestGraphServiceClient gsc = TestGraphServiceClient.Create())
       {
         var x = gsc.GraphServiceClient.HttpProvider.Serializer.DeserializeObject<SitePageFileInfo>(responseContent);
         var y = JsonSerializer.Serialize(x);

@@ -29,7 +29,7 @@ namespace Graph.Community.Test
       var expectedUri = new Uri($"{mockWebUrl}/_api/web/sitegroups");
 
       using var response = new HttpResponseMessage();
-      using var gsc = GraphServiceTestClient.Create(response);
+      using var gsc = TestGraphServiceClient.Create(response);
 
       // ACT
       await gsc.GraphServiceClient
@@ -60,9 +60,7 @@ namespace Graph.Community.Test
       // ARRANGE
       var expectedUri = new Uri($"{mockWebUrl}/_api/web/sitegroups?$expand=Users");
 
-      using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
-
+      using TestGraphServiceClient gsc = TestGraphServiceClient.Create();
       // ACT
       await gsc.GraphServiceClient
                   .SharePointAPI(mockWebUrl)
@@ -72,13 +70,6 @@ namespace Graph.Community.Test
                   .Expand("Users")
                   .GetAsync();
 
-      await gsc.GraphServiceClient
-                  .SharePointAPI(mockWebUrl)
-                  .Web
-                  .SiteGroups
-                  .Request()
-                  .Expand(g => g.Users)
-                  .GetAsync();
 
       // ASSERT
       gsc.HttpProvider.Verify(
@@ -91,8 +82,33 @@ namespace Graph.Community.Test
           It.IsAny<HttpCompletionOption>(),
           It.IsAny<CancellationToken>()
         ),
-        Times.Exactly(2)
+        Times.Exactly(1)
       );
+
+
+      using TestGraphServiceClient gsc2 = TestGraphServiceClient.Create();
+      await gsc2.GraphServiceClient
+                    .SharePointAPI(mockWebUrl)
+                    .Web
+                    .SiteGroups
+                    .Request()
+                    .Expand(g => g.Users)
+                    .GetAsync();
+
+      // ASSERT
+      gsc2.HttpProvider.Verify(
+        provider => provider.SendAsync(
+          It.Is<HttpRequestMessage>(req =>
+            req.Method == HttpMethod.Get &&
+            req.RequestUri.ToString().ToLower() == expectedUri.ToString().ToLower() &&
+            req.Headers.Authorization != null
+          ),
+          It.IsAny<HttpCompletionOption>(),
+          It.IsAny<CancellationToken>()
+        ),
+        Times.Exactly(1)
+      );
+
     }
 
     [Fact]
@@ -108,7 +124,7 @@ namespace Graph.Community.Test
 
 
       using (responseMessage)
-      using (var gsc = GraphServiceTestClient.Create(responseMessage))
+      using (var gsc = TestGraphServiceClient.Create(responseMessage))
       {
         // ACT
         var response = await gsc.GraphServiceClient
@@ -140,7 +156,7 @@ namespace Graph.Community.Test
       };
 
       using (responseMessage)
-      using (var gsc = GraphServiceTestClient.Create(responseMessage))
+      using (var gsc = TestGraphServiceClient.Create(responseMessage))
       {
         // ACT
         var response = await gsc.GraphServiceClient

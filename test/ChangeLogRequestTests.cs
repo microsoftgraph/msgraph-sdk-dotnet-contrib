@@ -35,7 +35,7 @@ namespace Graph.Community.Test
       };
 
       var mockAuthProvider = new MockAuthenticationProvider();
-      var mockHttpProvider = new MockHttpProvider(responseMessage, new Serializer());
+      var mockHttpProvider = new MockHttpProvider(responseMessage, new Graph.Community.Test.TestSerializer());
       var graphServiceClient = new GraphServiceClient(mockAuthProvider.Object, mockHttpProvider.Object);
 
       // ACT

@@ -19,8 +19,7 @@ namespace Graph.Community.Test
       var expectedUri = new Uri($"https://graph.microsoft.com/v1.0/groups/{groupId}/members/$ref");
       var expectedContent = $"{{\"@odata.id\":\"https://graph.microsoft.com/v1.0/directoryObjects/{userId}\"}}";
 
-      using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient gsc = TestGraphServiceClient.Create();
 
       // ACT
       await gsc.GraphServiceClient
@@ -57,8 +56,7 @@ namespace Graph.Community.Test
 
       var expectedUri = new Uri($"https://graph.microsoft.com/v1.0/groups/{groupId}/members/{userId}/$ref");
 
-      using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient gsc = TestGraphServiceClient.Create();
 
       // ACT
       await gsc.GraphServiceClient
@@ -93,8 +91,7 @@ namespace Graph.Community.Test
       var expectedUri = new Uri($"https://graph.microsoft.com/v1.0/groups/{groupId}/owners/$ref");
       var expectedContent = $"{{\"@odata.id\":\"https://graph.microsoft.com/v1.0/directoryObjects/{userId}\"}}";
 
-      using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient gsc = TestGraphServiceClient.Create();
 
       // ACT
       await gsc.GraphServiceClient
@@ -131,8 +128,7 @@ namespace Graph.Community.Test
 
       var expectedUri = new Uri($"https://graph.microsoft.com/v1.0/groups/{groupId}/owners/{userId}/$ref");
 
-      using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient gsc = TestGraphServiceClient.Create();
 
       // ACT
       await gsc.GraphServiceClient

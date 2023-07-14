@@ -19,7 +19,7 @@ namespace Graph.Community.Test
     public void DeserializesFromBaseEntity()
     {
       var responseContent = ResourceManager.GetHttpResponseContent("GetSitePagesResponse.json");
-      using (GraphServiceTestClient gsc = GraphServiceTestClient.Create())
+      using (TestGraphServiceClient gsc = TestGraphServiceClient.Create())
       {
         var pages = gsc.GraphServiceClient.HttpProvider.Serializer.DeserializeObject<SharePointAPICollectionResponse<ISitePageCollectionPage>>(responseContent);
         var testPage = pages.Value.CurrentPage[1];
@@ -34,7 +34,7 @@ namespace Graph.Community.Test
     public void DeserializesFromSitePage()
     {
       var responseContent = ResourceManager.GetHttpResponseContent("GetSitePagesResponse.json");
-      using (GraphServiceTestClient gsc = GraphServiceTestClient.Create())
+      using (TestGraphServiceClient gsc = TestGraphServiceClient.Create())
       {
         var x = gsc.GraphServiceClient.HttpProvider.Serializer.DeserializeObject<SharePointAPICollectionResponse<ISitePageCollectionPage>>(responseContent);
         var y = JsonSerializer.Serialize(x.Value.CurrentPage);

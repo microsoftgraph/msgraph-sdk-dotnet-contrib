@@ -24,7 +24,7 @@ namespace Graph.Community.Test
       var expectedUri = new Uri("https://graph.microsoft.com/v1.0/me/mailboxSettings");
 
       using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient gsc = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient gsc = TestGraphServiceClient.Create(response);
 
       // ACT
       await gsc.GraphServiceClient

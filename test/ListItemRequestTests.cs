@@ -29,7 +29,7 @@ namespace Graph.Community.Test
       var expectedUri = new Uri($"{mockWebUrl}/_api/web/lists('{mockListId}')/items({mockListItemId})");
 
       using HttpResponseMessage response = new HttpResponseMessage();
-      using GraphServiceTestClient testClient = GraphServiceTestClient.Create(response);
+      using TestGraphServiceClient testClient = TestGraphServiceClient.Create(response);
 
       // ACT
       var request = testClient.GraphServiceClient
@@ -55,7 +55,7 @@ namespace Graph.Community.Test
       var mockListItemId = 0;
 
       using (var response = new HttpResponseMessage())
-      using (var gsc = GraphServiceTestClient.Create(response))
+      using (var gsc = TestGraphServiceClient.Create(response))
       {
         // ACT & ASSERT
         await Assert.ThrowsAsync<ArgumentOutOfRangeException>(
@@ -85,7 +85,7 @@ namespace Graph.Community.Test
       };
 
       using (responseMessage)
-      using (GraphServiceTestClient gsc = GraphServiceTestClient.Create(responseMessage))
+      using (TestGraphServiceClient gsc = TestGraphServiceClient.Create(responseMessage))
       {
         // ACT
         var actual = await gsc.GraphServiceClient
