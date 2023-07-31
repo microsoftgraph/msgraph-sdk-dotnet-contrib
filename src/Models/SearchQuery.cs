@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
@@ -12,7 +12,7 @@ namespace Graph.Community
       this.Request = new RequestProperties();
     }
 
-    public SearchQuery(string queryText, List<string> selectProperties = null, List<Sort> sortList = null, long? startRow = null, int? rowLimit = null, int? rowsPerPage = null)
+    public SearchQuery(string queryText, List<string> selectProperties = null, List<Sort> sortList = null, long? startRow = null, int? rowLimit = null, int? rowsPerPage = null, bool? trimDuplicates = false)
       : this()
     {
       this.Request.Querytext = queryText;
@@ -29,6 +29,8 @@ namespace Graph.Community
       {
         this.Request.SortList.SortProperties.AddRange(sortList);
       }
+
+      this.Request.TrimDuplicates = trimDuplicates;
     }
 
     [JsonPropertyName("request")]
@@ -54,6 +56,8 @@ namespace Graph.Community
 
       public int? RowsPerPage { get; set; }
       public bool ShouldSerializeRowsPerPage() => this.RowsPerPage.HasValue;
+
+      public bool? TrimDuplicates { get; set; }
 
       public RequestProperties()
       {

@@ -18,15 +18,12 @@ namespace Microsoft.Graph.Core.Test.Mocks
     public MockHttpProvider(HttpResponseMessage httpResponseMessage, ISerializer serializer)
         : base(MockBehavior.Strict)
     {
-      var paul = "Debug";
-
       this.Setup(provider => provider.SendAsync(It.IsAny<HttpRequestMessage>(), It.IsAny<HttpCompletionOption>(), It.IsAny<CancellationToken>()))
         .Callback<HttpRequestMessage, HttpCompletionOption, CancellationToken>(async (req, opt, tok) => await this.ReadRequestContent(req))
         .ReturnsAsync(httpResponseMessage);
 
 
       ISerializer s() {
-        var paul = "debug";
         return serializer;
       }
       this.SetupGet(provider => provider.Serializer).Returns(s());

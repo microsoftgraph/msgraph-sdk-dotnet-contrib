@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Text.Json;
@@ -49,7 +49,14 @@ namespace Graph.Community
       {
         requestObjectToSerialize.RowsPerPage = value.Request.RowsPerPage.Value;
       }
-
+      if (value.Request.TrimDuplicates.HasValue)
+      {
+        requestObjectToSerialize.TrimDuplicates = value.Request.TrimDuplicates.Value;
+      }
+      else
+      {
+        requestObjectToSerialize.TrimDuplicates = false;
+      }
 
       var objectToSerialize = new
       {

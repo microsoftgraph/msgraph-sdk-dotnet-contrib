@@ -105,8 +105,8 @@ namespace Graph.Community.Test
     {
       // ARRANGE
       var expectedUri = new Uri($"{mockWebUrl}/_api/search/postquery");
-      var mockPostQueryRequest = new SearchQuery("sharepoint", new List<string> { "Title", "Author" });
-      var expectedContent = "{\"request\":{\"Querytext\":\"sharepoint\",\"SelectProperties\":{\"results\":[\"Title\",\"Author\"]}}}";
+      var mockPostQueryRequest = new SearchQuery("sharepoint", new List<string> { "Title", "Author" }, trimDuplicates: true);
+      var expectedContent = "{\"request\":{\"Querytext\":\"sharepoint\",\"SelectProperties\":{\"results\":[\"Title\",\"Author\"]},\"TrimDuplicates\":true}}";
 
       using HttpResponseMessage response = new HttpResponseMessage();
       using TestGraphServiceClient gsc = TestGraphServiceClient.Create(response);
