@@ -12,7 +12,7 @@ namespace Graph.Community
       this.Request = new RequestProperties();
     }
 
-    public SearchQuery(string queryText, List<string> selectProperties = null, List<Sort> sortList = null, long? startRow = null, int? rowLimit = null, int? rowsPerPage = null, bool? trimDuplicates = false)
+    public SearchQuery(string queryText, List<string> selectProperties = null, List<Sort> sortList = null, long? startRow = null, int? rowLimit = null, int? rowsPerPage = null, bool? trimDuplicates = null)
       : this()
     {
       this.Request.Querytext = queryText;

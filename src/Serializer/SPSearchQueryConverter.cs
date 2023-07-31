@@ -53,10 +53,6 @@ namespace Graph.Community
       {
         requestObjectToSerialize.TrimDuplicates = value.Request.TrimDuplicates.Value;
       }
-      else
-      {
-        requestObjectToSerialize.TrimDuplicates = false;
-      }
 
       var objectToSerialize = new
       {

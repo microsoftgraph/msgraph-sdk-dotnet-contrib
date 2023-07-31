@@ -56,6 +56,16 @@ namespace Graph.Community.Test
         new SearchQuery("sharepoint", sortList: new List<SearchQuery.Sort> { { new SearchQuery.Sort{ Property="[docid]", Direction=SearchQuery.SortDirection.Ascending} } }),
         "{\"request\":{\"Querytext\":\"sharepoint\",\"SortList\":{\"results\":[{\"Property\":\"[docid]\",\"Direction\":\"0\"}]}}}"
       };
+      yield return new object[]
+      {
+        new SearchQuery("sharepoint", new List<string> { "Title", "Path" }, trimDuplicates: false),
+        "{\"request\":{\"Querytext\":\"sharepoint\",\"SelectProperties\":{\"results\":[\"Title\",\"Path\"]},\"TrimDuplicates\":false}}"
+      };
+      yield return new object[]
+      {
+        new SearchQuery("sharepoint", new List<string> { "Title", "Path" }, trimDuplicates: true),
+        "{\"request\":{\"Querytext\":\"sharepoint\",\"SelectProperties\":{\"results\":[\"Title\",\"Path\"]},\"TrimDuplicates\":true}}"
+      };
     }
 
     [Theory]
