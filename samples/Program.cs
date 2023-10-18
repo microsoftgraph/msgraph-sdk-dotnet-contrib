@@ -59,6 +59,9 @@ namespace Graph.Community.Samples
                 services.AddTransient<SharePointSearch>();
                 services.AddTransient<SiteDesign>();
                 services.AddTransient<GraphGroupExtensions>();
+                services.AddTransient<Web>();
+                services.AddTransient<Site>();
+                services.AddTransient<ApplicationPermissions>();
               })
               .Build();
 

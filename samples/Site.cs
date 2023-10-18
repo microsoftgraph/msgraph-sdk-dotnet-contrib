@@ -2,16 +2,19 @@ using Azure.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.Graph;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Graph.Community.Samples
 {
-  public class ChangeLog
+  public class Site
   {
     private readonly AzureAdSettings azureAdSettings;
     private readonly SharePointSettings sharePointSettings;
 
-    public ChangeLog(
+    public Site(
       IOptions<AzureAdSettings> azureAdOptions,
       IOptions<SharePointSettings> sharePointOptions)
     {
@@ -42,15 +45,15 @@ namespace Graph.Community.Samples
 
       var logger = new StringBuilderHttpMessageLogger();
       /*
-			 *  Could also use the Console if preferred...
-			 *  
-			 *  var logger = new ConsoleHttpMessageLogger();
-			 */
+       *  Could also use the Console if preferred...
+       *  
+       *  var logger = new ConsoleHttpMessageLogger();
+       */
 
       // Configure our client
       CommunityGraphClientOptions clientOptions = new CommunityGraphClientOptions()
       {
-        UserAgent = "ChangeLogSample"
+        UserAgent = "SiteGroupsSample"
       };
       var graphServiceClient = CommunityGraphClientFactory.Create(clientOptions, logger, credential);
 
@@ -59,48 +62,34 @@ namespace Graph.Community.Samples
       // Setup is complete, run the sample
       //
       ///////////////////////////////////////
+
+      var scopes = new string[] { $"https://{sharePointSettings.Hostname}/AllSites.FullControl" };
+      var WebUrl = $"https://{sharePointSettings.Hostname}{sharePointSettings.SiteCollectionUrl}";
+
       try
       {
-
-
-        var scopes = new string[] { $"https://{sharePointSettings.Hostname}/AllSites.FullControl" };
-        var WebUrl = $"https://{sharePointSettings.Hostname}{sharePointSettings.SiteCollectionUrl}";
-
-        var web = await graphServiceClient
+        var site = await graphServiceClient
                           .SharePointAPI(WebUrl)
-                          .Web
+                          .Site
                           .Request()
                           .WithScopes(scopes)
                           .GetAsync();
 
-        var changeToken = web.CurrentChangeToken;
-        Console.WriteLine($"current change token: {changeToken.StringValue}");
 
-        Console.WriteLine($"Make an update to the site {WebUrl}");
-        Console.WriteLine("Press enter to continue");
-        Console.ReadLine();
+        Console.WriteLine($"{site.ServerRelativeUrl} - {site.Id} - {site.Name}");
 
-        var qry = new ChangeQuery(true, true);
-        qry.ChangeTokenStart = changeToken;
-
-        var changes = await graphServiceClient
-                              .SharePointAPI(WebUrl)
-                              .Web
-                              .Request()
-                              .GetChangesAsync(qry);
-
-        Console.WriteLine(changes.Count);
-
-        foreach (var item in changes)
-        {
-          Console.WriteLine($"{item.ChangeType}");
-        }
-
+        var siteAssets = await graphServiceClient
+                                .SharePointAPI(WebUrl)
+                                .Web
+                                .Request()
+                                .WithScopes(scopes)
+                                .EnsureSiteAssetsAsync();
       }
       catch (Exception ex)
       {
         Console.WriteLine(ex.Message);
       }
+
 
       Console.WriteLine("Press enter to show log");
       Console.ReadLine();
