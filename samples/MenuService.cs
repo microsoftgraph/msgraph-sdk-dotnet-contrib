@@ -45,8 +45,8 @@ namespace Graph.Community.Samples
         Console.WriteLine("5. Site Pages");
         Console.WriteLine("6. SharePoint Search");
         Console.WriteLine("7. Site Design");
-        Console.WriteLine("8. Site");
-        Console.WriteLine("9. Application Permissions");
+        Console.WriteLine("8. Group extensions (Graph)");
+        //Console.WriteLine("9. ");
         Console.WriteLine("");
         Console.WriteLine("");
         Console.WriteLine("Ctrl+C to Exit");
@@ -104,14 +104,12 @@ namespace Graph.Community.Samples
 
             case ConsoleKey.D8:
             case ConsoleKey.NumPad8:
-              var siteSample = serviceProvider.GetRequiredService<Site>();
-              await siteSample.Run();
+              var graphGroupSample = serviceProvider.GetRequiredService<GraphGroupExtensions>();
+              await graphGroupSample.Run();
               break;
 
             case ConsoleKey.D9:
             case ConsoleKey.NumPad9:
-              var applicationPermissionsSample = serviceProvider.GetRequiredService<ApplicationPermissions>();
-              await applicationPermissionsSample.Run();
               break;
             default:
               break;

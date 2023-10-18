@@ -65,19 +65,17 @@ namespace Graph.Community.Samples
 
 			var siteScript = new SiteScriptMetadata()
 			{
-				Title = "Green's Theme",
-				Description = "Apply the Green's Theme",
-				Content = "{\"$schema\": \"schema.json\",\"actions\": [{\"verb\": \"applyTheme\",\"themeName\": \"Green's theme\"}],\"bindata\": { },\"version\": 1}",
+				Title = "Green Theme",
+				Description = "Apply the Green Theme",
+				Content = "{\"$schema\": \"schema.json\",\"actions\": [{\"verb\": \"applyTheme\",\"themeName\": \"Green\"}],\"bindata\": { },\"version\": 1}",
 			};
 
-			try
-			{
-        var createdScript = await graphServiceClient
-                                    .SharePointAPI(WebUrl)
-                                    .SiteScripts
-                                    .Request()
-                                    .WithScopes(scopes)
-                                    .CreateAsync(siteScript);
+			var createdScript = await graphServiceClient
+																	.SharePointAPI(WebUrl)
+																	.SiteScripts
+																	.Request()
+																	.WithScopes(scopes)
+																	.CreateAsync(siteScript);
 
 			var siteDesign = new SiteDesignMetadata()
 			{
@@ -94,23 +92,23 @@ namespace Graph.Community.Samples
 																	.WithScopes(scopes)
 																	.CreateAsync(siteDesign);
 
-			//var applySiteDesignRequest = new ApplySiteDesignRequest
-			//{
-			//	SiteDesignId = createdDesign.Id,
-			//	WebUrl = WebUrl
-			//};
+			var applySiteDesignRequest = new ApplySiteDesignRequest
+			{
+				SiteDesignId = createdDesign.Id,
+				WebUrl = WebUrl
+			};
 
-			//var applySiteDesignResponse = await graphServiceClient
-			//																			.SharePointAPI(WebUrl)
-			//																			.SiteDesigns
-			//																			.Request()
-			//																			.WithScopes(scopes)
-			//																			.ApplyAsync(applySiteDesignRequest);
+			var applySiteDesignResponse = await graphServiceClient
+																						.SharePointAPI(WebUrl)
+																						.SiteDesigns
+																						.Request()
+																						.WithScopes(scopes)
+																						.ApplyAsync(applySiteDesignRequest);
 
-			//foreach (var outcome in applySiteDesignResponse.CurrentPage)
-			//{
-			//	Console.WriteLine(outcome.OutcomeText);
-			//}
+			foreach (var outcome in applySiteDesignResponse.CurrentPage)
+			{
+				Console.WriteLine(outcome.OutcomeText);
+			}
 
 
 			Console.WriteLine("Press enter to show log");
@@ -118,13 +116,6 @@ namespace Graph.Community.Samples
 			Console.WriteLine();
 			var log = logger.GetLog();
 			Console.WriteLine(log);
-
-      }
-      catch (Exception ex)
-      {
-        var errlog = logger.GetLog();
-        Console.Write(errlog);
-      }
-    }
-  }
+		}
+	}
 }

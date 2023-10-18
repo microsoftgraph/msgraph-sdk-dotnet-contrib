@@ -59,47 +59,38 @@ namespace Graph.Community.Samples
       // Setup is complete, run the sample
       //
       ///////////////////////////////////////
-      try
+
+      var scopes = new string[] { $"https://{sharePointSettings.Hostname}/AllSites.FullControl" };
+      var WebUrl = $"https://{sharePointSettings.Hostname}{sharePointSettings.SiteCollectionUrl}";
+
+      var web = await graphServiceClient
+                        .SharePointAPI(WebUrl)
+                        .Web
+                        .Request()
+                        .WithScopes(scopes)
+                        .GetAsync();
+
+      var changeToken = web.CurrentChangeToken;
+      Console.WriteLine($"current change token: {changeToken.StringValue}");
+
+      Console.WriteLine($"Make an update to the site {WebUrl}");
+      Console.WriteLine("Press enter to continue");
+      Console.ReadLine();
+
+      var qry = new ChangeQuery(true, true);
+      qry.ChangeTokenStart = changeToken;
+
+      var changes = await graphServiceClient
+                            .SharePointAPI(WebUrl)
+                            .Web
+                            .Request()
+                            .GetChangesAsync(qry);
+
+      Console.WriteLine(changes.Count);
+
+      foreach (var item in changes)
       {
-
-
-        var scopes = new string[] { $"https://{sharePointSettings.Hostname}/AllSites.FullControl" };
-        var WebUrl = $"https://{sharePointSettings.Hostname}{sharePointSettings.SiteCollectionUrl}";
-
-        var web = await graphServiceClient
-                          .SharePointAPI(WebUrl)
-                          .Web
-                          .Request()
-                          .WithScopes(scopes)
-                          .GetAsync();
-
-        var changeToken = web.CurrentChangeToken;
-        Console.WriteLine($"current change token: {changeToken.StringValue}");
-
-        Console.WriteLine($"Make an update to the site {WebUrl}");
-        Console.WriteLine("Press enter to continue");
-        Console.ReadLine();
-
-        var qry = new ChangeQuery(true, true);
-        qry.ChangeTokenStart = changeToken;
-
-        var changes = await graphServiceClient
-                              .SharePointAPI(WebUrl)
-                              .Web
-                              .Request()
-                              .GetChangesAsync(qry);
-
-        Console.WriteLine(changes.Count);
-
-        foreach (var item in changes)
-        {
-          Console.WriteLine($"{item.ChangeType}");
-        }
-
-      }
-      catch (Exception ex)
-      {
-        Console.WriteLine(ex.Message);
+        Console.WriteLine($"{item.ChangeType}");
       }
 
       Console.WriteLine("Press enter to show log");
