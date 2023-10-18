@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
 		<UserSecretsId>68071ad2-6ee0-41d1-ad86-2635c69bfadf</UserSecretsId>
 		<Configurations>Debug;Prerelease;LocalDev</Configurations>
 		<LangVersion>latest</LangVersion>
@@ -19,14 +19,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Azure.Identity" Version="1.4.1" />
-    <PackageReference Include="microsoft.extensions.caching.memory" Version="3.1.18" />
-    <PackageReference Include="microsoft.extensions.configuration" Version="3.1.18" />
-    <PackageReference Include="microsoft.extensions.configuration.binder" Version="3.1.18" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="3.1.18" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.18" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.2" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.18" />
+    <PackageReference Include="Azure.Identity" Version="1.10.2" />
+    <PackageReference Include="microsoft.extensions.caching.memory" Version="7.0.0" />
+    <PackageReference Include="microsoft.extensions.configuration" Version="7.0.0" />
+    <PackageReference Include="microsoft.extensions.configuration.binder" Version="7.0.4" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
   </ItemGroup>
 
 	<ItemGroup>
