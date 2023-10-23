@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Mocks\GetSiteResponse.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Include="Mocks\ApplySiteDesignResponse.json" />
     <EmbeddedResource Include="Mocks\CreateSiteDesignResponse.json" />
     <EmbeddedResource Include="Mocks\CreateSiteScriptResponse.json" />
@@ -25,6 +29,7 @@
     <EmbeddedResource Include="Mocks\GetSitePageResponse.json" />
     <EmbeddedResource Include="Mocks\GetSitePagesResponse.json" />
     <EmbeddedResource Include="Mocks\GetSitePageVersionsResponse.json" />
+    <EmbeddedResource Include="Mocks\GetSiteResponse.json" />
 		<EmbeddedResource Include="Mocks\GetSiteScriptMetadataResponse.json" />
     <EmbeddedResource Include="Mocks\GetSiteScriptsResponse.json" />
     <EmbeddedResource Include="Mocks\GetSiteUserResponse.json" />

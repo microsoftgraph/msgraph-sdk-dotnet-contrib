@@ -11,7 +11,7 @@
     "TimeZone@odata.navigationLinkUrl": "Web/RegionalSettings/TimeZone",
     "TimeZone": {
       "odata.type": "SP.TimeZone",
-      "odata.id": "https://devaddin365.sharepoint.com/sites/Eventtester/_api/Web/RegionalSettings/TimeZone",
+      "odata.id": "https://mock.sharepoint.com/sites/mockSite/_api/Web/RegionalSettings/TimeZone",
       "odata.editLink": "Web/RegionalSettings/TimeZone",
       "Description": "(UTC-08:00) Pacific Time (US and Canada)",
       "Id": 13,
