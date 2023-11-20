@@ -7,11 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Mocks\GetHubsResponse.json" />
-    <None Remove="Mocks\GetSiteResponse.json" />
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Include="Mocks\ApplySiteDesignResponse.json" />
     <EmbeddedResource Include="Mocks\CreateSiteDesignResponse.json" />
     <EmbeddedResource Include="Mocks\CreateSiteScriptResponse.json" />
