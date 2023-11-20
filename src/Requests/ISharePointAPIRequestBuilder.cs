@@ -19,5 +19,7 @@ namespace Graph.Community
     ISearchRequestBuilder Search { get; }
 
     ITenantRequestBuilder Tenant { get; } 
+
+    IHubCollectionRequestBuilder Hubs { get; }
   }
 }

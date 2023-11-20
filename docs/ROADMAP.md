@@ -124,5 +124,10 @@ Interested in [SharePoint User Profile REST reference](https://docs.microsoft.co
 
 ### Hub Sites
 
-Interested in [Hub Sites REST API](https://docs.microsoft.com/en-us/sharepoint/dev/features/hub-site/hub-site-rest-api)? [Open an issue](https://github.com/microsoftgraph/msgraph-sdk-dotnet-contrib/issues/new)
+The following operations allow for retrieving HubSites.
+
+| Operation        | Request Builder | Method                   | Released version |
+|------------------|-----------------|--------------------------|------------------|
+| GetHubSites      | `.Hubs`         | GetAsync                 | 4.54.5           |
+
 
