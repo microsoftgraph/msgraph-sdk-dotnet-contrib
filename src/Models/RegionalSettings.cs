@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Graph;
-
-namespace Graph.Community.Models
+﻿namespace Graph.Community.Models
 {
   public class RegionalSettings
   {

@@ -74,5 +74,13 @@ namespace Graph.Community
         return new Graph.Community.TenantRequestBuilder(this.AppendSegmentToRequestUrl("_api"), this.Client);
       }
     }
+
+    public IHubCollectionRequestBuilder Hubs
+    {
+      get
+      {
+        return new Graph.Community.HubCollectionRequestBuilder(this.AppendSegmentToRequestUrl("_api"), this.Client);
+      }
+    }
   }
 }
