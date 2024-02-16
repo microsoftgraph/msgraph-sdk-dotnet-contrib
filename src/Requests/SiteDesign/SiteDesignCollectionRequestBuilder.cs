@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Microsoft.Graph;
 
@@ -38,10 +38,10 @@ namespace Graph.Community
     }
 
     /// <summary>
-    /// Gets an <see cref="ISiteDesignCollectionRequestBuilder"/> for the specified SiteDesign.
+    /// Gets an <see cref="ISiteDesignRequestBuilder"/> for the specified SiteDesign.
     /// </summary>
     /// <param name="id">The ID for the SiteDesign.</param>
-    /// <returns>The <see cref="ISiteDesignCollectionRequestBuilder"/>.</returns>
+    /// <returns>The <see cref="ISiteDesignRequestBuilder"/>.</returns>
     public ISiteDesignRequestBuilder this[string id]
     {
       get

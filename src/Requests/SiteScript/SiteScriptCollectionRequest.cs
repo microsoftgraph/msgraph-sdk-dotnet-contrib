@@ -1,8 +1,8 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
 using Microsoft.Graph;
 
 namespace Graph.Community
@@ -62,8 +62,8 @@ namespace Graph.Community
         throw new ArgumentOutOfRangeException(paramName: nameof(siteScriptMetadata.Title), message: "Title must be provided");
       }
 
-      var title = HttpUtility.UrlEncode(siteScriptMetadata.Title);
-      var desc = HttpUtility.UrlEncode(siteScriptMetadata.Description ?? string.Empty);
+      var title = WebUtility.UrlEncode(siteScriptMetadata.Title);
+      var desc = WebUtility.UrlEncode(siteScriptMetadata.Description ?? string.Empty);
 
       var segment = $"Microsoft.Sharepoint.Utilities.WebTemplateExtensions.SiteScriptUtility.CreateSiteScript(Title=@title,Description=@description)?@title='{title}'&@description='{desc}'";
       this.AppendSegmentToRequestUrl(segment);
