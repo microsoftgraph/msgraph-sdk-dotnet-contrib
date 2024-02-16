@@ -4,7 +4,7 @@ using Microsoft.Graph;
 
 namespace Graph.Community
 {
-  public interface IHubCollectionRequest:IBaseRequest
+  public interface IHubCollectionRequest : IBaseRequest
   {
     Task<IHubCollectionPage> GetAsync();
     Task<IHubCollectionPage> GetAsync(CancellationToken cancellationToken);
