@@ -12,6 +12,7 @@
     <EmbeddedResource Include="Mocks\CreateSiteScriptResponse.json" />
     <EmbeddedResource Include="Mocks\EnsureUserResponse.json" />
     <EmbeddedResource Include="Mocks\GetChangesResponse.json" />
+    <EmbeddedResource Include="Mocks\GetHubResponse.json" />
     <EmbeddedResource Include="Mocks\GetHubsResponse.json" />
     <EmbeddedResource Include="Mocks\GetListFieldsResponse.json" />
     <EmbeddedResource Include="Mocks\GetListItemResponse.json" />

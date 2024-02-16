@@ -1,0 +1,22 @@
+{
+  "@odata.type": "#SP.HubSite",
+  "@odata.id": "https://contoso.sharepoint.com/_api/SP.HubSitee3e23fc3-870c-4de1-89c0-85b378e42b2e",
+  "@odata.etag": "\"1\"",
+  "@odata.editLink": "SP.HubSitee3e23fc3-870c-4de1-89c0-85b378e42b2e",
+  "Description": null,
+  "EnablePermissionsSync": false,
+  "EnforcedECTs": "1_1|0x0101009D1CB255DA76424F860D91F20E6C4118007331D854CEB39846B6F396E74EA46E09|F|2023-12-31T12:49:30.2495481Z",
+  "EnforcedECTsVersion": 0,
+  "HideNameInNavigation": false,
+  "ID": "d8ab01e9-1634-44dd-91fe-1e6ff8385c34",
+  "LogoUrl": "https://contoso.sharepoint.com/sites/ContosoDepartment/SiteAssets/__sitelogo__keep_calm_hit_refresh.png",
+  "ParentHubSiteId": "00000000-0000-0000-0000-000000000000",
+  "PermissionsSyncTag": 0,
+  "RequiresJoinApproval": true,
+  "SiteDesignId": "00000000-0000-0000-0000-000000000000",
+  "SiteId": "82e8cb67-c4f1-4b38-80aa-0342294f5ece",
+  "SiteUrl": "https://contoso.sharepoint.com/sites/ContosoDepartment",
+  "Targets": "<acl><ace identityName=\"i:0#.f|membership|garthf@contoso.com\" displayName=\"Garth Fort\" sid=\"\" binaryIdType=\"1\" binaryId=\"aTowaC5mfG1lbWJlcnNoaXB8MTAwMzAwMlMUBsaXZlLmNvbQ==\" allowRights=\"1\" denyRights=\"0\" /><ace identityName=\"i:0#.f|membership|DenisD@contoso.com\" displayName=\"Denis Dehenne\" sid=\"\" binaryIdType=\"1\" binaryId=\"aTowaC5mfG1lbWJlcnNoaXB8MTAwMzUBsaXZlLmNvbQ==\" allowRights=\"1\" denyRights=\"0\" /></acl>",
+  "TenantInstanceId": "55d9bf03-671c-45c1-8f60-c6ed9e441468",
+  "Title": "Contoso Department Hub"
+}

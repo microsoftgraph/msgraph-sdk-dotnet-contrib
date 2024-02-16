@@ -42,6 +42,9 @@
     /// </summary>
     public string Targets { get; set; }
 
+    public bool HideNameInNavigation { get; set; }
+    public string ParentHubSiteId { get; set; }
     public bool RequiresJoinApproval { get; set; }
+    public string SiteDesignId { get; set; }
   }
 }

@@ -1,10 +1,8 @@
 using Moq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
 using System.Net;
-using System.Text;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -80,17 +78,20 @@ namespace Graph.Community.Test
         Assert.IsAssignableFrom<IList<Hub>>(actual);
         Assert.Equal(2, actual.Count);
 
-        var testHub = actual[1];
+        var testHub = actual[0];
         Assert.IsType<Graph.Community.Hub>(testHub);
-        Assert.Equal("d8ab01e9-1634-44dd-91fe-1e6ff8385c34", testHub.Id);
-        Assert.Equal("Contoso Department Hub", testHub.Title);
         Assert.Null(testHub.Description);
-        Assert.Equal("https://contoso.sharepoint.com/sites/ContosoDepartment/SiteAssets/__sitelogo__keep_calm_hit_refresh.png", testHub.LogoUrl);
-        Assert.Equal("https://contoso.sharepoint.com/sites/ContosoDepartment", testHub.SiteUrl);
+        Assert.False(testHub.HideNameInNavigation);
+        Assert.Equal("82e8cb67-c4f1-4b38-80aa-0342294f5ece", testHub.Id);
+        Assert.Equal("https://contoso.sharepoint.com/sites/ContosoTravelMarketing/SiteAssets/__hubLogo____hubLogo__.png", testHub.LogoUrl);
+        Assert.Equal("205ef8f5-25bb-4547-827b-6bedb219eca2", testHub.ParentHubSiteId);
+        Assert.False(testHub.RequiresJoinApproval);
+        Assert.Equal(Guid.Empty.ToString(), testHub.SiteDesignId);
         Assert.Equal("82e8cb67-c4f1-4b38-80aa-0342294f5ece", testHub.SiteId);
+        Assert.Equal("https://contoso.sharepoint.com/sites/ContosoTravelMarketing", testHub.SiteUrl);
         Assert.Null(testHub.Targets);
-        Assert.Equal(Guid.Empty.ToString(), testHub.TenantInstanceId);
-        Assert.True(testHub.RequiresJoinApproval);
+        Assert.Equal("55d9bf03-671c-45c1-8f60-c6ed9e441468", testHub.TenantInstanceId);
+        Assert.Equal("Contoso Travel Marketing", testHub.Title);
       }
     }
 
