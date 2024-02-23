@@ -7,7 +7,7 @@ The Graph extension library is a community effort to unblock developers building
 
 ## Documentation
 
-This community library contains requests and models that extend the Microsoft Graph SDK. Please review the [Roadmap](./docs/ROADMAP.md) for an index of requests that are included and on the roadmap. 
+This community library contains requests and models that extend the Microsoft Graph SDK. Please review the [Roadmap](../docs/ROADMAP.md) for an index of requests that are included and on the roadmap. 
 
 If there is an endpoint node for which you would like a request, please submit an issue to initiate a conversation. This will help reduce wasted effort.
 
@@ -43,7 +43,7 @@ CommunityGraphClientOptions clientOptions = new CommunityGraphClientOptions()
 var graphServiceClient = CommunityGraphClientFactory.Create(clientOptions, ap);
 ```
 
-A complete implementation is included in the [Diagnostic sample](samples/Diagnostics.cs).
+A complete implementation is included in the [Diagnostic sample](../samples/Diagnostics.cs).
 
 The `CommunityGraphClientOptions` provides for specifing information to [decorate SharePoint REST traffic to help mitigate throttling](https://docs.microsoft.com/en-us/sharepoint/dev/general-development/how-to-avoid-getting-throttled-or-blocked-in-sharepoint-online#how-to-decorate-your-http-traffic-to-avoid-throttling).
 
