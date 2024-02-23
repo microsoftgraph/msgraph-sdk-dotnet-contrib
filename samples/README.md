@@ -1,6 +1,6 @@
 # Graph.Community Samples
 
-The samples are implemented is separate classes. Each class uses common utility classes to manage configuration options and Http Request/Response logging.
+The samples are implemented in separate classes. Each class uses common utility classes to manage configuration options and Http Request/Response logging.
 
 The samples will require an application registration in [Azure Active Directory](https://aad.portal.azure.com). When creating the registration, select the option to treat the application as a public client.
 ![](./AppRegPublicClient.png)
